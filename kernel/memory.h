@@ -3,8 +3,6 @@
 Copyright (C) 2012-2014 Gaming Fondue
 
 This file is part of Mozzarella source code.
-
-Memory management related functions and structures
 ===========================================================================
 */
 #ifndef KERNEL_MEMORY_H_INCLUDED
@@ -23,16 +21,15 @@ typedef uint32_t K_StackHandle_t;
 
 /*
 ===========================================================================
-  K_LinearBuffer_t
+  K_MemBuffer_t
   
-  Buffer used to implement a linear Allocator.
+  Memory buffer.
     total_size: Total size in bytes
 	offset: Current pointer offset
 	mem: Pointer to buffer memory
 ===========================================================================
 */
-typedef struct _K_MemBuffer_t
-{
+typedef struct _K_MemBuffer_t {
 	uint32_t size;
 	uint32_t offset;
 	uint8_t* mem;

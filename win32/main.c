@@ -12,12 +12,15 @@ This file is part of Mozzarella source code.
 ===========================================================================
 */
 
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 
 #include "../platform/types.h"
+#include "../kernel/log.h"
 #include "../kernel/memory.h"
+#include "../state/state.h"
 
 /*
 ===========================================================================
@@ -84,8 +87,7 @@ bool G_Running;
   Initialize and configure game subsystems.
 ===========================================================================
 */
-void P_Init( int argc, char** argv, K_MemBuffer_t* mem ){
-	K_MemAlloc( 512 * 1024 * 1024, mem );
+void P_Init( int argc, char** argv ){
 	R_TICKS_PER_SECOND = 60;
 	R_TICK_INTERVAL = 1.0f / R_TICKS_PER_SECOND;
 
@@ -131,7 +133,7 @@ void K_QueueCommands( int input, int state, int commands ){}
   Parse the list of commands and update the game state
 ===========================================================================
 */
-void G_Update( int commands, int state ){printf("*U*");}
+void G_Update( S_GameState_t* state, float32_t delta_time ){ printf("*U*"); }
 
 /*
 ===========================================================================
@@ -140,7 +142,7 @@ void G_Update( int commands, int state ){printf("*U*");}
   Render the current game state
 ===========================================================================
 */
-void R_Render( int state ){/*printf("R");*/}
+void R_Render( S_GameState_t* state ){/*printf("R");*/}
 
 /*
 ===========================================================================
@@ -162,8 +164,27 @@ void P_Quit( K_MemBuffer_t* mem ) { K_MemFree( mem ); }
 
 int main(int argc, char** argv)
 {
-	K_MemBuffer_t* heap = malloc( sizeof( K_MemBuffer_t ) );
-	P_Init( argc, argv, heap );
+	P_Init( argc, argv );
+	
+	DEBUG_LOG("Initialized");
+	
+	K_MemBuffer_t* mem = malloc( sizeof( K_MemBuffer_t ) );
+	K_MemAlloc( 512 * 1024 * 1024, mem );
+	
+	DEBUG_LOG("Memory allocated");
+	
+	S_GameState_t* state = NULL;
+	S_CreateState( mem, state );
+	
+	DEBUG_LOG("State created");
+	
+	S_CreateGrid( mem, 20, 10, state->grid );
+	
+	DEBUG_LOG("Grid created");
+	
+	S_CreateCommands( mem, state->commands );
+	
+	DEBUG_LOG("Commands created");
 	
 	// TODO[sn00py]: Dynamic alloc this in the linear stack allocator ?
 	float32_t game_tick = P_HiResTime();
@@ -173,22 +194,17 @@ int main(int argc, char** argv)
 	float32_t old_time = 0;
 	float32_t delta_time = 0;
 	float32_t vsync_time = 0;
-	
-	// TODO[sn00py]: Create and configure this structures
-	int input = 0;
-	int state = 0;
-	int commands = 0;
 		
 	while( G_Running ) {
 		new_time = P_HiResTime();
 		delta_time = old_time - new_time;
 		
-		P_HandleInput( input );
-		K_QueueCommands( input, state, commands );
+		// P_HandleInput( input );
+		// K_QueueCommands( input, state, commands );
 		
 		if( game_tick <= P_HiResTime() ) {
 			game_tick += G_TICK_INTERVAL;			
-			G_Update( commands, state );
+			G_Update( state, delta_time );
 		}
 		
 		R_Render( state );
@@ -205,8 +221,12 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	P_Quit( heap );
-	free( heap );
-		
+	S_DestroyCommands( mem, state->commands );
+	S_DestroyGrid( mem, state->grid );
+	S_DestroyState( mem, state );
+	P_Quit( mem );
+	
+	free(mem);
+	
 	return 0;
 }

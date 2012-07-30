@@ -1,15 +1,19 @@
 CC := gcc
 CFLAGS := -c -Wall
 LDFLAGS :=
-SOURCES := kernel/memory.c win32/main.c
-OBJECTS := $(SOURCES:.cpp=.o)
+SOURCES := kernel/memory.c state/grid.c state/command.c state/state.c win32/main.c
+OBJECTS := $(SOURCES:.c=.o)
 EXECUTABLE := mozzarella
 
+.PHONY: clean
+
 all: $(SOURCES) $(EXECUTABLE)
+
+clean:
+	del /S /F *.o $(EXECUTABLE).exe
 
 $(EXECUTABLE): $(OBJECTS) 
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 %.o : %.c
 	$(CC) $(CFLAGS) $< -o $@
-	
