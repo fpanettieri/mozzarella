@@ -2,7 +2,7 @@
 ===========================================================================
 Copyright (C) 2012-2014 Gaming Fondue
 
-This file is part of Mozzarella platform abstraction layer.
+This file is part of Mozzarella source code.
 
 It provides a simple mechanism used to detect the current platform.
 ===========================================================================
@@ -31,4 +31,4 @@ It provides a simple mechanism used to detect the current platform.
  #endif
 #endif
 
-#endif /* PLATFORM_H_INCLUDED */
+#endif /* PLATFORM_PLATFORM_H_INCLUDED */

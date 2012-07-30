@@ -12,9 +12,12 @@ This file is part of Mozzarella source code.
 ===========================================================================
 */
 
+#include <stdlib.h>
 #include <stdio.h>
-#include "../platform/types.h"
 #include <time.h>
+
+#include "../platform/types.h"
+#include "../kernel/memory.h"
 
 /*
 ===========================================================================
@@ -81,7 +84,8 @@ bool G_Running;
   Initialize and configure game subsystems.
 ===========================================================================
 */
-void P_Init( int argc, char** argv ){
+void P_Init( int argc, char** argv, K_MemBuffer_t* mem ){
+	K_MemAlloc( 512 * 1024 * 1024, mem );
 	R_TICKS_PER_SECOND = 60;
 	R_TICK_INTERVAL = 1.0f / R_TICKS_PER_SECOND;
 
@@ -154,13 +158,14 @@ void P_Sleep( uint32_t vsync_time ){}
   Release allocated resources, and store log
 ===========================================================================
 */
-void P_Quit(){}
+void P_Quit( K_MemBuffer_t* mem ) { K_MemFree( mem ); }
 
 int main(int argc, char** argv)
 {
-	P_Init( argc, argv );
+	K_MemBuffer_t* heap = malloc( sizeof( K_MemBuffer_t ) );
+	P_Init( argc, argv, heap );
 	
-	// TODO[sn00py]: Dynamic alloc this in the linear stack allocator
+	// TODO[sn00py]: Dynamic alloc this in the linear stack allocator ?
 	float32_t game_tick = P_HiResTime();
 	float32_t render_tick = P_HiResTime();
 	
@@ -173,7 +178,7 @@ int main(int argc, char** argv)
 	int input = 0;
 	int state = 0;
 	int commands = 0;
-	
+		
 	while( G_Running ) {
 		new_time = P_HiResTime();
 		delta_time = old_time - new_time;
@@ -200,7 +205,8 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	P_Quit();
+	P_Quit( heap );
+	free( heap );
 		
 	return 0;
 }

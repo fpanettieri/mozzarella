@@ -2,7 +2,7 @@
 ===========================================================================
 Copyright (C) 2012-2014 Gaming Fondue
 
-This file is part of Mozzarella platform abstraction layer.
+This file is part of Mozzarella source code.
 
 It provides definitions for cross platform standard types.
 If any value used here is not available in the target platform, we redefine
