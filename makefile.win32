@@ -1,0 +1,15 @@
+CC := gcc
+CFLAGS := -c -Wall
+LDFLAGS :=
+SOURCES := win32/main.c
+OBJECTS := $(SOURCES:.cpp=.o)
+EXECUTABLE := mozzarella
+
+all: $(SOURCES) $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+%.o : %.c
+	$(CC) $(CFLAGS) $< -o $@
+	
