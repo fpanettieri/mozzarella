@@ -58,7 +58,7 @@ typedef struct _S_Commands_t {
   Allocates a new double linked used to store commands
 ===========================================================================
 */
-void S_CreateCommands( K_MemBuffer_t* mem, S_Commands_t* commands );
+S_Commands_t* S_CreateCommands( K_MemBuffer_t* mem );
 
 /*
 ===========================================================================

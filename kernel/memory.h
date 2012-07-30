@@ -46,7 +46,7 @@ typedef struct _K_MemBuffer_t {
   size + sizeof( K_MemBuffer_t )
 ===========================================================================
 */
-void K_MemAlloc( uint32_t size, K_MemBuffer_t* buffer );
+K_MemBuffer_t* K_MemAlloc( uint32_t size );
 
 /*
 ===========================================================================
@@ -88,6 +88,6 @@ void K_StackSet( K_MemBuffer_t* buffer, K_StackHandle_t handle );
   Release the buffer memory, and the buffer pointer.
 ===========================================================================
 */
-void K_MemFree( K_MemBuffer_t* buffer );
+void K_MemFree( K_MemBuffer_t** buffer );
 
 #endif /* KERNEL_MEMORY_H_INCLUDED */

@@ -33,7 +33,7 @@ typedef struct _S_Grid_t {
   grid must be == NULL
 ===========================================================================
 */
-void S_CreateGrid( K_MemBuffer_t* mem, uint8_t rows, uint8_t columns, S_Grid_t* grid );
+S_Grid_t* S_CreateGrid( K_MemBuffer_t* mem, uint8_t rows, uint8_t columns );
 
 /*
 ===========================================================================

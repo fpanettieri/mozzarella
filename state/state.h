@@ -36,7 +36,7 @@ typedef struct _S_GameState_t {
   state must be == NULL
 ===========================================================================
 */
-void S_CreateState( K_MemBuffer_t* mem, S_GameState_t* state );
+ S_GameState_t* S_CreateState( K_MemBuffer_t* mem );
 
 /*
 ===========================================================================

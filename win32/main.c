@@ -160,30 +160,23 @@ void P_Sleep( uint32_t vsync_time ){}
   Release allocated resources, and store log
 ===========================================================================
 */
-void P_Quit( K_MemBuffer_t* mem ) { K_MemFree( mem ); }
+void P_Quit( K_MemBuffer_t* mem ) { K_MemFree( &mem ); }
 
 int main(int argc, char** argv)
 {
 	P_Init( argc, argv );
-	
 	DEBUG_LOG("Initialized");
 	
-	K_MemBuffer_t* mem = malloc( sizeof( K_MemBuffer_t ) );
-	K_MemAlloc( 512 * 1024 * 1024, mem );
-	
+	K_MemBuffer_t* mem = K_MemAlloc( 512 * 1024 * 1024 );
 	DEBUG_LOG("Memory allocated");
 	
-	S_GameState_t* state = NULL;
-	S_CreateState( mem, state );
-	
+	S_GameState_t* state = S_CreateState( mem );
 	DEBUG_LOG("State created");
 	
-	S_CreateGrid( mem, 20, 10, state->grid );
-	
+	state->grid = S_CreateGrid( mem, 20, 10 );
 	DEBUG_LOG("Grid created");
 	
-	S_CreateCommands( mem, state->commands );
-	
+	state->commands = S_CreateCommands( mem );
 	DEBUG_LOG("Commands created");
 	
 	// TODO[sn00py]: Dynamic alloc this in the linear stack allocator ?
