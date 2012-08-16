@@ -17,6 +17,12 @@ This file is part of Mozzarella source code.
 #include <stdio.h>
 #include <time.h>
 
+#include <SDL/SDL.h>
+
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
+#define SCREEN_DEPTH 8
+
 #include "../platform/types.h"
 #include "../kernel/log.h"
 #include "../kernel/memory.h"
@@ -96,6 +102,9 @@ void P_Init( int argc, char** argv ){
 	
 	R_Vsync = true;
 	G_Running = true;
+	
+	/* Initialize SDL */
+    SDL_Init(SDL_INIT_EVERYTHING);
 }
 
 /*

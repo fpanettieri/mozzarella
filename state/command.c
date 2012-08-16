@@ -13,9 +13,9 @@ This file is part of Mozzarella source code.
 
 S_Commands_t* S_CreateCommands( K_MemBuffer_t* mem ) {
 	S_Commands_t* commands = ( S_Commands_t* ) K_LinearAlloc( mem, sizeof( S_Commands_t ) );
-	commands->first = NULL;
-	commands->current = NULL;
-	commands->last = NULL;
+	commands->first = S_NULL_COMMAND;
+	commands->current = S_NULL_COMMAND;
+	commands->last = S_NULL_COMMAND;
 	return commands;
 }
 
@@ -25,9 +25,9 @@ void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t t
 	command->time = time;
 	
 	// The first command becomes first and last
-	if( commands->current == NULL )  {
-		command->prev = NULL;
-		command->next = NULL;
+	if( commands->current == S_NULL_COMMAND )  {
+		command->prev = S_NULL_COMMAND;
+		command->next = S_NULL_COMMAND;
 	
 	// Commands always are inserted next to the last executed/inserted command
 	// Insert after current
@@ -46,11 +46,11 @@ void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t t
 	}
 	
 	// Check if the command is the first or last
-	if( command->next == NULL )	{
+	if( command->next == S_NULL_COMMAND )	{
 		commands->last = command;
 	}
 	
-	if( command->prev == NULL ) {
+	if( command->prev == S_NULL_COMMAND ) {
 		commands->first = command;
 	}
 	

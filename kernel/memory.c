@@ -13,7 +13,7 @@ This file is part of Mozzarella source code.
 K_MemBuffer_t* K_MemAlloc( uint32_t size ) {
 	assert( size > 0 );
 	
-	K_MemBuffer_t* buffer = malloc( sizeof( K_MemBuffer_t ) );
+	K_MemBuffer_t* buffer = ( K_MemBuffer_t* ) malloc( sizeof( K_MemBuffer_t ) );
 	assert( buffer );
 	
 	buffer->size = size;

@@ -15,6 +15,16 @@ This file is part of Mozzarella source code.
 
 /*
 ===========================================================================
+  S_NULL_COMMAND
+  
+  Special null pointer used to determine empty nodes. Actually it's the
+  same as a NULL, but with explicit typecast to ensure g++ won't complain.
+===========================================================================
+*/
+#define S_NULL_COMMAND ((S_Command_t*)0)
+
+/*
+===========================================================================
   S_CommandTime_t
   
   Time format used to identify when commands are created.

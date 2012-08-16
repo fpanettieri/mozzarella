@@ -1,6 +1,6 @@
 CC := gcc
 CFLAGS := -c -Wall
-LDFLAGS :=
+LDFLAGS := -lmingw32 -lSDLmain -lSDL -mwindows
 SOURCES := kernel/memory.c state/grid.c state/command.c state/state.c win32/main.c
 OBJECTS := $(SOURCES:.c=.o)
 EXECUTABLE := mozzarella
