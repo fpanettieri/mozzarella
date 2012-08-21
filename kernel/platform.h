@@ -1,10 +1,8 @@
 /*
 ===========================================================================
-Copyright (C) 2012-2014 Gaming Fondue
+ Copyright (C) 2012-2014 Gaming Fondue
 
-This file is part of Mozzarella source code.
-
-It provides a simple mechanism used to detect the current platform.
+ This file is part of Mozzarella source code.
 ===========================================================================
 */
 #ifndef PLATFORM_PLATFORM_H_INCLUDED

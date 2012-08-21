@@ -1,12 +1,8 @@
 /*
 ===========================================================================
-Copyright (C) 2012-2014 Gaming Fondue
+ Copyright (C) 2012-2014 Gaming Fondue
 
-This file is part of Mozzarella source code.
-
-It provides definitions for cross platform standard types.
-If any value used here is not available in the target platform, we redefine
-it here so it's transparent for the rest of the game.
+ This file is part of Mozzarella source code.
 ===========================================================================
 */
 #ifndef PLATFORM_TYPES_H_INCLUDED
