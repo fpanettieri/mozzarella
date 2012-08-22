@@ -1,11 +1,9 @@
 # depslib dependency file v1.0
-1345523542 source:c:\dev\gf\mozzarella\main.c
-	<SDL/SDL.h>
-	<SDL/SDL_opengl.h>
-	"kernel/types.h"
-	"kernel/log.h"
-	"kernel/memory.h"
+1345612185 source:c:\dev\gf\mozzarella\main.c
+	"kernel/kernel.h"
 	"state/state.h"
+	"game/game.h"
+	"renderer/renderer.h"
 
 1325738640 c:\dev\sdl\sdl-1.2.15\include\sdl\sdl.h
 	"SDL_main.h"
@@ -219,12 +217,12 @@
 1345526495 c:\dev\gf\mozzarella\kernel\memory.h
 	"types.h"
 
-1345526682 c:\dev\gf\mozzarella\state\state.h
+1345611706 c:\dev\gf\mozzarella\state\state.h
 	"../kernel/types.h"
 	"grid.h"
 	"command.h"
 
-1345526650 c:\dev\gf\mozzarella\state\grid.h
+1345613262 c:\dev\gf\mozzarella\state\grid.h
 	"../kernel/types.h"
 	"../kernel/memory.h"
 
@@ -235,23 +233,52 @@
 
 1345067044 c:\dev\gf\mozzarella\state\command_types.h
 
-1345067044 source:c:\dev\gf\mozzarella\state\command.c
+1345613301 source:c:\dev\gf\mozzarella\state\command.c
 	"command.h"
 	<assert.h>
 	"../kernel/memory.h"
 
-1345067044 source:c:\dev\gf\mozzarella\state\grid.c
+1345613325 source:c:\dev\gf\mozzarella\state\grid.c
 	"grid.h"
 	<assert.h>
 	"../kernel/memory.h"
 
-1345067044 source:c:\dev\gf\mozzarella\state\state.c
+1345611784 source:c:\dev\gf\mozzarella\state\state.c
 	"state.h"
 	<assert.h>
 	"../kernel/memory.h"
 
-1345067044 source:c:\dev\gf\mozzarella\kernel\memory.c
+1345613292 source:c:\dev\gf\mozzarella\kernel\memory.c
 	"memory.h"
 	<assert.h>
 	<stdlib.h>
+
+1345613283 source:c:\dev\gf\mozzarella\kernel\kernel.c
+	"kernel.h"
+	<SDL/SDL.h>
+	"../renderer/renderer.h"
+	"../game/game.h"
+
+1345612284 c:\dev\gf\mozzarella\renderer\renderer.h
+	"../kernel/types.h"
+	"../state/state.h"
+
+1345612349 c:\dev\gf\mozzarella\game\game.h
+	"../kernel/types.h"
+	"../state/state.h"
+
+1345612174 c:\dev\gf\mozzarella\kernel\kernel.h
+	"types.h"
+	"log.h"
+	"memory.h"
+
+1345612317 source:c:\dev\gf\mozzarella\renderer\renderer .c
+	"renderer.h"
+	<SDL/SDL_video.h>
+	<SDL/SDL_opengl.h>
+	"../kernel/log.h"
+	"../state/state.h"
+
+1345613271 source:c:\dev\gf\mozzarella\game\game.c
+	"game.h"
 

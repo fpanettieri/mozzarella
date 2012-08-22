@@ -12,11 +12,21 @@
 #include "../kernel/memory.h"
 
 /**
+ * Represents a single piece
+ */
+typedef struct _S_Piece_t {
+    uint8_t color;
+	bool falling;
+	bool grouped;
+	bool exploding;
+} S_Piece_t;
+
+/**
  * Represents the playable area. It's a simple MxN grid.
  */
 typedef struct _S_Grid_t {
+    S_Piece_t* cells;
 	uint16_t size;
-	uint8_t* cells;
 	uint8_t rows;
 	uint8_t columns;
 } S_Grid_t;

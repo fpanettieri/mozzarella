@@ -36,4 +36,9 @@ typedef struct _S_GameState_t {
  */
 void S_DestroyState( K_MemBuffer_t* mem, S_GameState_t* state );
 
+/**
+ * Fills the bottom of the grid with random garbage
+ */
+void S_RandomFillGrid( S_Grid_t* grid );
+
 #endif /* STATE_STATE_H_INCLUDED */

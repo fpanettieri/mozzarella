@@ -1,8 +1,8 @@
 /*
 ===========================================================================
-Copyright (C) 2012-2014 Gaming Fondue
+ Copyright (C) 2012-2014 Gaming Fondue
 
-This file is part of Mozzarella source code.
+ This file is part of Mozzarella source code.
 ===========================================================================
 */
 #include "grid.h"
@@ -16,7 +16,7 @@ This file is part of Mozzarella source code.
 	grid->rows = rows;
 	grid->columns = columns;
 	grid->size = rows * columns;
-	grid->cells = ( uint8_t* ) K_LinearAlloc( mem, sizeof( uint8_t ) * grid->size );
+	grid->cells = ( S_Piece_t* ) K_LinearAlloc( mem, sizeof( S_Piece_t ) * grid->size );
 	return grid;
 }
 

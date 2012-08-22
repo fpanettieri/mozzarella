@@ -1,8 +1,8 @@
 /*
 ===========================================================================
-Copyright (C) 2012-2014 Gaming Fondue
+ Copyright (C) 2012-2014 Gaming Fondue
 
-This file is part of Mozzarella source code.
+ This file is part of Mozzarella source code.
 ===========================================================================
 */
 #include "command.h"
@@ -23,20 +23,20 @@ void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t t
 	S_Command_t* command =  ( S_Command_t* ) K_LinearAlloc( mem, sizeof( S_Command_t ) );
 	command->type = type;
 	command->time = time;
-	
+
 	// The first command becomes first and last
 	if( commands->current == S_NULL_COMMAND )  {
 		command->prev = S_NULL_COMMAND;
 		command->next = S_NULL_COMMAND;
-	
+
 	// Commands always are inserted next to the last executed/inserted command
 	// Insert after current
 	} else if( commands->current->time <= command->time ) {
 		command->next = commands->current->next;
 		commands->current->next = command;
 		command->prev = commands->current;
-		command->next->prev = command;		
-	
+		command->next->prev = command;
+
 	// Insert before current
 	} else {
 		command->prev = commands->current->prev;
@@ -44,16 +44,16 @@ void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t t
 		command->next = commands->current;
 		command->prev->next = command;
 	}
-	
+
 	// Check if the command is the first or last
 	if( command->next == S_NULL_COMMAND )	{
 		commands->last = command;
 	}
-	
+
 	if( command->prev == S_NULL_COMMAND ) {
 		commands->first = command;
 	}
-	
+
 	// Each time a command is added, ot the time moves forward and backward
 	// this pointer gets updated. This allows faster insertion and fetching
 	commands->current = command;
