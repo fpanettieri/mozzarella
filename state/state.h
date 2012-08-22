@@ -41,4 +41,9 @@ void S_DestroyState( K_MemBuffer_t* mem, S_GameState_t* state );
  */
 void S_RandomFillGrid( S_Grid_t* grid );
 
+/**
+ * Random fills a given cell in the grid
+ */
+void S_RandomFillCell( S_Grid_t* grid, uint8_t row, uint8_t column );
+
 #endif /* STATE_STATE_H_INCLUDED */

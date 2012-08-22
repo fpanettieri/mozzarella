@@ -10,7 +10,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
-K_MemBuffer_t* K_MemAlloc( uint32_t size ) {
+K_MemBuffer_t* K_MemAlloc( uint32_t size )
+{
 	assert( size > 0 );
 
 	K_MemBuffer_t* buffer = ( K_MemBuffer_t* ) malloc( sizeof( K_MemBuffer_t ) );
@@ -24,7 +25,8 @@ K_MemBuffer_t* K_MemAlloc( uint32_t size ) {
 	return buffer;
 }
 
-void* K_LinearAlloc( K_MemBuffer_t* buffer, uint32_t size ) {
+void* K_LinearAlloc( K_MemBuffer_t* buffer, uint32_t size )
+{
 	assert( buffer );
 	assert( size > 0 );
 
@@ -37,7 +39,8 @@ void* K_LinearAlloc( K_MemBuffer_t* buffer, uint32_t size ) {
 	return ptr;
 }
 
-void* K_StackAlloc( K_MemBuffer_t* buffer, uint32_t size, K_StackHandle_t* handle ) {
+void* K_StackAlloc( K_MemBuffer_t* buffer, uint32_t size, K_StackHandle_t* handle )
+{
 	assert( buffer );
 	assert( size > 0 );
 	assert( handle );
@@ -52,14 +55,16 @@ void* K_StackAlloc( K_MemBuffer_t* buffer, uint32_t size, K_StackHandle_t* handl
 	return ptr;
 }
 
-void K_StackSet( K_MemBuffer_t* buffer, K_StackHandle_t handle ) {
+void K_StackSet( K_MemBuffer_t* buffer, K_StackHandle_t handle )
+{
 	assert( buffer );
 	assert( handle > -1 && handle < buffer->offset );
 
 	buffer->offset = handle;
 }
 
-void K_MemFree( K_MemBuffer_t** buffer ) {
+void K_MemFree( K_MemBuffer_t** buffer )
+{
 	assert( *buffer );
 	assert( (*buffer)->mem );
 

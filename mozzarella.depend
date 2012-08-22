@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1345612185 source:c:\dev\gf\mozzarella\main.c
+1345616417 source:c:\dev\gf\mozzarella\main.c
 	"kernel/kernel.h"
 	"state/state.h"
 	"game/game.h"
@@ -217,12 +217,12 @@
 1345526495 c:\dev\gf\mozzarella\kernel\memory.h
 	"types.h"
 
-1345611706 c:\dev\gf\mozzarella\state\state.h
+1345615401 c:\dev\gf\mozzarella\state\state.h
 	"../kernel/types.h"
 	"grid.h"
 	"command.h"
 
-1345613262 c:\dev\gf\mozzarella\state\grid.h
+1345616353 c:\dev\gf\mozzarella\state\grid.h
 	"../kernel/types.h"
 	"../kernel/memory.h"
 
@@ -233,28 +233,32 @@
 
 1345067044 c:\dev\gf\mozzarella\state\command_types.h
 
-1345613301 source:c:\dev\gf\mozzarella\state\command.c
+1345615202 source:c:\dev\gf\mozzarella\state\command.c
 	"command.h"
 	<assert.h>
 	"../kernel/memory.h"
 
-1345613325 source:c:\dev\gf\mozzarella\state\grid.c
+1345616382 source:c:\dev\gf\mozzarella\state\grid.c
 	"grid.h"
 	<assert.h>
+	<stdio.h>
 	"../kernel/memory.h"
 
-1345611784 source:c:\dev\gf\mozzarella\state\state.c
+1345616393 source:c:\dev\gf\mozzarella\state\state.c
 	"state.h"
 	<assert.h>
+	<stdlib.h>
 	"../kernel/memory.h"
 
-1345613292 source:c:\dev\gf\mozzarella\kernel\memory.c
+1345615180 source:c:\dev\gf\mozzarella\kernel\memory.c
 	"memory.h"
 	<assert.h>
 	<stdlib.h>
 
-1345613283 source:c:\dev\gf\mozzarella\kernel\kernel.c
+1345616589 source:c:\dev\gf\mozzarella\kernel\kernel.c
 	"kernel.h"
+	<stdlib.h>
+	<time.h>
 	<SDL/SDL.h>
 	"../renderer/renderer.h"
 	"../game/game.h"

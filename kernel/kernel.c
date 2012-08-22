@@ -7,6 +7,9 @@
 */
 #include "kernel.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 #include <SDL/SDL.h>
 
 #include "../renderer/renderer.h"
@@ -18,6 +21,9 @@ const int SCREEN_BPP = 32;
 
 void K_Init( int argc, char** argv )
 {
+    // seed the random generator
+    srand( time(NULL) );
+
     // Configure main loop
     R_TICKS_PER_SECOND = 60;
     R_TICK_INTERVAL = 1000 / R_TICKS_PER_SECOND;
@@ -48,7 +54,7 @@ void K_Init( int argc, char** argv )
     R_Init();
 
     //Set caption
-    SDL_WM_SetCaption( "OpenGL Test", NULL );
+    SDL_WM_SetCaption( "Mozzarella", NULL );
 }
 
 void K_Input()

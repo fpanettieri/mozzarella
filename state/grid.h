@@ -43,4 +43,14 @@ S_Grid_t* S_CreateGrid( K_MemBuffer_t* mem, uint8_t rows, uint8_t columns );
  */
 void S_DestroyGrid( K_MemBuffer_t* mem, S_Grid_t* grid );
 
+/**
+ * Return a piece pointer in the given position
+ */
+S_Piece_t* S_GetPieceAt( S_Grid_t* grid, uint8_t row, uint8_t column );
+
+/**
+ * Print the grid for debug purposes
+ */
+void S_PrintGrid( S_Grid_t* grid );
+
 #endif /* STATE_GRID_H_INCLUDED */

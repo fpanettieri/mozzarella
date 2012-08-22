@@ -47,6 +47,14 @@
 			<Add directory="C:\dev\sdl\SDL-1.2.15\lib" />
 		</Linker>
 		<Unit filename="cb.bmp" />
+		<Unit filename="game\game.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="game\game.h" />
+		<Unit filename="kernel\kernel.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="kernel\kernel.h" />
 		<Unit filename="kernel\log.h" />
 		<Unit filename="kernel\memory.c">
 			<Option compilerVar="CC" />
@@ -57,6 +65,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="renderer\renderer .c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="renderer\renderer.h" />
 		<Unit filename="state\command.c">
 			<Option compilerVar="CC" />
 		</Unit>

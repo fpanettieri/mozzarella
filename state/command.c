@@ -11,7 +11,8 @@
 
 #include "../kernel/memory.h"
 
-S_Commands_t* S_CreateCommands( K_MemBuffer_t* mem ) {
+S_Commands_t* S_CreateCommands( K_MemBuffer_t* mem )
+{
 	S_Commands_t* commands = ( S_Commands_t* ) K_LinearAlloc( mem, sizeof( S_Commands_t ) );
 	commands->first = S_NULL_COMMAND;
 	commands->current = S_NULL_COMMAND;
@@ -19,7 +20,8 @@ S_Commands_t* S_CreateCommands( K_MemBuffer_t* mem ) {
 	return commands;
 }
 
-void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t type, S_CommandTime_t time ) {
+void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t type, S_CommandTime_t time )
+{
 	S_Command_t* command =  ( S_Command_t* ) K_LinearAlloc( mem, sizeof( S_Command_t ) );
 	command->type = type;
 	command->time = time;
@@ -59,10 +61,12 @@ void S_AddCommand( K_MemBuffer_t* mem, S_Commands_t* commands, S_CommandType_t t
 	commands->current = command;
 }
 
-void S_RemoveCommand( S_Commands_t* commands, S_CommandType_t type, S_CommandTime_t time ) {
+void S_RemoveCommand( S_Commands_t* commands, S_CommandType_t type, S_CommandTime_t time )
+{
 	// FIXME[sn00py]: not implemented yet, as it mey not be needed
 }
 
-void S_DestroyCommands( K_MemBuffer_t* mem, S_Commands_t* commands ){
+void S_DestroyCommands( K_MemBuffer_t* mem, S_Commands_t* commands )
+{
 	// do nothing
 }

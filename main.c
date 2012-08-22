@@ -18,13 +18,14 @@ int main( int argc, char *argv[] )
     K_Init( argc, argv );
     K_MemBuffer_t* mem = K_MemAlloc( 512 * 1024 * 1024 );
     S_GameState_t* state = S_CreateState( mem );
-    state->grid = S_CreateGrid( mem, 20, 10 );
+    state->grid = S_CreateGrid( mem, 10, 20 );
     state->commands = S_CreateCommands( mem );
 
     DEBUG_LOG("Initialization complete");
 
     // Fill the grid with garbage so we can render something
     S_RandomFillGrid( state->grid );
+    S_PrintGrid( state->grid );
 
     // Current frame time
 	uint32_t new_time = K_HiResTimer();
