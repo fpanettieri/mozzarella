@@ -18,6 +18,7 @@ namespace Mozzarella {
  */ 
 public enum PieceType
 {
+	Empty,
 	PlainBlue,
 	PlainGreen,
 	PlainOrange,

@@ -5,38 +5,61 @@
  
  @author 		Fabio R. Panettieri
  @date			2012-08-30
- @last-edit		2012-08-30
+ @last-edit		2012-09-02
 ===============================================================================
 */
 
 using UnityEditor;
 using UnityEngine;
+using AngryMole;
 
 namespace Mozzarella {
 
 /**
- * Displays a user firendly level editor for mozzarella
+ * Displays a user friendly level editor for mozzarella
  */ 
 public class LevelDesigner : EditorWindow {
 	
 	private const int 		OPTIONS_WIDTH 	= 250;
 	private const int 		GRID_PADDING 	= 10;
-			
-	private int 			rows 			= 5;
-	private int 			columns 		= 10;
 	
+	// General grid configuration
+	private bool			configured		= false;
+	private string 			rowsTxt			= "5";
+	private string			columnsTxt 		= "10";
+	
+	// Piece selection
 	private string[]		typeNames 		= null;
-	private Vector2 		typeScroll 		= new Vector2(0, 0);
+	private Vector2 		typeScroll 		= Vector2.zero;
 	private int 			selectedIndex 	= 0;
 	private PieceType		selectedType 	= PieceType.PlainBlue;
 	
-	[MenuItem("Mozzarella/Level editor")]
+	// Grid rendering
+	private int				rows			= 0;
+	private int				columns			= 0;
+	private PieceType[,]	cells			= null;
+	
+	private	Rect			gridRect		= new Rect(0, 0, 0, 0);
+	private	IntVector2		tileSize		= IntVector2.zero;
+	private Color 			tileBaseColor	= Color.white;
+	private Texture2D 		tileTex			= null;
+	
+	// Grid edition
+	private Event 			currentEvent	= null;
+	private bool			mouseDown		= false;
+	private int				mouseButton		= 0;
+	private int 			row				= 0;
+	private int 			column			= 0;
+	private bool			dirty			= false;
+		
+	[MenuItem("Mozzarella/Level designer")]
 	public static void ShowWindow() {
-		EditorWindow.GetWindow( typeof( LevelDesigner ), false, "Level editor" );
+		EditorWindow.GetWindow( typeof( LevelDesigner ), false, "Level designer" );
 	}
 	
-	void OnFocus(){
+	void OnEnable(){
 		typeNames = System.Enum.GetNames( typeof( PieceType ) );
+		wantsMouseMove = false;
 	}
 	
 	void OnGUI(){
@@ -56,8 +79,8 @@ public class LevelDesigner : EditorWindow {
 			
 	private void GridSetupPanel(){
 		EditorGUILayout.LabelField("Configure grid", EditorStyles.boldLabel);
-		EditorGUILayout.TextField( "Rows", rows.ToString());
-		EditorGUILayout.TextField( "Columns", columns.ToString());
+		rowsTxt = EditorGUILayout.TextField( "Rows", rowsTxt );
+		columnsTxt = EditorGUILayout.TextField( "Columns", columnsTxt );
 		
 		if( GUILayout.Button( "Generate" ) ){
 			GenerateGrid();
@@ -73,12 +96,99 @@ public class LevelDesigner : EditorWindow {
 	}
 			
 	private void RightPanel(){
+		if( !configured || cells == null ){
+			return;
+		}
+		GUI.Box( gridRect, "" );
+		HandleInput();
+		
+		for( int i = 0; i < rows; i++ ){
+			for( int j = 0; j < columns; j++ ){
+				
+				GUI.color = PieceColor.getColor( cells[i,j] );
+				GUI.DrawTexture( new Rect(
+					gridRect.x + tileSize.x * j,
+					gridRect.y + tileSize.y * i,
+					tileSize.x, tileSize.y				
+				), tileTex );
+				
+			}
+		}
+		
+		GUI.color = Color.white;
+		RenderGrid();
 	}
 		
 	private void GenerateGrid() {
+		gridRect = new Rect(
+			OPTIONS_WIDTH + GRID_PADDING,
+			GRID_PADDING,
+			position.width - OPTIONS_WIDTH - GRID_PADDING * 2, 
+			position.height - GRID_PADDING * 2
+		);
+
+		int.TryParse(rowsTxt, out rows);
+		int.TryParse(columnsTxt, out columns);
 		
+		// create grid
+		cells = new PieceType[ rows, columns ];
+		for( int i = 0; i < rows; i++ ){
+			for( int j = 0; j < columns; j++ ){
+				cells[ i, j ] = PieceType.Empty;
+			}
+		}
+		
+		// create tile
+		tileSize = new IntVector2( gridRect.width / columns, gridRect.height / rows );
+		tileTex = new Texture2D(tileSize.x, tileSize.y);
+		for( int i = 0; i < tileSize.x; i++ ){
+			for( int j = 0; j < tileSize.y; j++ ){
+				tileTex.SetPixel(i, j, tileBaseColor);
+			}
+		}
+		tileTex.Apply();
+		
+		configured = true;
 	}
-			
+	
+	private void HandleInput(){
+		currentEvent = Event.current;
+		if ( currentEvent.isMouse && currentEvent.type == EventType.MouseDown ) {
+			mouseDown = true;
+			mouseButton = currentEvent.button;
+		} else if ( currentEvent.isMouse && currentEvent.type == EventType.MouseUp ){
+			mouseDown = false;
+		}
+		if( mouseDown ){
+			SetPiece( mouseButton == 0 ? selectedType : PieceType.Empty, currentEvent.mousePosition, cells );
+		}
+	}
+
+	private void SetPiece( PieceType type, Vector2 mousePosition, PieceType[,] cells ){
+		if( !InsidePuzzleArea( mousePosition ) ){
+			return;
+		}
+		row = Mathf.FloorToInt(( mousePosition.y - GRID_PADDING ) / tileSize.y );
+		column = Mathf.FloorToInt(( mousePosition.x - OPTIONS_WIDTH - GRID_PADDING ) / tileSize.x );
+		try{
+			cells[row, column] = type;
+		} catch ( System.IndexOutOfRangeException e ) { }
+		dirty = true;
+	}
+	
+	private bool InsidePuzzleArea( Vector2 mousePosition ){
+		return 	mousePosition.x > OPTIONS_WIDTH + GRID_PADDING &&
+				mousePosition.x < position.width - GRID_PADDING &&
+				mousePosition.y > GRID_PADDING &&
+				mousePosition.y < position.height - GRID_PADDING;
+	}
+	
+	private void RenderGrid(){
+		if( dirty ){
+			dirty = false;
+			Repaint();
+		}
+	}
 }
 
 } // namespace Mozzarella
