@@ -16,7 +16,7 @@ using AngryMole;
 namespace Mozzarella {
 
 /**
- * Displays a user firendly level editor for mozzarella
+ * Color factory method
  */ 
 public class PieceColor{
 

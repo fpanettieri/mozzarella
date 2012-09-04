@@ -25,8 +25,8 @@ public class LevelDesigner : EditorWindow {
 	
 	// General grid configuration
 	private bool			configured		= false;
-	private string 			rowsTxt			= "5";
-	private string			columnsTxt 		= "10";
+	private string 			rowsTxt			= "10";
+	private string			columnsTxt 		= "20";
 	
 	// Piece selection
 	private string[]		typeNames 		= null;
@@ -74,7 +74,17 @@ public class LevelDesigner : EditorWindow {
 		GridSetupPanel();
 		EditorGUILayout.Separator();
 		PiecesListPanel();
+		EditorGUILayout.Separator();
+		LevelPanel();
+		EditorGUILayout.Separator();
 		EditorGUILayout.EndVertical();
+	}
+	
+	private void LevelPanel() {
+		EditorGUILayout.LabelField("Level", EditorStyles.boldLabel);
+		if( GUILayout.Button( "Test grid" ) ){
+			TestGrid();
+		}
 	}
 			
 	private void GridSetupPanel(){
@@ -172,7 +182,9 @@ public class LevelDesigner : EditorWindow {
 		column = Mathf.FloorToInt(( mousePosition.x - OPTIONS_WIDTH - GRID_PADDING ) / tileSize.x );
 		try{
 			cells[row, column] = type;
-		} catch ( System.IndexOutOfRangeException e ) { }
+		} catch ( System.IndexOutOfRangeException e ) {
+			Debug.Log(e);
+		}
 		dirty = true;
 	}
 	
@@ -189,6 +201,37 @@ public class LevelDesigner : EditorWindow {
 			Repaint();
 		}
 	}
+	
+	/**
+	 * Create grid objects to test the level
+	 */ 
+	private void TestGrid(){
+		// Create grid
+		GameObject gridPrefab = (GameObject)Resources.Load("Prefabs/GridPrefab");
+		GameObject grid = (GameObject)Instantiate(gridPrefab);
+		grid.name = "Grid";
+		GridBehaviour gridBehaviour = grid.GetComponent<GridBehaviour>();
+		gridBehaviour.rows = rows;
+		gridBehaviour.columns = columns;
+		
+		// Create pieces
+		GameObject piecePrefab = (GameObject)Resources.Load("Prefabs/PiecePrefab");
+		for( int i = 0; i < rows; i++ ){
+			for( int j = 0; j < columns; j++ ){
+				PieceType type = cells[i, j];
+				if( type == PieceType.Empty ){
+					continue;
+				}
+				GameObject piece = (GameObject)Instantiate(piecePrefab);
+				piece.name = "Piece";
+				piece.transform.parent = grid.transform;
+				piece.transform.position = new Vector3( j * tileSize.x, ( rows - i ) * tileSize.y, 0 );
+				MeshRenderer renderer = piece.GetComponent<MeshRenderer>();
+				renderer.material = PieceMaterial.getMaterial( type );
+			}
+		}
+	}
+	
 }
 
 } // namespace Mozzarella

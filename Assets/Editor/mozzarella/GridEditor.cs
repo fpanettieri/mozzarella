@@ -21,11 +21,6 @@ public class GridEditor : Editor
 	{
 		
     }
-	
-	override public void OnInspectorGUI()
-	{
-		GUILayout.Button("Add Linear");
-	}
 }
 
 } // namespace Mozzarella 

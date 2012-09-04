@@ -15,13 +15,18 @@ namespace Mozzarella {
 
 public class PieceBehaviour : MonoBehaviour {
 	
+	public bool falling = false;
+	public float speed = -100.0f;
+	
 	void Awake() {
 		
 	}
 	
 	// Update is called once per frame
 	void Update() {
-	
+		if( falling ){
+			transform.Translate(0, speed * Time.deltaTime, 0 );
+		}
 	}
 	
 }

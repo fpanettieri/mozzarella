@@ -16,15 +16,13 @@ namespace Mozzarella {
 
 public class GridBehaviour : MonoBehaviour {
 	
-	public int rows;
-	public int columns;
-
-	// Use this for initialization
+	public int rows = 0;
+	public int columns = 0;
+	
 	void Start () {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
