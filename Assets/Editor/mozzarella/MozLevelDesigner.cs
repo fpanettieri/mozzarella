@@ -15,15 +15,15 @@ using UnityEngine;
 /**
  * Displays a user friendly level editor for mozzarella
  */ 
-public class LevelDesigner : EditorWindow {
+public class MozLevelDesigner : EditorWindow {
 	
 	private const int 		OPTIONS_WIDTH 	= 250;
 	private const int 		GRID_PADDING 	= 10;
 	
 	// General grid configuration
 	private bool			configured		= false;
-	private string 			rowsTxt			= "10";
-	private string			columnsTxt 		= "20";
+	private string 			rowsTxt			= "0";
+	private string			columnsTxt 		= "0";
 	
 	// Piece selection
 	private string[]		typeNames 		= null;
@@ -31,9 +31,8 @@ public class LevelDesigner : EditorWindow {
 	private int 			selectedIndex 	= 0;
 	private PieceType		selectedType 	= PieceType.PlainBlue;
 	
-	// Grid rendering
-	private int				rows			= 0;
-	private int				columns			= 0;
+	
+	private MozGrid			grid			= null;
 	private PieceType[,]	cells			= null;
 	
 	private	Rect			gridRect		= new Rect(0, 0, 0, 0);
@@ -52,6 +51,9 @@ public class LevelDesigner : EditorWindow {
 	void OnEnable(){
 		typeNames = System.Enum.GetNames( typeof( PieceType ) );
 		wantsMouseMove = false;
+		grid = GameObject.Find( MozGameObject.GRID ).GetComponent<MozGrid>();
+		rowsTxt = grid.rows.ToString();
+		columnsTxt = grid.columns.ToString();
 	}
 	
 	void OnGUI(){
@@ -104,8 +106,8 @@ public class LevelDesigner : EditorWindow {
 		GUI.Box( gridRect, "" );
 		HandleInput();
 		
-		for( int i = 0; i < rows; i++ ){
-			for( int j = 0; j < columns; j++ ){
+		for( int i = 0; i < grid.rows; i++ ){
+			for( int j = 0; j < grid.columns; j++ ){
 				
 				GUI.color = PieceColor.getColor( cells[i,j] );
 				GUI.DrawTexture( new Rect(
@@ -129,19 +131,19 @@ public class LevelDesigner : EditorWindow {
 			position.height - GRID_PADDING * 2
 		);
 
-		int.TryParse(rowsTxt, out rows);
-		int.TryParse(columnsTxt, out columns);
+		int.TryParse(rowsTxt, out grid.rows);
+		int.TryParse(columnsTxt, out grid.columns);
 		
 		// create grid
-		cells = new PieceType[ rows, columns ];
-		for( int i = 0; i < rows; i++ ){
-			for( int j = 0; j < columns; j++ ){
+		cells = new PieceType[ grid.rows, grid.columns ];
+		for( int i = 0; i < grid.rows; i++ ){
+			for( int j = 0; j < grid.columns; j++ ){
 				cells[ i, j ] = PieceType.Empty;
 			}
 		}
 		
 		// create tile
-		tileSize = new IntVector2( gridRect.width / columns, gridRect.height / rows );
+		tileSize = new IntVector2( gridRect.width / grid.columns, gridRect.height / grid.rows );
 		tileTex = new Texture2D(tileSize.x, tileSize.y);
 		for( int i = 0; i < tileSize.x; i++ ){
 			for( int j = 0; j < tileSize.y; j++ ){
@@ -197,19 +199,11 @@ public class LevelDesigner : EditorWindow {
 	/**
 	 * Create grid objects to test the level
 	 */ 
-	private void TestGrid(){
-		// Create grid
-		GameObject gridPrefab = (GameObject)Resources.Load("Prefabs/GridPrefab");
-		GameObject grid = (GameObject)Instantiate(gridPrefab);
-		grid.name = "Grid";
-		MozGrid gridBehaviour = grid.GetComponent<MozGrid>();
-		gridBehaviour.rows = rows;
-		gridBehaviour.columns = columns;
-		
+	private void TestGrid(){		
 		// Create pieces
 		GameObject piecePrefab = (GameObject)Resources.Load("Prefabs/PiecePrefab");
-		for( int i = 0; i < rows; i++ ){
-			for( int j = 0; j < columns; j++ ){
+		for( int i = 0; i < grid.rows; i++ ){
+			for( int j = 0; j < grid.columns; j++ ){
 				PieceType type = cells[i, j];
 				if( type == PieceType.Empty ){
 					continue;
@@ -217,7 +211,7 @@ public class LevelDesigner : EditorWindow {
 				GameObject piece = (GameObject)Instantiate(piecePrefab);
 				piece.name = "Piece";
 				piece.transform.parent = grid.transform;
-				piece.transform.position = new Vector3( j * tileSize.x, ( rows - i ) * tileSize.y, 0 );
+				piece.transform.position = new Vector3( j * tileSize.x, ( grid.rows - i ) * tileSize.y, 0 );
 				MeshRenderer renderer = piece.GetComponent<MeshRenderer>();
 				renderer.material = PieceMaterial.getMaterial( type );
 			}

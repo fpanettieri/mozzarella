@@ -19,9 +19,9 @@ public class Menu : EditorWindow {
 	
 	[MenuItem("Mozzarella/Configure game")]
 	public static void ConfigureGame() {
-		GameObject go = GameObject.Find( "MozConfiguration" );
+		GameObject go = GameObject.Find( MozGameObject.CONFIGURATION );
 		if( go == null ){
-			go = new GameObject( "MozConfiguration" );
+			go = new GameObject( MozGameObject.CONFIGURATION );
 		}
 		Component cfg = go.GetComponent<MozConfiguration>();
 		if( cfg == null ){
@@ -31,9 +31,9 @@ public class Menu : EditorWindow {
 	
 	[MenuItem("Mozzarella/Create grid")]
 	public static void CreateGrid() {
-		GameObject go = GameObject.Find( "MozGrid" );
+		GameObject go = GameObject.Find( MozGameObject.GRID );
 		if( go == null ){
-			go = new GameObject( "MozGrid" );
+			go = new GameObject( MozGameObject.GRID );
 		}
 		Component grid = go.GetComponent<MozGrid>();
 		if( grid == null ){
@@ -43,7 +43,7 @@ public class Menu : EditorWindow {
 		
 	[MenuItem("Mozzarella/Level designer")]
 	public static void LevelDesigner() {
-		EditorWindow.GetWindow( typeof( LevelDesigner ), false, "Level designer" );
+		EditorWindow.GetWindow( typeof( MozLevelDesigner ), false, "Level designer" );
 	}
 
 }

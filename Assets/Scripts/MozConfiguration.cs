@@ -16,7 +16,7 @@ public class MozConfiguration : MonoBehaviour {
 	
 	public int width = 1024;
 	public int height = 768;
-	public int level = 1;
+	public string level = "level001";
 	
 }
 
