@@ -11,9 +11,6 @@
 
 using UnityEditor;
 using UnityEngine;
-using AngryMole;
-
-namespace Mozzarella {
 
 /**
  * Color factory method
@@ -48,5 +45,3 @@ public class PieceColor{
 		return color;
 	}
 }
-	
-} // namespace Mozzarella

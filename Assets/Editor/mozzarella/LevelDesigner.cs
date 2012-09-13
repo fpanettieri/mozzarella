@@ -11,9 +11,6 @@
 
 using UnityEditor;
 using UnityEngine;
-using AngryMole;
-
-namespace Mozzarella {
 
 /**
  * Displays a user friendly level editor for mozzarella
@@ -51,11 +48,6 @@ public class LevelDesigner : EditorWindow {
 	private int 			row				= 0;
 	private int 			column			= 0;
 	private bool			dirty			= false;
-		
-	[MenuItem("Mozzarella/Level designer")]
-	public static void ShowWindow() {
-		EditorWindow.GetWindow( typeof( LevelDesigner ), false, "Level designer" );
-	}
 	
 	void OnEnable(){
 		typeNames = System.Enum.GetNames( typeof( PieceType ) );
@@ -233,5 +225,3 @@ public class LevelDesigner : EditorWindow {
 	}
 	
 }
-
-} // namespace Mozzarella

@@ -10,8 +10,6 @@
 */
 using UnityEngine;
 
-namespace AngryMole {
-
 /// <summary>
 /// Representation of 2D vectors and points.
 /// Useful when working with integers such as when working with
@@ -129,6 +127,40 @@ public class IntVector2
 	public bool Equals(IntVector2 v){
 		return v.x == x && v.y == y;
 	}
+	/// <summary>
+	/// Determines whether the specified <see cref="IntVector2"/> is equal to the current <see cref="AngryMole.IntVector2"/>.
+	/// </summary>
+	/// <param name='v'>
+	/// The <see cref="IntVector2"/> to compare with the current <see cref="AngryMole.IntVector2"/>.
+	/// </param>
+	/// <returns>
+	/// <c>true</c> if the specified <see cref="IntVector2"/> is equal to the current <see cref="AngryMole.IntVector2"/>;
+	/// otherwise, <c>false</c>.
+	/// </returns>
+	public override bool Equals(System.Object obj)
+    {
+        // If parameter is null return false.
+        if (obj == null){
+            return false;
+        }
+
+        // If parameter cannot be cast to IntVector2 return false.
+        IntVector2 v = obj as IntVector2;
+        if ((System.Object)v == null){
+            return false;
+        }
+
+        // Return true if the fields match:
+        return (x == v.x) && (y == v.y);
+    }
+	
+	/// <summary>
+	/// Create an identifier for the current vector
+	/// </summary>
+	public override int GetHashCode()
+    {
+        return x ^ y;
+    }
 
 	/// <summary>
 	/// Shorthand for writing IntVector2(0, 0)
@@ -285,5 +317,3 @@ public class IntVector2
     }
 
 }
-
-} // namespace AngryMole 

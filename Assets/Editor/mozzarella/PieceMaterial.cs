@@ -11,9 +11,6 @@
 
 using UnityEditor;
 using UnityEngine;
-using AngryMole;
-
-namespace Mozzarella {
 
 /**
  * Displays a user firendly level editor for mozzarella
@@ -44,5 +41,3 @@ public class PieceMaterial{
 		return material;
 	}
 }
-	
-} // namespace Mozzarella

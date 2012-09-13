@@ -11,8 +11,6 @@
 
 using UnityEngine;
 
-namespace Mozzarella {
-
 public class PieceBehaviour : MonoBehaviour {
 	
 	public bool falling = false;
@@ -30,5 +28,3 @@ public class PieceBehaviour : MonoBehaviour {
 	}
 	
 }
-	
-} // namespace Mozzarella 

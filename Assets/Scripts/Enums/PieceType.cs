@@ -11,8 +11,6 @@
 
 using UnityEngine;
 
-namespace Mozzarella {
-
 /**
  * All the available piece types
  */ 
@@ -25,5 +23,3 @@ public enum PieceType
     PlainRed,
 	PlainYellow
 }
-	
-} // namespace Mozzarella 

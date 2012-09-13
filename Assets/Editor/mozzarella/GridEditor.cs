@@ -12,8 +12,6 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Mozzarella {
-
 [CustomEditor( typeof( GridBehaviour ) )]
 public class GridEditor : Editor
 {
@@ -22,5 +20,3 @@ public class GridEditor : Editor
 		
     }
 }
-
-} // namespace Mozzarella 

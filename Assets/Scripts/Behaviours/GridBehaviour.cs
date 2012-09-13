@@ -12,12 +12,12 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Mozzarella {
-
 public class GridBehaviour : MonoBehaviour {
 	
 	public int rows = 0;
 	public int columns = 0;
+	public int width = 0;
+	public int height = 0;
 	
 	void Start () {
 	
@@ -27,5 +27,3 @@ public class GridBehaviour : MonoBehaviour {
 	
 	}
 }
-	
-} // namespace Mozzarella 
