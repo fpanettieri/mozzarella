@@ -4,19 +4,19 @@
  This file is part of Mozzarella source code
  
  @author 		Fabio R. Panettieri
- @date			2012-08-30
- @last-edit		2012-08-30
+ @date			2012-09-12
+ @last-edit		2012-09-12
 ===============================================================================
 */
 
 using UnityEngine;
-using UnityEditor;
+using System.Collections;
 
-[CustomEditor( typeof( MozGrid ) )]
-public class MozGridEditor : Editor
-{
-	public void OnEnable()
-	{
-		
-    }
+public class MozConfiguration : MonoBehaviour {
+	
+	public int width = 1024;
+	public int height = 768;
+	public int level = 1;
+	
 }
+

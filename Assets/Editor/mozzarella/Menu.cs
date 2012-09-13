@@ -17,20 +17,32 @@ using UnityEngine;
  */ 
 public class Menu : EditorWindow {
 	
+	[MenuItem("Mozzarella/Configure game")]
+	public static void ConfigureGame() {
+		GameObject go = GameObject.Find( "MozConfiguration" );
+		if( go == null ){
+			go = new GameObject( "MozConfiguration" );
+		}
+		Component cfg = go.GetComponent<MozConfiguration>();
+		if( cfg == null ){
+			cfg = go.AddComponent<MozConfiguration>();
+		}
+	}
+	
 	[MenuItem("Mozzarella/Create grid")]
 	public static void CreateGrid() {
-		GameObject grid = GameObject.Find( "MozGrid" );
-		if( grid == null ){
-			grid = new GameObject( "MozGrid" );
+		GameObject go = GameObject.Find( "MozGrid" );
+		if( go == null ){
+			go = new GameObject( "MozGrid" );
 		}
-		Component behaviour = grid.GetComponent<GridBehaviour>();
-		if( behaviour == null ){
-			behaviour = grid.AddComponent<GridBehaviour>();
+		Component grid = go.GetComponent<MozGrid>();
+		if( grid == null ){
+			grid = go.AddComponent<MozGrid>();
 		}
 	}
 		
 	[MenuItem("Mozzarella/Level designer")]
-	public static void ShowWindow() {
+	public static void LevelDesigner() {
 		EditorWindow.GetWindow( typeof( LevelDesigner ), false, "Level designer" );
 	}
 

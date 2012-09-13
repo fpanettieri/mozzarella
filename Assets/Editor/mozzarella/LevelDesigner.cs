@@ -202,7 +202,7 @@ public class LevelDesigner : EditorWindow {
 		GameObject gridPrefab = (GameObject)Resources.Load("Prefabs/GridPrefab");
 		GameObject grid = (GameObject)Instantiate(gridPrefab);
 		grid.name = "Grid";
-		GridBehaviour gridBehaviour = grid.GetComponent<GridBehaviour>();
+		MozGrid gridBehaviour = grid.GetComponent<MozGrid>();
 		gridBehaviour.rows = rows;
 		gridBehaviour.columns = columns;
 		

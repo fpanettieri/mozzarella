@@ -10,20 +10,21 @@
 */
 
 using UnityEngine;
-using System.Collections;
 
-public class GridBehaviour : MonoBehaviour {
+public class MozPiece : MonoBehaviour {
 	
-	public int rows = 0;
-	public int columns = 0;
-	public int width = 0;
-	public int height = 0;
+	public bool falling = false;
+	public float speed = -100.0f;
 	
-	void Start () {
-	
+	void Awake() {
+		
 	}
 	
-	void Update () {
-	
+	// Update is called once per frame
+	void Update() {
+		if( falling ){
+			transform.Translate(0, speed * Time.deltaTime, 0 );
+		}
 	}
+	
 }
