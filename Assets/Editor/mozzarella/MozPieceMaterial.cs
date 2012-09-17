@@ -21,19 +21,19 @@ public class PieceMaterial{
 		Material material;
 		switch(type){
 			case PieceType.PlainBlue:
-				material = (Material)Resources.Load("Materials/Pieces/Plain/PlainBluePiece");
+				material = (Material)Resources.Load("Materials/Pieces/Plain/Blue");
 				break;
 			case PieceType.PlainGreen:
-				material = (Material)Resources.Load("Materials/Pieces/Plain/PlainGreenPiece");
+				material = (Material)Resources.Load("Materials/Pieces/Plain/Green");
 				break;
 			case PieceType.PlainOrange:
-				material = (Material)Resources.Load("Materials/Pieces/Plain/PlainOrangePiece");
+				material = (Material)Resources.Load("Materials/Pieces/Plain/Orange");
 				break;
 			case PieceType.PlainRed:
-				material = (Material)Resources.Load("Materials/Pieces/Plain/PlainRedPiece");
+				material = (Material)Resources.Load("Materials/Pieces/Plain/Red");
 				break;
 			case PieceType.PlainYellow:
-				material = (Material)Resources.Load("Materials/Pieces/Plain/PlainYellowPiece");
+				material = (Material)Resources.Load("Materials/Pieces/Plain/Yellow");
 				break;
 			default:
 				throw new System.Exception("Unsupported piece type: " + type.ToString());

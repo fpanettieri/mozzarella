@@ -76,8 +76,8 @@ public class MozLevelDesigner : EditorWindow {
 	
 	private void LevelPanel() {
 		EditorGUILayout.LabelField("Level", EditorStyles.boldLabel);
-		if( GUILayout.Button( "Test grid" ) ){
-			TestGrid();
+		if( GUILayout.Button( "Create grid" ) ){
+			CreateGrid();
 		}
 	}
 			
@@ -86,7 +86,7 @@ public class MozLevelDesigner : EditorWindow {
 		rowsTxt = EditorGUILayout.TextField( "Rows", rowsTxt );
 		columnsTxt = EditorGUILayout.TextField( "Columns", columnsTxt );
 		
-		if( GUILayout.Button( "Generate" ) ){
+		if( GUILayout.Button( "Edit grid" ) ){
 			GenerateGrid();
 		}
 	}
@@ -124,6 +124,8 @@ public class MozLevelDesigner : EditorWindow {
 	}
 		
 	private void GenerateGrid() {
+		grid = GameObject.Find( MozGameObject.GRID ).GetComponent<MozGrid>();
+		
 		gridRect = new Rect(
 			OPTIONS_WIDTH + GRID_PADDING,
 			GRID_PADDING,
@@ -199,19 +201,19 @@ public class MozLevelDesigner : EditorWindow {
 	/**
 	 * Create grid objects to test the level
 	 */ 
-	private void TestGrid(){		
-		// Create pieces
-		GameObject piecePrefab = (GameObject)Resources.Load("Prefabs/PiecePrefab");
+	private void CreateGrid(){
+		GameObject piecePrefab = grid.piecePrefab;
+		MeshFilter filter = piecePrefab.GetComponent<MeshFilter>();
+		Vector3 pieceSize = filter.sharedMesh.bounds.size;
+		
 		for( int i = 0; i < grid.rows; i++ ){
 			for( int j = 0; j < grid.columns; j++ ){
 				PieceType type = cells[i, j];
-				if( type == PieceType.Empty ){
-					continue;
-				}
+				if( type == PieceType.Empty ){ continue; }
 				GameObject piece = (GameObject)Instantiate(piecePrefab);
 				piece.name = "Piece";
 				piece.transform.parent = grid.transform;
-				piece.transform.position = new Vector3( j * tileSize.x, ( grid.rows - i ) * tileSize.y, 0 );
+				piece.transform.localPosition = new Vector3( j * pieceSize.x, ( grid.rows - i - 1 ) * pieceSize.y, 0 );
 				MeshRenderer renderer = piece.GetComponent<MeshRenderer>();
 				renderer.material = PieceMaterial.getMaterial( type );
 			}

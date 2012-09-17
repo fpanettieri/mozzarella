@@ -14,10 +14,9 @@ using System.Collections;
 
 public class MozGrid : MonoBehaviour {
 	
+	public GameObject piecePrefab;
 	public int rows = 0;
 	public int columns = 0;
-	public int width = 0;
-	public int height = 0;
 	
 	void Start () {
 	

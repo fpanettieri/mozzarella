@@ -45,5 +45,11 @@ public class Menu : EditorWindow {
 	public static void LevelDesigner() {
 		EditorWindow.GetWindow( typeof( MozLevelDesigner ), false, "Level designer" );
 	}
+	
+	[MenuItem("Mozzarella/Piece Mesh Wizard")]
+    static void PieceMeshWizard()
+    {
+        ScriptableWizard.DisplayWizard( "Piece Mesh Wizard", typeof( MozPieceWizard ) );
+    }
 
 }

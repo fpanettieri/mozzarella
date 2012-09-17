@@ -1,11 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Editor\mozzarella\MozLevelDesigner.cs">
-    <Files>
-      <File FileName="Assets\Editor\mozzarella\MozLevelDesigner.cs" Line="54" Column="13" />
-      <File FileName="c:\dev\gf\mozzarella\Assets\Editor\mozzarella\MozMenu.cs" Line="46" Column="38" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
