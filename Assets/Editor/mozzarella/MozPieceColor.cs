@@ -17,7 +17,7 @@ using UnityEngine;
  */ 
 public class PieceColor{
 
-	public static Color getColor(PieceType type){
+	public static Color getColor(int type){
 		Color color;
 		switch(type){
 			case PieceType.Empty:

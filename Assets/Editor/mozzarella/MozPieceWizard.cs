@@ -73,44 +73,34 @@ public class MozPieceWizard : ScriptableWizard {
 		}
 		
 		Vector2 anchorOffset;
-		string anchorId;
 		switch (anchor){
 			case AnchorPoint.TopLeft:
 				anchorOffset = new Vector2(-width/2.0f,length/2.0f);
-				anchorId = "TL";
 				break;
 			case AnchorPoint.TopHalf:
 				anchorOffset = new Vector2(0.0f,length/2.0f);
-				anchorId = "TH";
 				break;
 			case AnchorPoint.TopRight:
 				anchorOffset = new Vector2(width/2.0f,length/2.0f);
-				anchorId = "TR";
 				break;
 			case AnchorPoint.RightHalf:
 				anchorOffset = new Vector2(width/2.0f,0.0f);
-				anchorId = "RH";
 				break;
 			case AnchorPoint.BottomRight:
 				anchorOffset = new Vector2(width/2.0f,-length/2.0f);
-				anchorId = "BR";
 				break;
 			case AnchorPoint.BottomHalf:
 				anchorOffset = new Vector2(0.0f,-length/2.0f);
-				anchorId = "BH";
 				break;
 			case AnchorPoint.BottomLeft:
 				anchorOffset = new Vector2(-width/2.0f,-length/2.0f);
-				anchorId = "BL";
 				break;			
 			case AnchorPoint.LeftHalf:
 				anchorOffset = new Vector2(-width/2.0f,0.0f);
-				anchorId = "LH";
 				break;			
 			case AnchorPoint.Center:
 			default:
 				anchorOffset = Vector2.zero;
-				anchorId = "C";
 				break;
 		}
  
