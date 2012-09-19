@@ -13,6 +13,7 @@ using UnityEngine;
 
 public class MozPiece : MonoBehaviour {
 	
+	public int type = 0;
 	public bool falling = false;
 	public float speed = -100.0f;
 	
@@ -20,11 +21,19 @@ public class MozPiece : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
 	void Update() {
-		if( falling ){
-			transform.Translate(0, speed * Time.deltaTime, 0 );
-		}
+		
+	}
+	
+	/**
+	 * Returns the position where the piece will go if moved
+	 */ 
+	public Vector3 Project()
+	{
+		return new Vector3(
+			transform.localPosition.x, 
+			transform.localPosition.y + speed * Time.deltaTime,
+			transform.localPosition.z);
 	}
 	
 }

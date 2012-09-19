@@ -197,12 +197,18 @@ public class MozLevelDesigner : EditorWindow {
 			for( int j = 0; j < grid.rows; j++ ){
 				int type = grid.cells[ i + j * grid.columns ];
 				if( type == PieceType.Empty ){ continue; }
+				
 				GameObject piece = (GameObject)Instantiate(piecePrefab);
 				piece.name = "Piece";
 				piece.transform.parent = grid.transform;
 				piece.transform.localPosition = new Vector3( i * pieceSize.x, ( grid.rows - j - 1 ) * pieceSize.y, 0 );
+				
 				MeshRenderer renderer = piece.GetComponent<MeshRenderer>();
 				renderer.material = PieceMaterial.getMaterial( type );
+				
+				MozPiece mozPiece = piece.GetComponent<MozPiece>();
+				mozPiece.type = type;
+				mozPiece.falling = false;
 			}
 		}
 	}
@@ -217,7 +223,7 @@ public class MozLevelDesigner : EditorWindow {
 	 * Create and initialize grid cells if they dont exist already
 	 */
 	private void CreateCells(){
-		if ( grid.cells == null ){
+		if ( grid.cells == null || grid.cells.Length == 0 || grid.rows * grid.columns != grid.cells.Length ){
 			grid.cells = new int[ grid.rows * grid.columns ];
 			for( int i = 0; i < grid.columns; i++ ){
 				for( int j = 0; j < grid.rows; j++ ){
