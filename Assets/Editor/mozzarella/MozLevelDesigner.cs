@@ -14,7 +14,7 @@ using UnityEngine;
 
 /**
  * Displays a user friendly level editor for mozzarella
- */ 
+ */
 public class MozLevelDesigner : EditorWindow {
 	
 	private const int 		OPTIONS_WIDTH 	= 250;
@@ -105,7 +105,7 @@ public class MozLevelDesigner : EditorWindow {
 				GUI.color = PieceColor.getColor( grid.cells[ i + j * grid.columns ] );
 				GUI.DrawTexture( new Rect(
 					gridRect.x + tileSize.x * i,
-					gridRect.y + tileSize.y * j,
+					gridRect.y + tileSize.y * ( grid.rows - j - 1 ),
 					tileSize.x, tileSize.y				
 				), tileTex );
 				
@@ -117,7 +117,6 @@ public class MozLevelDesigner : EditorWindow {
 	}
 		
 	private void EditGrid() {
-		FindGrid();
 		CreateCells();
 		CreateTile();		
 		configured = true;
@@ -149,7 +148,7 @@ public class MozLevelDesigner : EditorWindow {
 		if( !InsidePuzzleArea( mousePosition ) ){
 			return;
 		}
-		row = Mathf.FloorToInt(( mousePosition.y - GRID_PADDING ) / tileSize.y );
+		row = Mathf.FloorToInt(( position.height - mousePosition.y - GRID_PADDING ) / tileSize.y );
 		column = Mathf.FloorToInt(( mousePosition.x - OPTIONS_WIDTH - GRID_PADDING ) / tileSize.x );
 		try{
 			grid.cells[ column + row * grid.columns ] = type;
@@ -201,14 +200,14 @@ public class MozLevelDesigner : EditorWindow {
 				GameObject piece = (GameObject)Instantiate(piecePrefab);
 				piece.name = "Piece";
 				piece.transform.parent = grid.transform;
-				piece.transform.localPosition = new Vector3( i * pieceSize.x, ( grid.rows - j - 1 ) * pieceSize.y, 0 );
+				piece.transform.localPosition = new Vector3( i * pieceSize.x, j * pieceSize.y, 0 );
 				
 				MeshRenderer renderer = piece.GetComponent<MeshRenderer>();
 				renderer.material = PieceMaterial.getMaterial( type );
 				
 				MozPiece mozPiece = piece.GetComponent<MozPiece>();
 				mozPiece.type = type;
-				mozPiece.falling = false;
+				mozPiece.moving = false;
 			}
 		}
 	}
@@ -223,13 +222,19 @@ public class MozLevelDesigner : EditorWindow {
 	 * Create and initialize grid cells if they dont exist already
 	 */
 	private void CreateCells(){
-		if ( grid.cells == null || grid.cells.Length == 0 || grid.rows * grid.columns != grid.cells.Length ){
+		if ( grid.cells == null || grid.cells.Length == 0 || 
+			grid.rows != int.Parse(rowsTxt) || grid.columns != int.Parse(columnsTxt) ){
+			
+			grid.rows = int.Parse(rowsTxt);
+			grid.columns = int.Parse(columnsTxt);
 			grid.cells = new int[ grid.rows * grid.columns ];
-			for( int i = 0; i < grid.columns; i++ ){
+			
+			for( int i = 0; i < grid.columns; i++ ){	
 				for( int j = 0; j < grid.rows; j++ ){
 					grid.cells[ i + j * grid.columns ] = PieceType.Empty;
 				}
 			}
+			
 		}
 	}
 	

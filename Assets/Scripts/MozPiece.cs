@@ -14,9 +14,9 @@ using UnityEngine;
 public class MozPiece : MonoBehaviour {
 	
 	public int type = 0;
-	public bool falling = false;
+	public bool moving = false;
 	public float speed = -100.0f;
-	
+
 	void Awake() {
 		
 	}
@@ -28,12 +28,11 @@ public class MozPiece : MonoBehaviour {
 	/**
 	 * Returns the position where the piece will go if moved
 	 */ 
-	public Vector3 Project()
+	public void Project( ref Vector3 projection )
 	{
-		return new Vector3(
-			transform.localPosition.x, 
+		projection.Set( 
+			transform.localPosition.x,
 			transform.localPosition.y + speed * Time.deltaTime,
 			transform.localPosition.z);
-	}
-	
+	}	
 }
