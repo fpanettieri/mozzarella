@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{63CE73F6-8F6D-E3F1-5F98-C7B5E805EEE8}") = "mozzarella", "Assembly-CSharp.csproj", "{C68F39D6-24F5-AB22-925B-0E152C32D9C5}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{C68F39D6-24F5-AB22-925B-0E152C32D9C5}"
 EndProject
-Project("{63CE73F6-8F6D-E3F1-5F98-C7B5E805EEE8}") = "mozzarella", "Assembly-CSharp-Editor.csproj", "{E325E8DC-6BA5-B1AF-F819-17630F4870DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{E325E8DC-6BA5-B1AF-F819-17630F4870DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +20,7 @@ Global
 		{E325E8DC-6BA5-B1AF-F819-17630F4870DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E325E8DC-6BA5-B1AF-F819-17630F4870DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-																										GlobalSection(MonoDevelopProperties) = preSolution
+	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -41,5 +38,7 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 EndGlobal

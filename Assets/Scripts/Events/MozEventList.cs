@@ -4,18 +4,12 @@
  This file is part of Mozzarella source code
  
  @author 		Fabio R. Panettieri
- @date			2012-09-12
- @last-edit		2012-09-12
+ @date			2012-09-25
+ @last-edit		2012-09-25
 ===============================================================================
 */
-using UnityEngine;
-using System.Collections;
 
-public class MozConfiguration : MonoBehaviour
+public class MozEventList
 {
 	
-	public int width = 1024;
-	public int height = 768;
-	
 }
-

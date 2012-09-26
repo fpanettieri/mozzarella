@@ -8,7 +8,6 @@
  @last-edit		2012-09-13
 ===============================================================================
 */
-
 using System;
 
 /**
@@ -19,4 +18,5 @@ public class MozGameObject
 	public const string CONFIGURATION = "MozConfiguration";
 	public const string GRID = "MozGrid";
 	public const string PIECE = "MozPiece";
+	public const string EVENTS = "MozEvents";
 }
