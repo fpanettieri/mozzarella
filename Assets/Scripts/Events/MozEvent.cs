@@ -15,14 +15,20 @@ using System.Collections.Generic;
  * An event an occurrence at a particular point in time. It
  * indicates that something happens at that given time.
  * 
- * All events inherit from this class
+ * All events inherit from this class.
  */
 public class MozEvent : IComparable<MozEvent>
 {
-	public float time;
+	public float time = 0;
+	public bool enabled = true;
 	
 	public int CompareTo (MozEvent b)
 	{
 		return time < b.time ? -1 : 1;
+	}
+	
+	override public string ToString()
+	{
+		return "MozEvent [time: " + time + "]";	
 	}
 }

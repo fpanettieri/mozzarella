@@ -14,7 +14,7 @@ using System.Collections.Generic;
 /**
  * Cronological list of events
  */
-public class MozEventList : MonoBehaviour
+public class MozTimeline : MonoBehaviour
 {
 	private List<MozEvent> events;
 	
@@ -25,12 +25,13 @@ public class MozEventList : MonoBehaviour
 	
 	public void Awake ()
 	{
-		events = new List<MozEvent> ();
+		events = new List<MozEvent>();
 	}
 	
 	public void Add (MozEvent e)
 	{
 		events.Add (e);
+		Debug.Log("Event added: " + e);
 	}
 
 	public bool Remove (MozEvent e)

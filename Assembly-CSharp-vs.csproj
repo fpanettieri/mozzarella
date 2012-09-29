@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_OSX;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_WIN;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW;ENABLE_SUBSTANCE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -47,10 +47,13 @@
      <Compile Include="Assets\Scripts\Constants\MozGameObject.cs" />
      <Compile Include="Assets\Scripts\Enums\PieceType.cs" />
      <Compile Include="Assets\Scripts\Events\MozEvent.cs" />
-     <Compile Include="Assets\Scripts\Events\MozEventList.cs" />
+     <Compile Include="Assets\Scripts\Events\MozSpawnPieceEvent.cs" />
+     <Compile Include="Assets\Scripts\Events\MozTimeMachine.cs" />
+     <Compile Include="Assets\Scripts\Events\MozTimeline.cs" />
+     <Compile Include="Assets\Scripts\Grid\MozGrid.cs" />
+     <Compile Include="Assets\Scripts\Grid\MozGridInput.cs" />
+     <Compile Include="Assets\Scripts\Grid\MozPiece.cs" />
      <Compile Include="Assets\Scripts\MozConfiguration.cs" />
-     <Compile Include="Assets\Scripts\MozGrid.cs" />
-     <Compile Include="Assets\Scripts\MozPiece.cs" />
      <Compile Include="Assets\Scripts\Util\IntVector2.cs" />
      <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
   </ItemGroup>
