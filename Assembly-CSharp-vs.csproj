@@ -44,15 +44,19 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Constants\MozGameObject.cs" />
+     <Compile Include="Assets\Scripts\Constants\GameObjectName.cs" />
+     <Compile Include="Assets\Scripts\Enums\MozEventType.cs" />
      <Compile Include="Assets\Scripts\Enums\PieceType.cs" />
+     <Compile Include="Assets\Scripts\Events\Events.cs" />
+     <Compile Include="Assets\Scripts\Events\IEventListener.cs" />
      <Compile Include="Assets\Scripts\Events\MozEvent.cs" />
      <Compile Include="Assets\Scripts\Events\PieceSpawnEvent.cs" />
-     <Compile Include="Assets\Scripts\Events\TimeMachine.cs" />
-     <Compile Include="Assets\Scripts\Events\Timeline.cs" />
      <Compile Include="Assets\Scripts\Grid\Grid.cs" />
      <Compile Include="Assets\Scripts\Grid\GridInput.cs" />
      <Compile Include="Assets\Scripts\Grid\Piece.cs" />
+     <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />
+     <Compile Include="Assets\Scripts\Time\TimeMachine.cs" />
+     <Compile Include="Assets\Scripts\Time\Timeline.cs" />
      <Compile Include="Assets\Scripts\Util\IntVector2.cs" />
      <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
   </ItemGroup>

@@ -3,9 +3,8 @@
  Copyright (C) 2012-2014 Angry Mole
  This file is part of Mozzarella source code
  
- @author 		Fabio R. Panettieri
- @date			2012-08-31
- @last-edit		2012-08-31
+ Author
+ 	Fabio R. Panettieri [ fpanettieri{at}gmail{dot}com ]
 ===============================================================================
 */
 using UnityEngine;
@@ -30,8 +29,7 @@ public class IntVector2
 	/// <summary>
 	/// Access the x or y component using [0] or [1] respectively
 	/// </param>
-	public int this [int index] { get { return index == 0 ? x : y; }
-	}
+	public int this [int index] { get { return index == 0 ? x : y; } }
 	
 	/// <summary>
 	/// Returns this vector with a magnitude of 1 (Read Only)

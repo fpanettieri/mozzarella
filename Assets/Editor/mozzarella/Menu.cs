@@ -3,9 +3,8 @@
  Copyright (C) 2012-2014 Angry Mole
  This file is part of Mozzarella source code
  
- @author 		Fabio R. Panettieri
- @date			2012-09-12
- @last-edit		2012-09-12
+ Author
+ 	Fabio R. Panettieri [ fpanettieri{at}gmail{dot}com ]
 ===============================================================================
 */
 using UnityEditor;
@@ -19,9 +18,9 @@ public class Menu : EditorWindow
 	[MenuItem("Mozzarella/Create grid")]
 	public static void CreateGrid ()
 	{
-		GameObject go = GameObject.Find (MozGameObject.GRID);
+		GameObject go = GameObject.Find (GameObjectName.GRID);
 		if (go == null) {
-			go = new GameObject (MozGameObject.GRID);
+			go = new GameObject (GameObjectName.GRID);
 		}
 		Component grid = go.GetComponent<Grid> ();
 		if (grid == null) {
