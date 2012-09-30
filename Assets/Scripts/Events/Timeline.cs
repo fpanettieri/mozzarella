@@ -14,7 +14,7 @@ using System.Collections.Generic;
 /**
  * Cronological list of events
  */
-public class MozTimeline : MonoBehaviour
+public class Timeline : MonoBehaviour
 {
 	private List<MozEvent> events;
 	

@@ -44,11 +44,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\mozzarella\MozLevelDesigner.cs" />
-     <Compile Include="Assets\Editor\mozzarella\MozMenu.cs" />
-     <Compile Include="Assets\Editor\mozzarella\MozPieceColor.cs" />
-     <Compile Include="Assets\Editor\mozzarella\MozPieceMaterial.cs" />
-     <Compile Include="Assets\Editor\mozzarella\MozPieceWizard.cs" />
+     <Compile Include="Assets\Editor\mozzarella\LevelDesigner.cs" />
+     <Compile Include="Assets\Editor\mozzarella\Menu.cs" />
+     <Compile Include="Assets\Editor\mozzarella\PieceColor.cs" />
+     <Compile Include="Assets\Editor\mozzarella\PieceMaterial.cs" />
+     <Compile Include="Assets\Editor\mozzarella\PieceWizard.cs" />
      <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ using UnityEngine;
 /**
  * Create custom size pieces
  */ 
-public class MozPieceWizard : ScriptableWizard
+public class PieceWizard : ScriptableWizard
 {
 	
 	public enum Orientation

@@ -15,8 +15,7 @@ using System;
  */ 
 public class MozGameObject
 {
-	public const string CONFIGURATION = "MozConfiguration";
-	public const string GRID = "MozGrid";
-	public const string PIECE = "MozPiece";
-	public const string EVENTS = "MozEvents";
+	public const string GRID = "Grid";
+	public const string PIECE = "Piece";
+	public const string EVENTS = "Events";
 }

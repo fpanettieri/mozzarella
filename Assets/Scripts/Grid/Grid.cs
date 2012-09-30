@@ -11,14 +11,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class MozGrid : MonoBehaviour
+public class Grid : MonoBehaviour
 {
 	// Inspector properties
 	public GameObject piecePrefab;
 	public int rows = 0;
 	public int columns = 0;
 	public int[] cells;
-	private List<MozPiece> movingPieces;
+	private List<Piece> movingPieces;
 	private Vector3	tileSize;
 	private Vector3 pieceProj;
 	private IntVector2 pieceCell;
@@ -30,9 +30,9 @@ public class MozGrid : MonoBehaviour
 		pieceCell = new IntVector2 (0, 0);
 		
 		// FIXME: remove this. this won't be needed when we add commands
-		MozPiece[] pieces = GetComponentsInChildren<MozPiece> ();
-		movingPieces = new List<MozPiece> ();
-		foreach (MozPiece piece in pieces) {
+		Piece[] pieces = GetComponentsInChildren<Piece> ();
+		movingPieces = new List<Piece> ();
+		foreach (Piece piece in pieces) {
 			if (piece.moving) {
 				movingPieces.Add (piece);
 				int row = Mathf.FloorToInt (piece.transform.localPosition.y / tileSize.y);
@@ -50,7 +50,7 @@ public class MozGrid : MonoBehaviour
 	
 	private void MovePieces ()
 	{
-		foreach (MozPiece piece in movingPieces) {
+		foreach (Piece piece in movingPieces) {
 			// Update piece position
 			piece.Project (ref pieceProj);
 			pieceCell.Set (Mathf.FloorToInt (pieceProj.x / tileSize.x), Mathf.FloorToInt (pieceProj.y / tileSize.y));
@@ -77,7 +77,7 @@ public class MozGrid : MonoBehaviour
 	
 	private void LockPieces ()
 	{
-		MozPiece piece;
+		Piece piece;
 		for (int i = movingPieces.Count - 1; i > 0; i--) {
 			piece = movingPieces [i];
 			if (!piece.moving) {

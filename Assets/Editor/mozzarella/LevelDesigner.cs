@@ -14,14 +14,14 @@ using UnityEngine;
 /**
  * Displays a user friendly level editor for mozzarella
  */
-public class MozLevelDesigner : EditorWindow
+public class LevelDesigner : EditorWindow
 {
 	
 	private const int 		OPTIONS_WIDTH = 250;
 	private const int 		GRID_PADDING = 10;
 	
 	// The grid being configured
-	private MozGrid			grid = null;
+	private Grid			grid = null;
 	
 	// General grid configuration
 	private bool			configured = false;
@@ -190,9 +190,9 @@ public class MozLevelDesigner : EditorWindow
 		if (go == null) {
 			return;
 		}
-		grid = go.GetComponent<MozGrid> ();
+		grid = go.GetComponent<Grid> ();
 		if (grid == null) {
-			Debug.LogWarning (" Grid not found. You should create a grid first");
+			Debug.LogWarning ("Grid not found. You should create a grid first");
 		} else {
 			rowsTxt = grid.rows.ToString ();
 			columnsTxt = grid.columns.ToString ();
@@ -231,7 +231,7 @@ public class MozLevelDesigner : EditorWindow
 				MeshRenderer renderer = piece.GetComponent<MeshRenderer> ();
 				renderer.material = PieceMaterial.getMaterial (type);
 				
-				MozPiece mozPiece = piece.GetComponent<MozPiece> ();
+				Piece mozPiece = piece.GetComponent<Piece> ();
 				mozPiece.type = type;
 				mozPiece.moving = false;
 			}

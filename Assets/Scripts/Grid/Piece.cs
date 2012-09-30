@@ -10,7 +10,7 @@
 */
 using UnityEngine;
 
-public class MozPiece : MonoBehaviour
+public class Piece : MonoBehaviour
 {
 	
 	public int type = 0;

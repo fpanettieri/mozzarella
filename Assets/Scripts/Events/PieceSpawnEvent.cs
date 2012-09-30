@@ -8,18 +8,21 @@
  @last-edit		2012-09-29
 ===============================================================================
 */
-using UnityEngine;
-
-/**
- * This class moves through the timeline, dispatching active events.
- */ 
-public class MozTimeMachine : MonoBehaviour
+public class PieceSpawnEvent : MozEvent
 {
-	private float _now;
-	public float now { get { return _now; } }
+	public int row;
+	public int column;
 	
-	void Start ()
+	public PieceSpawnEvent ( float time, int row, int column )
 	{
-		_now = 0;
+		this.time = time;
+		this.row = row;
+		this.column = column;
+	}
+	
+	override public string ToString()
+	{
+		return "PieceSpawnEvent [time: " + time + ", row:" + row + ", column:" + column + "]";	
 	}
 }
+

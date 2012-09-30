@@ -4,18 +4,22 @@
  This file is part of Mozzarella source code
  
  @author 		Fabio R. Panettieri
- @date			2012-09-12
- @last-edit		2012-09-12
+ @date			2012-09-29
+ @last-edit		2012-09-29
 ===============================================================================
 */
 using UnityEngine;
-using System.Collections;
 
-public class MozConfiguration : MonoBehaviour
+/**
+ * This class moves through the timeline, dispatching active events.
+ */ 
+public class TimeMachine : MonoBehaviour
 {
+	private float _now;
+	public float now { get { return _now; } }
 	
-	public int width = 1024;
-	public int height = 768;
-	
+	void Start ()
+	{
+		_now = 0;
+	}
 }
-
