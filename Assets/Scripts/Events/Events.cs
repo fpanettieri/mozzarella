@@ -64,6 +64,7 @@ public class Events : MonoBehaviour
 				listener.notify (ev);
 			}
 		}
+		Debug.Log ("Event notified " + ev);
 	}
 	
 }
