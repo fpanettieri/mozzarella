@@ -14,5 +14,5 @@
 public class MozEventType
 {
 	public const int PieceSpawn = 0;
-	public const int PieceCollision = 1;
+	public const int PieceLock = 1;
 }

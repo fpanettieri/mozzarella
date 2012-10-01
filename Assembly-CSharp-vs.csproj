@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Events\Events.cs" />
      <Compile Include="Assets\Scripts\Events\IEventListener.cs" />
      <Compile Include="Assets\Scripts\Events\MozEvent.cs" />
+     <Compile Include="Assets\Scripts\Events\PieceLockEvent.cs" />
      <Compile Include="Assets\Scripts\Events\PieceSpawnEvent.cs" />
      <Compile Include="Assets\Scripts\Events\TimeMachine.cs" />
      <Compile Include="Assets\Scripts\Events\Timeline.cs" />

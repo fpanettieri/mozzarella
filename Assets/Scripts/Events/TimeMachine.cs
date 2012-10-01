@@ -56,7 +56,7 @@ public class TimeMachine : MonoBehaviour
 			return;
 		}
 		
-		for (int i = nextIdx; i < timeline.count - 1; i++) {
+		for (int i = nextIdx; i < timeline.count; i++) {
 			if (timeline [i].time > now) {
 				break;
 				
@@ -84,6 +84,7 @@ public class TimeMachine : MonoBehaviour
 		}
 	}
 	
+	//FIXME: check if used
 	private void SortTimeline ()
 	{
 		if (timeline.count < 1) {
