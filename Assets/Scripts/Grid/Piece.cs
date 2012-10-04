@@ -18,7 +18,7 @@ public class Piece : MonoBehaviour
 
 	void Awake ()
 	{
-		
+		name = "Piece";
 	}
 	
 	void Update ()

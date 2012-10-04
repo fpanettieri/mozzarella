@@ -10,5 +10,5 @@
 
 public interface IEventListener
 {
-	void notify (MozEvent ev);
+	void Notify (MozEvent ev);
 }

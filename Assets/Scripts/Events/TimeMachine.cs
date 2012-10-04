@@ -39,6 +39,7 @@ public class TimeMachine : MonoBehaviour
 		
 		rewind = Input.GetKey (KeyCode.Space);
 		now += Time.deltaTime * scale * (rewind ? -1 : 1);
+		scale = rewind ? 3 : 1;
 		if (now < 0) {
 			now = 0;
 		}

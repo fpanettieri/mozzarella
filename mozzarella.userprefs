@@ -1,13 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Grid/GridInput.cs">
-    <Files>
-      <File FileName="Assets/Scripts/Grid/GridInput.cs" Line="34" Column="32" />
-      <File FileName="Assets/Scripts/Grid/Grid.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Events/Timeline.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enums/MozEventType.cs" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -141,8 +141,12 @@ public class LevelDesigner : EditorWindow
 	 */ 
 	private void CleanGrid ()
 	{
-		for (int i = 0; i < grid.cells.Length; i++) {
-			grid.cells [i] = PieceType.Empty;
+		grid.cells = new int[ grid.rows * grid.columns ];
+			
+		for (int i = 0; i < grid.columns; i++) {	
+			for (int j = 0; j < grid.rows; j++) {
+				grid.cells [i + j * grid.columns] = PieceType.Empty;
+			}
 		}
 	}
 	
@@ -223,7 +227,6 @@ public class LevelDesigner : EditorWindow
 				}
 				
 				GameObject piece = (GameObject)Instantiate (piecePrefab);
-				piece.name = "Piece";
 				piece.transform.parent = grid.transform;
 				piece.transform.localPosition = new Vector3 (i * pieceSize.x, j * pieceSize.y, 0);
 				

@@ -26,32 +26,26 @@ public class Grid : MonoBehaviour
 	private Timeline timeline;
 	private TimeMachine machine;
 	
-	void Start ()
+	public void Awake ()
 	{
 		tileSize = piecePrefab.GetComponent<MeshFilter> ().sharedMesh.bounds.size;
 		pieceProj = new Vector3 (0, 0, 0);
 		pieceCell = new IntVector2 (0, 0);
-		
-		// FIXME: remove this. this won't be needed when we add commands
-		Piece[] pieces = GetComponentsInChildren<Piece> ();
 		movingPieces = new List<Piece> ();
-		foreach (Piece piece in pieces) {
-			if (piece.moving) {
-				movingPieces.Add (piece);
-				int row = Mathf.FloorToInt (piece.transform.localPosition.y / tileSize.y);
-				int column = Mathf.FloorToInt (piece.transform.localPosition.x / tileSize.x);
-				cells [column + row * columns] = PieceType.Empty;
-			}
-		}
 		
 		timeline = GameObject.Find (GameObjectName.TIME).GetComponent<Timeline> ();
 		machine = GameObject.Find (GameObjectName.TIME).GetComponent<TimeMachine> ();
 	}
 	
-	void Update ()
+	public void Update ()
 	{
 		MovePieces ();
 		LockPieces ();
+	}
+	
+	public void AddMovingPiece(Piece piece)
+	{
+		movingPieces.Add(piece);
 	}
 	
 	private void MovePieces ()

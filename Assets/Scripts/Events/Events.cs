@@ -28,11 +28,11 @@ public class Events : MonoBehaviour
 	public void Awake ()
 	{
 		instance = this;
+		listeners = new Dictionary<int, List<IEventListener>> ();
 	}
 	
 	public void Start ()
 	{
-		listeners = new Dictionary<int, List<IEventListener>> ();
 	}
 	
 	public void Register (int type, IEventListener listener)
@@ -61,10 +61,9 @@ public class Events : MonoBehaviour
 		if (listeners.ContainsKey (ev.type)) {	
 			List<IEventListener> list = listeners [ev.type];
 			foreach (IEventListener listener in list) {
-				listener.notify (ev);
+				listener.Notify (ev);
 			}
 		}
-		Debug.Log ("Event notified " + ev);
 	}
 	
 }
