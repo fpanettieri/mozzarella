@@ -25,7 +25,6 @@ public class GridInput : MonoBehaviour
 	private IntVector2 cell;
 	private Grid grid;
 	private Timeline timeline;
-	private TimeMachine machine;
 	private PieceQueue queue;
 
 	void Start ()
@@ -33,7 +32,6 @@ public class GridInput : MonoBehaviour
 		cell = new IntVector2 (0, 0);
 		grid = GetComponent<Grid> ();
 		timeline = GameObject.Find (GameObjectName.TIME).GetComponent<Timeline> ();
-		machine = GameObject.Find (GameObjectName.TIME).GetComponent<TimeMachine> ();
 		queue = GameObject.Find (GameObjectName.QUEUE).GetComponent<PieceQueue> ();
 	}
 	
@@ -47,8 +45,8 @@ public class GridInput : MonoBehaviour
 		if (Input.GetMouseButtonUp (0) && InsideGrid (Input.mousePosition)) {
 			cell.Set (Mathf.FloorToInt ((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt ((Input.mousePosition.y - bottom) / cellHeight));
 			
-			timeline.Insert (machine.nextIdx, new PieceSpawnEvent (machine.now, (cell.x + 1) % grid.columns, cell.y, queue.Next ()));
-			timeline.Insert (machine.nextIdx, new PieceSpawnEvent (machine.now, cell.x, cell.y, queue.Next ()));
+			timeline.Insert (TimeMachine.nextIdx, new PieceSpawnEvent (TimeMachine.now, (cell.x + 1) % grid.columns, cell.y, queue.Next ()));
+			timeline.Insert (TimeMachine.nextIdx, new PieceSpawnEvent (TimeMachine.now, cell.x, cell.y, queue.Next ()));
 		}
 	}
 	

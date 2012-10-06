@@ -21,10 +21,7 @@ public class Grid : MonoBehaviour
 	private Vector3	tileSize;
 	private Vector3 pieceProj;
 	private IntVector2 pieceCell;
-	
-	
 	private Timeline timeline;
-	private TimeMachine machine;
 	
 	public void Awake ()
 	{
@@ -34,7 +31,6 @@ public class Grid : MonoBehaviour
 		movingPieces = new List<Piece> ();
 		
 		timeline = GameObject.Find (GameObjectName.TIME).GetComponent<Timeline> ();
-		machine = GameObject.Find (GameObjectName.TIME).GetComponent<TimeMachine> ();
 	}
 	
 	public void Update ()
@@ -43,9 +39,24 @@ public class Grid : MonoBehaviour
 		LockPieces ();
 	}
 	
-	public void AddMovingPiece(Piece piece)
+	public void AddPiece (Piece piece)
 	{
-		movingPieces.Add(piece);
+		movingPieces.Add (piece);
+	}
+	
+	public Piece FindPiece (int id)
+	{
+		foreach (Piece piece in movingPieces) {
+			if (piece.id == id) {
+				return piece;
+			}
+		}
+		return null;
+	}
+	
+	public void RemovePiece (Piece piece)
+	{
+		movingPieces.Remove( piece );
 	}
 	
 	private void MovePieces ()
@@ -55,14 +66,17 @@ public class Grid : MonoBehaviour
 			piece.Project (ref pieceProj);
 			pieceCell.Set (Mathf.FloorToInt (pieceProj.x / tileSize.x), Mathf.FloorToInt (pieceProj.y / tileSize.y));
 			
-			// Snap to grid if: Floor reached
-			if (pieceCell.y < 0) {
+			if (pieceCell.y >= rows){
+				// if the piece has gone up too far, ignore it
+				
+			// Piece touches the floor
+			} else if (pieceCell.y < 0) {
 				pieceProj.Set (pieceProj.x, 0, pieceProj.z);
 				piece.moving = false;
 				
 				// TODO: play sound smash sfx
 						
-			// piece reaches an occupied cell
+				// piece reaches an occupied cell
 			} else if (cells [pieceCell.x + pieceCell.y * columns] != PieceType.Empty) { 
 				pieceProj.Set (pieceProj.x, Mathf.Ceil (pieceProj.y / tileSize.y) * tileSize.y, pieceProj.z);
 				piece.moving = false;
@@ -77,20 +91,20 @@ public class Grid : MonoBehaviour
 	
 	private void LockPieces ()
 	{
+		// Only lock pieces if moving forward
+		if( TimeMachine.rewind ){ return; }
+	
 		Piece piece;
 		for (int i = movingPieces.Count - 1; i > 0; i--) {
 			piece = movingPieces [i];
+			if (piece.moving) {	continue; }
+			movingPieces.RemoveAt (i);
 			
-			if (!piece.moving) {
-				movingPieces.RemoveAt (i);
-				
-				pieceCell.Set (Mathf.FloorToInt (piece.transform.localPosition.x / tileSize.x),
-					Mathf.FloorToInt (piece.transform.localPosition.y / tileSize.y));
-				cells [pieceCell.x + pieceCell.y * columns] = piece.type;
-				
-				timeline.Insert (machine.nextIdx, new PieceLockEvent (machine.now, pieceCell.x, pieceCell.y, piece.type));
-			}
-			
+			pieceCell.Set (Mathf.FloorToInt (piece.transform.localPosition.x / tileSize.x),
+				Mathf.FloorToInt (piece.transform.localPosition.y / tileSize.y));
+			cells [pieceCell.x + pieceCell.y * columns] = piece.type;
+
+			timeline.Insert (TimeMachine.nextIdx, new PieceLockEvent (TimeMachine.now, pieceCell.x, pieceCell.y, piece.type));
 		}
 	}		
 }
