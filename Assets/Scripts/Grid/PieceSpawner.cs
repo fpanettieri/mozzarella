@@ -5,6 +5,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 {
 	private Grid grid;
 	private Vector3 pieceSize;
+	private int pieceId;
 
 	// Use this for initialization
 	public void Start ()
@@ -14,11 +15,14 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		grid = GetComponent<Grid>();
 		MeshFilter filter = grid.piecePrefab.GetComponent<MeshFilter> ();
 		pieceSize = filter.sharedMesh.bounds.size;
+		pieceId = 0;
 	}
 	
 	public void Notify (MozEvent ev)
 	{
 		if (ev.type != MozEventType.PieceSpawn) { return; }
+		
+		// TODO: if time is going backwards, search and destroy the piece
 		
 		PieceSpawnEvent e = ev as PieceSpawnEvent;
 		if( e.piece == PieceType.Empty ) { return; }
@@ -35,7 +39,12 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		mozPiece.moving = true;
 		grid.AddMovingPiece( mozPiece );
 		
-		// TODO: get next piece id, assign it to the event, if its -1
-		// TODO: if time is going backwards, search and destroy the piece
+		// create a piece id the first time this event is executed.
+		if( e.id < 0 ){ 
+			e.id = pieceId; 
+			mozPiece.id = pieceId++;
+		} else {
+			mozPiece.id = e.id;
+		}
 	}
 }

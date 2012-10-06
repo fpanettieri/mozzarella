@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-	
+	public int id = -1;
 	public int type = 0;
 	public bool moving = false;
 	public float speed = -100.0f;

@@ -9,6 +9,7 @@
 */
 public class PieceSpawnEvent : MozEvent
 {
+	public int id;
 	public int row;
 	public int column;
 	public int piece;
@@ -20,6 +21,7 @@ public class PieceSpawnEvent : MozEvent
 		this.row = row;
 		this.column = column;
 		this.piece = piece;
+		this.id = -1;
 	}
 	
 	override public string ToString ()
