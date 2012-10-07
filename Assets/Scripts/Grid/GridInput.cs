@@ -45,8 +45,8 @@ public class GridInput : MonoBehaviour
 		if (Input.GetMouseButtonUp (0) && InsideGrid (Input.mousePosition)) {
 			cell.Set (Mathf.FloorToInt ((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt ((Input.mousePosition.y - bottom) / cellHeight));
 			
-			timeline.Insert (TimeMachine.nextIdx, new PieceSpawnEvent (TimeMachine.now, (cell.x + 1) % grid.columns, cell.y, queue.Next ()));
-			timeline.Insert (TimeMachine.nextIdx, new PieceSpawnEvent (TimeMachine.now, cell.x, cell.y, queue.Next ()));
+			timeline.Insert (TimeMachine.idx, new PieceSpawnEvent (TimeMachine.now, (cell.x + 1) % grid.columns, cell.y, queue.Next ()));
+			timeline.Insert (TimeMachine.idx, new PieceSpawnEvent (TimeMachine.now, cell.x, cell.y, queue.Next ()));
 		}
 	}
 	

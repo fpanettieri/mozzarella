@@ -95,7 +95,7 @@ public class Grid : MonoBehaviour
 		if( TimeMachine.rewind ){ return; }
 	
 		Piece piece;
-		for (int i = movingPieces.Count - 1; i > 0; i--) {
+		for (int i = movingPieces.Count - 1; i >= 0; i--) {
 			piece = movingPieces [i];
 			if (piece.moving) {	continue; }
 			movingPieces.RemoveAt (i);
@@ -104,7 +104,7 @@ public class Grid : MonoBehaviour
 				Mathf.FloorToInt (piece.transform.localPosition.y / tileSize.y));
 			cells [pieceCell.x + pieceCell.y * columns] = piece.type;
 
-			timeline.Insert (TimeMachine.nextIdx, new PieceLockEvent (TimeMachine.now, pieceCell.x, pieceCell.y, piece.type));
+			timeline.Insert (TimeMachine.idx, new PieceLockEvent (TimeMachine.now, pieceCell.x, pieceCell.y, piece.type));
 		}
 	}		
 }

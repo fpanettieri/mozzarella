@@ -33,7 +33,7 @@ public class Piece : MonoBehaviour
 	{
 		projection.Set (
 			transform.localPosition.x,
-			transform.localPosition.y - speed * TimeMachine.deltaTime,
+			transform.localPosition.y + speed * TimeMachine.deltaTime,
 			transform.localPosition.z);
 	}	
 }

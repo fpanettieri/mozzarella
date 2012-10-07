@@ -62,7 +62,8 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	private void DestroyPiece (PieceSpawnEvent e)
 	{
 		Piece piece = grid.FindPiece (e.id);
-		Destroy (piece.gameObject );
+		if (piece == null) { return; }
+		Destroy (piece.gameObject);
 		grid.RemovePiece (piece);
 	}
 }
