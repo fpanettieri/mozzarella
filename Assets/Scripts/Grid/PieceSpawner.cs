@@ -20,11 +20,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	
 	public void Notify (MozEvent ev)
 	{
-		if (ev.type != MozEventType.PieceSpawn) {
-			return;
-		}
-		
-		PieceSpawnEvent e = ev as PieceSpawnEvent;
+		PieceEvent e = ev as PieceEvent;
 		if (TimeMachine.rewind) {
 			DestroyPiece (e);
 		} else {
@@ -32,12 +28,8 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		}
 	}
 	
-	private void SpawnPiece (PieceSpawnEvent e)
+	private void SpawnPiece (PieceEvent e)
 	{
-		if (e.piece == PieceType.Empty) {
-			return;
-		}
-		
 		GameObject go = Instantiate (grid.piecePrefab) as GameObject;
 		go.transform.parent = grid.transform;
 		go.transform.localPosition = new Vector3 (e.column * pieceSize.x, grid.rows * pieceSize.y, 0);
@@ -59,7 +51,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		}
 	}
 	
-	private void DestroyPiece (PieceSpawnEvent e)
+	private void DestroyPiece (PieceEvent e)
 	{
 		Piece piece = grid.FindPiece (e.id);
 		if (piece == null) { return; }

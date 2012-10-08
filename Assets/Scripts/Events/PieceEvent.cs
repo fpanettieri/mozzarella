@@ -7,21 +7,21 @@
  	Fabio R. Panettieri [ fpanettieri{at}gmail{dot}com ]
 ===============================================================================
 */
-public class PieceSpawnEvent : MozEvent
+public class PieceEvent : MozEvent
 {
 	public int id;
 	public int row;
 	public int column;
 	public int piece;
 	
-	public PieceSpawnEvent (float time, int column, int row, int piece)
+	public PieceEvent (int type, float time, int id, int row, int column, int piece)
 	{
-		this.type = MozEventType.PieceSpawn;
+		this.type = type;
 		this.time = time;
+		this.id = -1;
 		this.row = row;
 		this.column = column;
 		this.piece = piece;
-		this.id = -1;
 	}
 	
 	override public string ToString ()

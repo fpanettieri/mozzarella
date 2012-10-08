@@ -229,6 +229,7 @@ public class LevelDesigner : EditorWindow
 				GameObject piece = (GameObject)Instantiate (piecePrefab);
 				piece.transform.parent = grid.transform;
 				piece.transform.localPosition = new Vector3 (i * pieceSize.x, j * pieceSize.y, 0);
+				piece.name = "Piece";
 				
 				MeshRenderer renderer = piece.GetComponent<MeshRenderer> ();
 				renderer.material = PieceMaterial.getMaterial (type);

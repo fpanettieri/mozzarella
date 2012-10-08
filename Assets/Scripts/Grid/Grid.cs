@@ -10,7 +10,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Grid : MonoBehaviour
+public class Grid : MonoBehaviour, IEventListener
 {
 	// Inspector properties
 	public GameObject piecePrefab;
@@ -28,9 +28,13 @@ public class Grid : MonoBehaviour
 		tileSize = piecePrefab.GetComponent<MeshFilter> ().sharedMesh.bounds.size;
 		pieceProj = new Vector3 (0, 0, 0);
 		pieceCell = new IntVector2 (0, 0);
-		movingPieces = new List<Piece> ();
-		
+		movingPieces = new List<Piece> ();	
+	}
+	
+	public void Start()
+	{
 		timeline = GameObject.Find (GameObjectName.TIME).GetComponent<Timeline> ();
+		Events.i.Register (MozEventType.PieceSpawn, this);	
 	}
 	
 	public void Update ()
@@ -57,6 +61,11 @@ public class Grid : MonoBehaviour
 	public void RemovePiece (Piece piece)
 	{
 		movingPieces.Remove( piece );
+	}
+	
+	public void Notify (MozEvent ev)
+	{
+		// TODO: unlock piece
 	}
 	
 	private void MovePieces ()
@@ -104,7 +113,7 @@ public class Grid : MonoBehaviour
 				Mathf.FloorToInt (piece.transform.localPosition.y / tileSize.y));
 			cells [pieceCell.x + pieceCell.y * columns] = piece.type;
 
-			timeline.Insert (TimeMachine.idx, new PieceLockEvent (TimeMachine.now, pieceCell.x, pieceCell.y, piece.type));
+			timeline.Insert ( TimeMachine.idx, new PieceEvent (MozEventType.PieceLock, TimeMachine.now, piece.id, pieceCell.y, pieceCell.x, piece.type));
 		}
-	}		
+	}
 }

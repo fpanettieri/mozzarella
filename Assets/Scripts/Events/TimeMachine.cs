@@ -53,8 +53,6 @@ public class TimeMachine : MonoBehaviour
 		} else { 
 			MoveForward (); 
 		}
-		
-		Debug.Log("now " + now + " idx " + idx);
 	}
 	
 	private void MoveForward ()

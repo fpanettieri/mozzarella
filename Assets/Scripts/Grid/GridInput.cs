@@ -40,13 +40,13 @@ public class GridInput : MonoBehaviour
 		// TODO: verify if the space is ocuppied on mouse down, not mouseup.
 		// if( grid.cells[ cell.x + cell.y * grid.columns ] == PieceType.Empty ){
 		
-		// TODO: add piece types to the event
-		
 		if (Input.GetMouseButtonUp (0) && InsideGrid (Input.mousePosition)) {
+			
+			// 16 pixels are given as buffer for finger width
 			cell.Set (Mathf.FloorToInt ((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt ((Input.mousePosition.y - bottom) / cellHeight));
 			
-			timeline.Insert (TimeMachine.idx, new PieceSpawnEvent (TimeMachine.now, (cell.x + 1) % grid.columns, cell.y, queue.Next ()));
-			timeline.Insert (TimeMachine.idx, new PieceSpawnEvent (TimeMachine.now, cell.x, cell.y, queue.Next ()));
+			timeline.Insert (TimeMachine.idx, new PieceEvent ( MozEventType.PieceSpawn, TimeMachine.now, -1, cell.y, (cell.x + 1) % grid.columns, queue.Next ()));
+			timeline.Insert (TimeMachine.idx, new PieceEvent ( MozEventType.PieceSpawn, TimeMachine.now, -1, cell.x, cell.x, queue.Next ()));
 		}
 	}
 	
