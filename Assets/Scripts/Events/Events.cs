@@ -20,7 +20,6 @@ public class Events : MonoBehaviour
 {
 	// Singleton
 	private static Events instance;
-
 	public static Events i { get { return instance; } }
 	
 	private Dictionary<int, List<IEventListener>> listeners;
@@ -29,10 +28,6 @@ public class Events : MonoBehaviour
 	{
 		instance = this;
 		listeners = new Dictionary<int, List<IEventListener>> ();
-	}
-	
-	public void Start ()
-	{
 	}
 	
 	public void Register (int type, IEventListener listener)

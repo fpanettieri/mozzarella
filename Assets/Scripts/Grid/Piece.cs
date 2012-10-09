@@ -15,15 +15,17 @@ public class Piece : MonoBehaviour
 	public int type = 0;
 	public bool moving = false;
 	public float speed = -100.0f;
-
-	void Awake ()
+	
+	public void Enable()
 	{
-		name = "Piece";
+		enabled = true;
+		renderer.enabled = true;
 	}
 	
-	void Update ()
+	public void Disable()
 	{
-		
+		enabled = false;
+		renderer.enabled = false;
 	}
 	
 	/**

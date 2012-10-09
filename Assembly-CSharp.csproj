@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-	<ProductVersion>10.0.20506</ProductVersion>
-	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{C68F39D6-24F5-AB22-925B-0E152C32D9C5}</ProjectGuid>
-	<OutputType>Library</OutputType>
-	<AppDesignerFolder>Properties</AppDesignerFolder>
-	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
-	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-	<FileAlignment>512</FileAlignment>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C68F39D6-24F5-AB22-925B-0E152C32D9C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AssemblyCSharp</RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-	<DebugSymbols>true</DebugSymbols>
-	<DebugType>full</DebugType>
-	<Optimize>false</Optimize>
-	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_IOS;UNITY_IPHONE;ENABLE_GENERICS;ENABLE_TERRAIN;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW</DefineConstants>
-	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
-	<NoWarn>0169</NoWarn>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_IOS;UNITY_IPHONE;ENABLE_GENERICS;ENABLE_TERRAIN;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-	<DebugType>pdbonly</DebugType>
-	<Optimize>true</Optimize>
-	<OutputPath>Temp\bin\Release\</OutputPath>
-	<DefineConstants>TRACE</DefineConstants>
-	<ErrorReport>prompt</ErrorReport>
-	<WarningLevel>4</WarningLevel>
-	<NoWarn>0169</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="System" />
-    <Reference Include="System.XML" />
-	<Reference Include="System.Core" />
-	<Reference Include="UnityEngine">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
-	</Reference>
-	<Reference Include="UnityEditor">
-	  <HintPath>/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
-	</Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Constants\GameObjectName.cs" />
-     <Compile Include="Assets\Scripts\Enums\MozEventType.cs" />
-     <Compile Include="Assets\Scripts\Enums\PieceType.cs" />
-     <Compile Include="Assets\Scripts\Events\Events.cs" />
-     <Compile Include="Assets\Scripts\Events\IEventListener.cs" />
-     <Compile Include="Assets\Scripts\Events\MozEvent.cs" />
-     <Compile Include="Assets\Scripts\Events\PieceEvent.cs" />
-     <Compile Include="Assets\Scripts\Events\TimeMachine.cs" />
-     <Compile Include="Assets\Scripts\Events\Timeline.cs" />
-     <Compile Include="Assets\Scripts\Factories\PieceColor.cs" />
-     <Compile Include="Assets\Scripts\Factories\PieceMaterial.cs" />
-     <Compile Include="Assets\Scripts\Grid\Grid.cs" />
-     <Compile Include="Assets\Scripts\Grid\GridInput.cs" />
-     <Compile Include="Assets\Scripts\Grid\Piece.cs" />
-     <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />
-     <Compile Include="Assets\Scripts\Grid\PieceSpawner.cs" />
-     <Compile Include="Assets\Scripts\Util\IntVector2.cs" />
-     <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
+    <Compile Include="Assets\Scripts\Constants\GameObjectName.cs" />
+    <Compile Include="Assets\Scripts\Enums\MozEventType.cs" />
+    <Compile Include="Assets\Scripts\Enums\PieceType.cs" />
+    <Compile Include="Assets\Scripts\Events\Events.cs" />
+    <Compile Include="Assets\Scripts\Events\IEventListener.cs" />
+    <Compile Include="Assets\Scripts\Events\MozEvent.cs" />
+    <Compile Include="Assets\Scripts\Events\PieceEvent.cs" />
+    <Compile Include="Assets\Scripts\Events\TimeMachine.cs" />
+    <Compile Include="Assets\Scripts\Events\Timeline.cs" />
+    <Compile Include="Assets\Scripts\Factories\PieceColor.cs" />
+    <Compile Include="Assets\Scripts\Factories\PieceMaterial.cs" />
+    <Compile Include="Assets\Scripts\Grid\Grid.cs" />
+    <Compile Include="Assets\Scripts\Grid\GridInput.cs" />
+    <Compile Include="Assets\Scripts\Grid\Piece.cs" />
+    <Compile Include="Assets\Scripts\Grid\PiecePool.cs" />
+    <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />
+    <Compile Include="Assets\Scripts\Grid\PieceSpawner.cs" />
+    <Compile Include="Assets\Scripts\Util\IntVector2.cs" />
+    <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -71,5 +72,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

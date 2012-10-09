@@ -12,16 +12,20 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour, IEventListener
 {
+	// Dependencies
+	private Timeline timeline;
+	
 	// Inspector properties
 	public GameObject piecePrefab;
 	public int rows = 0;
 	public int columns = 0;
 	public int[] cells;
+	
+	// Private / aux properties
 	private List<Piece> movingPieces;
 	private Vector3	tileSize;
 	private Vector3 pieceProj;
 	private IntVector2 pieceCell;
-	private Timeline timeline;
 	
 	public void Awake ()
 	{

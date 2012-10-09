@@ -4,18 +4,21 @@ using System.Collections;
 public class PieceSpawner : MonoBehaviour, IEventListener
 {
 	private Grid grid;
+	private PiecePool pool;
+	private Piece piece;
 	private Vector3 pieceSize;
-	private int pieceId;
-
-	// Use this for initialization
+	
 	public void Start ()
 	{
 		Events.i.Register (MozEventType.PieceSpawn, this);
 		
 		grid = GetComponent<Grid> ();
+		pool = GetComponent<PiecePool> ();
+		
 		MeshFilter filter = grid.piecePrefab.GetComponent<MeshFilter> ();
 		pieceSize = filter.sharedMesh.bounds.size;
-		pieceId = 0;
+		
+		// TODO: Initialize grid
 	}
 	
 	public void Notify (MozEvent ev)
@@ -30,32 +33,21 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	
 	private void SpawnPiece (PieceEvent e)
 	{
-		GameObject go = Instantiate (grid.piecePrefab) as GameObject;
-		go.transform.parent = grid.transform;
-		go.transform.localPosition = new Vector3 (e.column * pieceSize.x, grid.rows * pieceSize.y, 0);
-		
-		MeshRenderer renderer = go.GetComponent<MeshRenderer> ();
-		renderer.material = PieceMaterial.getMaterial (e.piece);
-		
-		Piece piece = go.GetComponent<Piece> ();
+		piece = pool.Pick ();
+		piece.transform.localPosition = new Vector3 (e.column * pieceSize.x, grid.rows * pieceSize.y, 0);
+		piece.renderer.material = PieceMaterial.getMaterial (e.piece);
 		piece.type = e.piece;
 		piece.moving = true;
-		grid.AddPiece (piece);
+		piece.Enable ();
 		
-		// create a piece id the first time this event is executed.
-		if (e.id < 0) { 
-			e.id = pieceId; 
-			piece.id = pieceId++;
-		} else {
-			piece.id = e.id;
-		}
+		grid.AddPiece (piece);
+		e.id = piece.id;
 	}
 	
 	private void DestroyPiece (PieceEvent e)
 	{
-		Piece piece = grid.FindPiece (e.id);
-		if (piece == null) { return; }
-		Destroy (piece.gameObject);
-		grid.RemovePiece (piece);
+		pool.Release (e.id);
+		piece = pool [e.id];
+		piece.Disable ();
 	}
 }
