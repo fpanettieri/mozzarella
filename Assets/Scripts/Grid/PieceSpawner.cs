@@ -5,12 +5,15 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 {
 	private Grid grid;
 	private PiecePool pool;
+	
 	private Piece piece;
 	private Vector3 pieceSize;
+	private PieceEvent e;
 	
 	public void Awake ()
 	{
 		Events.i.Register (MozEventType.PieceSpawn, this);
+		Events.i.Register (MozEventType.PieceLock, this);
 		
 		grid = GetComponent<Grid> ();
 		pool = GetComponent<PiecePool> ();
@@ -23,11 +26,19 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	
 	public void Notify (MozEvent ev)
 	{
-		PieceEvent e = ev as PieceEvent;
-		if (TimeMachine.rewind) {
-			DestroyPiece (e);
-		} else {
-			SpawnPiece (e);
+		e = ev as PieceEvent;
+		if (e.type == MozEventType.PieceSpawn) {
+			if (TimeMachine.rewind) {
+				DestroyPiece (e);
+			} else {
+				SpawnPiece (e);
+			}
+		} else if (e.type == MozEventType.PieceLock) {
+			if (TimeMachine.rewind) {
+				UnlockPiece (e);
+			} else {
+				LockPiece (e);
+			}
 		}
 	}
 	
@@ -37,10 +48,9 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.transform.localPosition = new Vector3 (e.column * pieceSize.x, grid.rows * pieceSize.y, 0);
 		piece.renderer.material = PieceMaterial.getMaterial (e.piece);
 		piece.type = e.piece;
-		piece.moving = true;
 		piece.Enable ();
 		
-		grid.AddPiece (piece);
+		grid.AddMovingPiece (piece);
 		e.id = piece.id;
 	}
 	
@@ -49,5 +59,16 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		pool.Release (e.id);
 		piece = pool [e.id];
 		piece.Disable ();
+	}
+	
+	private void LockPiece (PieceEvent e)
+	{
+		grid.cells [e.column + e.row * grid.columns] = e.piece;
+	}
+	
+	private void UnlockPiece (PieceEvent e)
+	{
+		grid.cells [e.column + e.row * grid.columns] = PieceType.Empty;
+		grid.AddMovingPiece(pool[e.id]);
 	}
 }

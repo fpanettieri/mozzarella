@@ -18,7 +18,7 @@ public class PieceEvent : MozEvent
 	{
 		this.type = type;
 		this.time = time;
-		this.id = -1;
+		this.id = id;
 		this.row = row;
 		this.column = column;
 		this.piece = piece;
