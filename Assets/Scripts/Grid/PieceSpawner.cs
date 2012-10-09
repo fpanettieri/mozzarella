@@ -8,7 +8,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	private Piece piece;
 	private Vector3 pieceSize;
 	
-	public void Start ()
+	public void Awake ()
 	{
 		Events.i.Register (MozEventType.PieceSpawn, this);
 		

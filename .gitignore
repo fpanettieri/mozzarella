@@ -182,8 +182,3 @@ Temp
 *.pidb
 *.csproj
 build
-mozzarella.userprefs
-
-mozzarella-csharp.sln
-
-mozzarella.sln

@@ -22,12 +22,14 @@ public class GridInput : MonoBehaviour
 	public int right;
 	public int cellWidth;
 	public int cellHeight;
-	private IntVector2 cell;
+	
 	private Grid grid;
 	private Timeline timeline;
 	private PieceQueue queue;
+	
+	private IntVector2 cell;
 
-	void Start ()
+	void Awake ()
 	{
 		cell = new IntVector2 (0, 0);
 		grid = GetComponent<Grid> ();

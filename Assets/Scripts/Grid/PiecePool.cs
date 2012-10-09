@@ -34,7 +34,7 @@ public class PiecePool : MonoBehaviour
 			go.transform.parent = grid.transform;
 			
 			piece = go.GetComponent<Piece> ();
-			piece.Disable();
+			piece.Disable ();
 			
 			piece.id = i;
 			piece.moving = false;
@@ -59,7 +59,7 @@ public class PiecePool : MonoBehaviour
 	public void Release (int idx)
 	{
 		available [idx] = true;
-		if (this.idx < idx) {
+		if (idx < this.idx) {
 			this.idx = idx;
 		}
 	}

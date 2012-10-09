@@ -16,11 +16,12 @@ public class TimeMachine : MonoBehaviour
 {
 	public static float deltaTime { get { return Time.deltaTime * scale * (rewind ? -1 : 1); } }
 	
+	private Timeline timeline;
+	
 	public static bool rewind;
 	public static float now;
 	public static float scale;
 	public static int idx;
-	private Timeline timeline;
 	
 	public void Awake ()
 	{
@@ -28,10 +29,6 @@ public class TimeMachine : MonoBehaviour
 		now = 0;
 		scale = 1;
 		idx = 0;
-	}
-	
-	public void Start ()
-	{
 		timeline = GetComponent<Timeline> ();
 	}
 	
