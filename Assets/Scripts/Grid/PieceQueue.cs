@@ -13,6 +13,6 @@ public class PieceQueue : MonoBehaviour
 {
 	public int Next()
 	{
-		return 2;	
+		return Mathf.FloorToInt(Random.value * 5) + 1;	
 	}
 }
