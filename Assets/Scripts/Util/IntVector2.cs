@@ -29,17 +29,18 @@ public class IntVector2
 	/// <summary>
 	/// Access the x or y component using [0] or [1] respectively
 	/// </param>
-	public int this [int index] { get { return index == 0 ? x : y; } }
+	public int this[int index] { get { return index == 0 ? x : y; }
+	}
 	
 	/// <summary>
 	/// Returns this vector with a magnitude of 1 (Read Only)
 	/// </summary>
-	public IntVector2 	normalized 	 { get { return new IntVector2 (x / sqrMagnitude, y / sqrMagnitude); } }
+	public IntVector2 	normalized 	 { get { return new IntVector2(x / sqrMagnitude, y / sqrMagnitude); } }
 	
 	/// <summary>
 	/// Returns the length of this vector (Read Only)
 	/// </summary>
-	public float 		magnitude 	 { get { return Mathf.Sqrt (x * x + y * y); } }
+	public float 		magnitude 	 { get { return Mathf.Sqrt(x * x + y * y); } }
 	
 	/// <summary>
 	/// Returns the squared length of this vector (Read Only)
@@ -49,7 +50,7 @@ public class IntVector2
 	/// <summary>
 	/// Constructs a new vector with given int x, y components
 	/// </summary>
-	public IntVector2 (int x, int y)
+	public IntVector2(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
@@ -59,7 +60,7 @@ public class IntVector2
 	/// Constructs a new vector with given float x, y components
 	/// float values are truncated on construction
 	/// </summary>
-	public IntVector2 (float x, float y)
+	public IntVector2(float x, float y)
 	{
 		this.x = (int)(x);
 		this.y = (int)(y);
@@ -69,7 +70,7 @@ public class IntVector2
 	/// Constructs a new vector with given Vector2
 	/// float values are truncated on construction
 	/// </summary>
-	public IntVector2 (Vector2 v)
+	public IntVector2(Vector2 v)
 	{
 		this.x = (int)(v.x);
 		this.y = (int)(v.y);
@@ -78,7 +79,7 @@ public class IntVector2
 	/// <summary>
 	/// Set x and y components of an existing IntVector2
 	/// </summary>
-	public void Set (int x, int y)
+	public void Set(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
@@ -87,7 +88,7 @@ public class IntVector2
 	/// <summary>
 	/// Set x and y components of an existing IntVector2
 	/// </summary>
-	public void Scale (IntVector2 v)
+	public void Scale(IntVector2 v)
 	{
 		x *= v.x;
 		y *= v.y;
@@ -96,7 +97,7 @@ public class IntVector2
 	/// <summary>
 	/// Makes this vector have a magnitude of 1
 	/// </summary>
-	public void Normalize ()
+	public void Normalize()
 	{
 		float m = sqrMagnitude;
 		x = (int)(x / m);
@@ -106,7 +107,7 @@ public class IntVector2
 	/// <summary>
 	/// Returns a nicely formatted string for this vector
 	/// </summary>
-	override public string ToString ()
+	override public string ToString()
 	{
 		return "[" + x + " " + y + "]";
 	}
@@ -116,9 +117,9 @@ public class IntVector2
 	/// Use with care, as each call will return a new instance
 	/// Don't call this in tight loops
 	/// </summary>
-	public Vector2 ToVector2 ()
+	public Vector2 ToVector2()
 	{
-		return new Vector2 (x, y);
+		return new Vector2(x, y);
 	}
 	
 	/// <summary>
@@ -131,7 +132,7 @@ public class IntVector2
 	/// <c>true</c> if the specified <see cref="IntVector2"/> is equal to the current <see cref="AngryMole.IntVector2"/>;
 	/// otherwise, <c>false</c>.
 	/// </returns>
-	public bool Equals (IntVector2 v)
+	public bool Equals(IntVector2 v)
 	{
 		return v.x == x && v.y == y;
 	}
@@ -145,16 +146,16 @@ public class IntVector2
 	/// <c>true</c> if the specified <see cref="IntVector2"/> is equal to the current <see cref="AngryMole.IntVector2"/>;
 	/// otherwise, <c>false</c>.
 	/// </returns>
-	public override bool Equals (System.Object obj)
+	public override bool Equals(System.Object obj)
 	{
 		// If parameter is null return false.
-		if (obj == null) {
+		if(obj == null) {
 			return false;
 		}
 
 		// If parameter cannot be cast to IntVector2 return false.
 		IntVector2 v = obj as IntVector2;
-		if ((System.Object)v == null) {
+		if((System.Object)v == null) {
 			return false;
 		}
 
@@ -165,7 +166,7 @@ public class IntVector2
 	/// <summary>
 	/// Create an identifier for the current vector
 	/// </summary>
-	public override int GetHashCode ()
+	public override int GetHashCode()
 	{
 		return x ^ y;
 	}
@@ -173,40 +174,40 @@ public class IntVector2
 	/// <summary>
 	/// Shorthand for writing IntVector2(0, 0)
 	/// </summary>
-	public static IntVector2 zero 	{ get { return new IntVector2 (0, 0); } }
+	public static IntVector2 zero 	{ get { return new IntVector2(0, 0); } }
 
 	/// <summary>
 	/// Shorthand for writing IntVector2(1, 1)
 	/// </summary>
-	public static IntVector2 one 	{ get { return new IntVector2 (1, 1); } }
+	public static IntVector2 one 	{ get { return new IntVector2(1, 1); } }
 	
 	/// <summary>
 	/// Shorthand for writing IntVector2(-1, 0)
 	/// </summary>
-	public static IntVector2 left 	{ get { return new IntVector2 (-1, 0); } }
+	public static IntVector2 left 	{ get { return new IntVector2(-1, 0); } }
 	
 	/// <summary>
 	/// Shorthand for writing IntVector2(0, -1)
 	/// </summary>
-	public static IntVector2 up 	{ get { return new IntVector2 (0, -1); } }
+	public static IntVector2 up 	{ get { return new IntVector2(0, -1); } }
 	
 	/// <summary>
 	/// Shorthand for writing IntVector2(1, 0)
 	/// </summary>
-	public static IntVector2 right	{ get { return new IntVector2 (1, 0); } }
+	public static IntVector2 right	{ get { return new IntVector2(1, 0); } }
 	
 	/// <summary>
 	/// Shorthand for writing IntVector2(0, 1)
 	/// </summary>
-	public static IntVector2 down 	{ get { return new IntVector2 (0, 1); } }
+	public static IntVector2 down 	{ get { return new IntVector2(0, 1); } }
 	
 	/// <summary>
 	/// Multiplies two vectors component-wise
 	/// Every component in the result is a component of a multiplied by the same component of b
 	/// </summary>
-	public static IntVector2 Scale (IntVector2 a, IntVector2 b)
+	public static IntVector2 Scale(IntVector2 a, IntVector2 b)
 	{
-		return new IntVector2 (a.x * b.x, a.y * b.y);
+		return new IntVector2(a.x * b.x, a.y * b.y);
 	}
 	
 	/// <summary>
@@ -215,14 +216,14 @@ public class IntVector2
 	/// t is clamped between [0...1]. When t = 0 returns from. 
 	/// When t = 1 returns to. When t = 0.5 returns the average of from and to.
 	/// </summary>
-	public static IntVector2 Lerp (IntVector2 a, IntVector2 b, float t)
+	public static IntVector2 Lerp(IntVector2 a, IntVector2 b, float t)
 	{
-		if (t < 0) {
+		if(t < 0) {
 			return a;
-		} else if (t > 1) {
+		} else if(t > 1) {
 			return b;
 		} else {
-			return new IntVector2 (a.x * t + b.x * (1 - t), a.y * t + b.y * (1 - t));
+			return new IntVector2(a.x * t + b.x * (1 - t), a.y * t + b.y * (1 - t));
 		}
 	}
 	
@@ -236,7 +237,7 @@ public class IntVector2
 	/// For vectors of arbitrary length the Dot return values are similar: 
 	/// they get larger when the angle between vectors decreases.
 	/// </summary>
-	public static float Dot (IntVector2 a, IntVector2 b)
+	public static float Dot(IntVector2 a, IntVector2 b)
 	{
 		return a.x * b.x + a.y * b.y;
 	}
@@ -244,89 +245,89 @@ public class IntVector2
 	/// <summary>
 	/// Returns a vector that is made from the smallest components of two vectors.
 	/// </summary>
-	public static IntVector2 Min (IntVector2 a, IntVector2 b)
+	public static IntVector2 Min(IntVector2 a, IntVector2 b)
 	{
-		return new IntVector2 (a.x < b.x ? a.x : b.x, a.y < b.y ? a.y : b.y);
+		return new IntVector2(a.x < b.x ? a.x : b.x, a.y < b.y ? a.y : b.y);
 	}
 	
 	/// <summary>
 	/// Returns a vector that is made from the largest components of two vectors.
 	/// </summary>
-	public static IntVector2 Max (IntVector2 a, IntVector2 b)
+	public static IntVector2 Max(IntVector2 a, IntVector2 b)
 	{
-		return new IntVector2 (a.x > b.x ? a.x : b.x, a.y > b.y ? a.y : b.y);
+		return new IntVector2(a.x > b.x ? a.x : b.x, a.y > b.y ? a.y : b.y);
 	}
 	
 	/// <summary>
 	/// Adds two vectors
 	/// </returns>
-	public static IntVector2 operator + (IntVector2 a, IntVector2 b)
+	public static IntVector2 operator +(IntVector2 a, IntVector2 b)
 	{
-		return new IntVector2 (a.x + b.x, a.y + b.y);
+		return new IntVector2(a.x + b.x, a.y + b.y);
 	}
 	
 	/// <summary>
 	/// Subtracts one vector from another
 	/// </returns>
-	public static IntVector2 operator - (IntVector2 a, IntVector2 b)
+	public static IntVector2 operator -(IntVector2 a, IntVector2 b)
 	{
-		return new IntVector2 (a.x - b.x, a.y - b.y);
+		return new IntVector2(a.x - b.x, a.y - b.y);
 	}
 	
 	/// <summary>
 	/// Multiplies a vector by an int
 	/// </returns>
-	public static IntVector2 operator * (IntVector2 a, int b)
+	public static IntVector2 operator *(IntVector2 a, int b)
 	{
-		return new IntVector2 (a.x * b, a.y * b);
+		return new IntVector2(a.x * b, a.y * b);
 	}
 	
 	/// <summary>
 	/// Multiplies a vector by an int
 	/// </returns>
-	public static IntVector2 operator * (int a, IntVector2 b)
+	public static IntVector2 operator *(int a, IntVector2 b)
 	{
-		return new IntVector2 (a * b.x, a * b.y);
+		return new IntVector2(a * b.x, a * b.y);
 	}
 	
 	/// <summary>
 	/// Multiplies a vector by a float
 	/// </returns>
-	public static IntVector2 operator * (IntVector2 a, float b)
+	public static IntVector2 operator *(IntVector2 a, float b)
 	{
-		return new IntVector2 (a.x * b, a.y * b);
+		return new IntVector2(a.x * b, a.y * b);
 	}
 	
 	/// <summary>
 	/// Multiplies a vector by a float
 	/// </returns>
-	public static IntVector2 operator * (float a, IntVector2 b)
+	public static IntVector2 operator *(float a, IntVector2 b)
 	{
-		return new IntVector2 (a * b.x, a * b.y);
+		return new IntVector2(a * b.x, a * b.y);
 	}
 	
 	/// <summary>
 	/// Divides a vector by a number
 	/// Divides each component of a by an int d
 	/// </returns>
-	public static IntVector2 operator / (IntVector2 a, int d)
+	public static IntVector2 operator /(IntVector2 a, int d)
 	{
-		return new IntVector2 (a.x / d, a.y / d);
+		return new IntVector2(a.x / d, a.y / d);
 	}
 	
 	/// <summary>
 	/// Divides a vector by a number
 	/// Divides each component of a by a float d
 	/// </returns>
-	public static IntVector2 operator / (IntVector2 a, float d)
+	public static IntVector2 operator /(IntVector2 a, float d)
 	{
-		return new IntVector2 (a.x / d, a.y / d);
+		return new IntVector2(a.x / d, a.y / d);
 	}
 	
 	/// <summary>
 	/// Returns true if the vectors are equal
 	/// </returns>
-	public static bool operator == (IntVector2 a, IntVector2 b)
+	public static bool operator ==(IntVector2 a, IntVector2 b)
 	{
 		return a.x == b.x && a.y == b.y;
 	}
@@ -334,7 +335,7 @@ public class IntVector2
 	/// <summary>
 	/// Returns true if the vectors are different
 	/// </returns>
-	public static bool operator != (IntVector2 a, IntVector2 b)
+	public static bool operator !=(IntVector2 a, IntVector2 b)
 	{
 		return a.x != b.x || a.y != b.y;
 	}

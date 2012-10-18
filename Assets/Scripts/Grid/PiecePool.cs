@@ -18,9 +18,9 @@ public class PiecePool : MonoBehaviour
 	private Piece[] pieces;
 	private bool[] available;
 	
-	public void Awake ()
+	public void Awake()
 	{
-		grid = GetComponent<Grid> ();
+		grid = GetComponent<Grid>();
 		
 		idx = 0;
 		count = grid.rows * grid.columns;
@@ -29,42 +29,42 @@ public class PiecePool : MonoBehaviour
 		
 		GameObject go;
 		Piece piece;
-		for (int i = 0; i < count; i++) {
-			go = Instantiate (grid.piecePrefab) as GameObject;
+		for(int i = 0; i < count; i++) {
+			go = Instantiate(grid.piecePrefab) as GameObject;
 			go.transform.parent = grid.transform;
 			
-			piece = go.GetComponent<Piece> ();
-			piece.Disable ();
+			piece = go.GetComponent<Piece>();
+			piece.Disable();
 			
 			piece.id = i;
 			piece.moving = false;
-			pieces [i] = piece;
-			available [i] = true;
+			pieces[i] = piece;
+			available[i] = true;
 		}
 	}
 	
-	public Piece Pick ()
+	public Piece Pick()
 	{
-		for (int i = idx; i < available.Length; i++) {
-			if (available [i]) {
+		for(int i = idx; i < available.Length; i++) {
+			if(available[i]) {
 				idx = i;
-				available [i] = false;
-				return pieces [i];
+				available[i] = false;
+				return pieces[i];
 			}
 		}
 		idx = count - 1;
 		return null;
 	}
 	
-	public void Release (int idx)
+	public void Release(int idx)
 	{
-		available [idx] = true;
-		if (idx < this.idx) {
+		available[idx] = true;
+		if(idx < this.idx) {
 			this.idx = idx;
 		}
 	}
 	
-	public Piece this [int i] {
-		get { return pieces [i]; }
+	public Piece this[int i] {
+		get { return pieces[i]; }
 	}
 }

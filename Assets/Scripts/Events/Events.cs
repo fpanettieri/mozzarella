@@ -20,20 +20,21 @@ public class Events : MonoBehaviour
 {
 	// Singleton
 	private static Events instance;
+
 	public static Events i { get { return instance; } }
 	
 	private Dictionary<int, List<IEventListener>> listeners;
 		
-	public void Awake ()
+	public void Awake()
 	{
 		instance = this;
-		listeners = new Dictionary<int, List<IEventListener>> ();
+		listeners = new Dictionary<int, List<IEventListener>>();
 	}
 	
-	public void Register (int type, IEventListener listener)
+	public void Register(int type, IEventListener listener)
 	{
-		if (!listeners.ContainsKey (type)) {
-			listeners.Add (type, new List<IEventListener> ());
+		if(!listeners.ContainsKey(type)) {
+			listeners.Add(type, new List<IEventListener>());
 		}
 		
 		#if UNITY_EDITOR
@@ -41,22 +42,22 @@ public class Events : MonoBehaviour
 			throw new System.Exception("Listener already registered");
 		}
 		#endif
-		listeners [type].Add (listener);
+		listeners[type].Add(listener);
 	}
 	
-	public void Unregister (int type, IEventListener listener)
+	public void Unregister(int type, IEventListener listener)
 	{
-		if (listeners.ContainsKey (type)) {
-			listeners [type].Remove (listener);
+		if(listeners.ContainsKey(type)) {
+			listeners[type].Remove(listener);
 		}
 	}
 	
-	public void Notify (MozEvent ev)
+	public void Notify(MozEvent ev)
 	{
-		if (listeners.ContainsKey (ev.type)) {	
-			List<IEventListener> list = listeners [ev.type];
-			foreach (IEventListener listener in list) {
-				listener.Notify (ev);
+		if(listeners.ContainsKey(ev.type)) {	
+			List<IEventListener> list = listeners[ev.type];
+			foreach(IEventListener listener in list) {
+				listener.Notify(ev);
 			}
 		}
 	}

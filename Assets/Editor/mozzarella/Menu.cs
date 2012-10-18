@@ -16,28 +16,28 @@ using UnityEngine;
 public class Menu : EditorWindow
 {	
 	[MenuItem("Mozzarella/Create grid")]
-	public static void CreateGrid ()
+	public static void CreateGrid()
 	{
-		GameObject go = GameObject.Find (GameObjectName.GRID);
-		if (go == null) {
-			go = new GameObject (GameObjectName.GRID);
+		GameObject go = GameObject.Find(GameObjectName.GRID);
+		if(go == null) {
+			go = new GameObject(GameObjectName.GRID);
 		}
-		Component grid = go.GetComponent<Grid> ();
-		if (grid == null) {
-			grid = go.AddComponent<Grid> ();
+		Component grid = go.GetComponent<Grid>();
+		if(grid == null) {
+			grid = go.AddComponent<Grid>();
 		}
 	}
 		
 	[MenuItem("Mozzarella/Level designer")]
-	public static void LevelDesigner ()
+	public static void LevelDesigner()
 	{
-		EditorWindow.GetWindow (typeof(LevelDesigner), false, "Level designer");
+		EditorWindow.GetWindow(typeof(LevelDesigner), false, "Level designer");
 	}
 	
 	[MenuItem("Mozzarella/Piece Mesh Wizard")]
-	static void PieceMeshWizard ()
+	static void PieceMeshWizard()
 	{
-		ScriptableWizard.DisplayWizard ("Piece Mesh Wizard", typeof(PieceWizard));
+		ScriptableWizard.DisplayWizard("Piece Mesh Wizard", typeof(PieceWizard));
 	}
 
 }

@@ -47,54 +47,54 @@ public class PieceWizard : ScriptableWizard
 	static Camera cam;
 	static Camera lastUsedCam;
 	
-	void OnWizardUpdate ()
+	void OnWizardUpdate()
 	{
 		cam = Camera.current;
-		widthSegments = Mathf.Clamp (widthSegments, 1, 254);
-		lengthSegments = Mathf.Clamp (lengthSegments, 1, 254);
+		widthSegments = Mathf.Clamp(widthSegments, 1, 254);
+		lengthSegments = Mathf.Clamp(lengthSegments, 1, 254);
 	}
 	
-	void OnWizardCreate ()
+	void OnWizardCreate()
 	{
-		GameObject plane = new GameObject ();
+		GameObject plane = new GameObject();
 
-		if (!string.IsNullOrEmpty (optionalName)) {
+		if(!string.IsNullOrEmpty(optionalName)) {
 			plane.name = optionalName;
 		} else {
 			plane.name = "Piece";
 		}
  
-		if (!createAtOrigin && cam) {
+		if(!createAtOrigin && cam) {
 			plane.transform.position = cam.transform.position + cam.transform.forward * 5.0f;
 		} else {
 			plane.transform.position = Vector3.zero;
 		}
 		
 		Vector2 anchorOffset;
-		switch (anchor) {
+		switch(anchor) {
 		case AnchorPoint.TopLeft:
-			anchorOffset = new Vector2 (-width / 2.0f, length / 2.0f);
+			anchorOffset = new Vector2(-width / 2.0f, length / 2.0f);
 			break;
 		case AnchorPoint.TopHalf:
-			anchorOffset = new Vector2 (0.0f, length / 2.0f);
+			anchorOffset = new Vector2(0.0f, length / 2.0f);
 			break;
 		case AnchorPoint.TopRight:
-			anchorOffset = new Vector2 (width / 2.0f, length / 2.0f);
+			anchorOffset = new Vector2(width / 2.0f, length / 2.0f);
 			break;
 		case AnchorPoint.RightHalf:
-			anchorOffset = new Vector2 (width / 2.0f, 0.0f);
+			anchorOffset = new Vector2(width / 2.0f, 0.0f);
 			break;
 		case AnchorPoint.BottomRight:
-			anchorOffset = new Vector2 (width / 2.0f, -length / 2.0f);
+			anchorOffset = new Vector2(width / 2.0f, -length / 2.0f);
 			break;
 		case AnchorPoint.BottomHalf:
-			anchorOffset = new Vector2 (0.0f, -length / 2.0f);
+			anchorOffset = new Vector2(0.0f, -length / 2.0f);
 			break;
 		case AnchorPoint.BottomLeft:
-			anchorOffset = new Vector2 (-width / 2.0f, -length / 2.0f);
+			anchorOffset = new Vector2(-width / 2.0f, -length / 2.0f);
 			break;			
 		case AnchorPoint.LeftHalf:
-			anchorOffset = new Vector2 (-width / 2.0f, 0.0f);
+			anchorOffset = new Vector2(-width / 2.0f, 0.0f);
 			break;			
 		case AnchorPoint.Center:
 		default:
@@ -102,15 +102,15 @@ public class PieceWizard : ScriptableWizard
 			break;
 		}
  
-		MeshFilter meshFilter = plane.AddComponent<MeshFilter> ();
-		plane.AddComponent<MeshRenderer> ();
+		MeshFilter meshFilter = plane.AddComponent<MeshFilter>();
+		plane.AddComponent<MeshRenderer>();
 
 		//string planeAssetName = plane.name + widthSegments + "x" + lengthSegments + "W" + width + "L" + length + (orientation == Orientation.Horizontal? "H" : "V") + anchorId + ".asset";
 		string planeAssetName = plane.name + width + "x" + length + ".asset";
-		Mesh m = (Mesh)AssetDatabase.LoadAssetAtPath ("Assets/Meshes/" + planeAssetName, typeof(Mesh));
+		Mesh m = (Mesh)AssetDatabase.LoadAssetAtPath("Assets/Meshes/" + planeAssetName, typeof(Mesh));
  
-		if (m == null) {
-			m = new Mesh ();
+		if(m == null) {
+			m = new Mesh();
 			m.name = plane.name;
  
 			int hCount2 = widthSegments + 1;
@@ -127,27 +127,27 @@ public class PieceWizard : ScriptableWizard
 			float uvFactorY = 1.0f / lengthSegments;
 			float scaleX = width / widthSegments;
 			float scaleY = length / lengthSegments;
-			for (float y = 0.0f; y < vCount2; y++) {
-				for (float x = 0.0f; x < hCount2; x++) {
-					if (orientation == Orientation.Horizontal) {
-						vertices [index] = new Vector3 (x * scaleX - width / 2f - anchorOffset.x, 0.0f, y * scaleY - length / 2f - anchorOffset.y);
+			for(float y = 0.0f; y < vCount2; y++) {
+				for(float x = 0.0f; x < hCount2; x++) {
+					if(orientation == Orientation.Horizontal) {
+						vertices[index] = new Vector3(x * scaleX - width / 2f - anchorOffset.x, 0.0f, y * scaleY - length / 2f - anchorOffset.y);
 					} else {
-						vertices [index] = new Vector3 (x * scaleX - width / 2f - anchorOffset.x, y * scaleY - length / 2f - anchorOffset.y, 0.0f);
+						vertices[index] = new Vector3(x * scaleX - width / 2f - anchorOffset.x, y * scaleY - length / 2f - anchorOffset.y, 0.0f);
 					}
-					uvs [index++] = new Vector2 (x * uvFactorX, y * uvFactorY);
+					uvs[index++] = new Vector2(x * uvFactorX, y * uvFactorY);
 				}
 			}
  
 			index = 0;
-			for (int y = 0; y < lengthSegments; y++) {
-				for (int x = 0; x < widthSegments; x++) {
-					triangles [index] = (y * hCount2) + x;
-					triangles [index + 1] = ((y + 1) * hCount2) + x;
-					triangles [index + 2] = (y * hCount2) + x + 1;
+			for(int y = 0; y < lengthSegments; y++) {
+				for(int x = 0; x < widthSegments; x++) {
+					triangles[index] = (y * hCount2) + x;
+					triangles[index + 1] = ((y + 1) * hCount2) + x;
+					triangles[index + 2] = (y * hCount2) + x + 1;
  
-					triangles [index + 3] = ((y + 1) * hCount2) + x;
-					triangles [index + 4] = ((y + 1) * hCount2) + x + 1;
-					triangles [index + 5] = (y * hCount2) + x + 1;
+					triangles[index + 3] = ((y + 1) * hCount2) + x;
+					triangles[index + 4] = ((y + 1) * hCount2) + x + 1;
+					triangles[index + 5] = (y * hCount2) + x + 1;
 					index += 6;
 				}
 			}
@@ -155,17 +155,17 @@ public class PieceWizard : ScriptableWizard
 			m.vertices = vertices;
 			m.uv = uvs;
 			m.triangles = triangles;
-			m.RecalculateNormals ();
+			m.RecalculateNormals();
  
-			AssetDatabase.CreateAsset (m, "Assets/Meshes/" + planeAssetName);
-			AssetDatabase.SaveAssets ();
+			AssetDatabase.CreateAsset(m, "Assets/Meshes/" + planeAssetName);
+			AssetDatabase.SaveAssets();
 		}
  
 		meshFilter.sharedMesh = m;
-		m.RecalculateBounds ();
+		m.RecalculateBounds();
  
-		if (addCollider) {
-			plane.AddComponent<BoxCollider> ();
+		if(addCollider) {
+			plane.AddComponent<BoxCollider>();
 		}
  
 		Selection.activeObject = plane;

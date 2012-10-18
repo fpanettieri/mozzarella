@@ -16,63 +16,68 @@ public class TimeMachine : MonoBehaviour
 {
 	public static float deltaTime { get { return Time.deltaTime * scale * (rewind ? -1 : 1); } }
 	
-	private Timeline timeline;
-	
 	public static bool rewind;
 	public static float now;
 	public static float scale;
 	public static int idx;
+	private Timeline timeline;
+	private MozEvent ev;
 	
-	public void Awake ()
+	public void Awake()
 	{
 		rewind = false;
 		now = 0;
 		scale = 1;
 		idx = 0;
-		timeline = GetComponent<Timeline> ();
+		timeline = GetComponent<Timeline>();
 	}
 	
-	public void Update ()
+	public void Update()
 	{
-		rewind = Input.GetKey (KeyCode.Space);
+		rewind = Input.GetKey(KeyCode.Space);
 		now += deltaTime;
 		
 		// FIXME: Configure time scale, make it adaptable maybe?
-		scale = rewind ? 3 : 1;
-		if (now < 0) {
+		scale = rewind ? 5 : 5;
+		if(now < 0) {
 			now = 0;
 		}
 		
-		if (timeline.count < 1) {
+		if(timeline.count < 1) {
 			return;
-		} else if (rewind) {
-			MoveBackward ();
+		} else if(rewind) {
+			MoveBackward();
 		} else { 
-			MoveForward (); 
+			MoveForward(); 
 		}
 	}
 	
-	private void MoveForward ()
+	private void MoveForward()
 	{
-		if( idx < 0) { idx = 0; }
-		while (idx < timeline.count) {
-			if (timeline [idx].time > now) {
+		if(idx < 0) {
+			idx = 0;
+		}
+		while(idx < timeline.count) {
+			ev = timeline[idx];
+			if(ev.time > now) {
 				break;
+				
 			} else {
-				if (timeline [idx].enabled) { Events.i.Notify (timeline [idx]); }
+				if(ev.enabled) { Events.i.Notify(ev); }
 				idx++;
 			}
 		}
 	}
 	
-	private void MoveBackward ()
+	private void MoveBackward()
 	{
-		while (idx > 0) {
-			if (timeline [idx - 1].time < now) {
+		while(idx > 0) {
+			ev = timeline[idx - 1];
+			if(ev.time < now) {
 				break;
 				
 			} else {
-				if (timeline [idx - 1].enabled) { Events.i.Notify (timeline [idx - 1]);	}
+				if(ev.enabled ) { Events.i.Notify(ev); }
 				idx--;
 			}
 		}

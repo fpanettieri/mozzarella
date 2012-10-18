@@ -16,27 +16,27 @@ using UnityEngine;
 public class PieceMaterial
 {
 
-	public static Material getMaterial (int type)
+	public static Material getMaterial(int type)
 	{
 		Material material;
-		switch (type) {
+		switch(type) {
 		case PieceType.PlainBlue:
-			material = Resources.Load ("Materials/Pieces/Plain/Blue") as Material;
+			material = Resources.Load("Materials/Pieces/Plain/Blue") as Material;
 			break;
 		case PieceType.PlainGreen:
-			material = Resources.Load ("Materials/Pieces/Plain/Green") as Material;
+			material = Resources.Load("Materials/Pieces/Plain/Green") as Material;
 			break;
 		case PieceType.PlainOrange:
-			material = Resources.Load ("Materials/Pieces/Plain/Orange") as Material;
+			material = Resources.Load("Materials/Pieces/Plain/Orange") as Material;
 			break;
 		case PieceType.PlainRed:
-			material = Resources.Load ("Materials/Pieces/Plain/Red") as Material;
+			material = Resources.Load("Materials/Pieces/Plain/Red") as Material;
 			break;
 		case PieceType.PlainYellow:
-			material = Resources.Load ("Materials/Pieces/Plain/Yellow") as Material;
+			material = Resources.Load("Materials/Pieces/Plain/Yellow") as Material;
 			break;
 		default:
-			throw new System.Exception ("Unsupported piece type: " + type.ToString ());
+			throw new System.Exception("Unsupported piece type: " + type.ToString());
 		}
 		return material;
 	}

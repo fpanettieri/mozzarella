@@ -31,9 +31,9 @@ public class Piece : MonoBehaviour
 	/**
 	 * Returns the position where the piece will go if moved
 	 */ 
-	public void Project (ref Vector3 projection)
+	public void Project(ref Vector3 projection)
 	{
-		projection.Set (
+		projection.Set(
 			transform.localPosition.x,
 			transform.localPosition.y + speed * TimeMachine.deltaTime,
 			transform.localPosition.z);
