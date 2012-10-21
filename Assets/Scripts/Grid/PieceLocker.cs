@@ -24,9 +24,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 	public void Notify(MozEvent ev)
 	{
 		e = ev as PieceEvent;
-		if(TimeMachine.rewind) {
-			UnlockPiece(e);
-		}
+		if(TimeMachine.rewind) { UnlockPiece(e); }
 	}
 
 	private void UnlockPiece(PieceEvent e)

@@ -37,11 +37,18 @@ public class Timeline : MonoBehaviour
 	public void Insert(int index, MozEvent e)
 	{
 		events.Insert(index, e);
+
+		Debug.Log("inserting " + index);
 	}
 
-	public bool Remove(MozEvent e)
+	public void Remove(MozEvent e)
 	{
-		return events.Remove(e);
+		int idx = events.IndexOf(e);
+		Debug.Log("inserting " + idx);
+		if( idx < TimeMachine.idx ) {
+			TimeMachine.idx--;
+		}
+		events.RemoveAt(idx);
 	}
 	
 	public void Sort()
@@ -50,6 +57,7 @@ public class Timeline : MonoBehaviour
 	}
 	
 	/**
+	 * DEPRECATED:
 	 * Given a specific point in time, find the next event
 	 */ 
 	public int Find(float time)
@@ -63,6 +71,7 @@ public class Timeline : MonoBehaviour
 	}
 	
 	/**
+	 * DEPRECATED:
 	 * Optimized event search
 	 */ 
 	public int Find(float time, int idx)
@@ -86,5 +95,24 @@ public class Timeline : MonoBehaviour
 			}
 		}
 		return 0;
+	}
+
+	override public string ToString()
+	{
+		string str = "";
+		PieceEvent e;
+		for( int i = 0; i < events.Count; i++) {
+			e = events[i] as PieceEvent;
+			str += e.time.ToString("{0:0.####}") + " " + e.id;
+			if( e is PieceEvent ){
+				if( e.type == MozEventType.PieceSpawn ){
+					str += " spawn";
+				} else if ( e.type == MozEventType.PieceLock ) {
+					str += " lock";
+				}
+			}
+			str += "\n";
+		}
+		return str;
 	}
 }

@@ -45,8 +45,8 @@ public class GridInput : MonoBehaviour
 			// 16 pixels are given as buffer for finger width
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
 			
+			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceSpawn, TimeMachine.now, -1, cell.y, cell.x, queue.Next()));
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceSpawn, TimeMachine.now, -1, cell.y, (cell.x + 1) % grid.columns, queue.Next()));
-			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceSpawn, TimeMachine.now, -1, cell.x, cell.x, queue.Next()));
 		}
 	}
 	

@@ -68,30 +68,41 @@ public class Grid : MonoBehaviour
 		}
 
 		// Only lock pieces if moving forward
-		if(TimeMachine.rewind) { return; }
-		
+		if(TimeMachine.rewind) {
+			return;
+		}
+
+		bool piecesLocked = false;
+
 		// Lock pieces
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
 			auxPiece = movingPieces[i];
-			if(auxPiece.moving) { continue;	}
+			if(auxPiece.moving) {
+				continue;
+			}
 			movingPieces.RemoveAt(i);
+
+			piecesLocked = true;
 			
 			pieceCell.Set(Mathf.FloorToInt(auxPiece.transform.localPosition.x / tileSize.x),
 				Mathf.FloorToInt(auxPiece.transform.localPosition.y / tileSize.y));
-
-
 			cells[pieceCell.x + pieceCell.y * columns] = auxPiece.type;
-			
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.now, auxPiece.id, pieceCell.y, pieceCell.x, auxPiece.type));
+		}
+
+		if(piecesLocked) {
+			Debug.Log(timeline);
 		}
 	}
 
-	public void AddPiece(Piece piece) {
+	public void AddPiece(Piece piece)
+	{
 		piece.moving = true;
 		movingPieces.Add(piece);
 	}
 
-	public void RemovePiece(Piece piece) {
+	public void RemovePiece(Piece piece)
+	{
 		piece.moving = false;
 		movingPieces.Remove(piece);
 	}
