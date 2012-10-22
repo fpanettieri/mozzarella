@@ -37,18 +37,15 @@ public class Timeline : MonoBehaviour
 	public void Insert(int index, MozEvent e)
 	{
 		events.Insert(index, e);
-
-		Debug.Log("inserting " + index);
 	}
 
 	public void Remove(MozEvent e)
 	{
 		int idx = events.IndexOf(e);
-		Debug.Log("inserting " + idx);
-		if( idx < TimeMachine.idx ) {
+		if( idx < TimeMachine.idx ){
 			TimeMachine.idx--;
 		}
-		events.RemoveAt(idx);
+		events.Remove(e);
 	}
 	
 	public void Sort()
@@ -95,24 +92,5 @@ public class Timeline : MonoBehaviour
 			}
 		}
 		return 0;
-	}
-
-	override public string ToString()
-	{
-		string str = "";
-		PieceEvent e;
-		for( int i = 0; i < events.Count; i++) {
-			e = events[i] as PieceEvent;
-			str += e.time.ToString("{0:0.####}") + " " + e.id;
-			if( e is PieceEvent ){
-				if( e.type == MozEventType.PieceSpawn ){
-					str += " spawn";
-				} else if ( e.type == MozEventType.PieceLock ) {
-					str += " lock";
-				}
-			}
-			str += "\n";
-		}
-		return str;
 	}
 }

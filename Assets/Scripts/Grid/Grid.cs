@@ -62,7 +62,7 @@ public class Grid : MonoBehaviour
 				
 				// TODO: play piece collision sfx
 			}
-			
+
 			// Move piece
 			piece.transform.localPosition = pieceProj;
 		}
@@ -72,8 +72,6 @@ public class Grid : MonoBehaviour
 			return;
 		}
 
-		bool piecesLocked = false;
-
 		// Lock pieces
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
 			auxPiece = movingPieces[i];
@@ -82,16 +80,11 @@ public class Grid : MonoBehaviour
 			}
 			movingPieces.RemoveAt(i);
 
-			piecesLocked = true;
-			
 			pieceCell.Set(Mathf.FloorToInt(auxPiece.transform.localPosition.x / tileSize.x),
 				Mathf.FloorToInt(auxPiece.transform.localPosition.y / tileSize.y));
+
 			cells[pieceCell.x + pieceCell.y * columns] = auxPiece.type;
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.now, auxPiece.id, pieceCell.y, pieceCell.x, auxPiece.type));
-		}
-
-		if(piecesLocked) {
-			Debug.Log(timeline);
 		}
 	}
 

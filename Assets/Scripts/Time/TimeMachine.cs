@@ -11,7 +11,7 @@ using UnityEngine;
 
 /**
  * This class moves through the timeline, dispatching active events.
- */ 
+ */
 public class TimeMachine : MonoBehaviour
 {
 	public static float deltaTime { get { return Time.deltaTime * scale * (rewind ? -1 : 1); } }
@@ -31,14 +31,14 @@ public class TimeMachine : MonoBehaviour
 		idx = 0;
 		timeline = GetComponent<Timeline>();
 	}
-	
+
 	public void Update()
 	{
 		rewind = Input.GetKey(KeyCode.Space);
 		now += deltaTime;
 		
 		// FIXME: Configure time scale, make it adaptable maybe?
-		scale = rewind ? 5 : 5;
+		scale = rewind ? 2 : 2;
 		if(now < 0) {
 			now = 0;
 		}
@@ -63,22 +63,22 @@ public class TimeMachine : MonoBehaviour
 				break;
 				
 			} else {
-				if(ev.enabled) { Events.i.Notify(ev); }
 				idx++;
+				if(ev.enabled) { Events.i.Notify(ev); }
 			}
 		}
 	}
-	
+
 	private void MoveBackward()
 	{
 		while(idx > 0) {
 			ev = timeline[idx - 1];
 			if(ev.time < now) {
 				break;
-				
+
 			} else {
-				if(ev.enabled ) { Events.i.Notify(ev); }
 				idx--;
+				if(ev.enabled) { Events.i.Notify(ev); }
 			}
 		}
 	}

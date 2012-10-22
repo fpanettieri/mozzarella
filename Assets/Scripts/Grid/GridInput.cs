@@ -42,7 +42,7 @@ public class GridInput : MonoBehaviour
 		
 		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
 			
-			// 16 pixels are given as buffer for finger width
+			// Detect touched cell
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
 			
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceSpawn, TimeMachine.now, -1, cell.y, cell.x, queue.Next()));
