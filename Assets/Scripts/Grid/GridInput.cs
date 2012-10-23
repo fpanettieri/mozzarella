@@ -31,8 +31,8 @@ public class GridInput : MonoBehaviour
 	{
 		cell = new IntVector2(0, 0);
 		grid = GetComponent<Grid>();
+		queue = GetComponent<PieceQueue>();
 		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
-		queue = GameObject.Find(GameObjectName.QUEUE).GetComponent<PieceQueue>();
 	}
 	
 	void Update()
