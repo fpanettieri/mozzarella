@@ -31,6 +31,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 	{
 		grid.cells[e.column + e.row * grid.columns] = PieceType.Empty;
 		piece = pool[e.id];
+		piece.moving = true;
 		grid.AddPiece(piece);
 		timeline.Remove(e);
 		// TODO: Play piece unlock sound

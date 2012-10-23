@@ -35,7 +35,7 @@ public class PiecePool : MonoBehaviour
 			
 			piece = go.GetComponent<Piece>();
 			piece.Disable();
-			
+			piece.name = "Piece";
 			piece.id = i;
 			piece.moving = false;
 			pieces[i] = piece;

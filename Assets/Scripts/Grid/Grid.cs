@@ -90,13 +90,11 @@ public class Grid : MonoBehaviour
 
 	public void AddPiece(Piece piece)
 	{
-		piece.moving = true;
 		movingPieces.Add(piece);
 	}
 
 	public void RemovePiece(Piece piece)
 	{
-		piece.moving = false;
 		movingPieces.Remove(piece);
 	}
 }

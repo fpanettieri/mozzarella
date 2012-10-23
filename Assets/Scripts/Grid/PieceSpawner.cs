@@ -21,8 +21,19 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		
 		MeshFilter filter = grid.piecePrefab.GetComponent<MeshFilter>();
 		pieceSize = filter.sharedMesh.bounds.size;
+	}
 
-		// TODO: Initialize grid
+	// Populate grid with current level pieces
+	public void Start()
+	{
+		int type = 0;
+		for(int i = 0; i < grid.rows; i++) {
+			for(int j = 0; j < grid.columns; j++) {
+				type = grid.cells[j + i * grid.columns];
+				if( type == PieceType.Empty) { continue; }
+				SpawnPiece(j, i, grid.cells[j + i * grid.columns], false);
+			}
+		}
 	}
 	
 	public void Notify(MozEvent ev)
@@ -37,20 +48,26 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	
 	private void SpawnPiece(PieceEvent e)
 	{
-		piece = pool.Pick();
-		piece.transform.localPosition = new Vector3(e.column * pieceSize.x, grid.rows * pieceSize.y, 0);
-		piece.renderer.material = PieceMaterial.getMaterial(e.piece);
-		piece.type = e.piece;
-		piece.Enable();
-		
-		grid.AddPiece(piece);
+		SpawnPiece(e.column, grid.rows, e.piece, true);
 		e.id = piece.id;
+		grid.AddPiece(piece);
 	}
-	
+
+	private void SpawnPiece(int column, int row, int type, bool moving)
+	{
+		piece = pool.Pick();
+		piece.transform.localPosition = new Vector3(column * pieceSize.x, row * pieceSize.y, 0);
+		piece.renderer.material = PieceMaterial.getMaterial(type);
+		piece.type = type;
+		piece.moving = moving;
+		piece.Enable();
+	}
+
 	private void DestroyPiece(PieceEvent e)
 	{
 		pool.Release(e.id);
 		piece = pool[e.id];
+		piece.moving = false;
 		piece.Disable();
 		grid.RemovePiece(piece);
 	}
