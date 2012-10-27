@@ -40,7 +40,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	{
 		e = ev as PieceEvent;
 		if(TimeMachine.rewind) {
-			DestroyPiece(e);
+		//	DestroyPiece(e);
 		} else {
 			SpawnPiece(e);
 		}
@@ -67,6 +67,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 
 	private void DestroyPiece(PieceEvent e)
 	{
+		Debug.Log("Piece destroy event dispatched");
 		pool.Release(e.id);
 		piece = pool[e.id];
 		piece.moving = false;
