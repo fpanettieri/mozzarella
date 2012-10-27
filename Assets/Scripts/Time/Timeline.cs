@@ -57,10 +57,10 @@ public class Timeline : MonoBehaviour
 	 * DEPRECATED:
 	 * Given a specific point in time, find the next event
 	 */ 
-	public int Find(float time)
+	public int Find(int frame)
 	{
 		for(int i = 0; i < events.Count - 1; i++) {
-			if(events[i].time >= time) {
+			if(events[i].frame >= frame) {
 				return i;
 			}
 		}
@@ -71,22 +71,22 @@ public class Timeline : MonoBehaviour
 	 * DEPRECATED:
 	 * Optimized event search
 	 */ 
-	public int Find(float time, int idx)
+	public int Find(int frame, int idx)
 	{
 		// In case of out of bounds idx, do a linear search
 		if(idx < 0 || idx >= events.Count) {
-			return Find(time);
+			return Find(frame);
 		}
 		
-		if(time < events[idx].time) {
+		if(frame < events[idx].frame) {
 			for(int i = idx; i < events.Count - 1; i++) {
-				if(events[i].time >= time) {
+				if(events[i].frame >= frame) {
 					return i;
 				}	
 			}
 		} else {
 			for(int i = idx; i >= 0; i--) {
-				if(events[i].time < time) {
+				if(events[i].frame < frame) {
 					return i + 1;
 				}
 			}

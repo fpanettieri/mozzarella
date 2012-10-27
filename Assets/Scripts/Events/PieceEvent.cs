@@ -14,10 +14,10 @@ public class PieceEvent : MozEvent
 	public int column;
 	public int piece;
 	
-	public PieceEvent(int type, float time, int id, int row, int column, int piece)
+	public PieceEvent(int type, int frame, int id, int row, int column, int piece)
 	{
 		this.type = type;
-		this.time = time;
+		this.frame = frame;
 		this.id = id;
 		this.row = row;
 		this.column = column;
@@ -26,7 +26,7 @@ public class PieceEvent : MozEvent
 	
 	override public string ToString()
 	{
-		return "PieceSpawnEvent [time: " + time + ", row:" + row + ", column:" + column + ", piece:" + piece + "]";	
+		return "PieceSpawnEvent [frame: " + frame + ", row:" + row + ", column:" + column + ", piece:" + piece + "]";	
 	}
 }
 

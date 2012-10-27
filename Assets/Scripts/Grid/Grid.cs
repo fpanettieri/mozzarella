@@ -82,7 +82,8 @@ public class Grid : MonoBehaviour
 			auxPiece = movingPieces[i];
 			if(auxPiece.moving) { continue;	}
 			movingPieces.RemoveAt(i);
-			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.now, auxPiece.id, auxPiece.row, auxPiece.column, auxPiece.type));
+			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.frame, auxPiece.id, auxPiece.row, auxPiece.column, auxPiece.type));
+			DebugGrid();
  		}
 	}
 
@@ -94,5 +95,18 @@ public class Grid : MonoBehaviour
 	public void RemovePiece(Piece piece)
 	{
 		movingPieces.Remove(piece);
+		cells[piece.column + piece.row * columns] = PieceType.Empty;
+	}
+
+	public void DebugGrid()
+	{
+		string str = "";
+		for(int i = rows - 1; i > 0; i --){
+			for(int j = 0; j < columns; j++){
+				str += cells[j + i * columns];
+			}
+			str += "\n";
+		}
+		Debug.Log(str);
 	}
 }

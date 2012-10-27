@@ -14,10 +14,8 @@ using UnityEngine;
  */
 public class TimeMachine : MonoBehaviour
 {
-	public static long deltaTime { get { return rewind ? -1 : 1; } }
-	
 	public static bool rewind;
-	public static long now;
+	public static int frame;
 	public static int scale;
 	public static int idx;
 	private Timeline timeline;
@@ -26,7 +24,7 @@ public class TimeMachine : MonoBehaviour
 	public void Awake()
 	{
 		rewind = false;
-		now = 0;
+		frame = 0;
 		scale = 1;
 		idx = 0;
 		timeline = GetComponent<Timeline>();
@@ -35,13 +33,8 @@ public class TimeMachine : MonoBehaviour
 	public void Update()
 	{
 		rewind = Input.GetKey(KeyCode.Space);
-		now += deltaTime;
-		
-		// FIXME: Configure time scale, make it adaptable maybe?
-		scale = rewind ? 2 : 2;
-		if(now < 0) {
-			now = 0;
-		}
+		frame += rewind ? -scale : scale;
+		if(frame < 0){ frame = 0; }
 		
 		if(timeline.count < 1) {
 			return;
@@ -59,7 +52,7 @@ public class TimeMachine : MonoBehaviour
 		}
 		while(idx < timeline.count) {
 			ev = timeline[idx];
-			if(ev.time > now) {
+			if(ev.frame > frame) {
 				break;
 				
 			} else {
@@ -73,7 +66,7 @@ public class TimeMachine : MonoBehaviour
 	{
 		while(idx > 0) {
 			ev = timeline[idx - 1];
-			if(ev.time < now) {
+			if(ev.frame < frame) {
 				break;
 
 			} else {

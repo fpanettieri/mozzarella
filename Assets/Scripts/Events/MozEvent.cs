@@ -19,16 +19,16 @@ using System.Collections.Generic;
 public class MozEvent : IComparable<MozEvent>
 {
 	public int type;
-	public float time = 0;
+	public int frame = 0;
 	public bool enabled = true;
 	
 	public int CompareTo(MozEvent b)
 	{
-		return time < b.time ? -1 : 1;
+		return frame < b.frame ? -1 : 1;
 	}
 	
 	override public string ToString()
 	{
-		return "MozEvent [time: " + time + "]";	
+		return "MozEvent [frame: " + frame + "]";
 	}
 }
