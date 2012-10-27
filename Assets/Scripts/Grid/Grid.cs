@@ -26,66 +26,64 @@ public class Grid : MonoBehaviour
 	private Piece auxPiece;
 	private Vector3	tileSize;
 	private Vector3 pieceProj;
-	private IntVector2 pieceCell;
 	
 	public void Awake()
 	{
 		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
 		tileSize = piecePrefab.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+		movingPieces = new List<Piece>();
 		pieceProj = new Vector3(0, 0, 0);
-		pieceCell = new IntVector2(0, 0);
-		movingPieces = new List<Piece>();	
 	}
 	
 	public void Update()
 	{
-		// Move pieces	
 		foreach(Piece piece in movingPieces) {
+
 			// Update piece position
-			piece.Project(ref pieceProj);
-			pieceCell.Set(Mathf.FloorToInt(pieceProj.x / tileSize.x), Mathf.FloorToInt(pieceProj.y / tileSize.y));
+			cells[piece.column + piece.row * columns] = PieceType.Empty;
+			if(TimeMachine.rewind){	piece.row++; }
+			else { piece.row--;	}
 			
-			if(pieceCell.y >= rows) {
-				// if the piece has gone up too far, ignore it
+			// if the piece has gone up too far, ignore it
+			if(piece.row >= rows) {
+				piece.row = rows - 1;
 				
-				// Piece touches the floor
-			} else if(pieceCell.y < 0) {
-				pieceProj.Set(pieceProj.x, 0, pieceProj.z);
+			// Piece touches the floor
+			} else if(piece.row < 0) {
+				piece.row = 0;
 				piece.moving = false;
 				
 				// TODO: play sound smash sfx
 						
-				// piece reaches an occupied cell
-			} else if(cells[pieceCell.x + pieceCell.y * columns] != PieceType.Empty) { 
-				pieceProj.Set(pieceProj.x, Mathf.Ceil(pieceProj.y / tileSize.y) * tileSize.y, pieceProj.z);
+			// piece reaches an occupied cell
+			} else if(cells[piece.column + piece.row * columns] != PieceType.Empty) {
+				// Update piece position
+				if(TimeMachine.rewind){
+					piece.row--;
+				} else {
+					piece.row++;
+				}
 				piece.moving = false;
-				
+
 				// TODO: play piece collision sfx
 			}
 
+			// Update grid
+			cells[piece.column + piece.row * columns] = piece.type;
+
 			// Move piece
+			pieceProj.Set(piece.column * tileSize.x, piece.row * tileSize.y, 0);
 			piece.transform.localPosition = pieceProj;
 		}
 
 		// Only lock pieces if moving forward
-		if(TimeMachine.rewind) {
-			return;
-		}
-
-		// Lock pieces
+		if(TimeMachine.rewind) { return; }
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
 			auxPiece = movingPieces[i];
-			if(auxPiece.moving) {
-				continue;
-			}
+			if(auxPiece.moving) { continue;	}
 			movingPieces.RemoveAt(i);
-
-			pieceCell.Set(Mathf.FloorToInt(auxPiece.transform.localPosition.x / tileSize.x),
-				Mathf.FloorToInt(auxPiece.transform.localPosition.y / tileSize.y));
-
-			cells[pieceCell.x + pieceCell.y * columns] = auxPiece.type;
-			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.now, auxPiece.id, pieceCell.y, pieceCell.x, auxPiece.type));
-		}
+			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.now, auxPiece.id, auxPiece.row, auxPiece.column, auxPiece.type));
+ 		}
 	}
 
 	public void AddPiece(Piece piece)

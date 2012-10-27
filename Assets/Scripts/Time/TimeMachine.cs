@@ -14,11 +14,11 @@ using UnityEngine;
  */
 public class TimeMachine : MonoBehaviour
 {
-	public static float deltaTime { get { return Time.deltaTime * scale * (rewind ? -1 : 1); } }
+	public static long deltaTime { get { return rewind ? -1 : 1; } }
 	
 	public static bool rewind;
-	public static float now;
-	public static float scale;
+	public static long now;
+	public static int scale;
 	public static int idx;
 	private Timeline timeline;
 	private MozEvent ev;

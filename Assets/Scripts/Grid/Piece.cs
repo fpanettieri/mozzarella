@@ -14,7 +14,8 @@ public class Piece : MonoBehaviour
 	public int id = -1;
 	public int type = 0;
 	public bool moving = false;
-	public float speed = -100.0f;
+	public int row = 0;
+	public int column = 0;
 	
 	public void Enable()
 	{
@@ -27,15 +28,4 @@ public class Piece : MonoBehaviour
 		enabled = false;
 		renderer.enabled = false;
 	}
-	
-	/**
-	 * Returns the position where the piece will go if moved
-	 */ 
-	public void Project(ref Vector3 projection)
-	{
-		projection.Set(
-			transform.localPosition.x,
-			transform.localPosition.y + speed * TimeMachine.deltaTime,
-			transform.localPosition.z);
-	}	
 }

@@ -60,6 +60,8 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.renderer.material = PieceMaterial.getMaterial(type);
 		piece.type = type;
 		piece.moving = moving;
+		piece.column = column;
+		piece.row = grid.rows - 1;
 		piece.Enable();
 	}
 
@@ -68,6 +70,8 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		pool.Release(e.id);
 		piece = pool[e.id];
 		piece.moving = false;
+		piece.column = 0;
+		piece.row = 0;
 		piece.Disable();
 		grid.RemovePiece(piece);
 	}
