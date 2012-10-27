@@ -39,12 +39,10 @@ public class GridInput : MonoBehaviour
 	{
 		// TODO: verify if the space is ocuppied on mouse down, not mouseup.
 		// if( grid.cells[ cell.x + cell.y * grid.columns ] == PieceType.Empty ){
-		
+
+		// Detect touched cell
 		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
-			
-			// Detect touched cell
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
-			
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceSpawn, TimeMachine.frame, -1, cell.y, cell.x, queue.Next()));
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceSpawn, TimeMachine.frame, -1, cell.y, (cell.x + 1) % grid.columns, queue.Next()));
 		}

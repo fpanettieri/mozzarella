@@ -41,10 +41,7 @@ public class Grid : MonoBehaviour
 	// update
 	public void Update()
 	{
-		if ((++counter % 20) > 0) { return; }
-
 		foreach(Piece piece in movingPieces) {
-			if(++max_drops > 6){ return; }
 
 			// Update piece position
 			cells[piece.column + piece.row * columns] = PieceType.Empty;
@@ -89,7 +86,6 @@ public class Grid : MonoBehaviour
 			if(auxPiece.moving) { continue;	}
 			movingPieces.RemoveAt(i);
 			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.frame, auxPiece.id, auxPiece.row, auxPiece.column, auxPiece.type));
-
  		}
 	}
 
@@ -106,7 +102,7 @@ public class Grid : MonoBehaviour
 	public void OnGui()
 	{
 		for(int i = 0; i < columns; i++){
-			
+
 		}
 	}
 

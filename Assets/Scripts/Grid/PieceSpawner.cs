@@ -40,7 +40,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	{
 		e = ev as PieceEvent;
 		if(TimeMachine.rewind) {
-		//	DestroyPiece(e);
+			DestroyPiece(e);
 		} else {
 			SpawnPiece(e);
 		}
@@ -48,7 +48,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	
 	private void SpawnPiece(PieceEvent e)
 	{
-		SpawnPiece(e.column, grid.rows, e.piece, true);
+		SpawnPiece(e.column, e.row, e.piece, true);
 		e.id = piece.id;
 		grid.AddPiece(piece);
 	}
@@ -59,15 +59,14 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.transform.localPosition = new Vector3(column * pieceSize.x, row * pieceSize.y, 0);
 		piece.renderer.material = PieceMaterial.getMaterial(type);
 		piece.type = type;
-		piece.moving = moving;
 		piece.column = column;
-		piece.row = grid.rows - 1;
+		piece.row = row;
+		piece.moving = moving;
 		piece.Enable();
 	}
 
 	private void DestroyPiece(PieceEvent e)
 	{
-		Debug.Log("Piece destroy event dispatched");
 		pool.Release(e.id);
 		piece = pool[e.id];
 		piece.moving = false;
