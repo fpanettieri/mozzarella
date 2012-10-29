@@ -23,7 +23,7 @@ public class Grid : MonoBehaviour
 	public List<Piece> movingPieces;
 
 	// Private / aux properties
-	private Piece auxPiece;
+	private Piece piece;
 	private Vector3	tileSize;
 	private Vector3 pieceProj;
 	
@@ -36,21 +36,22 @@ public class Grid : MonoBehaviour
 	}
 
 	int counter;
-	int max_drops;
 
 	// update
-	public void Update()
+	public void FixedUpdate()
 	{
-		foreach(Piece piece in movingPieces) {
+		for(int i = 0; i < movingPieces.Count; i++){
+			piece = movingPieces[i];
 
 			// Update piece position
 			cells[piece.column + piece.row * columns] = PieceType.Empty;
 			if(TimeMachine.rewind){	piece.row++; }
 			else { piece.row--;	}
 			
-			// if the piece has gone up too far, ignore it
+			// if the piece has gone up too far, hold it there
 			if(piece.row >= rows) {
 				piece.row = rows - 1;
+				// FIXME: should I destroy it here?
 				
 			// Piece touches the floor
 			} else if(piece.row < 0) {
@@ -61,12 +62,10 @@ public class Grid : MonoBehaviour
 						
 			// piece reaches an occupied cell
 			} else if(cells[piece.column + piece.row * columns] != PieceType.Empty) {
+
 				// Update piece position
-				if(TimeMachine.rewind){
-					piece.row--;
-				} else {
-					piece.row++;
-				}
+				if(TimeMachine.rewind){	piece.row--; }
+				else { piece.row++;	}
 				piece.moving = false;
 
 				// TODO: play piece collision sfx
@@ -82,16 +81,17 @@ public class Grid : MonoBehaviour
 		// Only lock pieces if moving forward
 		if(TimeMachine.rewind) { return; }
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
-			auxPiece = movingPieces[i];
-			if(auxPiece.moving) { continue;	}
+			piece = movingPieces[i];
+			if(piece.moving) { continue; }
 			movingPieces.RemoveAt(i);
-			timeline.Insert(TimeMachine.idx, new PieceEvent(MozEventType.PieceLock, TimeMachine.frame, auxPiece.id, auxPiece.row, auxPiece.column, auxPiece.type));
+			timeline.Insert(TimeMachine.idx, new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
  		}
 	}
 
 	public void AddPiece(Piece piece)
 	{
 		movingPieces.Add(piece);
+		Debug.Log("moving pieces" + movingPieces.Count);
 	}
 
 	public void RemovePiece(Piece piece)

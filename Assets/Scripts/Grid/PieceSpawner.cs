@@ -10,7 +10,6 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	// Private / aux properties
 	private Piece piece;
 	private Vector3 pieceSize;
-	private PieceEvent e;
 	
 	public void Awake()
 	{
@@ -36,19 +35,20 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		}
 	}
 	
-	public void Notify(MozEvent ev)
+	public void Notify(MozEvent e)
 	{
-		e = ev as PieceEvent;
 		if(TimeMachine.rewind) {
-			DestroyPiece(e);
+			DestroyPiece(e as PieceSpawnEvent);
 		} else {
-			SpawnPiece(e);
+			SpawnPiece(e as PieceSpawnEvent);
 		}
 	}
-	
-	private void SpawnPiece(PieceEvent e)
+
+	// If the first row is occupied, move it down
+	// if it can't be moved down, dispatch game over
+	private void SpawnPiece(PieceSpawnEvent e)
 	{
-		SpawnPiece(e.column, e.row, e.piece, true);
+		SpawnPiece(e.column, grid.rows - 1, e.piece, true);
 		e.id = piece.id;
 		grid.AddPiece(piece);
 	}
@@ -63,9 +63,10 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.row = row;
 		piece.moving = moving;
 		piece.Enable();
+		grid.cells[column + row * grid.columns] = type;
 	}
 
-	private void DestroyPiece(PieceEvent e)
+	private void DestroyPiece(PieceSpawnEvent e)
 	{
 		pool.Release(e.id);
 		piece = pool[e.id];

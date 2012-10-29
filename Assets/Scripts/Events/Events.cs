@@ -54,6 +54,8 @@ public class Events : MonoBehaviour
 	
 	public void Notify(MozEvent ev)
 	{
+		Debug.Log("frame " + TimeMachine.frame + " event " + ev);
+
 		if(listeners.ContainsKey(ev.type)) {	
 			List<IEventListener> list = listeners[ev.type];
 			foreach(IEventListener listener in list) {

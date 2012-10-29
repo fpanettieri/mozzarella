@@ -16,7 +16,6 @@ public class TimeMachine : MonoBehaviour
 {
 	public static bool rewind;
 	public static int frame;
-	public static int scale;
 	public static int idx;
 	private Timeline timeline;
 	private MozEvent ev;
@@ -25,15 +24,15 @@ public class TimeMachine : MonoBehaviour
 	{
 		rewind = false;
 		frame = 0;
-		scale = 1;
 		idx = 0;
 		timeline = GetComponent<Timeline>();
 	}
 
-	public void Update()
+	public void FixedUpdate()
 	{
 		rewind = Input.GetKey(KeyCode.Space);
-		frame += rewind ? -scale : scale;
+
+		frame += rewind ? -1 : 1;
 		if(frame < 0){ frame = 0; }
 		
 		if(timeline.count < 1) {

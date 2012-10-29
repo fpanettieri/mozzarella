@@ -9,16 +9,16 @@
 */
 using UnityEngine;
 
-public class PieceEvent : MozEvent
+public class PieceLockEvent : MozEvent
 {
 	public int id;
 	public int row;
 	public int column;
 	public int piece;
 	
-	public PieceEvent(int type, int frame, int id, int row, int column, int piece)
+	public PieceLockEvent(int frame, int id, int row, int column, int piece)
 	{
-		this.type = type;
+		this.type = MozEventType.PieceLock;
 		this.frame = frame;
 		this.id = id;
 		this.row = row;
@@ -28,7 +28,7 @@ public class PieceEvent : MozEvent
 	
 	override public string ToString()
 	{
-		return "PieceSpawnEvent [frame: " + frame + ", row:" + row + ", column:" + column + ", piece:" + piece + "]";	
+		return "PieceLockEvent [frame: " + frame + ", id: " + id + ", column:" + column + ", piece:" + piece + "]";
 	}
 }
 
