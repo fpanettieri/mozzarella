@@ -31,21 +31,22 @@ public class Timeline : MonoBehaviour
 	
 	public void Add(MozEvent e)
 	{
-		events.Add(e);
-	}
-	
+		events.Add(e);}
+
 	public void Insert(int index, MozEvent e)
 	{
 		events.Insert(index, e);
+		Debug.Log(this);
 	}
 
 	public void Remove(MozEvent e)
 	{
 		int idx = events.IndexOf(e);
-		if( idx < TimeMachine.idx ){
+		if(idx < TimeMachine.idx) {
 			TimeMachine.idx--;
 		}
 		events.Remove(e);
+		Debug.Log(this);
 	}
 	
 	public void Sort()
@@ -92,5 +93,14 @@ public class Timeline : MonoBehaviour
 			}
 		}
 		return 0;
+	}
+
+	override public string ToString()
+	{
+		string str = "F " + TimeMachine.frame + "\t";
+		for(int i = 0; i < events.Count; i++) {
+			str += events[i].initial + " " + events[i].frame + "; ";
+		}
+		return str;
 	}
 }

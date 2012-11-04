@@ -16,18 +16,21 @@ using System.Collections.Generic;
  * Any object or component can register to receiv a specific type of event
  * notifications, in order to react to them.
  */ 
-public class Events : MonoBehaviour
+public class Events
 {
 	// Singleton
 	private static Events instance;
-
-	public static Events i { get { return instance; } }
+	public static Events i {
+		get {
+			if(instance == null){ instance = new Events(); }
+			return instance;
+		}
+	}
 	
 	private Dictionary<int, List<IEventListener>> listeners;
 		
-	public void Awake()
+	private Events()
 	{
-		instance = this;
 		listeners = new Dictionary<int, List<IEventListener>>();
 	}
 	
@@ -54,14 +57,12 @@ public class Events : MonoBehaviour
 	
 	public void Notify(MozEvent ev)
 	{
-		Debug.Log("frame " + TimeMachine.frame + " event " + ev);
-
-		if(listeners.ContainsKey(ev.type)) {	
+		Debug.Log("F " + TimeMachine.frame + "\t" + ev);
+		if(listeners.ContainsKey(ev.type)) {
 			List<IEventListener> list = listeners[ev.type];
 			foreach(IEventListener listener in list) {
 				listener.Notify(ev);
 			}
 		}
 	}
-	
 }

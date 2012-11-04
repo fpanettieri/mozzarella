@@ -34,8 +34,8 @@ public class GridInput : MonoBehaviour
 		queue = GetComponent<PieceQueue>();
 		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
 	}
-	
-	void FixedUpdate()
+
+	void Update()
 	{
 		// TODO: verify if the space is ocuppied on mouse down, not mouseup.
 		// if( grid.cells[ cell.x + cell.y * grid.columns ] == PieceType.Empty ){

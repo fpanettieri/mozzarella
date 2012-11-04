@@ -18,6 +18,7 @@ public class PieceLockEvent : MozEvent
 	
 	public PieceLockEvent(int frame, int id, int row, int column, int piece)
 	{
+		this.initial = "L";
 		this.type = MozEventType.PieceLock;
 		this.frame = frame;
 		this.id = id;

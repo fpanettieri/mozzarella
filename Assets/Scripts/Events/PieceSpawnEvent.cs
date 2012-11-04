@@ -17,6 +17,7 @@ public class PieceSpawnEvent : MozEvent
 	
 	public PieceSpawnEvent(int frame, int column, int piece)
 	{
+		this.initial = "S";
 		this.type = MozEventType.PieceSpawn;
 		this.frame = frame;
 		this.id = -1;

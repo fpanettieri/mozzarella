@@ -35,8 +35,6 @@ public class Grid : MonoBehaviour
 		pieceProj = new Vector3(0, 0, 0);
 	}
 
-	int counter;
-
 	// update
 	public void FixedUpdate()
 	{
@@ -91,7 +89,6 @@ public class Grid : MonoBehaviour
 	public void AddPiece(Piece piece)
 	{
 		movingPieces.Add(piece);
-		Debug.Log("moving pieces" + movingPieces.Count);
 	}
 
 	public void RemovePiece(Piece piece)
@@ -99,17 +96,17 @@ public class Grid : MonoBehaviour
 		movingPieces.Remove(piece);
 	}
 
-	public void OnGui()
+	public void Update()
 	{
-		for(int i = 0; i < columns; i++){
-
+		if(Input.GetKeyDown(KeyCode.G)){
+			DebugGrid();
 		}
 	}
 
 	public void DebugGrid()
 	{
 		string str = "";
-		for(int i = rows - 1; i > 0; i --){
+		for(int i = rows - 1; i >=0; i --){
 			for(int j = 0; j < columns; j++){
 				str += cells[j + i * columns];
 			}

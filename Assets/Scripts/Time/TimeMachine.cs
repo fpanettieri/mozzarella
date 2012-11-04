@@ -63,8 +63,11 @@ public class TimeMachine : MonoBehaviour
 
 	private void MoveBackward()
 	{
-		while(idx > 0) {
-			ev = timeline[idx - 1];
+		if(idx >= timeline.count){
+			idx = timeline.count - 1;
+		}
+		while(idx >= 0) {
+			ev = timeline[idx];
 			if(ev.frame < frame) {
 				break;
 

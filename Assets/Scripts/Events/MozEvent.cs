@@ -18,6 +18,7 @@ using System.Collections.Generic;
  */
 public class MozEvent : IComparable<MozEvent>
 {
+	public string initial = "E";
 	public int type;
 	public int frame = 0;
 	public bool enabled = true;
