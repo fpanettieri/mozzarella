@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Grid\PieceSpawner.cs" />
      <Compile Include="Assets\Scripts\Time\TimeMachine.cs" />
      <Compile Include="Assets\Scripts\Time\Timeline.cs" />
+     <Compile Include="Assets\Scripts\Util\Cheats.cs" />
      <Compile Include="Assets\Scripts\Util\FrameText.cs" />
      <Compile Include="Assets\Scripts\Util\IntVector2.cs" />
      <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
