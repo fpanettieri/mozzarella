@@ -15,7 +15,6 @@ public class GameObjectName
 {
 	public const string GRID = "Grid";
 	public const string PIECE = "Piece";
-	public const string EVENTS = "Events";
 	public const string TIME = "Time";
-	public const string QUEUE = "Queue";
+	public const string CHEATS = "Cheats";
 }
