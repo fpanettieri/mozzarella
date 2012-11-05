@@ -38,6 +38,9 @@ public class Grid : MonoBehaviour
 	// update
 	public void FixedUpdate()
 	{
+		// FIXME: cheat used to skip frames
+		if(TimeMachine.skip){ return; }
+		
 		for(int i = 0; i < movingPieces.Count; i++){
 			piece = movingPieces[i];
 
@@ -82,7 +85,7 @@ public class Grid : MonoBehaviour
 			piece = movingPieces[i];
 			if(piece.moving) { continue; }
 			movingPieces.RemoveAt(i);
-			timeline.Insert(TimeMachine.idx, new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
+			timeline.Insert(TimeMachine.idx, new PieceLockEvent(TimeMachine.frame - 2, piece.id, piece.row, piece.column, piece.type));
  		}
 	}
 
@@ -96,22 +99,4 @@ public class Grid : MonoBehaviour
 		movingPieces.Remove(piece);
 	}
 
-	public void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.G)){
-			DebugGrid();
-		}
-	}
-
-	public void DebugGrid()
-	{
-		string str = "";
-		for(int i = rows - 1; i >=0; i --){
-			for(int j = 0; j < columns; j++){
-				str += cells[j + i * columns];
-			}
-			str += "\n";
-		}
-		Debug.Log(str);
-	}
 }
