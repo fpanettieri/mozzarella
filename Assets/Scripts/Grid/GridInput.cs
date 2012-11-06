@@ -43,8 +43,8 @@ public class GridInput : MonoBehaviour
 		// Detect touched cell
 		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
-			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame + 1, cell.x, queue.Next()));
-			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame + 1, (cell.x + 1) % grid.columns, queue.Next()));
+			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame, cell.x, queue.Next()));
+			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame, (cell.x + 1) % grid.columns, queue.Next()));
 		}
 	}
 	
