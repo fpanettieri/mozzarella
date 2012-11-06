@@ -16,11 +16,9 @@ public class TimeMachine : MonoBehaviour
 {
 	public static bool paused = true;
 	public static bool skip = false;
-
 	public static bool rewind;
 	public static int frame;
 	public static int idx;
-
 	private Timeline timeline;
 	private MozEvent ev;
 	
@@ -38,10 +36,10 @@ public class TimeMachine : MonoBehaviour
 		skip = false;
 
 		// FIXME: Remove cheat
-		if(paused){
-			if(Input.GetKey(KeyCode.LeftArrow)){
+		if(paused) {
+			if(Input.GetKey(KeyCode.LeftArrow)) {
 				rewind = true;
-			} else if( Input.GetKey(KeyCode.RightArrow)) {
+			} else if(Input.GetKey(KeyCode.RightArrow)) {
 				rewind = false;
 			} else {
 				skip = true;
@@ -52,7 +50,9 @@ public class TimeMachine : MonoBehaviour
 		}
 
 		frame += rewind ? -1 : 1;
-		if(frame < 0){ frame = 0; }
+		if(frame < 0) {
+			frame = 0;
+		}
 		
 		if(timeline.count < 1) {
 			return;
@@ -71,8 +71,12 @@ public class TimeMachine : MonoBehaviour
 
 		while(idx < timeline.count) {
 			ev = timeline[idx];
-			if(ev.frame <= frame){
-				if(ev.enabled) { Events.i.Notify(ev); }
+			if(ev.frame < frame) {
+				++idx;
+			} else if(ev.frame == frame) {
+				if(ev.enabled) {
+					Events.i.Notify(ev);
+				}
 				++idx;
 			} else if(ev.frame > frame) {
 				break;
@@ -82,14 +86,18 @@ public class TimeMachine : MonoBehaviour
 
 	private void MoveBackward()
 	{
-		if(idx >= timeline.count){
+		if(idx >= timeline.count) {
 			idx = timeline.count - 1;
 		}
 
 		while(idx >= 0) {
 			ev = timeline[idx];
-			if (ev.frame >= frame) {
-				if(ev.enabled) { Events.i.Notify(ev); }
+			if(ev.frame > frame) {
+				--idx;
+			} else if(ev.frame == frame) {
+				if(ev.enabled) {
+					Events.i.Notify(ev);
+				}
 				--idx;
 			} else if(ev.frame < frame) {
 				break;

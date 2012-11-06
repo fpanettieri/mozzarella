@@ -31,7 +31,8 @@ public class Timeline : MonoBehaviour
 	
 	public void Add(MozEvent e)
 	{
-		events.Add(e);}
+		events.Add(e);
+	}
 
 	public void Insert(int index, MozEvent e)
 	{
