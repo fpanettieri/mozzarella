@@ -22,7 +22,20 @@ public class PieceLocker : MonoBehaviour, IEventListener
 	
 	public void Notify(MozEvent e)
 	{
-		if(TimeMachine.rewind) { UnlockPiece(e as PieceLockEvent); }
+		if(TimeMachine.rewind) {
+			UnlockPiece(e as PieceLockEvent);
+		} else {
+			LockPiece(e as PieceLockEvent);
+		}
+	}
+
+	private void LockPiece(PieceLockEvent e)
+	{
+		grid.cells[e.column + e.row * grid.columns] = e.type;
+		piece = pool[e.id];
+		piece.moving = false;
+		grid.RemovePiece(piece);
+		// TODO: Play piece lock sound
 	}
 
 	private void UnlockPiece(PieceLockEvent e)
