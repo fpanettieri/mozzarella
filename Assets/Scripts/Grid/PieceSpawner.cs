@@ -48,7 +48,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	// if it can't be moved down, dispatch game over
 	private void SpawnPiece(PieceSpawnEvent e)
 	{
-		SpawnPiece(e.column, grid.rows - 1, e.piece, true);
+		SpawnPiece(e.column, e.row, e.piece, true);
 		e.id = piece.id;
 		grid.AddPiece(piece);
 	}
@@ -68,6 +68,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 
 	private void DestroyPiece(PieceSpawnEvent e)
 	{
+		grid.cells[e.column + e.row * grid.columns] = PieceType.Empty;
 		pool.Release(e.id);
 		piece = pool[e.id];
 		piece.moving = false;
