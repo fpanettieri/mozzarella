@@ -62,6 +62,12 @@ public class TimeMachine : MonoBehaviour
 			MoveForward(); 
 		}
 	}
+
+	public void Broadcast(MozEvent e)
+	{
+		timeline.Insert(idx++, e);
+		Events.i.Notify(e);
+	}
 	
 	private void MoveForward()
 	{
@@ -92,14 +98,14 @@ public class TimeMachine : MonoBehaviour
 
 		while(idx >= 0) {
 			ev = timeline[idx];
-			if(ev.frame > frame) {
+			if(ev.frame > frame + 1) {
 				--idx;
-			} else if(ev.frame == frame) {
+			} else if(ev.frame == frame + 1) {
 				if(ev.enabled) {
 					Events.i.Notify(ev);
 				}
 				--idx;
-			} else if(ev.frame < frame) {
+			} else if(ev.frame < frame + 1) {
 				break;
 			}
 		}

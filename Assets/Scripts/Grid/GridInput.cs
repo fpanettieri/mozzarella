@@ -23,7 +23,7 @@ public class GridInput : MonoBehaviour
 	public int cellWidth;
 	public int cellHeight;
 	private Grid grid;
-	private Timeline timeline;
+	private TimeMachine timemachine;
 	private PieceQueue queue;
 	private IntVector2 cell;
 
@@ -32,7 +32,7 @@ public class GridInput : MonoBehaviour
 		cell = new IntVector2(0, 0);
 		grid = GetComponent<Grid>();
 		queue = GetComponent<PieceQueue>();
-		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
+		timemachine = GameObject.Find(GameObjectName.TIME).GetComponent<TimeMachine>();
 	}
 
 	void Update()
@@ -43,10 +43,8 @@ public class GridInput : MonoBehaviour
 		// Detect touched cell
 		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
-			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame, grid.rows - 1, cell.x, queue.Next()));
-			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame, grid.rows - 1, (cell.x + 1) % grid.columns, queue.Next()));
-			Events.i.Notify(timeline[TimeMachine.idx]);
-			Events.i.Notify(timeline[TimeMachine.idx + 1]);
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, grid.rows - 1, cell.x, queue.Next()));
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, grid.rows - 1, (cell.x + 1) % grid.columns, queue.Next()));
 		}
 	}
 	
