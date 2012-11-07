@@ -45,6 +45,8 @@ public class GridInput : MonoBehaviour
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
 			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame, cell.x, queue.Next()));
 			timeline.Insert(TimeMachine.idx, new PieceSpawnEvent(TimeMachine.frame, (cell.x + 1) % grid.columns, queue.Next()));
+			Events.i.Notify(timeline[TimeMachine.idx]);
+			Events.i.Notify(timeline[TimeMachine.idx + 1]);
 		}
 	}
 	
