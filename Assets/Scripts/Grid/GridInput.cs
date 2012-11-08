@@ -37,6 +37,7 @@ public class GridInput : MonoBehaviour
 
 	void Update()
 	{
+		if(TimeMachine.rewind){ return; }
 		// TODO: verify if the space is ocuppied on mouse down, not mouseup.
 		// if( grid.cells[ cell.x + cell.y * grid.columns ] == PieceType.Empty ){
 

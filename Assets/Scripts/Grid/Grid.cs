@@ -44,7 +44,7 @@ public class Grid : MonoBehaviour
 		if(TimeMachine.skip) { return; }
 
 		DropPieces();
-		do { ResolveCollisions(); } while ( collision );
+		do{ ResolveCollisions(); } while ( collision );
 		MovePieces();
 		LockPieces();
 	}
@@ -73,6 +73,9 @@ public class Grid : MonoBehaviour
 			} else if(cells[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
 				piece.moving = false;
 				collision = true;
+			}
+			if(!piece.moving){
+				cells[piece.column + piece.row * columns] = piece.type;
 			}
 		}
 	}
