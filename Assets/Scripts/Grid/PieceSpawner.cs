@@ -44,13 +44,11 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		}
 	}
 
-	// If the first row is occupied, move it down
-	// if it can't be moved down, dispatch game over
 	private void SpawnPiece(PieceSpawnEvent e)
 	{
 		SpawnPiece(e.column, e.row, e.piece, true);
 		e.id = piece.id;
-		grid.AddPiece(piece);
+		grid.movingPieces.Add(piece);
 	}
 
 	private void SpawnPiece(int column, int row, int type, bool moving)
@@ -64,6 +62,9 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.moving = moving;
 		piece.Enable();
 		grid.cells[column + row * grid.columns] = type;
+
+		// If the first row is occupied, move it down
+		// if it can't be moved down, dispatch game over
 	}
 
 	private void DestroyPiece(PieceSpawnEvent e)
@@ -75,6 +76,6 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.column = 0;
 		piece.row = 0;
 		piece.Disable();
-		grid.RemovePiece(piece);
+		grid.movingPieces.Remove(piece);
 	}
 }
