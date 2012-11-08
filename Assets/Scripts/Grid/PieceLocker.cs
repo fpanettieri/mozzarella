@@ -33,6 +33,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 	{
 		grid.cells[e.column + e.row * grid.columns] = e.type;
 		piece = pool[e.id];
+		piece.moving = false;
 		grid.movingPieces.Remove(piece);
 		// TODO: Play piece lock sound
 	}

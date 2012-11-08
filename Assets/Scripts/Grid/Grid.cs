@@ -45,8 +45,8 @@ public class Grid : MonoBehaviour
 
 		DropPieces();
 		do { ResolveCollisions(); } while ( collision );
-		LockPieces();
 		MovePieces();
+		LockPieces();
 	}
 
 	private void DropPieces()
