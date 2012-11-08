@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Enums\MozEventType.cs" />
      <Compile Include="Assets\Scripts\Enums\PieceType.cs" />
      <Compile Include="Assets\Scripts\Events\Events.cs" />
+     <Compile Include="Assets\Scripts\Events\GameOverEvent.cs" />
      <Compile Include="Assets\Scripts\Events\IEventListener.cs" />
      <Compile Include="Assets\Scripts\Events\MozEvent.cs" />
      <Compile Include="Assets\Scripts\Events\PieceLockEvent.cs" />

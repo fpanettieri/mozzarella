@@ -29,7 +29,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		for(int i = 0; i < grid.rows; i++) {
 			for(int j = 0; j < grid.columns; j++) {
 				type = grid.cells[j + i * grid.columns];
-				if( type == PieceType.Empty) { continue; }
+				if(type == PieceType.Empty) { continue;	}
 				SpawnPiece(j, i, grid.cells[j + i * grid.columns], false);
 			}
 		}
@@ -46,6 +46,11 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 
 	private void SpawnPiece(PieceSpawnEvent e)
 	{
+		// If the first row is occupied, move it down
+		// if it can't be moved down, dispatch game over
+		if(grid.cells[e.column + e.row * grid.columns] != PieceType.Empty) {
+			Debug.Log("Que estas haciendo willis?");
+		}
 		SpawnPiece(e.column, e.row, e.piece, true);
 		e.id = piece.id;
 		grid.movingPieces.Add(piece);
@@ -54,16 +59,13 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	private void SpawnPiece(int column, int row, int type, bool moving)
 	{
 		piece = pool.Pick();
-		piece.transform.localPosition = new Vector3(column * pieceSize.x, row * pieceSize.y, 0);
-		piece.renderer.material = PieceMaterial.getMaterial(type);
-		piece.type = type;
 		piece.column = column;
 		piece.row = row;
+		piece.type = type;
 		piece.moving = moving;
+		piece.transform.localPosition = new Vector3(piece.column * pieceSize.x, piece.row * pieceSize.y, 0);
+		piece.renderer.material = PieceMaterial.getMaterial(type);
 		piece.Enable();
-
-		// If the first row is occupied, move it down
-		// if it can't be moved down, dispatch game over
 	}
 
 	private void DestroyPiece(PieceSpawnEvent e)

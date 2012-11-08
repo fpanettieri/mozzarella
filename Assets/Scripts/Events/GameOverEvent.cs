@@ -7,13 +7,20 @@
  	Fabio R. Panettieri [ fpanettieri{at}gmail{dot}com ]
 ===============================================================================
 */
+using UnityEngine;
 
-/**
- * Enum-like class with all possible event types.
- */ 
-public class MozEventType
+public class GameOverEvent : MozEvent
 {
-	public const int GameOver = 0;
-	public const int PieceSpawn = 1;
-	public const int PieceLock = 2;
+	public GameOverEvent()
+	{
+		this.initial = "GO";
+		this.type = MozEventType.GameOver;
+	}
+	
+	override public string ToString()
+	{
+		return "GameOverEvent";
+	}
 }
+
+	
