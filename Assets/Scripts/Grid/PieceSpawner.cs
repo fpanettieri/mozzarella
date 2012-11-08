@@ -61,7 +61,6 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.row = row;
 		piece.moving = moving;
 		piece.Enable();
-		grid.cells[column + row * grid.columns] = type;
 
 		// If the first row is occupied, move it down
 		// if it can't be moved down, dispatch game over

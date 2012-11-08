@@ -14,7 +14,7 @@ public class Grid : MonoBehaviour
 {
 	// Dependencies
 	private TimeMachine timemachine;
-	
+
 	// Inspector properties
 	public GameObject piecePrefab;
 	public int rows = 0;
@@ -41,8 +41,8 @@ public class Grid : MonoBehaviour
 	public void FixedUpdate()
 	{
 		// FIXME: cheat used to skip frames
-		if(TimeMachine.skip){ return; }
-		collision = false;
+		if(TimeMachine.skip) { return; }
+
 		DropPieces();
 		do { ResolveCollisions(); } while ( collision );
 		LockPieces();
@@ -51,25 +51,26 @@ public class Grid : MonoBehaviour
 
 	private void DropPieces()
 	{
-		for(int i = 0; i < movingPieces.Count; i++){
+		for(int i = 0; i < movingPieces.Count; i++) {
 			piece = movingPieces[i];
-			if(TimeMachine.rewind){	piece.row++; }
-			else { piece.row--;	}
+			if(TimeMachine.rewind) {
+				piece.row++;
+			} else {
+				piece.row--;
+			}
 		}
 	}
 
 	private void ResolveCollisions()
 	{
-		for(int i = 0; i < movingPieces.Count; i++){
+		collision = false;
+		for(int i = 0; i < movingPieces.Count; i++) {
 			piece = movingPieces[i];
-
-			if(piece.row < 0) {
-				piece.row = 0;
+			if(!piece.moving) { continue; }
+			if(piece.row == 0) {
 				piece.moving = false;
 				collision = true;
-			} else if(cells[piece.column + piece.row * columns] != PieceType.Empty) {
-				if(TimeMachine.rewind){	piece.row--; }
-				else { piece.row++;	}
+			} else if(cells[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
 				piece.moving = false;
 				collision = true;
 			}
@@ -84,12 +85,12 @@ public class Grid : MonoBehaviour
 			piece = movingPieces[i];
 			if(piece.moving) { continue; }
 			timemachine.Broadcast(new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
- 		}
+		}
 	}
 
 	private void MovePieces()
 	{
-		for(int i = 0; i < movingPieces.Count; i++){
+		for(int i = 0; i < movingPieces.Count; i++) {
 			piece = movingPieces[i];
 			pieceProj.Set(piece.column * tileSize.x, piece.row * tileSize.y, 0);
 			piece.transform.localPosition = pieceProj;
