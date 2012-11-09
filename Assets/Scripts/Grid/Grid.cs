@@ -41,10 +41,14 @@ public class Grid : MonoBehaviour
 	public void FixedUpdate()
 	{
 		// FIXME: cheat used to skip frames
-		if(TimeMachine.skip) { return; }
-
+		if(TimeMachine.skip) {
+			return;
+		}
+		
 		DropPieces();
-		do{ ResolveCollisions(); } while ( collision );
+		do {
+			ResolveCollisions();
+		} while ( collision );
 		MovePieces();
 		LockPieces();
 	}
@@ -66,7 +70,9 @@ public class Grid : MonoBehaviour
 		collision = false;
 		for(int i = 0; i < movingPieces.Count; i++) {
 			piece = movingPieces[i];
-			if(!piece.moving) { continue; }
+			if(!piece.moving) {
+				continue;
+			}
 			if(piece.row == 0) {
 				piece.moving = false;
 				collision = true;
@@ -74,7 +80,7 @@ public class Grid : MonoBehaviour
 				piece.moving = false;
 				collision = true;
 			}
-			if(!piece.moving){
+			if(!piece.moving) {
 				cells[piece.column + piece.row * columns] = piece.type;
 			}
 		}
@@ -83,10 +89,14 @@ public class Grid : MonoBehaviour
 	private void LockPieces()
 	{
 		// Only lock pieces if moving forward
-		if(TimeMachine.rewind) { return; }
+		if(TimeMachine.rewind) {
+			return;
+		}
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
 			piece = movingPieces[i];
-			if(piece.moving) { continue; }
+			if(piece.moving) {
+				continue;
+			}
 			timemachine.Broadcast(new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
 		}
 	}
