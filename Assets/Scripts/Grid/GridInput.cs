@@ -22,10 +22,16 @@ public class GridInput : MonoBehaviour
 	public int right;
 	public int cellWidth;
 	public int cellHeight;
+
 	private Grid grid;
 	private TimeMachine timemachine;
 	private PieceQueue queue;
 	private IntVector2 cell;
+
+	private IntVector2 firstHalf;
+	private IntVector2 secondHalf;
+
+	private Piece piece;
 
 	void Awake()
 	{
@@ -33,6 +39,8 @@ public class GridInput : MonoBehaviour
 		grid = GetComponent<Grid>();
 		queue = GetComponent<PieceQueue>();
 		timemachine = GameObject.Find(GameObjectName.TIME).GetComponent<TimeMachine>();
+		firstHalf = new IntVector2(0, 0);
+		secondHalf = new IntVector2(0, 0);
 	}
 
 	void Update()
@@ -44,13 +52,31 @@ public class GridInput : MonoBehaviour
 		// Detect touched cell
 		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
 			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
-			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, grid.rows - 1, cell.x, queue.Next()));
-			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, grid.rows - 1, (cell.x + 1) % grid.columns, queue.Next()));
+
+			firstHalf.Set(cell.x, grid.rows - 1);
+			secondHalf.Set((cell.x + 1) % grid.columns, grid.rows - 1);
+			if(CellsOccupied()){ return; }
+
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, firstHalf.y, firstHalf.x, queue.Next()));
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, secondHalf.y, secondHalf.x, queue.Next()));
 		}
 	}
 	
 	private bool InsideGrid(Vector3 v)
 	{
 		return v.x > left && v.x < right && v.y > bottom && v.y < top;
+	}
+
+	private bool CellsOccupied()
+	{
+		for(int i = 0; i < grid.movingPieces.Count; i++){
+			piece = grid.movingPieces[i];
+			if((piece.row == firstHalf.y && piece.column == firstHalf.x) ||
+			   (piece.row == secondHalf.y && piece.column == secondHalf.x)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
