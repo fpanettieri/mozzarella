@@ -20,9 +20,12 @@ public class Events
 {
 	// Singleton
 	private static Events instance;
+
 	public static Events i {
 		get {
-			if(instance == null){ instance = new Events(); }
+			if(instance == null) {
+				instance = new Events();
+			}
 			return instance;
 		}
 	}

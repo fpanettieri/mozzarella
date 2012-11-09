@@ -73,13 +73,13 @@ public class PieceQueue : MonoBehaviour
 			pair = types[i].Split('x');
 			type = int.Parse(pair[1]);
 			samples = int.Parse(pair[0]) * ratio;
-			for(int j = 0; j < samples; j++){
+			for(int j = 0; j < samples; j++) {
 				pieces[idx++] = type;
 			}
 		}
 
 		// fill the holes with random pieces
-		while(idx < size){
+		while(idx < size) {
 			pair = types[Mathf.FloorToInt(Random.value * types.Length)].Split('x');
 			pieces[idx++] = int.Parse(pair[1]);
 		}

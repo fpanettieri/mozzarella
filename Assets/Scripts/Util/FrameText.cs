@@ -9,7 +9,9 @@ public class FrameText : MonoBehaviour
 	public void Update()
 	{
 		current = TimeMachine.frame;
-		if(current > max){ max = current; }
+		if(current > max) {
+			max = current;
+		}
 		guiText.text = current.ToString() + " / " + max.ToString();
 	}
 }

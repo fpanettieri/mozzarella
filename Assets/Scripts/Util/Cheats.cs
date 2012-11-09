@@ -7,13 +7,17 @@ public class Cheats : MonoBehaviour
 
 	public void Start()
 	{
-		grid = GameObject.Find( GameObjectName.GRID ).GetComponent<Grid>();
+		grid = GameObject.Find(GameObjectName.GRID).GetComponent<Grid>();
 	}
 
 	public void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.P)) { Pause(); }
-		if(Input.GetKeyDown(KeyCode.G)) { DebugGrid(); }
+		if(Input.GetKeyDown(KeyCode.P)) {
+			Pause();
+		}
+		if(Input.GetKeyDown(KeyCode.G)) {
+			DebugGrid();
+		}
 	}
 
 	private void Pause()
