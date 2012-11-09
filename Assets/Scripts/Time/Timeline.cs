@@ -37,7 +37,6 @@ public class Timeline : MonoBehaviour
 	public void Insert(int index, MozEvent e)
 	{
 		events.Insert(index, e);
-		Debug.Log(this);
 	}
 
 	public void Remove(MozEvent e)
@@ -47,7 +46,6 @@ public class Timeline : MonoBehaviour
 			TimeMachine.idx--;
 		}
 		events.Remove(e);
-		Debug.Log(this);
 	}
 	
 	public void Sort()

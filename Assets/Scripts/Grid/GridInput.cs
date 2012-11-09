@@ -70,12 +70,15 @@ public class GridInput : MonoBehaviour
 
 	private bool CellsOccupied()
 	{
+		if(grid.cells[firstHalf.x + firstHalf.y * grid.columns] != PieceType.Empty ||
+		   grid.cells[secondHalf.x + secondHalf.y * grid.columns] != PieceType.Empty) {
+			return true;
+		}
+
 		for(int i = 0; i < grid.movingPieces.Count; i++) {
 			piece = grid.movingPieces[i];
 			if((piece.row == firstHalf.y && piece.column == firstHalf.x) ||
-			   (piece.row == secondHalf.y && piece.column == secondHalf.x) ||
-				grid.cells[firstHalf.x + firstHalf.y * grid.columns] != PieceType.Empty ||
-				grid.cells[secondHalf.x + secondHalf.y * grid.columns] != PieceType.Empty) {
+			   (piece.row == secondHalf.y && piece.column == secondHalf.x)) {
 				return true;
 			}
 		}

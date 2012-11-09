@@ -14,7 +14,7 @@ using UnityEngine;
  */
 public class TimeMachine : MonoBehaviour
 {
-	public static bool paused = true;
+	public static bool paused = false;
 	public static bool skip = false;
 	public static bool rewind;
 	public static int frame;
@@ -30,7 +30,7 @@ public class TimeMachine : MonoBehaviour
 		timeline = GetComponent<Timeline>();
 	}
 
-	public void FixedUpdate()
+	public void Update()
 	{
 		// FIXME: cheat code used to debug behaviour
 		skip = false;

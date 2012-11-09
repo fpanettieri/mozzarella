@@ -50,6 +50,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	{
 		if(grid.cells[e.column + e.row * grid.columns] != PieceType.Empty) {
 			Events.i.Notify(new GameOverEvent());
+			Debug.LogError("YOU LOSE!");
 		}
 
 		bool moving = grid.cells[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;

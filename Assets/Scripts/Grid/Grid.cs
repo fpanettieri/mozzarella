@@ -38,7 +38,7 @@ public class Grid : MonoBehaviour
 	}
 
 	// update
-	public void FixedUpdate()
+	public void Update()
 	{
 		// FIXME: cheat used to skip frames
 		if(TimeMachine.skip) {
@@ -49,6 +49,7 @@ public class Grid : MonoBehaviour
 		do {
 			ResolveCollisions();
 		} while ( collision );
+		
 		MovePieces();
 		LockPieces();
 	}
