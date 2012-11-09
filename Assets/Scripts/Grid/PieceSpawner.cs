@@ -29,7 +29,9 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		for(int i = 0; i < grid.rows; i++) {
 			for(int j = 0; j < grid.columns; j++) {
 				type = grid.cells[j + i * grid.columns];
-				if(type == PieceType.Empty) { continue;	}
+				if(type == PieceType.Empty) {
+					continue;
+				}
 				SpawnPiece(j, i, grid.cells[j + i * grid.columns], false);
 			}
 		}
@@ -46,14 +48,19 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 
 	private void SpawnPiece(PieceSpawnEvent e)
 	{
-		// If the first row is occupied, move it down
-		// if it can't be moved down, dispatch game over
 		if(grid.cells[e.column + e.row * grid.columns] != PieceType.Empty) {
-			Debug.Log("Que estas haciendo willis?");
+			Events.i.Notify(new GameOverEvent());
 		}
-		SpawnPiece(e.column, e.row, e.piece, true);
+
+		bool moving = grid.cells[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;
+		SpawnPiece(e.column, e.row, e.piece, moving);
 		e.id = piece.id;
-		grid.movingPieces.Add(piece);
+
+		if(moving) {
+			grid.movingPieces.Add(piece);
+		} else {
+			grid.cells[e.column + e.row * grid.columns] = e.type;
+		}
 	}
 
 	private void SpawnPiece(int column, int row, int type, bool moving)
