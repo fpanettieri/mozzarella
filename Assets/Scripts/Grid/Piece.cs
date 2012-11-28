@@ -16,6 +16,7 @@ public class Piece : MonoBehaviour
 	public bool moving = false;
 	public int row = 0;
 	public int column = 0;
+	public int groups = 0;
 	
 	public void Enable()
 	{

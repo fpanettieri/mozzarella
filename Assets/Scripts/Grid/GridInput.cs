@@ -70,8 +70,8 @@ public class GridInput : MonoBehaviour
 
 	private bool CellsOccupied()
 	{
-		if(grid.cells[firstHalf.x + firstHalf.y * grid.columns] != PieceType.Empty ||
-		   grid.cells[secondHalf.x + secondHalf.y * grid.columns] != PieceType.Empty) {
+		if(grid.pieceTypes[firstHalf.x + firstHalf.y * grid.columns] != PieceType.Empty ||
+		   grid.pieceTypes[secondHalf.x + secondHalf.y * grid.columns] != PieceType.Empty) {
 			return true;
 		}
 

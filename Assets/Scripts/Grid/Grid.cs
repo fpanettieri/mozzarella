@@ -19,7 +19,8 @@ public class Grid : MonoBehaviour
 	public GameObject piecePrefab;
 	public int rows = 0;
 	public int columns = 0;
-	public int[] cells;
+	public int[] pieceTypes;
+	public int[] pieceId;
 	public List<Piece> movingPieces;
 
 	// Private / aux properties
@@ -35,6 +36,10 @@ public class Grid : MonoBehaviour
 		movingPieces = new List<Piece>();
 		pieceProj = new Vector3(0, 0, 0);
 		collision = false;
+		pieceId = new int[pieceTypes.Length];
+		for(int i = 0; i < pieceTypes.Length; i++){
+			pieceId[i] = -1;
+		}
 	}
 
 	// update
@@ -77,12 +82,13 @@ public class Grid : MonoBehaviour
 			if(piece.row == 0) {
 				piece.moving = false;
 				collision = true;
-			} else if(cells[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
+			} else if(pieceTypes[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
 				piece.moving = false;
 				collision = true;
 			}
 			if(!piece.moving) {
-				cells[piece.column + piece.row * columns] = piece.type;
+				pieceTypes[piece.column + piece.row * columns] = piece.type;
+				pieceId[piece.column + piece.row * columns] = piece.id;
 			}
 		}
 	}
@@ -95,9 +101,7 @@ public class Grid : MonoBehaviour
 		}
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
 			piece = movingPieces[i];
-			if(piece.moving) {
-				continue;
-			}
+			if(piece.moving) { continue; }
 			timemachine.Broadcast(new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
 		}
 	}

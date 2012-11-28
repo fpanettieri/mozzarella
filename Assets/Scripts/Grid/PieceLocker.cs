@@ -10,7 +10,6 @@ public class PieceLocker : MonoBehaviour, IEventListener
 
 	// Private / aux properties
 	private Piece piece;
-	private Vector3 pieceSize;
 	
 	public void Awake()
 	{
@@ -19,7 +18,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 		pool = GetComponent<PiecePool>();
 		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
 	}
-	
+
 	public void Notify(MozEvent e)
 	{
 		if(TimeMachine.rewind) {
@@ -35,14 +34,17 @@ public class PieceLocker : MonoBehaviour, IEventListener
 		grid.movingPieces.Remove(piece);
 		// TODO: Play piece lock sound
 	}
+	
 
 	private void UnlockPiece(PieceLockEvent e)
 	{
-		grid.cells[e.column + e.row * grid.columns] = PieceType.Empty;
 		piece = pool[e.id];
+		grid.pieceTypes[piece.column + piece.row * grid.columns] = PieceType.Empty;
+		grid.pieceId[piece.column + piece.row * grid.columns] = -1;
 		piece.moving = true;
 		grid.movingPieces.Add(piece);
 		timeline.Remove(e);
 		// TODO: Play piece unlock sound
 	}
+
 }

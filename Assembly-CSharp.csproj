@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Grid\Grid.cs" />
      <Compile Include="Assets\Scripts\Grid\GridInput.cs" />
      <Compile Include="Assets\Scripts\Grid\Piece.cs" />
+     <Compile Include="Assets\Scripts\Grid\PieceGrouper.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceLocker.cs" />
      <Compile Include="Assets\Scripts\Grid\PiecePool.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />

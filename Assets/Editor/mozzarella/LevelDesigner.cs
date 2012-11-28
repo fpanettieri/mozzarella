@@ -106,7 +106,7 @@ public class LevelDesigner : EditorWindow
 			
 	private void RightPanel()
 	{
-		if(!configured || grid.cells == null) {
+		if(!configured || grid.pieceTypes == null) {
 			return;
 		}
 		GUI.Box(gridRect, "");
@@ -115,7 +115,7 @@ public class LevelDesigner : EditorWindow
 		for(int i = 0; i < grid.columns; i++) {
 			for(int j = 0; j < grid.rows; j++) {
 				
-				GUI.color = PieceColor.getColor(grid.cells[i + j * grid.columns]);
+				GUI.color = PieceColor.getColor(grid.pieceTypes[i + j * grid.columns]);
 				GUI.DrawTexture(new Rect(
 					gridRect.x + tileSize.x * i,
 					gridRect.y + tileSize.y * (grid.rows - j - 1),
@@ -141,11 +141,11 @@ public class LevelDesigner : EditorWindow
 	 */ 
 	private void CleanGrid()
 	{
-		grid.cells = new int[ grid.rows * grid.columns ];
+		grid.pieceTypes = new int[ grid.rows * grid.columns ];
 			
 		for(int i = 0; i < grid.columns; i++) {	
 			for(int j = 0; j < grid.rows; j++) {
-				grid.cells[i + j * grid.columns] = PieceType.Empty;
+				grid.pieceTypes[i + j * grid.columns] = PieceType.Empty;
 			}
 		}
 	}
@@ -160,7 +160,7 @@ public class LevelDesigner : EditorWindow
 			mouseDown = false;
 		}
 		if(mouseDown) {
-			SetPiece(mouseButton == 0 ? selectedType : PieceType.Empty, currentEvent.mousePosition, grid.cells);
+			SetPiece(mouseButton == 0 ? selectedType : PieceType.Empty, currentEvent.mousePosition, grid.pieceTypes);
 		}
 	}
 
@@ -172,7 +172,7 @@ public class LevelDesigner : EditorWindow
 		row = Mathf.FloorToInt((position.height - mousePosition.y - GRID_PADDING) / tileSize.y);
 		column = Mathf.FloorToInt((mousePosition.x - OPTIONS_WIDTH - GRID_PADDING) / tileSize.x);
 		try {
-			grid.cells[column + row * grid.columns] = type;
+			grid.pieceTypes[column + row * grid.columns] = type;
 		} catch(System.IndexOutOfRangeException e) {
 			Debug.Log(e);
 		}
@@ -221,7 +221,7 @@ public class LevelDesigner : EditorWindow
 		
 		for(int i = 0; i < grid.columns; i++) {
 			for(int j = 0; j < grid.rows; j++) {
-				int type = grid.cells[i + j * grid.columns];
+				int type = grid.pieceTypes[i + j * grid.columns];
 				if(type == PieceType.Empty) {
 					continue;
 				}
@@ -253,16 +253,16 @@ public class LevelDesigner : EditorWindow
 	 */
 	private void CreateCells()
 	{
-		if(grid.cells == null || grid.cells.Length == 0 || 
+		if(grid.pieceTypes == null || grid.pieceTypes.Length == 0 || 
 			grid.rows != int.Parse(rowsTxt) || grid.columns != int.Parse(columnsTxt)) {
 			
 			grid.rows = int.Parse(rowsTxt);
 			grid.columns = int.Parse(columnsTxt);
-			grid.cells = new int[ grid.rows * grid.columns ];
+			grid.pieceTypes = new int[ grid.rows * grid.columns ];
 			
 			for(int i = 0; i < grid.columns; i++) {	
 				for(int j = 0; j < grid.rows; j++) {
-					grid.cells[i + j * grid.columns] = PieceType.Empty;
+					grid.pieceTypes[i + j * grid.columns] = PieceType.Empty;
 				}
 			}
 			

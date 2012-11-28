@@ -28,11 +28,11 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		int type = 0;
 		for(int i = 0; i < grid.rows; i++) {
 			for(int j = 0; j < grid.columns; j++) {
-				type = grid.cells[j + i * grid.columns];
+				type = grid.pieceTypes[j + i * grid.columns];
 				if(type == PieceType.Empty) {
 					continue;
 				}
-				SpawnPiece(j, i, grid.cells[j + i * grid.columns], false);
+				SpawnPiece(j, i, grid.pieceTypes[j + i * grid.columns], false);
 			}
 		}
 	}
@@ -48,19 +48,20 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 
 	private void SpawnPiece(PieceSpawnEvent e)
 	{
-		if(grid.cells[e.column + e.row * grid.columns] != PieceType.Empty) {
+		if(grid.pieceTypes[e.column + e.row * grid.columns] != PieceType.Empty) {
 			Events.i.Notify(new GameOverEvent());
 			Debug.LogError("YOU LOSE!");
 		}
 
-		bool moving = grid.cells[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;
+		bool moving = grid.pieceTypes[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;
 		SpawnPiece(e.column, e.row, e.piece, moving);
 		e.id = piece.id;
 
 		if(moving) {
 			grid.movingPieces.Add(piece);
 		} else {
-			grid.cells[e.column + e.row * grid.columns] = e.type;
+			grid.pieceTypes[e.column + e.row * grid.columns] = e.type;
+			grid.pieceId[e.column + e.row * grid.columns] = piece.id;
 		}
 	}
 
@@ -78,7 +79,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 
 	private void DestroyPiece(PieceSpawnEvent e)
 	{
-		grid.cells[e.column + e.row * grid.columns] = PieceType.Empty;
+		grid.pieceTypes[e.column + e.row * grid.columns] = PieceType.Empty;
 		pool.Release(e.id);
 		piece = pool[e.id];
 		piece.moving = false;

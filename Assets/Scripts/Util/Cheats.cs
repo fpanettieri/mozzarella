@@ -4,10 +4,12 @@ using System.Collections;
 public class Cheats : MonoBehaviour
 {
 	private Grid grid;
+	private PiecePool pool;
 
 	public void Start()
 	{
 		grid = GameObject.Find(GameObjectName.GRID).GetComponent<Grid>();
+		pool = GameObject.Find(GameObjectName.GRID).GetComponent<PiecePool>();
 	}
 
 	public void Update()
@@ -27,10 +29,22 @@ public class Cheats : MonoBehaviour
 
 	public void DebugGrid()
 	{
-		string str = "";
+		string str = "Types\n";
 		for(int i = grid.rows - 1; i >=0; i --) {
 			for(int j = 0; j < grid.columns; j++) {
-				str += grid.cells[j + i * grid.columns];
+				str += grid.pieceTypes[j + i * grid.columns];
+			}
+			str += "\n";
+		}
+
+		str += "\n\n\nGroups\n";
+		for(int i = grid.rows - 1; i >=0; i --) {
+			for(int j = 0; j < grid.columns; j++) {
+				if(grid.pieceId[j + i * grid.columns] == -1){
+					str += "#";
+				} else {
+					str += pool[grid.pieceId[j + i * grid.columns]].groups;
+				}
 			}
 			str += "\n";
 		}
