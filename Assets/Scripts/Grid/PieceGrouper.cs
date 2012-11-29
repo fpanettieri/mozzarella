@@ -44,6 +44,7 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 				pool[grid.pieceId[left]].groups++;
 				pool[grid.pieceId[diagLeft]].groups++;
 			}
+			Debug.Log("left group");
 		}
 
 		if (piece.row < grid.columns - 1){
@@ -55,6 +56,7 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 				pool[grid.pieceId[right]].groups++;
 				pool[grid.pieceId[diagRight]].groups++;
 			}
+			Debug.Log("right group");
 		}
 	}
 	
@@ -62,8 +64,8 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 	private void UngroupPiece(PieceLockEvent e)
 	{
 		piece = pool[e.id];
+		piece.groups = 0;
 		if(piece.row == 0){ return; }
-		int spot = piece.column + piece.row * grid.columns;
 		int down = piece.column + (piece.row - 1) * grid.columns;
 		if (grid.pieceTypes[down] != piece.type){ return; }
 
@@ -72,7 +74,6 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 			int left = piece.column - 1 + piece.row * grid.columns;
 			int diagLeft = piece.column - 1 + (piece.row - 1) * grid.columns;
 			if(grid.pieceTypes[left] == piece.type && grid.pieceTypes[diagLeft] == piece.type) {
-				pool[grid.pieceId[spot]].groups--;
 				pool[grid.pieceId[down]].groups--;
 				pool[grid.pieceId[left]].groups--;
 				pool[grid.pieceId[diagLeft]].groups--;
@@ -82,9 +83,8 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 		// right group
 		if (piece.row < grid.columns - 1){
 			int right = piece.column + 1 + piece.row * grid.columns;
-			int diagRight = piece.column - 1 + (piece.row - 1) * grid.columns;
+			int diagRight = piece.column + 1 + (piece.row - 1) * grid.columns;
 			if(grid.pieceTypes[right] == piece.type && grid.pieceTypes[diagRight] == piece.type) {
-				pool[grid.pieceId[spot]].groups--;
 				pool[grid.pieceId[down]].groups--;
 				pool[grid.pieceId[right]].groups--;
 				pool[grid.pieceId[diagRight]].groups--;

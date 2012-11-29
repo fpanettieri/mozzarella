@@ -38,7 +38,7 @@ public class Grid : MonoBehaviour
 		collision = false;
 		pieceId = new int[pieceTypes.Length];
 		for(int i = 0; i < pieceTypes.Length; i++){
-			pieceId[i] = -1;
+			pieceId[i] = pieceTypes[i] > 0 ? 0 : -1;
 		}
 	}
 

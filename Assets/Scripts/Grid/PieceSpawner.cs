@@ -29,9 +29,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		for(int i = 0; i < grid.rows; i++) {
 			for(int j = 0; j < grid.columns; j++) {
 				type = grid.pieceTypes[j + i * grid.columns];
-				if(type == PieceType.Empty) {
-					continue;
-				}
+				if(type == PieceType.Empty) { continue;	}
 				SpawnPiece(j, i, grid.pieceTypes[j + i * grid.columns], false);
 			}
 		}
