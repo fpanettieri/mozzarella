@@ -44,7 +44,6 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 				pool[grid.pieceId[left]].groups.br = true;
 				pool[grid.pieceId[diagLeft]].groups.tr = true;
 				e.grouped = true;
-				Cheats.DebugGrid();
 			}
 		}
 
@@ -57,7 +56,6 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 				pool[grid.pieceId[right]].groups.bl = true;
 				pool[grid.pieceId[diagRight]].groups.tl = true;
 				e.grouped = true;
-				Cheats.DebugGrid();
 			}
 		}
 	}
@@ -79,7 +77,6 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 			pool[grid.pieceId[down]].groups.tl = false;
 			if(grid.pieceTypes[left] == piece.type){ pool[grid.pieceId[left]].groups.br = false; }
 			if(grid.pieceTypes[diagLeft] == piece.type){ pool[grid.pieceId[diagLeft]].groups.tr = false; }
-			Cheats.DebugGrid();
 		}
 
 		// right group
@@ -89,7 +86,6 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 			pool[grid.pieceId[down]].groups.tr = false;
 			if(grid.pieceTypes[right] == piece.type){ pool[grid.pieceId[right]].groups.bl = false; }
 			if(grid.pieceTypes[diagRight] == piece.type){ pool[grid.pieceId[diagRight]].groups.tl = false; }
-			Cheats.DebugGrid();
 		}
 	}
 }
