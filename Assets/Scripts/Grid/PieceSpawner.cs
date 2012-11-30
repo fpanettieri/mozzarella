@@ -31,6 +31,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 				type = grid.pieceTypes[j + i * grid.columns];
 				if(type == PieceType.Empty) { continue;	}
 				SpawnPiece(j, i, grid.pieceTypes[j + i * grid.columns], false);
+				grid.pieceId[j + i * grid.columns] = piece.id;
 			}
 		}
 	}

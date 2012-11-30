@@ -15,6 +15,7 @@ public class PieceLockEvent : MozEvent
 	public int row;
 	public int column;
 	public int piece;
+	public bool grouped;
 	
 	public PieceLockEvent(int frame, int id, int row, int column, int piece)
 	{
@@ -25,6 +26,7 @@ public class PieceLockEvent : MozEvent
 		this.row = row;
 		this.column = column;
 		this.piece = piece;
+		this.grouped = false;
 	}
 	
 	override public string ToString()

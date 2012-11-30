@@ -11,12 +11,22 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-	public int id = -1;
-	public int type = 0;
-	public bool moving = false;
-	public int row = 0;
-	public int column = 0;
-	public int groups = 0;
+	public int id;
+	public int type;
+	public bool moving;
+	public int row;
+	public int column;
+	public PieceGroups groups;
+
+	public Piece()
+	{
+		id = -1;
+		type = 0;
+		moving = false;
+		row = 0;
+		column = 0;
+		groups = new PieceGroups();
+	}
 	
 	public void Enable()
 	{

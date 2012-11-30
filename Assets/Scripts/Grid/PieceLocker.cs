@@ -46,5 +46,4 @@ public class PieceLocker : MonoBehaviour, IEventListener
 		timeline.Remove(e);
 		// TODO: Play piece unlock sound
 	}
-
 }

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Cheats : MonoBehaviour
 {
-	private Grid grid;
-	private PiecePool pool;
+	private static Grid grid;
+	private static PiecePool pool;
 
 	public void Start()
 	{
@@ -27,7 +27,7 @@ public class Cheats : MonoBehaviour
 		TimeMachine.paused = !TimeMachine.paused;
 	}
 
-	public void DebugGrid()
+	public static void DebugGrid()
 	{
 		string str = "Types\n";
 		for(int i = grid.rows - 1; i >=0; i --) {

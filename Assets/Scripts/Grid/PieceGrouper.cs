@@ -31,32 +31,34 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 		piece = pool[e.id];
 		if(piece.row == 0){ return; }
 		int spot = piece.column + piece.row * grid.columns;
-		int down = piece.column + (piece.row - 1) * grid.columns;
+		int down = spot - grid.columns;
 		if (grid.pieceTypes[down] != piece.type){ return; }
 
 		// left group
-		if (piece.row > 0){
-			int left = piece.column - 1 + piece.row * grid.columns;
-			int diagLeft = piece.column - 1 + (piece.row - 1) * grid.columns;
+		if (piece.column > 0){
+			int left = spot - 1;
+			int diagLeft = down - 1;
 			if(grid.pieceTypes[left] == piece.type && grid.pieceTypes[diagLeft] == piece.type) {
- 				pool[grid.pieceId[spot]].groups++;
-				pool[grid.pieceId[down]].groups++;
-				pool[grid.pieceId[left]].groups++;
-				pool[grid.pieceId[diagLeft]].groups++;
+ 				pool[grid.pieceId[spot]].groups.bl = true;
+				pool[grid.pieceId[down]].groups.tl = true;
+				pool[grid.pieceId[left]].groups.br = true;
+				pool[grid.pieceId[diagLeft]].groups.tr = true;
+				e.grouped = true;
+				Cheats.DebugGrid();
 			}
-			Debug.Log("left group");
 		}
 
-		if (piece.row < grid.columns - 1){
-			int right = piece.column + 1 + piece.row * grid.columns;
-			int diagRight = piece.column + 1 + (piece.row - 1) * grid.columns;
+		if (piece.column < grid.columns - 1){
+			int right = spot + 1;
+			int diagRight = down + 1;
 			if(grid.pieceTypes[right] == piece.type && grid.pieceTypes[diagRight] == piece.type) {
-				pool[grid.pieceId[spot]].groups++;
-				pool[grid.pieceId[down]].groups++;
-				pool[grid.pieceId[right]].groups++;
-				pool[grid.pieceId[diagRight]].groups++;
+				pool[grid.pieceId[spot]].groups.br = true;
+				pool[grid.pieceId[down]].groups.tr = true;
+				pool[grid.pieceId[right]].groups.bl = true;
+				pool[grid.pieceId[diagRight]].groups.tl = true;
+				e.grouped = true;
+				Cheats.DebugGrid();
 			}
-			Debug.Log("right group");
 		}
 	}
 	
@@ -64,31 +66,30 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 	private void UngroupPiece(PieceLockEvent e)
 	{
 		piece = pool[e.id];
-		piece.groups = 0;
-		if(piece.row == 0){ return; }
-		int down = piece.column + (piece.row - 1) * grid.columns;
+		piece.groups.Clear();
+		if(!e.grouped || piece.row == 0){ return; }
+		int spot = piece.column + piece.row * grid.columns;
+		int down = spot - grid.columns;
 		if (grid.pieceTypes[down] != piece.type){ return; }
 
 		// left group
-		if (piece.row > 0){
-			int left = piece.column - 1 + piece.row * grid.columns;
-			int diagLeft = piece.column - 1 + (piece.row - 1) * grid.columns;
-			if(grid.pieceTypes[left] == piece.type && grid.pieceTypes[diagLeft] == piece.type) {
-				pool[grid.pieceId[down]].groups--;
-				pool[grid.pieceId[left]].groups--;
-				pool[grid.pieceId[diagLeft]].groups--;
-			}
+		if (piece.column > 0){
+			int left = spot - 1;
+			int diagLeft = down - 1;
+			pool[grid.pieceId[down]].groups.tl = false;
+			if(grid.pieceTypes[left] == piece.type){ pool[grid.pieceId[left]].groups.br = false; }
+			if(grid.pieceTypes[diagLeft] == piece.type){ pool[grid.pieceId[diagLeft]].groups.tr = false; }
+			Cheats.DebugGrid();
 		}
 
 		// right group
-		if (piece.row < grid.columns - 1){
-			int right = piece.column + 1 + piece.row * grid.columns;
-			int diagRight = piece.column + 1 + (piece.row - 1) * grid.columns;
-			if(grid.pieceTypes[right] == piece.type && grid.pieceTypes[diagRight] == piece.type) {
-				pool[grid.pieceId[down]].groups--;
-				pool[grid.pieceId[right]].groups--;
-				pool[grid.pieceId[diagRight]].groups--;
-			}
+		if (piece.column < grid.columns - 1){
+			int right = spot + 1;
+			int diagRight = down + 1;
+			pool[grid.pieceId[down]].groups.tr = false;
+			if(grid.pieceTypes[right] == piece.type){ pool[grid.pieceId[right]].groups.bl = false; }
+			if(grid.pieceTypes[diagRight] == piece.type){ pool[grid.pieceId[diagRight]].groups.tl = false; }
+			Cheats.DebugGrid();
 		}
 	}
 }
