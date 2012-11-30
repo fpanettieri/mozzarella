@@ -39,4 +39,9 @@ public class Piece : MonoBehaviour
 		enabled = false;
 		renderer.enabled = false;
 	}
+
+	public bool Grouped()
+	{
+		return groups.tl || groups.bl || groups.tr || groups.br;
+	}
 }

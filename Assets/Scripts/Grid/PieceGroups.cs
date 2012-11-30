@@ -24,11 +24,6 @@ public class PieceGroups
 		br = false;
 	}
 
-	public bool Grouped()
-	{
-		return tl || bl || tr || br;
-	}
-
 	public int Count()
 	{
 		int count = 0;

@@ -16,51 +16,81 @@ using System.Collections;
  */ 
 public class GridInput : MonoBehaviour
 {
+	// Dependencies
+	private Grid grid;
+	private TimeMachine timemachine;
+	private PieceQueue queue;
+	private PiecePool pool;
+
+	// Inspector properties
 	public int bottom;
 	public int left;
 	public int top;
 	public int right;
 	public int cellWidth;
 	public int cellHeight;
-	private Grid grid;
-	private TimeMachine timemachine;
-	private PieceQueue queue;
+
+	// Internal state
 	private IntVector2 cell;
-	private IntVector2 firstHalf;
-	private IntVector2 secondHalf;
+	private IntVector2 leftPiece;
+	private IntVector2 rightPiece;
 	private Piece piece;
+	private bool allowDrop;
 
 	void Awake()
 	{
 		cell = new IntVector2(0, 0);
+
+		timemachine = GameObject.Find(GameObjectName.TIME).GetComponent<TimeMachine>();
 		grid = GetComponent<Grid>();
 		queue = GetComponent<PieceQueue>();
-		timemachine = GameObject.Find(GameObjectName.TIME).GetComponent<TimeMachine>();
-		firstHalf = new IntVector2(0, 0);
-		secondHalf = new IntVector2(0, 0);
+		pool = GetComponent<PiecePool>();
+
+		leftPiece = new IntVector2(0, 0);
+		rightPiece = new IntVector2(0, 0);
+		allowDrop = true;
 	}
 
 	void Update()
 	{
-		if(TimeMachine.rewind) {
-			return;
+		if(TimeMachine.rewind) { return; }
+
+		if(Input.GetMouseButtonDown(0) && InsideGrid(Input.mousePosition)) {
+			UpdateCell();
+			int id = grid.pieceId[ cell.x + cell.y * grid.columns ];
+			if( id > -1 && pool[id].Grouped() ){
+
+				// TODO: Sound clue, the player he is going to destroy a group
+				Debug.Log("about to break a group");
+				allowDrop = false;
+
+			} else {
+
+				// TODO: enable piece preview
+				Debug.Log("about to drop a piece");
+				allowDrop = true;
+			}
 		}
-		// TODO: verify if the space is ocuppied on mouse down, not mouseup.
-		// if( grid.cells[ cell.x + cell.y * grid.columns ] == PieceType.Empty ){
 
 		// Detect touched cell
-		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
-			cell.Set(Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth), Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight));
+		if(allowDrop && Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
+			UpdateCell();
 
-			firstHalf.Set(cell.x, grid.rows - 1);
-			secondHalf.Set((cell.x + 1) % grid.columns, grid.rows - 1);
-			if(CellsOccupied()) {
-				return;
-			}
+			leftPiece.Set(cell.x, grid.rows - 1);
+			rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
+			if(CellsOccupied()) { return; }
 
-			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, firstHalf.y, firstHalf.x, queue.Next()));
-			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, secondHalf.y, secondHalf.x, queue.Next()));
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, leftPiece.y, leftPiece.x, queue.Next()));
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, rightPiece.y, rightPiece.x, queue.Next()));
 		}
+	}
+
+	private void UpdateCell()
+	{
+		cell.Set(
+			Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth),
+			Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight)
+		);
 	}
 	
 	private bool InsideGrid(Vector3 v)
@@ -70,15 +100,15 @@ public class GridInput : MonoBehaviour
 
 	private bool CellsOccupied()
 	{
-		if(grid.pieceTypes[firstHalf.x + firstHalf.y * grid.columns] != PieceType.Empty ||
-		   grid.pieceTypes[secondHalf.x + secondHalf.y * grid.columns] != PieceType.Empty) {
+		if(grid.pieceTypes[leftPiece.x + leftPiece.y * grid.columns] != PieceType.Empty ||
+		   grid.pieceTypes[rightPiece.x + rightPiece.y * grid.columns] != PieceType.Empty) {
 			return true;
 		}
 
 		for(int i = 0; i < grid.movingPieces.Count; i++) {
 			piece = grid.movingPieces[i];
-			if((piece.row == firstHalf.y && piece.column == firstHalf.x) ||
-			   (piece.row == secondHalf.y && piece.column == secondHalf.x)) {
+			if((piece.row == leftPiece.y && piece.column == leftPiece.x) ||
+			   (piece.row == rightPiece.y && piece.column == rightPiece.x)) {
 				return true;
 			}
 		}
