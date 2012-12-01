@@ -200,6 +200,11 @@ public class IntVector2
 	/// Shorthand for writing IntVector2(0, 1)
 	/// </summary>
 	public static IntVector2 down 	{ get { return new IntVector2(0, 1); } }
+
+	public static float Distance(IntVector2 a, IntVector2 b)
+	{
+		return (a - b).magnitude;
+	}
 	
 	/// <summary>
 	/// Multiplies two vectors component-wise

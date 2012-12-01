@@ -21,6 +21,7 @@ public class GridInput : MonoBehaviour
 	private TimeMachine timemachine;
 	private PieceQueue queue;
 	private PiecePool pool;
+	private GroupBreaker breaker;
 
 	// Inspector properties
 	public int bottom;
@@ -35,7 +36,10 @@ public class GridInput : MonoBehaviour
 	private IntVector2 leftPiece;
 	private IntVector2 rightPiece;
 	private Piece piece;
-	private bool allowDrop;
+	private bool droppingPiece;
+
+	// Aux variables
+	private IntVector2 touchedCell;
 
 	void Awake()
 	{
@@ -45,10 +49,11 @@ public class GridInput : MonoBehaviour
 		grid = GetComponent<Grid>();
 		queue = GetComponent<PieceQueue>();
 		pool = GetComponent<PiecePool>();
+		breaker = GetComponent<GroupBreaker>();
 
 		leftPiece = new IntVector2(0, 0);
 		rightPiece = new IntVector2(0, 0);
-		allowDrop = true;
+		droppingPiece = true;
 	}
 
 	void Update()
@@ -59,29 +64,29 @@ public class GridInput : MonoBehaviour
 			UpdateCell();
 			int id = grid.pieceId[ cell.x + cell.y * grid.columns ];
 			if( id > -1 && pool[id].Grouped() ){
-
-				// TODO: Sound clue, the player he is going to destroy a group
-				Debug.Log("about to break a group");
-				allowDrop = false;
-
+				droppingPiece = false;
+				touchedCell = cell;
 			} else {
-
-				// TODO: enable piece preview
-				Debug.Log("about to drop a piece");
-				allowDrop = true;
+				droppingPiece = true;
 			}
 		}
 
 		// Detect touched cell
-		if(allowDrop && Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
+		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
 			UpdateCell();
 
-			leftPiece.Set(cell.x, grid.rows - 1);
-			rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
-			if(CellsOccupied()) { return; }
+			if(droppingPiece){
+				leftPiece.Set(cell.x, grid.rows - 1);
+				rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
+				if(CellsOccupied()) { return; }
 
-			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, leftPiece.y, leftPiece.x, queue.Next()));
-			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, rightPiece.y, rightPiece.x, queue.Next()));
+				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, leftPiece.y, leftPiece.x, queue.Next()));
+				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, rightPiece.y, rightPiece.x, queue.Next()));
+			} else {
+				if(IntVector2.Distance(cell, touchedCell) <= 1){
+					breaker.Break(touchedCell);
+				}
+			}
 		}
 	}
 
