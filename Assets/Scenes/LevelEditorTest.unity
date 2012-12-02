@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1361df611cc744258a7b43c7793ac60, type: 1}
   m_Name: 
   size: 512
-  frequence: 5x1;1x2
+  frequence: 1x1;5x2;1x3
 --- !u!114 &772276441
 MonoBehaviour:
   m_ObjectHideFlags: 0

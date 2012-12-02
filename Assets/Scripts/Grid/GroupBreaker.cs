@@ -31,22 +31,30 @@ public class GroupBreaker : MonoBehaviour
 		grid = GetComponent<Grid>();
 		pool = GetComponent<PiecePool>();
 		columns = grid.columns;
+
+		broken = new List<int>();
+		stack = new Stack<IntVector2>();
+		falling = new List<int>();
 	}
 
 	public void Break(IntVector2 touched)
 	{
+		Clear();
 		FloodFill(touched);
 		SpawnPoints();
 		BreakPieces();
 		DropPieces();
 		UpdateTimeline();
 	}
+	private void Clear()
+	{
+		broken.Clear();
+		stack.Clear();
+		falling.Clear();
+	}
 
 	private void FloodFill(IntVector2 touched)
 	{
-		broken = new List<int>();
-		stack = new Stack<IntVector2>();
-		falling = new List<int>();
 		stack.Push(touched);
 
 		int id, idx, type;
@@ -134,6 +142,8 @@ public class GroupBreaker : MonoBehaviour
 
 	private void UpdateTimeline()
 	{
-
+		// pieces should have cached their spawn and lock times
+		// Remove piece spawn and locks events for all falling pieces
+		// When pieces reach the top row, if spawn event = -1, create it
 	}
 }
