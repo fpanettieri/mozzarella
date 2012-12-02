@@ -16,49 +16,57 @@ public class GroupBreaker : MonoBehaviour
 	private Grid grid;
 	private PiecePool pool;
 
+	// internal state
+	private List<int> broken;
+	private Stack<IntVector2> stack;
+	private List<int> falling;
+
 	// aux variables
 	private Piece piece;
+	private int columns;
+	private IntVector2 cell;
 
 	public void Start()
 	{
 		grid = GetComponent<Grid>();
 		pool = GetComponent<PiecePool>();
+		columns = grid.columns;
 	}
 
 	public void Break(IntVector2 touched)
 	{
-		int columns = grid.columns;
-		Stack<IntVector2> stack = new Stack<IntVector2>();
+		FloodFill(touched);
+		SpawnPoints();
+		BreakPieces();
+		DropPieces();
+		UpdateTimeline();
+	}
+
+	private void FloodFill(IntVector2 touched)
+	{
+		broken = new List<int>();
+		stack = new Stack<IntVector2>();
+		falling = new List<int>();
 		stack.Push(touched);
 
 		int id, idx, type;
-		IntVector2 cell;
-
-		// make pieces fall
-		// break groups
-
 		while(stack.Count > 0) {
 			cell = stack.Pop();
+
 			idx = cell.x + cell.y * columns;
 			type = grid.pieceTypes[idx];
+
+			// empty cells id == -1
 			id = grid.pieceId[idx];
 			if(id == -1){ continue; }
+
+			// if not grouped, ignore it
 			piece = pool[id];
 			if(!piece.Grouped()){ continue; }
 
-			// destroy piece
+			broken.Add(id);
 			grid.pieceTypes[idx] = PieceType.Empty;
 			grid.pieceId[idx] = -1;
-			pool.Release(id);
-			piece.moving = false;
-			piece.column = 0;
-			piece.row = 0;
-			piece.groups.Clear();
-			piece.Disable();
-
-			// TODO: add score
-			// TODO: make streak higher
-			// TODO: spawn piece part to float into the score thingy
 
 			if(cell.x > 0 && grid.pieceTypes[idx - 1] == type){
 				stack.Push(new IntVector2(cell.x - 1, cell.y));
@@ -76,6 +84,44 @@ public class GroupBreaker : MonoBehaviour
 				stack.Push(new IntVector2(cell.x, cell.y + 1));
 			}
 		}
-		// clear grid cells type, and collect its ids.
+	}
+
+	private void SpawnPoints()
+	{
+		// TODO: add score
+		// TODO: make streak higher
+		// TODO: spawn piece part to float into the score thingy
+	}
+
+	private void BreakPieces()
+	{
+		int idx;
+		for(int i = 0; i < broken.Count; i++){
+			piece = pool[broken[i]];
+			idx = piece.column + piece.row * columns;
+
+			if(piece.row < grid.rows - 1 &&
+				grid.pieceId[idx + columns]  > -1 &&
+				grid.pieceTypes[idx + columns] != piece.type){
+				falling.Add(idx - columns);
+			}
+
+			pool.Release(piece.id);
+			piece.moving = false;
+			piece.column = 0;
+			piece.row = 0;
+			piece.groups.Clear();
+			piece.Disable();
+		}
+	}
+
+	private void DropPieces()
+	{
+		// on each dropping column make pieces above it fall
+	}
+
+	private void UpdateTimeline()
+	{
+
 	}
 }
