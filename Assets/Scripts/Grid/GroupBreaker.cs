@@ -44,6 +44,9 @@ public class GroupBreaker : MonoBehaviour
 		SpawnPoints();
 		BreakPieces();
 		DropPieces();
+		// Collect pieces that are going to fall.
+		// Update their groups and their neighbour groups
+		// Remove their spawn and lock events from the timeline
 		UpdateTimeline();
 	}
 	private void Clear()
