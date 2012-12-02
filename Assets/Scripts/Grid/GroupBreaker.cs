@@ -100,10 +100,8 @@ public class GroupBreaker : MonoBehaviour
 			piece = pool[broken[i]];
 			idx = piece.column + piece.row * columns;
 
-			if(piece.row < grid.rows - 1 &&
-				grid.pieceId[idx + columns]  > -1 &&
-				grid.pieceTypes[idx + columns] != piece.type){
-				falling.Add(idx - columns);
+			if(piece.row < grid.rows - 1 &&	grid.pieceId[idx + columns] > -1){
+				falling.Add(grid.pieceId[idx + columns]);
 			}
 
 			pool.Release(piece.id);
@@ -117,7 +115,21 @@ public class GroupBreaker : MonoBehaviour
 
 	private void DropPieces()
 	{
-		// on each dropping column make pieces above it fall
+		int id, idx;
+		Piece basePiece;
+		for(int i = 0; i < falling.Count; i++){
+			basePiece = pool[falling[i]];
+			for(int j = basePiece.row; j < grid.rows; j++){
+				idx = basePiece.column + j * columns;
+				id = grid.pieceId[idx];
+				if(id < 0){ continue; }
+				piece = pool[id];
+				piece.moving = true;
+				grid.pieceTypes[idx] = PieceType.Empty;
+				grid.pieceId[idx] = -1;
+				grid.movingPieces.Add(piece);
+			}
+		}
 	}
 
 	private void UpdateTimeline()
