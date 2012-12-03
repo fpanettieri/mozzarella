@@ -39,13 +39,32 @@ public class Timeline : MonoBehaviour
 		events.Insert(index, e);
 	}
 
+	public void Purge(int piece, bool spawned, bool locked)
+	{
+		bool spawnFound = !spawned;
+		bool lockFound = !locked;
+
+		PieceEvent ev;
+		for(int i = 0; i < events.Count; i++){
+			ev = events[i] as PieceEvent;
+			if(ev.id == piece){
+				if(!lockFound && ev is PieceLockEvent){ lockFound = true; }
+				else if(!spawnFound && ev is PieceLockEvent){ spawnFound = true; }
+				Remove(i);
+				if(spawnFound && lockFound){ return; }
+			}
+		}
+	}
+
 	public void Remove(MozEvent e)
 	{
-		int idx = events.IndexOf(e);
-		if(idx < TimeMachine.idx) {
-			TimeMachine.idx--;
-		}
-		events.Remove(e);
+		Remove(events.IndexOf(e));
+	}
+
+	public void Remove(int idx)
+	{
+		if(idx < TimeMachine.idx) {	TimeMachine.idx--; }
+		events.RemoveAt(idx);
 	}
 	
 	public void Sort()

@@ -9,13 +9,8 @@
 */
 using UnityEngine;
 
-public class PieceSpawnEvent : MozEvent
+public class PieceSpawnEvent : PieceEvent
 {
-	public int id;
-	public int row;
-	public int column;
-	public int piece;
-	
 	public PieceSpawnEvent(int frame, int row, int column, int piece)
 	{
 		this.initial = "S";

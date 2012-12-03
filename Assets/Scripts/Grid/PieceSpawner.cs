@@ -64,6 +64,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		bool moving = grid.pieceTypes[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;
 		SpawnPiece(e.column, e.row, e.piece, moving);
 		e.id = piece.id;
+		piece.spawned = true;
 
 		if(moving) {
 			grid.movingPieces.Add(piece);
@@ -94,6 +95,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.column = 0;
 		piece.row = 0;
 		piece.Disable();
+		piece.spawned = false;
 		grid.movingPieces.Remove(piece);
 	}
 }

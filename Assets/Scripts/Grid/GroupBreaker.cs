@@ -15,10 +15,12 @@ public class GroupBreaker : MonoBehaviour
 	// dependencies
 	private Grid grid;
 	private PiecePool pool;
+	private Timeline timeline;
 
 	// internal state
 	private List<int> broken;
 	private Stack<IntVector2> stack;
+	private List<int> floating;
 	private List<int> falling;
 
 	// aux variables
@@ -30,10 +32,12 @@ public class GroupBreaker : MonoBehaviour
 	{
 		grid = GetComponent<Grid>();
 		pool = GetComponent<PiecePool>();
+		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
 		columns = grid.columns;
 
 		broken = new List<int>();
 		stack = new Stack<IntVector2>();
+		floating = new List<int>();
 		falling = new List<int>();
 	}
 
@@ -44,15 +48,12 @@ public class GroupBreaker : MonoBehaviour
 		SpawnPoints();
 		BreakPieces();
 		DropPieces();
-		// Collect pieces that are going to fall.
-		// Update their groups and their neighbour groups
-		// Remove their spawn and lock events from the timeline
-		UpdateTimeline();
 	}
 	private void Clear()
 	{
 		broken.Clear();
 		stack.Clear();
+		floating.Clear();
 		falling.Clear();
 	}
 
@@ -112,7 +113,7 @@ public class GroupBreaker : MonoBehaviour
 			idx = piece.column + piece.row * columns;
 
 			if(piece.row < grid.rows - 1 &&	grid.pieceId[idx + columns] > -1){
-				falling.Add(grid.pieceId[idx + columns]);
+				floating.Add(grid.pieceId[idx + columns]);
 			}
 
 			pool.Release(piece.id);
@@ -121,6 +122,8 @@ public class GroupBreaker : MonoBehaviour
 			piece.row = 0;
 			piece.groups.Clear();
 			piece.Disable();
+			piece.spawned = false;
+			piece.locked = false;
 		}
 	}
 
@@ -128,25 +131,75 @@ public class GroupBreaker : MonoBehaviour
 	{
 		int id, idx;
 		Piece basePiece;
-		for(int i = 0; i < falling.Count; i++){
-			basePiece = pool[falling[i]];
+		for(int i = 0; i < floating.Count; i++){
+
+			basePiece = pool[floating[i]];
 			for(int j = basePiece.row; j < grid.rows; j++){
 				idx = basePiece.column + j * columns;
 				id = grid.pieceId[idx];
 				if(id < 0){ continue; }
+
+				// make piece fall
 				piece = pool[id];
 				piece.moving = true;
 				grid.pieceTypes[idx] = PieceType.Empty;
 				grid.pieceId[idx] = -1;
 				grid.movingPieces.Add(piece);
+
+				// purge piece events
+				timeline.Purge(piece.id, piece.spawned, piece.locked);
+
+				// update groups
+				if(piece.groups.tl){
+					if(piece.column > 0 && piece.type == grid.pieceTypes[idx - 1]){
+						pool[grid.pieceId[idx - 1]].groups.tr = false;														// left
+					}
+					if(piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns]){
+						pool[grid.pieceId[idx + columns]].groups.bl = false;												// top
+					}
+					if(piece.column > 0 && piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns - 1]){
+						pool[grid.pieceId[idx + columns - 1]].groups.br = false;											// tl
+					}
+				}
+
+				if(piece.groups.bl){
+					if(piece.column > 0 && piece.type == grid.pieceTypes[idx - 1]){
+						pool[grid.pieceId[idx - 1]].groups.br = false;														// left
+					}
+					if(piece.row > 0 && piece.type == grid.pieceTypes[idx - columns]){
+						pool[grid.pieceId[idx - columns]].groups.tl = false;												// bottom
+					}
+					if(piece.column > 0 &&  piece.row > 0 && piece.type == grid.pieceTypes[idx - columns - 1]){
+						pool[grid.pieceId[idx - columns - 1]].groups.tr = false;											// bl
+					}
+				}
+
+				if(piece.groups.tr){
+					if(piece.column < grid.columns - 1 && piece.type == grid.pieceTypes[idx + 1]){
+						pool[grid.pieceId[idx + 1]].groups.tl = false;														// right
+					}
+					if(piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns]){
+						pool[grid.pieceId[idx + columns]].groups.br = false;												// top
+					}
+					if(piece.column < grid.columns - 1  && piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns + 1]){
+						pool[grid.pieceId[idx + columns + 1]].groups.bl = false;											// tr
+					}
+				}
+
+				if(piece.groups.br){
+					if(piece.column < grid.columns - 1  && piece.type == grid.pieceTypes[idx + 1]){
+						pool[grid.pieceId[idx + 1]].groups.bl = false;														// right
+					}
+					if(piece.row > 0 && piece.type == grid.pieceTypes[idx - columns]){
+						pool[grid.pieceId[idx - columns]].groups.tr = false;												// bottom
+					}
+					if(piece.column < grid.columns - 1 && piece.row > 0 && piece.type == grid.pieceTypes[idx - columns + 1]){
+						pool[grid.pieceId[idx - columns + 1]].groups.tl = false;											// br
+					}
+				}
+
+				piece.groups.Clear();
 			}
 		}
-	}
-
-	private void UpdateTimeline()
-	{
-		// pieces should have cached their spawn and lock times
-		// Remove piece spawn and locks events for all falling pieces
-		// When pieces reach the top row, if spawn event = -1, create it
 	}
 }

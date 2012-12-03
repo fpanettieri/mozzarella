@@ -32,6 +32,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 	{
 		piece = pool[e.id];
 		grid.movingPieces.Remove(piece);
+		piece.locked = true;
 		// TODO: Play piece lock sound
 	}
 	
@@ -42,6 +43,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 		grid.pieceTypes[piece.column + piece.row * grid.columns] = PieceType.Empty;
 		grid.pieceId[piece.column + piece.row * grid.columns] = -1;
 		piece.moving = true;
+		piece.locked = false;
 		grid.movingPieces.Add(piece);
 		timeline.Remove(e);
 		// TODO: Play piece unlock sound

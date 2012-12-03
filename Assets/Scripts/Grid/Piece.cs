@@ -17,6 +17,8 @@ public class Piece : MonoBehaviour
 	public int row;
 	public int column;
 	public PieceGroups groups;
+	public bool spawned;
+	public bool locked;
 
 	public Piece()
 	{
@@ -26,6 +28,8 @@ public class Piece : MonoBehaviour
 		row = 0;
 		column = 0;
 		groups = new PieceGroups();
+		spawned = false;
+		locked = false;
 	}
 	
 	public void Enable()
