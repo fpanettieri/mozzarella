@@ -45,11 +45,11 @@ public class Timeline : MonoBehaviour
 		bool lockFound = !locked;
 
 		PieceEvent ev;
-		for(int i = 0; i < events.Count; i++){
+		for(int i = events.Count - 1; i >= 0; i--){
 			ev = events[i] as PieceEvent;
 			if(ev.id == piece){
 				if(!lockFound && ev is PieceLockEvent){ lockFound = true; }
-				else if(!spawnFound && ev is PieceLockEvent){ spawnFound = true; }
+				else if(!spawnFound && ev is PieceSpawnEvent){ spawnFound = true; }
 				Remove(i);
 				if(spawnFound && lockFound){ return; }
 			}
@@ -63,7 +63,7 @@ public class Timeline : MonoBehaviour
 
 	public void Remove(int idx)
 	{
-		if(idx < TimeMachine.idx) {	TimeMachine.idx--; }
+		if(idx < TimeMachine.idx) { TimeMachine.idx--; }
 		events.RemoveAt(idx);
 	}
 	
@@ -117,7 +117,7 @@ public class Timeline : MonoBehaviour
 	{
 		string str = "F " + TimeMachine.frame + "\n";
 		for(int i = 0; i < events.Count; i++) {
-			str += events[i].initial + " " + events[i].frame + "\n";
+			str += (events[i] as PieceEvent).id + " " + events[i].initial + " " + events[i].frame + "\n";
 		}
 		return str;
 	}

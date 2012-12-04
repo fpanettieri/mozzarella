@@ -116,6 +116,9 @@ public class GroupBreaker : MonoBehaviour
 				floating.Add(grid.pieceId[idx + columns]);
 			}
 
+			// purge piece events
+			timeline.Purge(piece.id, piece.spawned, piece.locked);
+
 			pool.Release(piece.id);
 			piece.moving = false;
 			piece.column = 0;
