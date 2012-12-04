@@ -56,7 +56,7 @@ public class GridInput : MonoBehaviour
 		droppingPiece = true;
 	}
 
-	void Update()
+	public void Process()
 	{
 		if(TimeMachine.rewind) { return; }
 

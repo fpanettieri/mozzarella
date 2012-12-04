@@ -13,6 +13,7 @@ using System.Collections.Generic;
 public class Grid : MonoBehaviour
 {
 	// Dependencies
+	private GridInput input;
 	private TimeMachine timemachine;
 
 	// Inspector properties
@@ -31,6 +32,7 @@ public class Grid : MonoBehaviour
 	
 	public void Awake()
 	{
+		input = GetComponent<GridInput>();
 		timemachine = GameObject.Find(GameObjectName.TIME).GetComponent<TimeMachine>();
 		tileSize = piecePrefab.GetComponent<MeshFilter>().sharedMesh.bounds.size;
 		movingPieces = new List<Piece>();
@@ -45,11 +47,14 @@ public class Grid : MonoBehaviour
 	// update
 	public void Update()
 	{
+		//return;
+
 		// FIXME: cheat used to skip frames
 		if(TimeMachine.skip) {
 			return;
 		}
-		
+
+		input.Process();
 		DropPieces();
 		do {
 			ResolveCollisions();
