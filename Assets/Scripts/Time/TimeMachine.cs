@@ -65,8 +65,10 @@ public class TimeMachine : MonoBehaviour
 
 	public void Broadcast(MozEvent e)
 	{
-		timeline.Insert(idx++, e);
+		timeline.Insert(idx, e);
 		Events.i.Notify(e);
+		if(rewind){ --idx; }
+		else{ ++idx; }
 	}
 	
 	private void MoveForward()

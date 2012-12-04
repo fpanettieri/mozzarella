@@ -60,6 +60,7 @@ public class Events
 	
 	public void Notify(MozEvent ev)
 	{
+		Debug.Log(TimeMachine.frame + " - " + ev);
 		if(listeners.ContainsKey(ev.type)) {
 			List<IEventListener> list = listeners[ev.type];
 			foreach(IEventListener listener in list) {
