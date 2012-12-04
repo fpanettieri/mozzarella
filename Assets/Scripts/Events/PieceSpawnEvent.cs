@@ -11,12 +11,12 @@ using UnityEngine;
 
 public class PieceSpawnEvent : PieceEvent
 {
-	public PieceSpawnEvent(int frame, int row, int column, int piece)
+	public PieceSpawnEvent(int frame, int id, int row, int column, int piece)
 	{
 		this.initial = "S";
 		this.type = MozEventType.PieceSpawn;
 		this.frame = frame;
-		this.id = -1;
+		this.id = id;
 		this.row = row;
 		this.column = column;
 		this.piece = piece;

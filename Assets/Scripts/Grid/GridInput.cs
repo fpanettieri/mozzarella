@@ -80,8 +80,8 @@ public class GridInput : MonoBehaviour
 				rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
 				if(CellsOccupied()) { return; }
 
-				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, leftPiece.y, leftPiece.x, queue.Next()));
-				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, rightPiece.y, rightPiece.x, queue.Next()));
+				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, leftPiece.y, leftPiece.x, queue.Next()));
+				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, rightPiece.y, rightPiece.x, queue.Next()));
 			} else {
 				if(IntVector2.Distance(cell, touchedCell) <= 1){
 					breaker.Break(touchedCell);

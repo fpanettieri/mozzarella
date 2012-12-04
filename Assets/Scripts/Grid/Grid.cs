@@ -76,10 +76,11 @@ public class Grid : MonoBehaviour
 		collision = false;
 		for(int i = 0; i < movingPieces.Count; i++) {
 			piece = movingPieces[i];
-			if(!piece.moving) {
-				continue;
-			}
-			if(piece.row == 0) {
+			if(!piece.moving) {	continue; }
+			if(piece.row >= rows){
+				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame + 1, piece.id, rows - 1, piece.column, piece.type));
+
+			} else if(piece.row == 0) {
 				piece.moving = false;
 				collision = true;
 			} else if(pieceTypes[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {

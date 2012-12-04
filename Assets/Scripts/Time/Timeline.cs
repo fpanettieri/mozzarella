@@ -115,9 +115,9 @@ public class Timeline : MonoBehaviour
 
 	override public string ToString()
 	{
-		string str = "F " + TimeMachine.frame + "\t";
+		string str = "F " + TimeMachine.frame + "\n";
 		for(int i = 0; i < events.Count; i++) {
-			str += events[i].initial + " " + events[i].frame + "; ";
+			str += events[i].initial + " " + events[i].frame + "\n";
 		}
 		return str;
 	}

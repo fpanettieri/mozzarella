@@ -5,11 +5,13 @@ public class Cheats : MonoBehaviour
 {
 	private Grid grid;
 	private PiecePool pool;
+	private Timeline timeline;
 
 	public void Start()
 	{
 		grid = GameObject.Find(GameObjectName.GRID).GetComponent<Grid>();
 		pool = GameObject.Find(GameObjectName.GRID).GetComponent<PiecePool>();
+		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
 	}
 
 	public void Update()
@@ -19,6 +21,9 @@ public class Cheats : MonoBehaviour
 		}
 		if(Input.GetKeyDown(KeyCode.G)) {
 			DebugGrid();
+		}
+		if(Input.GetKeyDown(KeyCode.T)) {
+			Debug.Log(timeline);
 		}
 	}
 
