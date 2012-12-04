@@ -83,7 +83,7 @@ public class Grid : MonoBehaviour
 			piece = movingPieces[i];
 			if(!piece.moving) {	continue; }
 			if(piece.row >= rows){
-				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame + 1, piece.id, rows - 1, piece.column, piece.type));
+ 				timemachine.SmartBroadcast(new PieceSpawnEvent(TimeMachine.frame + 1, piece.id, rows - 1, piece.column, piece.type));
 
 			} else if(piece.row == 0) {
 				piece.moving = false;

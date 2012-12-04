@@ -39,6 +39,12 @@ public class Timeline : MonoBehaviour
 		events.Insert(index, e);
 	}
 
+	// Find the right index to insert the event
+	public void SmartInsert(int index, MozEvent e)
+	{
+		events.Insert(Find(e.frame, index), e);
+	}
+
 	public void Purge(int piece, bool spawned, bool locked)
 	{
 		bool spawnFound = !spawned;
@@ -117,7 +123,8 @@ public class Timeline : MonoBehaviour
 	{
 		string str = "F " + TimeMachine.frame + "\n";
 		for(int i = 0; i < events.Count; i++) {
-			str += (events[i] as PieceEvent).id + " " + events[i].initial + " " + events[i].frame + "\n";
+			str += TimeMachine.idx == i ? ">" : ":";
+			str += events[i].initial + " " + events[i].frame + "\n";
 		}
 		return str;
 	}

@@ -23,11 +23,11 @@ public class Cheats : MonoBehaviour
 			DebugGrid();
 		}
 		if(Input.GetKeyDown(KeyCode.T)) {
-			Debug.Log(timeline);
+			DebugTimeline();
 		}
 	}
 
-	private void Pause()
+	public void Pause()
 	{
 		TimeMachine.paused = !TimeMachine.paused;
 	}
@@ -54,5 +54,12 @@ public class Cheats : MonoBehaviour
 			str += "\n";
 		}
 		Debug.Log(str);
+	}
+
+	public void DebugTimeline()
+	{
+		string dbg = "Idx: " + TimeMachine.idx + "\n";
+		dbg += timeline;
+		Debug.Log(dbg);
 	}
 }
