@@ -7,7 +7,6 @@
  	Fabio R. Panettieri [ fpanettieri{at}gmail{dot}com ]
 ===============================================================================
 */
-using UnityEditor;
 using UnityEngine;
 
 /**
