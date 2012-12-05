@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1361df611cc744258a7b43c7793ac60, type: 1}
   m_Name: 
   size: 512
-  frequence: 1x2;1x1
+  frequence: 1x1;1x2
 --- !u!114 &772276441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +547,10 @@ Prefab:
     - target: {fileID: 400000, guid: 10351bee546204618887d59035ddcc69, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: 10351bee546204618887d59035ddcc69, type: 2}
+      propertyPath: frequence
+      value: 1x1;1x2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10351bee546204618887d59035ddcc69, type: 2}
