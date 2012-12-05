@@ -108,7 +108,12 @@ public class Grid : MonoBehaviour
 		for(int i = movingPieces.Count - 1; i >= 0; i--) {
 			piece = movingPieces[i];
 			if(piece.moving) { continue; }
-			timemachine.Broadcast(new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
+
+			if(piece.locked){
+				movingPieces.Remove(piece);
+			} else {
+				timemachine.Broadcast(new PieceLockEvent(TimeMachine.frame, piece.id, piece.row, piece.column, piece.type));
+			}
 		}
 	}
 

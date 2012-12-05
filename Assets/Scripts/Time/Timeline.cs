@@ -45,18 +45,24 @@ public class Timeline : MonoBehaviour
 		events.Insert(Find(e.frame, index), e);
 	}
 
-	public void Purge(int piece, bool spawned, bool locked)
+	public void Purge(int piece, bool purgeSpawn, bool purgeLock)
 	{
-		bool spawnFound = !spawned;
-		bool lockFound = !locked;
+		bool spawnFound = !purgeSpawn;
+		bool lockFound = !purgeLock;
 
 		PieceEvent ev;
 		for(int i = events.Count - 1; i >= 0; i--){
 			ev = events[i] as PieceEvent;
 			if(ev.id == piece){
-				if(!lockFound && ev is PieceLockEvent){ lockFound = true; }
-				else if(!spawnFound && ev is PieceSpawnEvent){ spawnFound = true; }
-				Remove(i);
+
+				if(!lockFound && ev is PieceLockEvent){
+					lockFound = true;
+					Remove(i);
+				} else if(!spawnFound && ev is PieceSpawnEvent) {
+					spawnFound = true;
+					Remove(i);
+				}
+
 				if(spawnFound && lockFound){ return; }
 			}
 		}

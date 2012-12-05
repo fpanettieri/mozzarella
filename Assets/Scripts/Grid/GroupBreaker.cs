@@ -149,8 +149,8 @@ public class GroupBreaker : MonoBehaviour
 				grid.pieceId[idx] = -1;
 				grid.movingPieces.Add(piece);
 
-				// purge piece events
-				timeline.Purge(piece.id, piece.spawned, piece.locked);
+				// purge piece spawn only
+				timeline.Purge(piece.id, piece.spawned, false);
 
 				// update groups
 				if(piece.groups.tl){
