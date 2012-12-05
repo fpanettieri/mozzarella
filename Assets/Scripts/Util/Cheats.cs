@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Cheats : MonoBehaviour
 {
-	private Grid grid;
-	private PiecePool pool;
-	private Timeline timeline;
+	private static Grid grid;
+	private static PiecePool pool;
+	private static Timeline timeline;
 
 	public void Start()
 	{
@@ -27,12 +27,12 @@ public class Cheats : MonoBehaviour
 		}
 	}
 
-	public void Pause()
+	public static void Pause()
 	{
 		TimeMachine.paused = !TimeMachine.paused;
 	}
 
-	public void DebugGrid()
+	public static void DebugGrid()
 	{
 		string str = "Types\n";
 		for(int i = grid.rows - 1; i >=0; i --) {
@@ -56,7 +56,7 @@ public class Cheats : MonoBehaviour
 		Debug.Log(str);
 	}
 
-	public void DebugTimeline()
+	public static void DebugTimeline()
 	{
 		string dbg = "Idx: " + TimeMachine.idx + "\n";
 		dbg += timeline;

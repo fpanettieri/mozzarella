@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\Grid\PiecePool.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceSpawner.cs" />
+     <Compile Include="Assets\Scripts\Time\TimeJumper.cs" />
      <Compile Include="Assets\Scripts\Time\TimeMachine.cs" />
      <Compile Include="Assets\Scripts\Time\Timeline.cs" />
      <Compile Include="Assets\Scripts\Util\Cheats.cs" />
