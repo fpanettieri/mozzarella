@@ -80,10 +80,8 @@ public class Grid : MonoBehaviour
 		for(int i = 0; i < movingPieces.Count; i++) {
 			piece = movingPieces[i];
 			if(!piece.moving) {	continue; }
-			if(piece.row >= rows){
- 				timemachine.SmartBroadcast(new PieceSpawnEvent(TimeMachine.frame + 1, piece.id, rows - 1, piece.column, piece.type));
 
-			} else if(piece.row == 0) {
+			if(piece.row == 0) {
 				piece.moving = false;
 				collision = true;
 			} else if(pieceTypes[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
@@ -93,6 +91,13 @@ public class Grid : MonoBehaviour
 			if(!piece.moving) {
 				pieceTypes[piece.column + piece.row * columns] = piece.type;
 				pieceId[piece.column + piece.row * columns] = piece.id;
+			}
+
+			// special case: when pieces are destroyed, the ones above fall.
+			// Their spawn events are removed so they sync again to the timeline.
+			// We create time accurate spawn events here to solva that issue
+			if(piece.row >= rows){
+ 				timemachine.SmartBroadcast(new PieceSpawnEvent(TimeMachine.frame + 1, piece.id, rows - 1, piece.column, piece.type));
 			}
 		}
 	}

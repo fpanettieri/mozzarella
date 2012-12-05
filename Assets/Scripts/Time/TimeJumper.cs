@@ -45,7 +45,6 @@ public class TimeJumper : MonoBehaviour, IEventListener
 				if(TimeMachine.idx > 0){
 					TimeMachine.frame = timeline[TimeMachine.idx].frame + 1;
 				}
-				Cheats.DebugTimeline();
 			}
 
 		} else {
