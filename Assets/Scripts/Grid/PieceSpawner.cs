@@ -96,6 +96,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		piece.row = 0;
 		piece.Disable();
 		piece.spawned = false;
+		piece.locked = false;
 		grid.movingPieces.Remove(piece);
 	}
 }

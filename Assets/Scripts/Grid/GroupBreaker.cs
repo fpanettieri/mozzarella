@@ -150,7 +150,7 @@ public class GroupBreaker : MonoBehaviour
 				grid.movingPieces.Add(piece);
 
 				// purge piece spawn only
-				timeline.Purge(piece.id, piece.spawned, false);
+				timeline.Purge(piece.id, piece.spawned, piece.locked);
 
 				// update groups
 				if(piece.groups.tl){
