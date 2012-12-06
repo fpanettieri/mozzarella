@@ -81,10 +81,11 @@ public class Grid : MonoBehaviour
 			piece = movingPieces[i];
 			if(!piece.moving) {	continue; }
 
-			if(piece.row == 0) {
+			if(piece.row <= 0) {
+				piece.row  = 0;
 				piece.moving = false;
 				collision = true;
-			} else if(pieceTypes[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
+			} else if(piece.row < rows && pieceTypes[piece.column + (piece.row - 1) * columns] != PieceType.Empty) {
 				piece.moving = false;
 				collision = true;
 			}
