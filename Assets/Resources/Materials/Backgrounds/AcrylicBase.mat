@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Red
-  m_Shader: {fileID: 4800000, guid: cd09e922a6eae40baa95b29f7f4b9cc5, type: 1}
+  m_Name: AcrylicBase
+  m_Shader: {fileID: 4800000, guid: 8dd31b48af8b44a1da2636b7ebea00a4, type: 1}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -15,7 +15,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: fc75d90f2325843ffa09017cab55c58d, type: 1}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats: {}
@@ -23,4 +23,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .796078444, g: .356862754, b: .329411775, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}

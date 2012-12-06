@@ -44,10 +44,13 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\CreatePlane.cs" />
      <Compile Include="Assets\Editor\mozzarella\LevelDesigner.cs" />
      <Compile Include="Assets\Editor\mozzarella\Menu.cs" />
      <Compile Include="Assets\Editor\mozzarella\PieceWizard.cs" />
-     <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
+     <None Include="Assets\Resources\Shaders\Unlit-Colored.shader" />
+     <None Include="Assets\Resources\Shaders\Unlit-VertexColored.shader" />
+     <None Include="Assets\Resources\Shaders\Unlit-Tinted.shader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">

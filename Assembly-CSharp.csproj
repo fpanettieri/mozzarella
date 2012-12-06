@@ -73,7 +73,9 @@
      <Compile Include="Assets\Scripts\Util\Cheats.cs" />
      <Compile Include="Assets\Scripts\Util\FrameText.cs" />
      <Compile Include="Assets\Scripts\Util\IntVector2.cs" />
-     <None Include="Assets\Resources\Shaders\UnlitColor.shader" />
+     <None Include="Assets\Resources\Shaders\Unlit-Colored.shader" />
+     <None Include="Assets\Resources\Shaders\Unlit-VertexColored.shader" />
+     <None Include="Assets\Resources\Shaders\Unlit-Tinted.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
