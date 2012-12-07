@@ -12,6 +12,6 @@ public class FrameText : MonoBehaviour
 		if(current > max) {
 			max = current;
 		}
-		guiText.text = current.ToString() + " / " + max.ToString();
+		guiText.text = current.ToString() + "\n-----\n" + max.ToString();
 	}
 }
