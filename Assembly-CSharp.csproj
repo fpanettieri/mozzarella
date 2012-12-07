@@ -69,7 +69,8 @@
      <Compile Include="Assets\Scripts\Grid\PiecePreview.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceSpawner.cs" />
-     <Compile Include="Assets\Scripts\Grid\Point.cs" />
+     <Compile Include="Assets\Scripts\Points\Point.cs" />
+     <Compile Include="Assets\Scripts\Points\PointsMeter.cs" />
      <Compile Include="Assets\Scripts\Time\TimeJumper.cs" />
      <Compile Include="Assets\Scripts\Time\TimeMachine.cs" />
      <Compile Include="Assets\Scripts\Time\Timeline.cs" />
