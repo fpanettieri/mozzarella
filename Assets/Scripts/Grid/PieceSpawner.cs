@@ -58,7 +58,10 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	{
 		if(grid.pieceTypes[e.column + e.row * grid.columns] != PieceType.Empty) {
 			Events.i.Notify(new GameOverEvent());
+
+			// FIXME: Prototype violent end of game
 			Debug.LogError("YOU LOSE!");
+			Application.Quit();
 		}
 
 		bool moving = grid.pieceTypes[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;

@@ -22,7 +22,7 @@ public class PieceQueue : MonoBehaviour
 	private int[] pieces;
 	private int idx = 0;
 
-	public void Awake()
+	public void Start()
 	{
 		Populate();
 		Shuffle();
@@ -83,6 +83,8 @@ public class PieceQueue : MonoBehaviour
 			pair = types[Mathf.FloorToInt(Random.value * types.Length)].Split('x');
 			pieces[idx++] = int.Parse(pair[1]);
 		}
+
+		idx = 0;
 	}
 
 	private void Shuffle()
