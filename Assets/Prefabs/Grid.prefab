@@ -63,7 +63,7 @@ MonoBehaviour:
   bottom: 64
   left: 128
   top: 640
-  right: 896
+  right: 848
   cellWidth: 48
   cellHeight: 48
 --- !u!114 &11400004

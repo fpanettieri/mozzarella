@@ -96,9 +96,10 @@ public class GridInput : MonoBehaviour
 			Mathf.FloorToInt((Input.mousePosition.x - left) / cellWidth),
 			Mathf.FloorToInt((Input.mousePosition.y - bottom) / cellHeight)
 		);
+		if(cell.x == grid.columns - 1){ cell.x--; }
 	}
 	
-	private bool InsideGrid(Vector3 v)
+	public bool InsideGrid(Vector3 v)
 	{
 		return v.x > left && v.x < right && v.y > bottom && v.y < top;
 	}

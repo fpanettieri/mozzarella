@@ -56,9 +56,11 @@
      <Compile Include="Assets\Scripts\Events\PieceSpawnEvent.cs" />
      <Compile Include="Assets\Scripts\Factories\PieceColor.cs" />
      <Compile Include="Assets\Scripts\Factories\PieceMaterial.cs" />
+     <Compile Include="Assets\Scripts\Grid\DropPreview.cs" />
      <Compile Include="Assets\Scripts\Grid\Grid.cs" />
      <Compile Include="Assets\Scripts\Grid\GridInput.cs" />
      <Compile Include="Assets\Scripts\Grid\GroupBreaker.cs" />
+     <Compile Include="Assets\Scripts\Grid\HighlightColumn.cs" />
      <Compile Include="Assets\Scripts\Grid\Piece.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceGrouper.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceGroups.cs" />

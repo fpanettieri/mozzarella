@@ -13,7 +13,6 @@ public class PiecePreview : MonoBehaviour
 {
 	// dependencies
 	private PieceQueue queue;
-	private MeshFilter filter;
 
 	// internal state
 	public int offset = 0;
@@ -25,10 +24,6 @@ public class PiecePreview : MonoBehaviour
 	public void Start ()
 	{
 		queue = GameObject.Find(GameObjectName.GRID).GetComponent<PieceQueue>();
-		filter = GetComponent<MeshFilter>();
-
-		// FIXME: Create an object that creates the mesh based on the level size
-		filter.mesh = Resources.Load("Meshes/Piece32x32") as Mesh;
 	}
 	
 	public void Update ()
