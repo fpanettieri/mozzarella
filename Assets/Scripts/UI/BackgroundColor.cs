@@ -29,6 +29,6 @@ public class BackgroundColor : MonoBehaviour
 
 	private Color PickColor()
 	{
-		return new ColorHSV(Random.Range(0.0f, 360.0f), Random.Range(0.3f, 0.7f), Random.Range(0.5f, 0.7f), 1).ToColor();
+		return new ColorHSV(Random.Range(0.0f, 360.0f), 0.5f, 0.7f, 1).ToColor();
 	}
 }

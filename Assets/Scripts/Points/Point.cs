@@ -31,10 +31,8 @@ public class Point : MonoBehaviour
 	{
 		meter = GameObject.Find(GameObjectName.POINTS_METER).GetComponent<PointsMeter>();
 
-		transform.Translate(24, 24, 0, Space.World);
-
-		direction = new Vector2(Random.Range(-4, 4), Random.Range(1, 4));
-		explotion = Random.Range(1, 4);
+		direction = new Vector2(Random.Range(-4, 4), Random.Range(1, 3));
+		explotion = Random.Range(2, 4);
 		rotation = Random.Range(0, Mathf.PI * 2);
 	}
 
@@ -44,12 +42,10 @@ public class Point : MonoBehaviour
 
 		if(explotion > 0){
 			explotion -= decay;
-
 			transform.Translate(direction * explotion, Space.World);
 			transform.Rotate(0, 0, rotation * explotion);
-		}
 
-		if(distance > 32){
+		} else if(distance > 32){
 			speed += accel;
 			direction = (meter.top - transform.position).normalized;
 			transform.Translate(direction * speed, Space.World);
