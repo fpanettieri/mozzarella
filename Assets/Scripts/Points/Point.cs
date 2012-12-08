@@ -27,16 +27,18 @@ public class Point : MonoBehaviour
 	private float speed = 1f;
 	private float distance;
 
-	void Start()
+	public void Awake()
 	{
-		meter = GameObject.FindGameObjectWithTag("PointsMeter").GetComponent<PointsMeter>();
+		meter = GameObject.Find(GameObjectName.POINTS_METER).GetComponent<PointsMeter>();
+
+		transform.Translate(24, 24, 0, Space.World);
 
 		direction = new Vector2(Random.Range(-4, 4), Random.Range(1, 4));
 		explotion = Random.Range(1, 4);
 		rotation = Random.Range(0, Mathf.PI * 2);
 	}
 
-	void Update()
+	public void Update()
 	{
 		distance = Vector3.Distance(transform.position, meter.top);
 
@@ -45,8 +47,9 @@ public class Point : MonoBehaviour
 
 			transform.Translate(direction * explotion, Space.World);
 			transform.Rotate(0, 0, rotation * explotion);
+		}
 
-		} else if(distance > 32){
+		if(distance > 32){
 			speed += accel;
 			direction = (meter.top - transform.position).normalized;
 			transform.Translate(direction * speed, Space.World);
