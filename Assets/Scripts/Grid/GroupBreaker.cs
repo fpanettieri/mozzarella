@@ -12,6 +12,9 @@ using System.Collections.Generic;
 
 public class GroupBreaker : MonoBehaviour
 {
+	// inspector
+	public GameObject point;
+
 	// dependencies
 	private Grid grid;
 	private PiecePool pool;
@@ -100,9 +103,14 @@ public class GroupBreaker : MonoBehaviour
 
 	private void SpawnPoints()
 	{
-		// TODO: add score
-		// TODO: make streak higher
-		// TODO: spawn piece part to float into the score thingy
+		int count;
+		for(int i = 0; i < broken.Count; i++){
+			piece = pool[broken[i]];
+			count = piece.groups.Count();
+			for(int j = 0; j < count; j++){
+				Instantiate(point, piece.transform.position, Quaternion.identity);
+			}
+		}
 	}
 
 	private void BreakPieces()

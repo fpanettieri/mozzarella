@@ -22,37 +22,36 @@ public class Point : MonoBehaviour
 	private float explotion;
 	private float decay = 0.1f;
 
-	private Vector3 position;
-	private float collection;
-	private float acceleration = 0.1f;
+	private Vector3 movement;
+	private float accel = 0.3f;
+	private float speed = 1f;
 	private float distance;
 
 	void Start()
 	{
 		meter = GameObject.FindGameObjectWithTag("PointsMeter").GetComponent<PointsMeter>();
 
-		direction = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
-		explotion = Random.Range(2, 4);
+		direction = new Vector2(Random.Range(-4, 4), Random.Range(1, 4));
+		explotion = Random.Range(1, 4);
 		rotation = Random.Range(0, Mathf.PI * 2);
-
-		collection = Random.Range(3, 5);
-		distance = collection;
 	}
 
 	void Update()
 	{
+		distance = Vector3.Distance(transform.position, meter.top);
+
 		if(explotion > 0){
 			explotion -= decay;
 
 			transform.Translate(direction * explotion, Space.World);
 			transform.Rotate(0, 0, rotation * explotion);
-			if(explotion <= 0){ position = transform.position; }
 
-		} else if(distance > 0){
-			distance -= acceleration;
-			transform.position = Vector3.Lerp(meter.top, position, distance / collection);
+		} else if(distance > 32){
+			speed += accel;
+			direction = (meter.top - transform.position).normalized;
+			transform.Translate(direction * speed, Space.World);
 
-		} else if(distance <= 0){
+		} else if(distance <= 32){
 			meter.AddPoints(points);
 			Destroy(gameObject);
 		}
