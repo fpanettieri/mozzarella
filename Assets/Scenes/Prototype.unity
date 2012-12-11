@@ -74,6 +74,63 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &171979273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 3
+  m_Component:
+  - 4: {fileID: 171979274}
+  - 132: {fileID: 171979275}
+  - 114: {fileID: 171979276}
+  m_Layer: 0
+  m_Name: GoMsg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &171979274
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 171979273}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: .5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!132 &171979275
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 171979273}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: 3
+  m_Anchor: 4
+  m_Alignment: 1
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 200
+  m_FontStyle: 1
+  m_PixelCorrect: 1
+--- !u!114 &171979276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 171979273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd50579815c2e4ff98a475f5ab7ad937, type: 1}
+  m_Name: 
 --- !u!1 &182032056
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +859,7 @@ GameObject:
   - 4: {fileID: 1099965769}
   - 114: {fileID: 1099965770}
   - 114: {fileID: 1099965771}
+  - 114: {fileID: 1099965772}
   m_Layer: 0
   m_Name: Time
   m_TagString: PointsMeter
@@ -841,6 +899,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 941d013212b274d08b61f3ef67711dc9, type: 1}
+  m_Name: 
+--- !u!114 &1099965772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1099965768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a684c01dc7b43f8bdebecc48af5387, type: 1}
   m_Name: 
 --- !u!1001 &1141205501
 Prefab:

@@ -24,7 +24,7 @@ public class TimeMachine : MonoBehaviour
 	
 	public void Awake()
 	{
-		paused = false;
+		paused = true;
 		skip = false;
 		rewind = false;
 		frame = 0;

@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\Points\PointsMeter.cs" />
      <Compile Include="Assets\Scripts\Points\PointsText.cs" />
      <Compile Include="Assets\Scripts\Time\Countdown.cs" />
+     <Compile Include="Assets\Scripts\Time\GoMsg.cs" />
      <Compile Include="Assets\Scripts\Time\TimeJumper.cs" />
      <Compile Include="Assets\Scripts\Time\TimeMachine.cs" />
      <Compile Include="Assets\Scripts\Time\Timeline.cs" />
