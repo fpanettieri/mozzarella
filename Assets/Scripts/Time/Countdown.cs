@@ -20,6 +20,10 @@ public class Countdown : MonoBehaviour
 		if(TimeMachine.skip) { return; }
 
 		second = (max - TimeMachine.frame) / fps;
+		if (second <= 0){
+			second = 0;
+			Events.i.Notify(new GameOverEvent());
+		}
 		guiText.text = second.ToString("00.0");
 	}
 }
