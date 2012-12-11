@@ -12,17 +12,14 @@ using System.Collections;
 
 public class GameOverMsg: MonoBehaviour, IEventListener
 {
-	private bool done;
 	public void Start()
 	{
 		Events.i.Register(MozEventType.GameOver, this);
-		done = false;
 	}
 
 	public void Notify(MozEvent e)
 	{
 		TimeMachine.paused = true;
 		guiText.enabled = true;
-		done = true;
 	}
 }
