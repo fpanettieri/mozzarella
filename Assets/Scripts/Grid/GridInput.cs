@@ -41,7 +41,7 @@ public class GridInput : MonoBehaviour
 	// Aux variables
 	private IntVector2 touchedCell;
 
-	void Awake()
+	public void Start()
 	{
 		cell = new IntVector2(0, 0);
 
@@ -78,7 +78,9 @@ public class GridInput : MonoBehaviour
 			if(droppingPiece){
 				leftPiece.Set(cell.x, grid.rows - 1);
 				rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
-				if(CellsOccupied()) { return; }
+
+				// REVIEW: game should allow the user to make stupid moves?
+				//if(CellsOccupied()) { Events.i.Notify(new GameOverEvent()); }
 
 				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, leftPiece.y, leftPiece.x, queue.Next()));
 				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, rightPiece.y, rightPiece.x, queue.Next()));

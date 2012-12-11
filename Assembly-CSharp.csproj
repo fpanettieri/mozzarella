@@ -73,11 +73,13 @@
      <Compile Include="Assets\Scripts\Points\PointsMeter.cs" />
      <Compile Include="Assets\Scripts\Points\PointsText.cs" />
      <Compile Include="Assets\Scripts\Time\Countdown.cs" />
-     <Compile Include="Assets\Scripts\Time\GoMsg.cs" />
      <Compile Include="Assets\Scripts\Time\TimeJumper.cs" />
      <Compile Include="Assets\Scripts\Time\TimeMachine.cs" />
      <Compile Include="Assets\Scripts\Time\Timeline.cs" />
      <Compile Include="Assets\Scripts\UI\BackgroundColor.cs" />
+     <Compile Include="Assets\Scripts\UI\GameOverMsg.cs" />
+     <Compile Include="Assets\Scripts\UI\GoMsg.cs" />
+     <Compile Include="Assets\Scripts\UI\Replay.cs" />
      <Compile Include="Assets\Scripts\Util\Cheats.cs" />
      <Compile Include="Assets\Scripts\Util\ColorHSV.cs" />
      <Compile Include="Assets\Scripts\Util\FrameText.cs" />

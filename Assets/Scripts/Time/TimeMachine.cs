@@ -22,7 +22,7 @@ public class TimeMachine : MonoBehaviour
 	private Timeline timeline;
 	private MozEvent ev;
 	
-	public void Awake()
+	public void Start()
 	{
 		paused = true;
 		skip = false;

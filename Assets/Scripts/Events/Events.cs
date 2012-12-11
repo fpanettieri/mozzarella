@@ -67,4 +67,9 @@ public class Events
 			}
 		}
 	}
+
+	public void Destroy()
+	{
+		instance = null;
+	}
 }

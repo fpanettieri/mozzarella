@@ -30,7 +30,7 @@ public class Grid : MonoBehaviour
 	private Vector3 pieceProj;
 	private bool collision;
 	
-	public void Awake()
+	public void Start()
 	{
 		input = GetComponent<GridInput>();
 		timemachine = GameObject.Find(GameObjectName.TIME).GetComponent<TimeMachine>();

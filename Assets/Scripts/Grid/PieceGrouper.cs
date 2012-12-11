@@ -10,7 +10,7 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 	// Private / aux properties
 	private Piece piece;
 	
-	public void Awake()
+	public void Start()
 	{
 		Events.i.Register(MozEventType.PieceLock, this);
 		grid = GetComponent<Grid>();

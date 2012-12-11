@@ -19,8 +19,9 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	// Private / aux properties
 	private Piece piece;
 	private Vector3 pieceSize;
-	
-	public void Awake()
+
+	// Populate grid with current level pieces
+	public void Start()
 	{
 		Events.i.Register(MozEventType.PieceSpawn, this);
 		
@@ -29,11 +30,7 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 		
 		MeshFilter filter = grid.piecePrefab.GetComponent<MeshFilter>();
 		pieceSize = filter.sharedMesh.bounds.size;
-	}
 
-	// Populate grid with current level pieces
-	public void Start()
-	{
 		int type = 0;
 		for(int i = 0; i < grid.rows; i++) {
 			for(int j = 0; j < grid.columns; j++) {
@@ -58,10 +55,6 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 	{
 		if(grid.pieceTypes[e.column + e.row * grid.columns] != PieceType.Empty) {
 			Events.i.Notify(new GameOverEvent());
-
-			// FIXME: Prototype violent end of game
-			Debug.LogError("YOU LOSE!");
-			Application.Quit();
 		}
 
 		bool moving = grid.pieceTypes[e.column + (e.row - 1) * grid.columns] == PieceType.Empty;

@@ -27,7 +27,7 @@ public class Point : MonoBehaviour
 	private float speed = 1f;
 	private float distance;
 
-	public void Awake()
+	public void Start()
 	{
 		meter = GameObject.Find(GameObjectName.POINTS_METER).GetComponent<PointsMeter>();
 

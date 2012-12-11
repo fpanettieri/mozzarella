@@ -18,7 +18,7 @@ public class PiecePool : MonoBehaviour
 	private Piece[] pieces;
 	private bool[] available;
 	
-	public void Awake()
+	public void Start()
 	{
 		grid = GetComponent<Grid>();
 		

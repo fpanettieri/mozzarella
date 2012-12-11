@@ -24,7 +24,7 @@ public class Timeline : MonoBehaviour
 	
 	public int count { get { return events.Count; } }
 	
-	public void Awake()
+	public void Start()
 	{
 		events = new List<MozEvent>();
 	}
