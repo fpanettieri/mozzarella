@@ -28,9 +28,6 @@ public class PieceColor
 		case PieceType.PlainGreen:
 			color = new Color(0.52f, 0.65f, 0.38f, 1.0f);
 			break;
-		case PieceType.PlainOrange:
-			color = new Color(0.96f, 0.56f, 0.38f, 1.0f);
-			break;
 		case PieceType.PlainRed:
 			color = new Color(0.8f, 0.36f, 0.33f, 1.0f);
 			break;

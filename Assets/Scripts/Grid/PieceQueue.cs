@@ -16,7 +16,7 @@ public class PieceQueue : MonoBehaviour
 	public int size = 512;
 
 	// samples_1xid_1;samples_2xid_2;...;samples_nxid_n;
-	public string frequence = "1x1;1x2";
+	public string frequency = "1x1;1x2";
 
 	// Private / aux properties
 	private int[] pieces;
@@ -24,6 +24,7 @@ public class PieceQueue : MonoBehaviour
 
 	public void Start()
 	{
+		Randomize();
 		Populate();
 		Shuffle();
 	}
@@ -47,10 +48,17 @@ public class PieceQueue : MonoBehaviour
 		return pieces[idx++];
 	}
 
+	// FIXME: REMOVE THIS!!!
+	// used in the prototype to randomize the posibility of playing 4 or 3 colors
+	private void Randomize()
+	{
+		frequency = Random.value < 0.6 ? "1x1;1x2;1x3" : "1x1;1x2;1x3;1x4";
+	}
+
 	private void Populate()
 	{
 		pieces = new int[size];
-		string[] types = frequence.Split(';');
+		string[] types = frequency.Split(';');
 
 		// number of requested pieces. Should be <= size
 		int requested = 0;

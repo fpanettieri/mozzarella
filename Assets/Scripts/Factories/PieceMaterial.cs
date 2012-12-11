@@ -25,9 +25,6 @@ public class PieceMaterial
 		case PieceType.PlainGreen:
 			material = Resources.Load("Materials/Pieces/Plain/Green") as Material;
 			break;
-		case PieceType.PlainOrange:
-			material = Resources.Load("Materials/Pieces/Plain/Orange") as Material;
-			break;
 		case PieceType.PlainRed:
 			material = Resources.Load("Materials/Pieces/Plain/Red") as Material;
 			break;

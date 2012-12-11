@@ -49,9 +49,6 @@ public class DropPreview : MonoBehaviour
 		case PieceType.PlainGreen:
 			color = new Color(0.52f, 0.65f, 0.38f, 0.4f);
 			break;
-		case PieceType.PlainOrange:
-			color = new Color(0.96f, 0.56f, 0.38f, 0.4f);
-			break;
 		case PieceType.PlainRed:
 			color = new Color(0.8f, 0.36f, 0.33f, 0.4f);
 			break;

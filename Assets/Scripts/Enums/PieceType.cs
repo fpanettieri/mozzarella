@@ -16,10 +16,9 @@ public class PieceType
 	public const int Empty = 0;
 	public const int PlainBlue = 1;
 	public const int PlainGreen = 2;
-	public const int PlainOrange = 3;
-	public const int PlainRed = 4;
-	public const int PlainYellow = 5;
+	public const int PlainRed = 3;
+	public const int PlainYellow = 4;
 	public static string[] Names = {
-		"Empty", "PlainBlue", "PlainGreen", "PlainOrange", "PlainRed", "PlainYellow"
+		"Empty", "PlainBlue", "PlainGreen", "PlainRed", "PlainYellow"
 	};
 }

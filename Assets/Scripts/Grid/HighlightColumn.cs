@@ -29,7 +29,7 @@ public class HighlightColumn : MonoBehaviour
 		if(input.InsideGrid(Input.mousePosition)) {
 			column = Mathf.FloorToInt((Input.mousePosition.x - input.left) / input.cellWidth);
 			if(column == grid.columns - 1){ column--; }
-			transform.position = new Vector3(column * input.cellWidth, 0, 0);
+			transform.position = new Vector3(column * input.cellWidth, 0, transform.position.z);
 		}
 	}
 }
