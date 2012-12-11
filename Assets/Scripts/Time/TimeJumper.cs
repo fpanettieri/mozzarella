@@ -12,7 +12,8 @@ using System.Collections.Generic;
 
 public class TimeJumper : MonoBehaviour, IEventListener
 {
-	private const int MAX_DELAY = 30;
+	private const int BACKWARD_DELAY = 30;
+	private const int FORWARD_DELAY = 60;
 
 	private Timeline timeline;
 	private int delay;
@@ -25,13 +26,13 @@ public class TimeJumper : MonoBehaviour, IEventListener
 		Events.i.Register(MozEventType.PieceLock, this);
 		Events.i.Register(MozEventType.PieceSpawn, this);
 
-		delay = MAX_DELAY;
+		delay = BACKWARD_DELAY;
 	}
 
 	public void Notify(MozEvent e)
 	{
 		if(!TimeMachine.rewind) { return; }
-		delay = MAX_DELAY;
+		delay = BACKWARD_DELAY;
 	}
 
 	public void Update()
@@ -39,16 +40,18 @@ public class TimeJumper : MonoBehaviour, IEventListener
 		// FIXME: cheat used to skip frames
 		if(TimeMachine.skip) { return; }
 
-		if(TimeMachine.rewind){
-			if( --delay < 0 ){
-				delay = MAX_DELAY;
+		if( --delay < 0 ){
+			if(TimeMachine.rewind){
+				delay = BACKWARD_DELAY;
 				if(TimeMachine.idx > 0){
 					TimeMachine.frame = timeline[TimeMachine.idx].frame + 1;
 				}
+			} else {
+				delay = FORWARD_DELAY;
+				if(TimeMachine.idx < timeline.count - 1){
+					TimeMachine.frame = timeline[TimeMachine.idx + 1].frame - 1;
+				}
 			}
-
-		} else {
-			delay = MAX_DELAY;
 		}
 	}
 }

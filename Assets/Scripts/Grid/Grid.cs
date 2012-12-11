@@ -48,9 +48,7 @@ public class Grid : MonoBehaviour
 	public void Update()
 	{
 		// FIXME: cheat used to skip frames
-		if(TimeMachine.skip) {
-			return;
-		}
+		if(TimeMachine.skip) { return; }
 
 		input.Process();
 		DropPieces();

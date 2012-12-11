@@ -24,6 +24,8 @@ public class TimeMachine : MonoBehaviour
 	
 	public void Awake()
 	{
+		paused = false;
+		skip = false;
 		rewind = false;
 		frame = 0;
 		idx = 0;
@@ -37,14 +39,9 @@ public class TimeMachine : MonoBehaviour
 
 		// FIXME: Remove cheat
 		if(paused) {
-			if(Input.GetKey(KeyCode.LeftArrow)) {
-				rewind = true;
-			} else if(Input.GetKey(KeyCode.RightArrow)) {
-				rewind = false;
-			} else {
-				skip = true;
-				return;
-			}
+			skip = true;
+			return;
+			
 		} else {
 			rewind = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(1);
 		}
