@@ -45,7 +45,7 @@ public class TimeJumper : MonoBehaviour, IEventListener
 				delay = BACKWARD_DELAY;
 				if(TimeMachine.idx > 0){
 					TimeMachine.frame = timeline[TimeMachine.idx].frame + 1;
-				} else {
+				} else if(timeline.count == 0) {
 					TimeMachine.frame = 0;
 				}
 			} else {
