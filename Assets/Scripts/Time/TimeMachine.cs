@@ -14,16 +14,21 @@ using UnityEngine;
  */
 public class TimeMachine : MonoBehaviour
 {
+	public int fps = 60;
+
 	public static bool paused = false;
 	public static bool skip = false;
 	public static bool rewind;
 	public static int frame;
 	public static int idx;
+
 	private Timeline timeline;
 	private MozEvent ev;
 	
 	public void Start()
 	{
+		Application.targetFrameRate = fps;
+
 		paused = true;
 		skip = false;
 		rewind = false;
