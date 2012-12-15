@@ -5,7 +5,7 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 3
+  serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7720fdb1f482248e99d349fbb74f04f3, type: 1}
+  m_Script: {fileID: 11500000, guid: 7720fdb1f482248e99d349fbb74f04f3, type: 3}
   m_Name: 
   piecePrefab: {fileID: 100000, guid: 6791a2ad1b8b648eaac1ff040d2f472e, type: 2}
   rows: 9
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a8da30d69e34b368b2e349781fdcfa, type: 1}
+  m_Script: {fileID: 11500000, guid: 25a8da30d69e34b368b2e349781fdcfa, type: 3}
   m_Name: 
   bottom: 64
   left: 128
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb5f1628ede34ddf9f32df7702b3969, type: 1}
+  m_Script: {fileID: 11500000, guid: cbb5f1628ede34ddf9f32df7702b3969, type: 3}
   m_Name: 
 --- !u!114 &11400006
 MonoBehaviour:
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a71ad56b167466980b87ebf7ee4113, type: 1}
+  m_Script: {fileID: 11500000, guid: b6a71ad56b167466980b87ebf7ee4113, type: 3}
   m_Name: 
 --- !u!114 &11400008
 MonoBehaviour:
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c201d79df4d054e82b898b65da215a4e, type: 1}
+  m_Script: {fileID: 11500000, guid: c201d79df4d054e82b898b65da215a4e, type: 3}
   m_Name: 
 --- !u!114 &11400010
 MonoBehaviour:
@@ -104,10 +104,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1361df611cc744258a7b43c7793ac60, type: 1}
+  m_Script: {fileID: 11500000, guid: c1361df611cc744258a7b43c7793ac60, type: 3}
   m_Name: 
   size: 512
-  frequence: 1x1;1x2;1x3;1x4
+  frequency: 
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a71802251494748946fc7299c5f162, type: 1}
+  m_Script: {fileID: 11500000, guid: 19a71802251494748946fc7299c5f162, type: 3}
   m_Name: 
 --- !u!114 &11400014
 MonoBehaviour:
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d9f57e3728c4bb8a8ef83af582efc6, type: 1}
+  m_Script: {fileID: 11500000, guid: f1d9f57e3728c4bb8a8ef83af582efc6, type: 3}
   m_Name: 
   point: {fileID: 100000, guid: 26cad60c92b5947ae9fcb7b2a810cbc2, type: 2}
 --- !u!1001 &100100000
