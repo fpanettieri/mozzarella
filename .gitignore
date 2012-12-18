@@ -171,10 +171,5 @@ Library
 Temp
 *.pidb
 *.csproj
+*.sln
 build
-
-mozzarella-csharp.sln
-
-mozzarella.sln
-
-mozzarella.userprefs
