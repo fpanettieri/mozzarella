@@ -19,6 +19,9 @@ public class PieceMaterial
 	{
 		Material material;
 		switch(type) {
+		case PieceType.Empty:
+			material = Resources.Load("Materials/Pieces/Plain/Empty") as Material;
+			break;
 		case PieceType.PlainBlue:
 			material = Resources.Load("Materials/Pieces/Plain/Blue") as Material;
 			break;
