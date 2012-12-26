@@ -133,6 +133,7 @@ public class GroupBreaker : MonoBehaviour
 			piece.row = 0;
 			piece.groups.Clear();
 			piece.Disable();
+			piece.Darken();
 			piece.spawned = false;
 			piece.locked = false;
 		}

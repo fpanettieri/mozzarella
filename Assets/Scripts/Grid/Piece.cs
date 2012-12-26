@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+	public MeshRenderer highlight;
+
 	public int id;
 	public int type;
 	public bool moving;
@@ -47,5 +49,19 @@ public class Piece : MonoBehaviour
 	public bool Grouped()
 	{
 		return groups.tl || groups.bl || groups.tr || groups.br;
+	}
+
+	public void Highlight()
+	{
+		if(!highlight.enabled && Grouped()){
+			highlight.enabled = true;
+		}
+	}
+
+	public void Darken()
+	{
+		if(highlight.enabled && !Grouped()){
+			highlight.enabled = false;
+		}
 	}
 }

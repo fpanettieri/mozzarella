@@ -44,6 +44,11 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 				pool[grid.pieceId[left]].groups.br = true;
 				pool[grid.pieceId[diagLeft]].groups.tr = true;
 				e.grouped = true;
+
+				pool[grid.pieceId[spot]].Highlight();
+				pool[grid.pieceId[down]].Highlight();
+				pool[grid.pieceId[left]].Highlight();
+				pool[grid.pieceId[diagLeft]].Highlight();
 			}
 		}
 
@@ -56,6 +61,11 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 				pool[grid.pieceId[right]].groups.bl = true;
 				pool[grid.pieceId[diagRight]].groups.tl = true;
 				e.grouped = true;
+
+				pool[grid.pieceId[spot]].Highlight();
+				pool[grid.pieceId[down]].Highlight();
+				pool[grid.pieceId[right]].Highlight();
+				pool[grid.pieceId[diagRight]].Highlight();
 			}
 		}
 	}
@@ -65,6 +75,7 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 	{
 		piece = pool[e.id];
 		piece.groups.Clear();
+		piece.Darken();
 		if(!e.grouped || piece.row == 0){ return; }
 		int spot = piece.column + piece.row * grid.columns;
 		int down = spot - grid.columns;
@@ -75,8 +86,16 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 			int left = spot - 1;
 			int diagLeft = down - 1;
 			pool[grid.pieceId[down]].groups.tl = false;
-			if(grid.pieceTypes[left] == piece.type){ pool[grid.pieceId[left]].groups.br = false; }
-			if(grid.pieceTypes[diagLeft] == piece.type){ pool[grid.pieceId[diagLeft]].groups.tr = false; }
+			pool[grid.pieceId[down]].Darken();
+
+			if(grid.pieceTypes[left] == piece.type){
+				pool[grid.pieceId[left]].groups.br = false;
+				pool[grid.pieceId[left]].Darken();
+			}
+			if(grid.pieceTypes[diagLeft] == piece.type){
+				pool[grid.pieceId[diagLeft]].groups.tr = false;
+				pool[grid.pieceId[diagLeft]].Darken();
+			}
 		}
 
 		// right group
@@ -84,8 +103,17 @@ public class PieceGrouper : MonoBehaviour, IEventListener
 			int right = spot + 1;
 			int diagRight = down + 1;
 			pool[grid.pieceId[down]].groups.tr = false;
-			if(grid.pieceTypes[right] == piece.type){ pool[grid.pieceId[right]].groups.bl = false; }
-			if(grid.pieceTypes[diagRight] == piece.type){ pool[grid.pieceId[diagRight]].groups.tl = false; }
+			pool[grid.pieceId[down]].Darken();
+
+			if(grid.pieceTypes[right] == piece.type){
+				pool[grid.pieceId[right]].groups.bl = false;
+				pool[grid.pieceId[right]].Darken();
+			}
+
+			if(grid.pieceTypes[diagRight] == piece.type){
+				pool[grid.pieceId[diagRight]].groups.tl = false;
+				pool[grid.pieceId[diagRight]].Darken();
+			}
 		}
 	}
 }
