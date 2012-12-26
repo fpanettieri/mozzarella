@@ -14,29 +14,24 @@ using UnityEngine;
  */ 
 public class PieceMaterial
 {
+	private static bool initialized = false;
+	private static Material[] materials;
 
 	public static Material getMaterial(int type)
 	{
-		Material material;
-		switch(type) {
-		case PieceType.Empty:
-			material = Resources.Load("Materials/Pieces/Plain/Empty") as Material;
-			break;
-		case PieceType.PlainBlue:
-			material = Resources.Load("Materials/Pieces/Plain/Blue") as Material;
-			break;
-		case PieceType.PlainGreen:
-			material = Resources.Load("Materials/Pieces/Plain/Green") as Material;
-			break;
-		case PieceType.PlainRed:
-			material = Resources.Load("Materials/Pieces/Plain/Red") as Material;
-			break;
-		case PieceType.PlainYellow:
-			material = Resources.Load("Materials/Pieces/Plain/Yellow") as Material;
-			break;
-		default:
-			throw new System.Exception("Unsupported piece type: " + type.ToString());
-		}
-		return material;
+		if(!initialized){ Initialize(); }
+		return materials[type];
+	}
+
+	private static void Initialize()
+	{
+		materials = new Material[5] {
+			Resources.Load("Materials/Pieces/Plain/Empty") as Material,
+			Resources.Load("Materials/Pieces/Plain/Blue") as Material,
+			Resources.Load("Materials/Pieces/Plain/Green") as Material,
+			Resources.Load("Materials/Pieces/Plain/Red") as Material,
+			Resources.Load("Materials/Pieces/Plain/Yellow") as Material
+		};
+		initialized = true;
 	}
 }
