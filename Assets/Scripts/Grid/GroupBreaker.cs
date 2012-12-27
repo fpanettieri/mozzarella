@@ -165,48 +165,60 @@ public class GroupBreaker : MonoBehaviour
 				if(piece.groups.tl){
 					if(piece.column > 0 && piece.type == grid.pieceTypes[idx - 1]){
 						pool[grid.pieceId[idx - 1]].groups.tr = false;														// left
+						pool[grid.pieceId[idx - 1]].Darken();
 					}
 					if(piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns]){
 						pool[grid.pieceId[idx + columns]].groups.bl = false;												// top
+						pool[grid.pieceId[idx + columns]].Darken();
 					}
 					if(piece.column > 0 && piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns - 1]){
 						pool[grid.pieceId[idx + columns - 1]].groups.br = false;											// tl
+						pool[grid.pieceId[idx + columns - 1]].Darken();
 					}
 				}
 
 				if(piece.groups.bl){
 					if(piece.column > 0 && piece.type == grid.pieceTypes[idx - 1]){
 						pool[grid.pieceId[idx - 1]].groups.br = false;														// left
+						pool[grid.pieceId[idx - 1]].Darken();
 					}
 					if(piece.row > 0 && piece.type == grid.pieceTypes[idx - columns]){
 						pool[grid.pieceId[idx - columns]].groups.tl = false;												// bottom
+						pool[grid.pieceId[idx - columns]].Darken();
 					}
 					if(piece.column > 0 &&  piece.row > 0 && piece.type == grid.pieceTypes[idx - columns - 1]){
 						pool[grid.pieceId[idx - columns - 1]].groups.tr = false;											// bl
+						pool[grid.pieceId[idx - columns - 1]].Darken();
 					}
 				}
 
 				if(piece.groups.tr){
 					if(piece.column < grid.columns - 1 && piece.type == grid.pieceTypes[idx + 1]){
 						pool[grid.pieceId[idx + 1]].groups.tl = false;														// right
+						pool[grid.pieceId[idx + 1]].Darken();
 					}
 					if(piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns]){
 						pool[grid.pieceId[idx + columns]].groups.br = false;												// top
+						pool[grid.pieceId[idx + columns]].Darken();
 					}
 					if(piece.column < grid.columns - 1  && piece.row < grid.rows - 1 && piece.type == grid.pieceTypes[idx + columns + 1]){
 						pool[grid.pieceId[idx + columns + 1]].groups.bl = false;											// tr
+						pool[grid.pieceId[idx + columns + 1]].Darken();
 					}
 				}
 
 				if(piece.groups.br){
 					if(piece.column < grid.columns - 1  && piece.type == grid.pieceTypes[idx + 1]){
 						pool[grid.pieceId[idx + 1]].groups.bl = false;														// right
+						pool[grid.pieceId[idx + 1]].Darken();
 					}
 					if(piece.row > 0 && piece.type == grid.pieceTypes[idx - columns]){
 						pool[grid.pieceId[idx - columns]].groups.tr = false;												// bottom
+						pool[grid.pieceId[idx - columns]].Darken();
 					}
 					if(piece.column < grid.columns - 1 && piece.row > 0 && piece.type == grid.pieceTypes[idx - columns + 1]){
 						pool[grid.pieceId[idx - columns + 1]].groups.tl = false;											// br
+						pool[grid.pieceId[idx - columns + 1]].Darken();
 					}
 				}
 
