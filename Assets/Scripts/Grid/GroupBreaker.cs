@@ -108,6 +108,7 @@ public class GroupBreaker : MonoBehaviour
 			piece = pool[broken[i]];
 			count = piece.groups.Count();
 			for(int j = 0; j < count; j++){
+				// TODO: Multiply per streak
 				Instantiate(point, piece.transform.position, Quaternion.identity);
 			}
 		}
@@ -223,6 +224,7 @@ public class GroupBreaker : MonoBehaviour
 				}
 
 				piece.groups.Clear();
+				piece.Darken();
 			}
 		}
 	}
