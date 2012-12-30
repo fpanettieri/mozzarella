@@ -80,7 +80,7 @@ public class GridInput : MonoBehaviour
 				rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
 
 				// REVIEW: game should allow the user to make stupid moves?
-				//if(CellsOccupied()) { Events.i.Notify(new GameOverEvent()); }
+				if(CellsOccupied()) { return; }
 
 				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, leftPiece.y, leftPiece.x, queue.Next()));
 				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, rightPiece.y, rightPiece.x, queue.Next()));
@@ -110,7 +110,8 @@ public class GridInput : MonoBehaviour
 	{
 		if(grid.pieceTypes[leftPiece.x + leftPiece.y * grid.columns] != PieceType.Empty ||
 		   grid.pieceTypes[rightPiece.x + rightPiece.y * grid.columns] != PieceType.Empty) {
-			return true;
+			Events.i.Notify(new GameOverEvent());
+			return false;
 		}
 
 		for(int i = 0; i < grid.movingPieces.Count; i++) {
