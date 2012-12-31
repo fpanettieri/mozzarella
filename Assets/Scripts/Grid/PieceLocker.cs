@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PieceLocker : MonoBehaviour, IEventListener
 {
+	// Inspector properties
+	public AudioClip raise;
+
 	// Dependencies
 	private Grid grid;
 	private PiecePool pool;
@@ -46,6 +49,6 @@ public class PieceLocker : MonoBehaviour, IEventListener
 		piece.locked = false;
 		grid.movingPieces.Add(piece);
 		timeline.Remove(e);
-		// TODO: Play piece unlock sound
+		audio.PlayOneShot(raise);
 	}
 }

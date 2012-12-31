@@ -12,6 +12,9 @@ using System.Collections;
 
 public class PieceSpawner : MonoBehaviour, IEventListener
 {
+	// Inspector properties
+	public AudioClip drop;
+
 	// Dependencies
 	private Grid grid;
 	private PiecePool pool;
@@ -68,6 +71,8 @@ public class PieceSpawner : MonoBehaviour, IEventListener
 			grid.pieceTypes[e.column + e.row * grid.columns] = e.type;
 			grid.pieceId[e.column + e.row * grid.columns] = piece.id;
 		}
+
+		audio.PlayOneShot(drop);
 	}
 
 	private void SpawnPiece(int column, int row, int type, bool moving)

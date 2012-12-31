@@ -14,6 +14,7 @@ public class GroupBreaker : MonoBehaviour
 {
 	// inspector
 	public GameObject point;
+	public AudioClip clip;
 
 	// dependencies
 	private Grid grid;
@@ -51,6 +52,7 @@ public class GroupBreaker : MonoBehaviour
 		SpawnPoints();
 		BreakPieces();
 		DropPieces();
+		PlayAudio();
 	}
 	private void Clear()
 	{
@@ -227,5 +229,10 @@ public class GroupBreaker : MonoBehaviour
 				piece.Darken();
 			}
 		}
+	}
+
+	private void PlayAudio()
+	{
+		audio.PlayOneShot(clip);
 	}
 }
