@@ -25,6 +25,9 @@ public class Cheats : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.T)) {
 			DebugTimeline();
 		}
+		if(Input.GetKeyDown(KeyCode.M)) {
+			MuteMusic();
+		}
 	}
 
 	public static void Pause()
@@ -61,5 +64,10 @@ public class Cheats : MonoBehaviour
 		string dbg = "Idx: " + TimeMachine.idx + "\n";
 		dbg += timeline;
 		Debug.Log(dbg);
+	}
+
+	public static void MuteMusic()
+	{
+		Destroy(GameObject.Find("Jukebox"));
 	}
 }
