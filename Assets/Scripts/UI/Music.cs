@@ -3,33 +3,39 @@ using System.Collections;
 
 public class Music : MonoBehaviour
 {
-	public AudioSource forward;
-	public AudioSource backward;
+	public AudioClip intro;
+	public AudioClip forward;
+	public AudioClip backward;
 
 	private bool rewind;
-	private float length;
 
 	void Start ()
 	{
 		rewind = false;
-		forward.Play();
-		length = forward.clip.length;
+		audio.clip = intro;
+		audio.Play();
 	}
 	
 	void Update ()
 	{
+		if(audio.clip.Equals(intro) && !audio.isPlaying){
+			audio.loop = true;
+			audio.clip = forward;
+			audio.Play();
 
-		if(!rewind && TimeMachine.rewind){
+		} else if(!rewind && TimeMachine.rewind){
 			rewind = true;
-			forward.Pause();
-			backward.time = length - forward.time;
-			backward.Play();
+			float time = forward.length - audio.time;
+			audio.clip = backward;
+			audio.time = time;
+			audio.Play();
 
 		} else if(rewind && !TimeMachine.rewind) {
 			rewind = false;
-			backward.Pause();
-			forward.time = length - backward.time;
-			forward.Play();
+			float time = backward.length - audio.time;
+			audio.clip = forward;
+			audio.time = time;
+			audio.Play();
 		}
 	}
 }
