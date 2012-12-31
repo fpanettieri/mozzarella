@@ -21,5 +21,6 @@ public class PointsMeter : MonoBehaviour
 		transform.localScale = new Vector3(1, progress, 1);
 		renderer.material.SetTextureScale("_MainTex", new Vector2(1, progress));
 		top = new Vector3( renderer.bounds.center.x, renderer.bounds.max.y, 0);
+		audio.Play();
 	}
 }
