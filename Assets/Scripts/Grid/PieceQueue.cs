@@ -52,7 +52,7 @@ public class PieceQueue : MonoBehaviour
 	// used in the prototype to randomize the posibility of playing 4 or 3 colors
 	private void Randomize()
 	{
-		frequency = Random.value < 0.5 ? "1x1;1x2;1x3" : "1x1;1x2;1x3;1x4";
+		frequency = GridGarbage.colors == 3 ? "1x1;1x2;1x3" : "1x1;1x2;1x3;1x4";
 	}
 
 	private void Populate()
