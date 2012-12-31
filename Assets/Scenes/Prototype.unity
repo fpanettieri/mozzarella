@@ -616,6 +616,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 42a872e6f51b14866b9f192aadb3e605, type: 2}
+      propertyPath: max
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42a872e6f51b14866b9f192aadb3e605, type: 2}
   m_RootGameObject: {fileID: 1820619668}
@@ -1053,6 +1057,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 885156150}
   - 132: {fileID: 885156149}
+  - 114: {fileID: 885156151}
   m_Layer: 0
   m_Name: Chain
   m_TagString: Untagged
@@ -1091,6 +1096,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &885156151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 885156148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb336158f9974f94ad3ab41dbbda80b, type: 3}
+  m_Name: 
+  cooldown: 5
 --- !u!1 &929319773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,7 +2043,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebb27909ccbe6467c8d1f9931303efd8, type: 3}
   m_Name: 
-  max: 100
+  max: 300
   points: 0
   top: {x: 0, y: 0, z: 0}
 --- !u!82 &1820619673

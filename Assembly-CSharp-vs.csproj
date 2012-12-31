@@ -69,6 +69,7 @@
      <Compile Include="Assets\Scripts\Grid\PiecePreview.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceQueue.cs" />
      <Compile Include="Assets\Scripts\Grid\PieceSpawner.cs" />
+     <Compile Include="Assets\Scripts\Points\Chain.cs" />
      <Compile Include="Assets\Scripts\Points\Point.cs" />
      <Compile Include="Assets\Scripts\Points\PointsMeter.cs" />
      <Compile Include="Assets\Scripts\Points\PointsText.cs" />

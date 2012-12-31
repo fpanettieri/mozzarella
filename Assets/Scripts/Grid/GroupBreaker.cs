@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public class GroupBreaker : MonoBehaviour
 {
-	// inspector
+	// inspector properties
 	public GameObject point;
 	public AudioClip clip;
 
@@ -20,6 +20,7 @@ public class GroupBreaker : MonoBehaviour
 	private Grid grid;
 	private PiecePool pool;
 	private Timeline timeline;
+	private Chain chain;
 
 	// internal state
 	private List<int> broken;
@@ -37,6 +38,7 @@ public class GroupBreaker : MonoBehaviour
 		grid = GetComponent<Grid>();
 		pool = GetComponent<PiecePool>();
 		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
+		chain = GameObject.Find(GameObjectName.CHAIN).GetComponent<Chain>();
 		columns = grid.columns;
 
 		broken = new List<int>();
@@ -53,6 +55,7 @@ public class GroupBreaker : MonoBehaviour
 		BreakPieces();
 		DropPieces();
 		PlayAudio();
+		IncreaseChain();
 	}
 	private void Clear()
 	{
@@ -108,9 +111,8 @@ public class GroupBreaker : MonoBehaviour
 		int count;
 		for(int i = 0; i < broken.Count; i++){
 			piece = pool[broken[i]];
-			count = piece.groups.Count();
+			count = piece.groups.Count() * chain.CurrentChain();
 			for(int j = 0; j < count; j++){
-				// TODO: Multiply per streak
 				Instantiate(point, piece.transform.position, Quaternion.identity);
 			}
 		}
@@ -234,5 +236,10 @@ public class GroupBreaker : MonoBehaviour
 	private void PlayAudio()
 	{
 		audio.PlayOneShot(clip);
+	}
+
+	private void IncreaseChain()
+	{
+		chain.IncreaseChain();
 	}
 }
