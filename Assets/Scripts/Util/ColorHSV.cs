@@ -14,7 +14,7 @@ class ColorHSV {
 	private float _a = 0f;
 
 	// Construct with optional alpha (which defaults to 1)
-	public ColorHSV(float h, float s, float v, float a = 1f) {
+	public ColorHSV(float h, float s, float v, float a) {
 		this._h = h;
 		this._s = s;
 		this._v = v;

@@ -36,10 +36,6 @@ public class GridInput : MonoBehaviour
 	private IntVector2 leftPiece;
 	private IntVector2 rightPiece;
 	private Piece piece;
-	private bool droppingPiece;
-
-	// Aux variables
-	private IntVector2 touchedCell;
 
 	public void Start()
 	{
@@ -53,41 +49,32 @@ public class GridInput : MonoBehaviour
 
 		leftPiece = new IntVector2(0, 0);
 		rightPiece = new IntVector2(0, 0);
-		droppingPiece = true;
 	}
 
 	public void Process()
 	{
 		if(TimeMachine.rewind) { return; }
 
-		if(Input.GetMouseButtonDown(0) && InsideGrid(Input.mousePosition)) {
-			UpdateCell();
-			int id = grid.pieceId[ cell.x + cell.y * grid.columns ];
-			if( id > -1 && pool[id].Grouped() ){
-				droppingPiece = false;
-				touchedCell = cell;
-			} else {
-				droppingPiece = true;
-			}
-		}
-
 		// Detect touched cell
 		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
 			UpdateCell();
 
-			if(droppingPiece){
-				leftPiece.Set(cell.x, grid.rows - 1);
-				rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
+			leftPiece.Set(cell.x, grid.rows - 1);
+			rightPiece.Set((cell.x + 1) % grid.columns, grid.rows - 1);
 
-				// REVIEW: game should allow the user to make stupid moves?
-				if(CellsOccupied()) { return; }
+			// REVIEW: game should allow the user to make stupid moves?
+			if(CellsOccupied()) { return; }
 
-				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, leftPiece.y, leftPiece.x, queue.Next()));
-				timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, rightPiece.y, rightPiece.x, queue.Next()));
-			} else {
-				if(IntVector2.Distance(cell, touchedCell) <= 1){
-					breaker.Break(touchedCell);
-				}
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, leftPiece.y, leftPiece.x, queue.Next()));
+			timemachine.Broadcast(new PieceSpawnEvent(TimeMachine.frame, -1, rightPiece.y, rightPiece.x, queue.Next()));
+		}
+
+		// Detect touched cell
+		if(Input.GetMouseButtonUp(1) && InsideGrid(Input.mousePosition)) {
+			UpdateCell();
+			int id = grid.pieceId[ cell.x + cell.y * grid.columns ];
+			if( id > -1 && pool[id].Grouped() ){
+				breaker.Break(cell);
 			}
 		}
 	}

@@ -42,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 8969127d5edd645e08f14f32d3c05c5e, type: 2}
+  - {fileID: 2100000, guid: a766f89d1af81f7458c27d59fa872f1b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -54,7 +54,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 4300000, guid: bed103742d64d444585106bacb4b55a7, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 74d223ef49c7cce4caac5ae26df54b35, type: 2}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -63,7 +63,7 @@ AudioSource:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 321585f5e7b2746f3823551ff0607f38, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4d1dfc064efeaf5459a0961fc19b6823, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -119,10 +119,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb27909ccbe6467c8d1f9931303efd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 85d71cf30a593664680265ed2f8875cc, type: 3}
   m_Name: 
-  max: 100
-  points: 0
+  max: 300
+  points: 1
   top: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:

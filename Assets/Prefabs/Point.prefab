@@ -41,7 +41,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: fcebd51e878dd49a4a8ef951c3c24c31, type: 2}
+  - {fileID: 2100000, guid: d40874066116b394f8113399a7802ff4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -53,7 +53,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 4300000, guid: df7aa4854bf8449b8a31e3ef89cfa1f9, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b7851ae856c3ce440bcab4f750c4f7e9, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -62,10 +62,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f327618b7210e497093bd42b866e6fce, type: 3}
+  m_Script: {fileID: 11500000, guid: 577dc52fabcf6cf468c2d2bb76067eee, type: 3}
   m_Name: 
   points: 1
-  clip: {fileID: 8300000, guid: 321585f5e7b2746f3823551ff0607f38, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

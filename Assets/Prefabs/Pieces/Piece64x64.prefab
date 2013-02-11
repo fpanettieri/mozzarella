@@ -88,7 +88,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: edbba7d743b0844dbbbcd6edd3bedb2d, type: 2}
+  - {fileID: 2100000, guid: ce16e928bfa34f0438fac2d687d9d034, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -100,14 +100,14 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 4300000, guid: 3dc5e59f2378543dda52b5e91f2683e4, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b009224ff767557449d08fa0295e6ba1, type: 2}
 --- !u!33 &3300002
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Mesh: {fileID: 4300000, guid: 3dc5e59f2378543dda52b5e91f2683e4, type: 2}
+  m_Mesh: {fileID: 4300000, guid: b009224ff767557449d08fa0295e6ba1, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,12 +116,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c825485e42a459da9497a1f5e3609a, type: 3}
+  m_Script: {fileID: 11500000, guid: 11194a5544e8f15448bcdd9f6be6b800, type: 3}
   m_Name: 
   highlight: {fileID: 2300002}
   id: -1
   type: 0
-  moving: 1
+  moving: 0
   row: 0
   column: 0
   spawned: 0

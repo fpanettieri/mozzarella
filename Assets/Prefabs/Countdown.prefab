@@ -36,7 +36,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4022429f5cce4c3abe47ccf5528f278, type: 3}
+  m_Script: {fileID: 11500000, guid: 584137795db508b4fb1c50bcac2702ed, type: 3}
   m_Name: 
   time: 60
   fps: 60

@@ -99,9 +99,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7720fdb1f482248e99d349fbb74f04f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6fc2eafac97dad848a3f77a17d4e2396, type: 3}
   m_Name: 
-  piecePrefab: {fileID: 100000, guid: 6791a2ad1b8b648eaac1ff040d2f472e, type: 2}
+  piecePrefab: {fileID: 100000, guid: f6235044b18880749b3da230ba5bd419, type: 2}
   rows: 9
   columns: 12
   pieceTypes: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a8da30d69e34b368b2e349781fdcfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 287d76b225cf706438bf5ef86f666798, type: 3}
   m_Name: 
   bottom: 64
   left: 128
@@ -131,9 +131,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbb5f1628ede34ddf9f32df7702b3969, type: 3}
+  m_Script: {fileID: 11500000, guid: a0c4e77468c8eee41b33669e1150b16c, type: 3}
   m_Name: 
-  drop: {fileID: 8300000, guid: 9d47acd098bf24827adc19c003d42aa2, type: 3}
+  drop: {fileID: 8300000, guid: c6415e12f90bd904b96267fb4100d875, type: 3}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6a71ad56b167466980b87ebf7ee4113, type: 3}
+  m_Script: {fileID: 11500000, guid: 772be969f00972c45aaeb7e7b2bf63f7, type: 3}
   m_Name: 
 --- !u!114 &11400008
 MonoBehaviour:
@@ -152,9 +152,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c201d79df4d054e82b898b65da215a4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 674a396dba4f9f34585b3d2053eab8ec, type: 3}
   m_Name: 
-  raise: {fileID: 8300000, guid: 9a987f77577a4431c8ce6ee2c8b4569a, type: 3}
+  raise: {fileID: 8300000, guid: cbf91cdef521a864bbd16dc781bdae38, type: 3}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,10 +163,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1361df611cc744258a7b43c7793ac60, type: 3}
+  m_Script: {fileID: 11500000, guid: 725ef09b0bf88584ab85a8ca44817d51, type: 3}
   m_Name: 
   size: 512
-  frequency: 
+  frequency: 1x1;1x2
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a71802251494748946fc7299c5f162, type: 3}
+  m_Script: {fileID: 11500000, guid: a98db3825b2a18a45bf91d402e5a85c8, type: 3}
   m_Name: 
 --- !u!114 &11400014
 MonoBehaviour:
@@ -185,10 +185,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d9f57e3728c4bb8a8ef83af582efc6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cebf5f2252177d45ba5f18209440376, type: 3}
   m_Name: 
-  point: {fileID: 100000, guid: 26cad60c92b5947ae9fcb7b2a810cbc2, type: 2}
-  clip: {fileID: 8300000, guid: a550103ee3aaa4b0eb74a9893b989564, type: 3}
+  point: {fileID: 100000, guid: 6066220ce9bad1845b11851ab2b76926, type: 2}
+  clip: {fileID: 8300000, guid: 7ed338243fb41a8458c4f6374fd7a327, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

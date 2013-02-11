@@ -35,11 +35,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47755c1bc672c495d85de1ef4ebda34d, type: 3}
+  m_Script: {fileID: 11500000, guid: b4d39d8693292c349ad0b14a04e78e6e, type: 3}
   m_Name: 
-  rows: 18
+  rows: 9
   columns: 2
-  prefab: {fileID: 100000, guid: f5b7e2a8e0f5f42fd9a8d7669606a543, type: 2}
+  prefab: {fileID: 100000, guid: a4dfbf1963286df458673f9ee4dc64e3, type: 2}
   text: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

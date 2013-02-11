@@ -1,0 +1,11 @@
+game.title = Paradoja
+mode.endless = Infinito
+mode.arcade = Arcade
+mode.puzzle = Puzzle
+mode.tutorial = Tutorial
+mode.chronology = Cronología
+mode.options = Opciones
+mode.back = Volver
+mode.endless.relativistic = Relativista
+mode.endless.universal = Universal
+mode.endless.multiversal = Multiversal

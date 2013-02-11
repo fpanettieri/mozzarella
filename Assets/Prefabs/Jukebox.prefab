@@ -92,11 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4081638ed6f894d7eb12c37d0223ed82, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c6c2e3f4c8adef4cb2a2fb2cdaab98b, type: 3}
   m_Name: 
-  intro: {fileID: 8300000, guid: 58d28c303a50f4d989f1727a1ec818e3, type: 3}
-  forward: {fileID: 8300000, guid: edfb0576b10c54e5c9ebcabc8a49e024, type: 3}
-  backward: {fileID: 8300000, guid: c1e7a848b98184bc7962f7c4d2ccad7a, type: 3}
+  intro: {fileID: 8300000, guid: 4fb875c26ca0e2442918a61412aa22f0, type: 3}
+  forward: {fileID: 8300000, guid: 570f911e98fa92d43b1598c4252c2ebb, type: 3}
+  backward: {fileID: 8300000, guid: e66810310c6d393448cf37e54b2f7f05, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

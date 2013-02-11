@@ -48,7 +48,7 @@ public class TimeMachine : MonoBehaviour
 			return;
 			
 		} else {
-			rewind = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(1);
+			rewind = Input.GetKey(KeyCode.Space);
 		}
 
 		frame += rewind ? -1 : 1;
