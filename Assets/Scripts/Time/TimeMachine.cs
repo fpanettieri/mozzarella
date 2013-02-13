@@ -15,6 +15,7 @@ using UnityEngine;
 public class TimeMachine : MonoBehaviour
 {
 	public int fps = 60;
+	public bool relativistic = false;
 
 	public static bool paused = false;
 	public static bool skip = false;
@@ -47,7 +48,7 @@ public class TimeMachine : MonoBehaviour
 			skip = true;
 			return;
 			
-		} else {
+		} else if ( !relativistic ){
 			rewind = Input.GetKey(KeyCode.Space);
 		}
 

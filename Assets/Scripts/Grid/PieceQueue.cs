@@ -24,7 +24,6 @@ public class PieceQueue : MonoBehaviour
 
 	public void Start()
 	{
-		Randomize();
 		Populate();
 		Shuffle();
 	}
@@ -46,13 +45,6 @@ public class PieceQueue : MonoBehaviour
 			Shuffle();
 		}
 		return pieces[idx++];
-	}
-
-	// FIXME: REMOVE THIS!!!
-	// used in the prototype to randomize the posibility of playing 4 or 3 colors
-	private void Randomize()
-	{
-		frequency = GridGarbage.colors == 3 ? "1x1;1x2;1x3" : "1x1;1x2;1x3;1x4";
 	}
 
 	private void Populate()

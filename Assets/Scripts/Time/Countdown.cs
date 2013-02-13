@@ -37,4 +37,9 @@ public class Countdown : MonoBehaviour
 		}
 		guiText.text = second.ToString("00.0");
 	}
+	
+	public void BonusTime(float bonus)
+	{
+		max += bonus * fps;
+	}
 }

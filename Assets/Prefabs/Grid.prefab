@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725ef09b0bf88584ab85a8ca44817d51, type: 3}
   m_Name: 
   size: 512
-  frequency: 1x1;1x2
+  frequency: 1x1;1x2,1x3
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -189,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   point: {fileID: 100000, guid: 6066220ce9bad1845b11851ab2b76926, type: 2}
   clip: {fileID: 8300000, guid: 7ed338243fb41a8458c4f6374fd7a327, type: 3}
+  relativistic: 1
+  bonusTime: .25
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

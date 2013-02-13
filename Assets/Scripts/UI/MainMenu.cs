@@ -78,10 +78,6 @@ public class MainMenu : MonoBehaviour
 			Application.LoadLevel("Universal");
 		}
 		
-		if (GUI.Button (new Rect (440, 300, 100, 30), Lang.GetString("mode.endless.multiversal"))) {
-			Application.LoadLevel("Multiversal");
-		}
-		
 		if (GUI.Button (new Rect (440, 350, 100, 30), Lang.GetString("mode.back"))) {
 			screen = MAIN;
 		}

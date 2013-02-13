@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class IncommingPieces : MonoBehaviour, IEventListener
 {
 	// inspector properties
+	public int max = int.MaxValue;
 	public int rows;
 	public int columns;
 	public GameObject prefab;
@@ -57,20 +58,27 @@ public class IncommingPieces : MonoBehaviour, IEventListener
 		types.Add(e.piece);
 		frames.Add(ev.frame);
 		dirty = true;
+		
+		if(types.Count >= max){
+			TimeMachine.paused = true;
+		}
 	}
 
 	public void Update()
 	{
+		if(types.Count == max && Input.GetKeyUp(KeyCode.Space)){
+			TimeMachine.paused = false;
+		}
+		
 		if(dirty){ UpdatePreview(); }
 		if(TimeMachine.rewind){ return; }
-
+		
 		while(types.Count > 0 && TimeMachine.frame == frames[frames.Count - 1]){
 			frames.RemoveAt(frames.Count - 1);
 			types.RemoveAt(types.Count - 1);
 			dirty = true;
 		}
 	}
-
 
 	private void UpdatePreview()
 	{

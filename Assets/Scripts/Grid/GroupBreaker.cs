@@ -15,12 +15,15 @@ public class GroupBreaker : MonoBehaviour
 	// inspector properties
 	public GameObject point;
 	public AudioClip clip;
+	public bool relativistic = false;
+	public float bonusTime = 0.25f;
 
 	// dependencies
 	private Grid grid;
 	private PiecePool pool;
 	private Timeline timeline;
 	private Chain chain;
+	private Countdown countdown;
 
 	// internal state
 	private List<int> broken;
@@ -39,6 +42,7 @@ public class GroupBreaker : MonoBehaviour
 		pool = GetComponent<PiecePool>();
 		timeline = GameObject.Find(GameObjectName.TIME).GetComponent<Timeline>();
 		chain = GameObject.Find(GameObjectName.CHAIN).GetComponent<Chain>();
+		countdown = GameObject.Find(GameObjectName.COUNTDOWN).GetComponent<Countdown>();
 		columns = grid.columns;
 
 		broken = new List<int>();
@@ -56,6 +60,7 @@ public class GroupBreaker : MonoBehaviour
 		DropPieces();
 		PlayAudio();
 		IncreaseChain();
+		AddBonusTime();
 	}
 	private void Clear()
 	{
@@ -241,5 +246,11 @@ public class GroupBreaker : MonoBehaviour
 	private void IncreaseChain()
 	{
 		chain.IncreaseChain();
+	}
+	
+	private void AddBonusTime()
+	{
+		if(!relativistic){ return; }
+		countdown.BonusTime(broken.Count * bonusTime * chain.CurrentChain());
 	}
 }

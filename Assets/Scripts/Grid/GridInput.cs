@@ -56,7 +56,7 @@ public class GridInput : MonoBehaviour
 		if(TimeMachine.rewind) { return; }
 
 		// Detect touched cell
-		if(Input.GetMouseButtonUp(0) && InsideGrid(Input.mousePosition)) {
+		if(Input.GetMouseButtonDown(0) && InsideGrid(Input.mousePosition)) {
 			UpdateCell();
 
 			leftPiece.Set(cell.x, grid.rows - 1);
@@ -70,7 +70,7 @@ public class GridInput : MonoBehaviour
 		}
 
 		// Detect touched cell
-		if(Input.GetMouseButtonUp(1) && InsideGrid(Input.mousePosition)) {
+		if(Input.GetMouseButtonDown(1) && InsideGrid(Input.mousePosition)) {
 			UpdateCell();
 			int id = grid.pieceId[ cell.x + cell.y * grid.columns ];
 			if( id > -1 && pool[id].Grouped() ){

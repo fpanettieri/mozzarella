@@ -19,4 +19,6 @@ public class GameObjectName
 	public const string CHEATS = "Cheats";
 	public const string POINTS_METER = "PointsMeter";
 	public const string CHAIN = "Chain";
+	public const string COUNTDOWN = "Countdown";
+	
 }

@@ -37,8 +37,7 @@ public class PieceLocker : MonoBehaviour, IEventListener
 		grid.movingPieces.Remove(piece);
 		piece.locked = true;
 		// TODO: Play piece lock sound
-	}
-	
+	}	
 
 	private void UnlockPiece(PieceLockEvent e)
 	{
