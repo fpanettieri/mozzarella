@@ -1,0 +1,17 @@
+background.texture = Textures/DevElements_nologo
+background.color = 0.3,0.3,0.3,1
+layout.texture = Textures/layout
+layout.color = 0.3,0.3,0.3,1
+chain.cooldown = 5
+chain.decay = 0.1
+countdown.time = 60
+countdown.fps = 30
+pieces.frequency = 1x1;1x2;1x3
+mode.relativistic = false
+time.breakTimeBonus = 0.25
+time.jumper = false
+incomming.max = 9999
+music.intro = Sounds/Intro
+music.forward = Sounds/Forward
+music.backward = Sounds/Backward
+points.stars = 30,90,270

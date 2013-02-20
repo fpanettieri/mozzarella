@@ -4,6 +4,7 @@ using System.Collections;
 public class Chain : MonoBehaviour
 {
 	public float cooldown;
+	public float decay;
 
 	private int chain;
 	private int visibleChain;
@@ -14,6 +15,7 @@ public class Chain : MonoBehaviour
 		chain = 1;
 		visibleChain = 0;
 		delay = 0;
+		decay = 0;
 	}
 
 	public void Update ()
@@ -34,8 +36,7 @@ public class Chain : MonoBehaviour
 
 	public void IncreaseChain()
 	{
-		chain++;
-		delay = cooldown;
+		delay = cooldown - decay * ++chain;
 	}
 
 	public int CurrentChain()

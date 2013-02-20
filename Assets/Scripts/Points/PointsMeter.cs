@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PointsMeter : MonoBehaviour
 {
-	public int max = 300;
+	public int[] stars;
 	public float points = 0;
 	public Vector3 top;
 
@@ -17,7 +17,7 @@ public class PointsMeter : MonoBehaviour
 	public void AddPoints(int p)
 	{
 		points += p;
-		progress = Mathf.Clamp( points / max, 0, 1 );
+		progress = Mathf.Clamp( points / stars[stars.Length - 1], 0, 1 );
 		transform.localScale = new Vector3(1, progress, 1);
 		renderer.material.SetTextureScale("_MainTex", new Vector2(1, progress));
 		top = new Vector3( renderer.bounds.center.x, renderer.bounds.max.y, 0);
