@@ -16,7 +16,7 @@ public class Replay: MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.R)){
 			Events.i.Destroy();
-			Application.LoadLevel(Application.loadedLevel);
+			Application.LoadLevel("MainMenu");
 		}
 	}
 

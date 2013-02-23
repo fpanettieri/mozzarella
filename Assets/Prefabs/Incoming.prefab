@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: IncomingPieces
+  m_Name: IncommingPieces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4d39d8693292c349ad0b14a04e78e6e, type: 3}
   m_Name: 
+  max: 12
   rows: 9
   columns: 1
   prefab: {fileID: 100000, guid: a4dfbf1963286df458673f9ee4dc64e3, type: 2}

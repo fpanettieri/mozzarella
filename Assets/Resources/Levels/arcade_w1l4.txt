@@ -1,8 +1,8 @@
-pieces.frequency = 1x1;1x2
+pieces.frequency = 1x1;1x3
 mode.relativistic = true
-points.stars = 20,60,100
+points.stars = 200,600,1000
 chain.cooldown = 5
-chain.decay = 0.2
+chain.decay = 0
 countdown.time = 60
 incomming.max = 0
 time.breakTimeBonus = 0

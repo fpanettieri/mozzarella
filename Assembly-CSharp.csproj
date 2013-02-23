@@ -96,11 +96,15 @@
      <None Include="Assets\Resources\Levels\arcade_w1l1.txt" />
      <None Include="Assets\Resources\Lang\supported.txt" />
      <None Include="Assets\Resources\Shaders\Unlit-VertexColored.shader" />
+     <None Include="Assets\Resources\Levels\arcade_w1l3.txt" />
      <None Include="Assets\Resources\Shaders\Unlit-Tinted.shader" />
      <None Include="Assets\Resources\Lang\en_US.txt" />
+     <None Include="Assets\Resources\Levels\arcade_w1l5.txt" />
+     <None Include="Assets\Resources\Levels\arcade_w1l4.txt" />
      <None Include="Assets\Resources\Shaders\Unlit-Colored.shader" />
      <None Include="Assets\Resources\Lang\pt_BR.txt" />
      <None Include="Assets\Resources\Lang\es_LA.txt" />
+     <None Include="Assets\Resources\Levels\arcade_w1l2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

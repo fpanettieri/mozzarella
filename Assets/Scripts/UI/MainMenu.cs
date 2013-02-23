@@ -14,7 +14,8 @@ public class MainMenu : MonoBehaviour
 {
 	private const int MAIN = 0;
 	private const int ENDLESS = 1;
-	private const int OPTIONS = 2;
+	private const int ARCADE = 2;
+	private const int OPTIONS = 3;
 	
 	private int screen = MAIN;
 	
@@ -36,6 +37,8 @@ public class MainMenu : MonoBehaviour
 			MainGUI();
 		} else if (screen.Equals(ENDLESS)) {
 			EndlessGUI();
+		} else if (screen.Equals(ARCADE)) {
+			ArcadeGUI();
 		} else if (screen.Equals(OPTIONS)) {
 			OptionsGUI();
 		}
@@ -48,19 +51,15 @@ public class MainMenu : MonoBehaviour
 		}
 		
 		if (GUI.Button (new Rect (440, 250, 100, 30), Lang.GetString("mode.arcade"))) {
-			Application.LoadLevel("Arcade");
+			screen = ARCADE;
 		}
 		
 		if (GUI.Button (new Rect (440, 300, 100, 30), Lang.GetString("mode.puzzle"))) {
-			Application.LoadLevel("Puzzle");
+
 		}
 		
-		if (GUI.Button (new Rect (440, 350, 100, 30), Lang.GetString("mode.tutorial"))) {
-			Application.LoadLevel("Tutorial");
-		}
-		
-		if (GUI.Button (new Rect (440, 400, 100, 30), Lang.GetString("mode.chronology"))) {
-			Application.LoadLevel("Chronology");
+		if (GUI.Button (new Rect (440, 350, 100, 30), Lang.GetString("mode.chronology"))) {
+			
 		}
 		
 		if (GUI.Button (new Rect (440, 450, 100, 30), Lang.GetString("mode.options"))) {
@@ -79,6 +78,38 @@ public class MainMenu : MonoBehaviour
 		}
 		
 		if (GUI.Button (new Rect (440, 350, 100, 30), Lang.GetString("mode.back"))) {
+			screen = MAIN;
+		}
+	}
+	
+	private void ArcadeGUI()
+	{
+		if (GUI.Button (new Rect (150, 200, 100, 100), "1")) {
+			LevelConfigurator.selectedLevel = "arcade_w1l1";
+			Application.LoadLevel("Arcade");
+		}
+		
+		if (GUI.Button (new Rect (300, 200, 100, 100), "2")) {
+			LevelConfigurator.selectedLevel = "arcade_w1l2";
+			Application.LoadLevel("Arcade");
+		}
+		
+		if (GUI.Button (new Rect (450, 200, 100, 100), "3")) {
+			LevelConfigurator.selectedLevel = "arcade_w1l3";
+			Application.LoadLevel("Arcade");
+		}
+		
+		if (GUI.Button (new Rect (600, 200, 100, 100), "4")) {
+			LevelConfigurator.selectedLevel = "arcade_w1l4";
+			Application.LoadLevel("Arcade");
+		}
+		
+		if (GUI.Button (new Rect (750, 200, 100, 100), "5")) {
+			LevelConfigurator.selectedLevel = "arcade_w1l5";
+			Application.LoadLevel("Arcade");
+		}
+		
+		if (GUI.Button (new Rect (440, 400, 100, 30), Lang.GetString("mode.back"))) {
 			screen = MAIN;
 		}
 	}

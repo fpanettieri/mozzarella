@@ -31,7 +31,6 @@ public class LevelConfigurator : MonoBehaviour
 		GameObject.Find("Chain").GetComponent<Chain>().cooldown = GetInt("chain.cooldown");
 		GameObject.Find("Chain").GetComponent<Chain>().decay = GetFloat("chain.decay");
 		GameObject.Find("Countdown").GetComponent<Countdown>().time = GetInt("countdown.time");
-		GameObject.Find("Countdown").GetComponent<Countdown>().fps = GetFloat("countdown.fps");
 		
 		GameObject.Find("Grid").GetComponent<PieceQueue>().frequency = GetString("pieces.frequency");
 		GameObject.Find("Grid").GetComponent<GroupBreaker>().relativistic = GetBool("mode.relativistic");
