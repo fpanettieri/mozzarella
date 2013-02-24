@@ -70,11 +70,13 @@ public class MainMenu : MonoBehaviour
 	private void EndlessGUI()
 	{
 		if (GUI.Button (new Rect (440, 200, 100, 30), Lang.GetString("mode.endless.relativistic"))) {
-			Application.LoadLevel("Relativistic");
+			LevelConfigurator.selectedLevel = "Relativistic";
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (440, 250, 100, 30), Lang.GetString("mode.endless.universal"))) {
-			Application.LoadLevel("Universal");
+			LevelConfigurator.selectedLevel = "Universal";
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (440, 350, 100, 30), Lang.GetString("mode.back"))) {
@@ -86,27 +88,27 @@ public class MainMenu : MonoBehaviour
 	{
 		if (GUI.Button (new Rect (150, 200, 100, 100), "1")) {
 			LevelConfigurator.selectedLevel = "arcade_w1l1";
-			Application.LoadLevel("Arcade");
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (300, 200, 100, 100), "2")) {
 			LevelConfigurator.selectedLevel = "arcade_w1l2";
-			Application.LoadLevel("Arcade");
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (450, 200, 100, 100), "3")) {
 			LevelConfigurator.selectedLevel = "arcade_w1l3";
-			Application.LoadLevel("Arcade");
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (600, 200, 100, 100), "4")) {
 			LevelConfigurator.selectedLevel = "arcade_w1l4";
-			Application.LoadLevel("Arcade");
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (750, 200, 100, 100), "5")) {
 			LevelConfigurator.selectedLevel = "arcade_w1l5";
-			Application.LoadLevel("Arcade");
+			Application.LoadLevel("Level");
 		}
 		
 		if (GUI.Button (new Rect (440, 400, 100, 30), Lang.GetString("mode.back"))) {
