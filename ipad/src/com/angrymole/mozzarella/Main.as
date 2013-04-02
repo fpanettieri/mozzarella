@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella
 {
+	import com.angrymole.mozzarella.screens.Playground;
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
 	import flash.display.Sprite;
