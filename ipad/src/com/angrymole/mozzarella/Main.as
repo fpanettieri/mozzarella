@@ -24,7 +24,7 @@ package com.angrymole.mozzarella
 		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.addEventListener(Event.DEACTIVATE, deactivate);
+			//stage.addEventListener(Event.DEACTIVATE, deactivate);
 			
 			_starling = new Starling(Game, stage);
 			_starling.start();

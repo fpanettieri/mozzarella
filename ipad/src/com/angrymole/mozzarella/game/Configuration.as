@@ -17,7 +17,7 @@ package com.angrymole.mozzarella.game
 		private var m_spawnMin:int;
 		private var m_spawnMax:int;
 		private var m_spawnProgression:Array;
-		private var m_spawnInterval:Number;
+		private var m_spawnDelay:Number;
 		
 		public function Configuration(_level:XML) 
 		{
@@ -29,7 +29,7 @@ package com.angrymole.mozzarella.game
 			m_spawnMin = 2;
 			m_spawnMax = 4;
 			m_spawnProgression = [20, 120];
-			m_spawnInterval = 5;
+			m_spawnDelay = 5;
 		}
 		
 		public function get rows():int 
@@ -67,9 +67,9 @@ package com.angrymole.mozzarella.game
 			return m_spawnProgression;
 		}
 		
-		public function get spawnInterval():Number 
+		public function get spawnDelay():Number 
 		{
-			return m_spawnInterval;
+			return m_spawnDelay;
 		}
 	}
 }

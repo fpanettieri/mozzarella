@@ -16,6 +16,8 @@ package com.angrymole.mozzarella.game
 		{
 			m_quad = new Quad(_width, _height, _color);
 			addChild(m_quad);
+			
+			trace("WARNING: you are still using a placeholder here");
 		}
 	}
 }
