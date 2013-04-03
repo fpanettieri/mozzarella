@@ -13,10 +13,9 @@ package com.angrymole.mozzarella.game
 		private var m_rows:int;
 		private var m_columns:int;
 		private var m_pieceSize:int;
-		private var m_pieceTypes:Array;
-		private var m_spawnMin:int;
-		private var m_spawnMax:int;
-		private var m_spawnProgression:Array;
+		private var m_pieceTypes:Vector.<PieceType>;
+		private var m_spawnIterations:Vector.<int>;
+		private var m_spawnProgression:Vector.<int>;
 		private var m_spawnDelay:Number;
 		
 		public function Configuration(_level:XML) 
@@ -25,10 +24,9 @@ package com.angrymole.mozzarella.game
 			m_rows = 8;
 			m_columns = 12;
 			m_pieceSize = PieceSize.LARGE;
-			m_pieceTypes = [new PieceType(0xffff9900), new PieceType(0xff9900ff), new PieceType(0xff00ff99)];
-			m_spawnMin = 2;
-			m_spawnMax = 4;
-			m_spawnProgression = [20, 120];
+			m_pieceTypes = new <PieceType>[new PieceType(0xffff9900), new PieceType(0xff9900ff), new PieceType(0xff00ff99)];
+			m_spawnIterations = new <int>[20, 40, 10];
+			m_spawnProgression = new <int>[2, 4, 10, 12];
 			m_spawnDelay = 5;
 		}
 		
@@ -47,22 +45,17 @@ package com.angrymole.mozzarella.game
 			return m_pieceSize;
 		}
 		
-		public function get pieceTypes():Array 
+		public function get pieceTypes():Vector.<PieceType> 
 		{
 			return m_pieceTypes;
 		}
 		
-		public function get spawnMin():int 
+		public function get spawnIterations():Vector.<int> 
 		{
-			return m_spawnMin;
+			return m_spawnIterations;
 		}
-		
-		public function get spawnMax():int 
-		{
-			return m_spawnMax;
-		}
-		
-		public function get spawnProgression():Array 
+
+		public function get spawnProgression():Vector.<int>  
 		{
 			return m_spawnProgression;
 		}

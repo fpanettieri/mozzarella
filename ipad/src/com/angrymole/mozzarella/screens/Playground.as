@@ -2,13 +2,17 @@ package com.angrymole.mozzarella.screens
 {
 	import com.angrymole.mozzarella.constants.PieceSize;
 	import com.angrymole.mozzarella.events.IntroEvent;
+	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.Configuration;
 	import com.angrymole.mozzarella.game.Grid;
 	import com.angrymole.mozzarella.game.Intro;
 	import com.angrymole.mozzarella.game.Score;
 	import com.angrymole.mozzarella.game.Spawner;
+	import com.angrymole.mozzarella.game.Swapper;
+	
 	/**
 	 * An area where a single player can interact with the game
+	 * 
 	 * @author fpanettieri
 	 */
 	public class Playground extends Screen
@@ -18,6 +22,7 @@ package com.angrymole.mozzarella.screens
 		private var m_intro:Intro;
 		private var m_grid:Grid;
 		private var m_spawner:Spawner;
+		private var m_swapper:Swapper;
 		private var m_score:Score;
 		
 		public function Playground()
@@ -34,6 +39,10 @@ package com.angrymole.mozzarella.screens
 			m_spawner = new Spawner(m_cfg);
 			addChild(m_spawner);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
+			
+			m_swapper = new Swapper(m_cfg);
+			addChild(m_swapper);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_swapper.onSpawnComplete);
 			
 			m_score = new Score([50, 100, 200]);
 			addChild(m_score);
