@@ -2,6 +2,7 @@ package com.angrymole.mozzarella.gestures
 {
 	import com.angrymole.mozzarella.events.GestureEvent;
 	import com.angrymole.mozzarella.game.Configuration;
+	import com.angrymole.mozzarella.interfaces.IUpdatable;
 	import flash.geom.Point;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -15,11 +16,11 @@ package com.angrymole.mozzarella.gestures
 	 * 
 	 * @author Fabio Panettieri
 	 */
-	public class Gestures extends Sprite
+	public class Gestures extends Sprite implements IUpdatable
 	{
 		private const TAP_D_SQR:Number = 22 * 22;
-		private const SWIPE_TIME:Number = 1;
-		private const SAMPLING_INTERVAL:Number = 0.3;
+		private const SWIPE_TIME:Number = 0.4;
+		private const SAMPLING_INTERVAL:Number = 0.2;
 		
 		private var m_touched:Boolean;
 		private var m_begin:Point;
@@ -36,6 +37,12 @@ package com.angrymole.mozzarella.gestures
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
+		public function update(_time:Number):void
+		{
+			if (!m_touched) { return; }
+			m_elapsed += _time;
+		}
+		
 		private function init(_e:Event = null):void
 		{
 			m_touched = false;
@@ -48,16 +55,9 @@ package com.angrymole.mozzarella.gestures
 			var touch:Touch = _e.getTouch(stage);
 			if ( touch == null ) { return; }
 			
-			if (m_touched && touch.phase == TouchPhase.MOVED) {
-				
-				// FIXME: GET ELAPSED TIME!!
-				m_elapsed += 0;//Starling.juggler.;
-				trace(m_elapsed);
-				
-				if ( m_elapsed > SAMPLING_INTERVAL ) {
-					m_elapsed = 0;
-					m_nodes.push( new Point(touch.globalX, touch.globalY) );
-				}
+			if (touch.phase == TouchPhase.MOVED && m_elapsed > SAMPLING_INTERVAL) {
+				m_elapsed = 0;
+				m_nodes.push( new Point(touch.globalX, touch.globalY) );
 				
 			} else if (touch.phase == TouchPhase.BEGAN) {
 				m_elapsed = 0;
@@ -92,7 +92,7 @@ package com.angrymole.mozzarella.gestures
 				type = GestureEvent.SWIPE_GESTURE;
 				gesture = new Swipe(m_begin, m_end, duration);
 				
-			} else if ( m_nodes.length > 1) {
+			} else if ( m_nodes.length > 0 ) {
 				type = GestureEvent.PATH_GESTURE;
 				gesture = new Path(m_begin, m_end, duration, m_nodes);
 				

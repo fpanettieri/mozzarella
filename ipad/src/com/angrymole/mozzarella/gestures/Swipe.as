@@ -35,7 +35,7 @@ package com.angrymole.mozzarella.gestures
 			return m_bounds;
 		}
 		
-		public function toString():String
+		override public function toString():String
 		{
 			return "[Swipe begin: " + m_begin.x + "," + m_begin.y + " end: " + m_end.x + "," + 
 				m_end.y + " duration: " + m_duration + " direction: " + m_direction + "]";

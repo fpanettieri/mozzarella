@@ -32,6 +32,10 @@ package com.angrymole.mozzarella.gestures
 			return m_end;
 		}
 		
+		public function toString():String
+		{
+			return "[Section begin: " + m_begin.x + "," + m_begin.y + " end: " + m_end.x + "," + m_end.y + "]";
+		}
 	}
 
 }

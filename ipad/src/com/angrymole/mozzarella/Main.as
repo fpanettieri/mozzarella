@@ -15,7 +15,7 @@ package com.angrymole.mozzarella
 	 * ...
 	 * @author Fabio R. Panettieri
 	 */
-	[SWF(width="1024", height="768", frameRate="30", backgroundColor="#ffffff")]
+	[SWF(width="1024", height="768", frameRate="30", backgroundColor="#2B2E36")]
 	public class Main extends Sprite 
 	{
 		private var _starling:Starling;

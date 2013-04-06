@@ -2,10 +2,10 @@ package com.angrymole.mozzarella.game
 {
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
+	import com.angrymole.mozzarella.interfaces.IUpdatable;
 	import starling.animation.Juggler;
 	import starling.display.Sprite;
-	import starling.events.EnterFrameEvent;
-	import starling.events.Event;
+	
 	/**
 	 * It randomly spawn pieces that can be swaped before they are thrown into the grid.
 	 * 
@@ -21,7 +21,7 @@ package com.angrymole.mozzarella.game
 	 * 
 	 * @author Fabio Panettieri
 	 */
-	public class Spawner extends Sprite 
+	public class Spawner extends Sprite implements IUpdatable
 	{
 		private var m_size:int;
 		private var m_columns:int;
@@ -44,11 +44,9 @@ package com.angrymole.mozzarella.game
 			m_progression = _cfg.spawnProgression;
 			m_delay = _cfg.spawnDelay;
 			m_iteration = 0;
-			
 			m_juggler = new Juggler();
-			addEventListener(Event.ENTER_FRAME, onFrame);
 			
-			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xff303030);
+			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xC45A3B);
 			addChild(m_placeholder);
 			
 			m_pieces = new Vector.<Piece>();
@@ -59,9 +57,9 @@ package com.angrymole.mozzarella.game
 			spawnPieces();
 		}
 		
-		private function onFrame(_event:EnterFrameEvent):void
+		public function update(_time:Number):void
 		{
-			m_juggler.advanceTime(_event.passedTime);
+			m_juggler.advanceTime(_time);
 		}
 		
 		private function spawnPieces():void

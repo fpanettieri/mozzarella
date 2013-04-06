@@ -29,7 +29,7 @@ package com.angrymole.mozzarella.gestures
 			return m_y;
 		}
 		
-		public function toString():String
+		override public function toString():String
 		{
 			return "[Tap x: " + m_x + " y: " + m_y + " duration: " + m_duration + "]";
 		}

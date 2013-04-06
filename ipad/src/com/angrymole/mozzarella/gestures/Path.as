@@ -23,7 +23,7 @@ package com.angrymole.mozzarella.gestures
 			
 			m_sections = new Vector.<Section>();
 			m_sections.push(new Section(_begin, _nodes[0]));
-			for (var i:int = 1; i < _nodes.length - 1; i++) {
+			for (var i:int = 0; i < _nodes.length - 1; i++) {
 				m_sections.push(new Section(_nodes[i], _nodes[i + 1]));
 			}
 			m_sections.push(new Section(_nodes[_nodes.length - 1], _end));
@@ -42,6 +42,15 @@ package com.angrymole.mozzarella.gestures
 		public function get sections():Vector.<Section> 
 		{
 			return m_sections;
+		}
+		
+		override public function toString():String
+		{
+			var str:String = "[Path begin: " + m_begin.x + "," + m_begin.y + " end: " + m_end.x + "," + 	m_end.y + " duration: " + m_duration + " nodes: " + m_nodes.length + "]\n";
+			for (var i:int = 0; i < m_sections.length; i++) {
+				str += "\t" + m_sections[i] + "\n";
+			}
+			return str;
 		}
 	}
 }
