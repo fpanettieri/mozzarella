@@ -103,8 +103,6 @@ package com.angrymole.mozzarella.game
 				m_iteration++;
 			}
 			
-			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_COMPLETE, m_pieces));
-
 			m_juggler.delayCall(spawnPieces, m_delay);
 		}
 		

@@ -19,6 +19,9 @@ package com.angrymole.mozzarella.game
 			// TODO: add touch listener to pieces
 			
 			trace(_event.pieces);
+			for ( var i:int = 0 ; i < _event.pieces.length; i++ ) {
+				
+			}
 		}
 	}
 }
