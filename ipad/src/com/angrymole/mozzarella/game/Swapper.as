@@ -9,19 +9,11 @@ package com.angrymole.mozzarella.game
 	 */
 	public class Swapper extends Sprite 
 	{
-		public function Swapper(_cfg:Configuration)
+		public function Swapper()
 		{
-		
-		}
-		
-		public function onSpawnComplete(_event:SpawnEvent):void
-		{
-			// TODO: add touch listener to pieces
-			
-			trace(_event.pieces);
-			for ( var i:int = 0 ; i < _event.pieces.length; i++ ) {
-				
-			}
+			// TODO: receive gestures that started inside the swapper
+			// swap pieces with swipe and paths
+			// select pieces with taps
 		}
 	}
 }

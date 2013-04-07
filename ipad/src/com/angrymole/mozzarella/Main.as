@@ -20,7 +20,7 @@ package com.angrymole.mozzarella
 	{
 		private var _starling:Starling;
 		
-		public function Main():void 
+		public function Main()
 		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;

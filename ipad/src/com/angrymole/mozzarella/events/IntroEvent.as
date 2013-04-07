@@ -10,9 +10,9 @@ package com.angrymole.mozzarella.events
 		public static const INTRO_STARTED:String = "introStartedEvent";
 		public static const INTRO_COMPLETE:String = "introCompletedEvent";
 		
-		public function IntroEvent(type:String, bubbles:Boolean = false, data:Object = null)
+		public function IntroEvent(type:String, bubbles:Boolean = false)
 		{
-			super(type, bubbles, data);
+			super(type, bubbles);
 		}
 	}
 }

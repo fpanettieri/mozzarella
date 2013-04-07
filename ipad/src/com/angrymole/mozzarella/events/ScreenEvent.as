@@ -12,9 +12,9 @@ package com.angrymole.mozzarella.events
 		public static const REMOVE_SCREEN:String = "removeScreenEvent";
 		private var m_screen:Screen;
 		
-		public function ScreenEvent(type:String, screen:Screen, bubbles:Boolean = false, data:Object = null)
+		public function ScreenEvent(type:String, screen:Screen, bubbles:Boolean = false)
 		{
-			super(type, bubbles, data);
+			super(type, bubbles);
 			m_screen = screen;
 		}
 		

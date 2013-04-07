@@ -59,9 +59,8 @@ package com.angrymole.mozzarella.screens
 			m_gestures.addEventListener(GestureEvent.SWIPE_GESTURE, onGesture);
 			m_gestures.addEventListener(GestureEvent.PATH_GESTURE, onGesture);
 			
-			m_swapper = new Swapper(m_cfg);
+			m_swapper = new Swapper();
 			addChild(m_swapper);
-			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_swapper.onSpawnComplete);
 			
 			m_score = new Score([50, 100, 200]);
 			addChild(m_score);
@@ -73,18 +72,20 @@ package com.angrymole.mozzarella.screens
 			m_visualizer.touchable = false;
 			addChild(m_visualizer);
 			
+			// TODO: create object that add pieces to the grid
+			
 			// position items
 			m_grid.x = 56;
-			m_grid.y = 110;			
+			m_grid.y = 84;			
 			
 			m_spawner.x = 56;
-			m_spawner.y = 636;
+			m_spawner.y = 610;
 			
 			m_score.x = 850;
-			m_score.y = 110;
+			m_score.y = 84;
 			
 			m_console.x = 56;
-			m_console.y = 10;
+			m_console.y = 0;
 			
 			// register real time objects
 			m_updater.register(m_spawner);
@@ -93,8 +94,8 @@ package com.angrymole.mozzarella.screens
 		
 		private function onGesture(_e:GestureEvent):void
 		{
-			m_console.debug(_e.gesture.toString());
-			m_visualizer.visualize(_e.gesture);
+			//m_console.debug(_e.gesture.toString());
+			//m_visualizer.visualize(_e.gesture);
 		}
 	}
 }

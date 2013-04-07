@@ -15,6 +15,8 @@ package com.angrymole.mozzarella.game
 		
 		private var m_placeholder:Placeholder;
 		
+		// TODO: create object that create groups
+		// TODO: create object that break groups
 		public function Grid(_cfg:Configuration) 
 		{
 			m_rows = _cfg.rows;

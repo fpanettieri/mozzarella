@@ -15,9 +15,9 @@ package com.angrymole.mozzarella.events
 		
 		private var m_gesture:Gesture;
 		
-		public function GestureEvent(type:String, gesture:Gesture, bubbles:Boolean = false, data:Object = null)
+		public function GestureEvent(type:String, gesture:Gesture, bubbles:Boolean = false)
 		{
-			super(type, bubbles, data);
+			super(type, bubbles);
 			m_gesture = gesture;
 		}
 		

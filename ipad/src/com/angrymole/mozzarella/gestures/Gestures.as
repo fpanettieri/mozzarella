@@ -19,7 +19,7 @@ package com.angrymole.mozzarella.gestures
 	public class Gestures extends Sprite implements IUpdatable
 	{
 		private const TAP_D_SQR:Number = 22 * 22;
-		private const SWIPE_TIME:Number = 0.4;
+		private const SWIPE_TIME:Number = 0.5;
 		private const SAMPLING_INTERVAL:Number = 0.2;
 		
 		private var m_touched:Boolean;
@@ -55,7 +55,7 @@ package com.angrymole.mozzarella.gestures
 			var touch:Touch = _e.getTouch(stage);
 			if ( touch == null ) { return; }
 			
-			if (touch.phase == TouchPhase.MOVED && m_elapsed > SAMPLING_INTERVAL) {
+			if (m_elapsed > SAMPLING_INTERVAL && touch.phase == TouchPhase.MOVED) {
 				m_elapsed = 0;
 				m_nodes.push( new Point(touch.globalX, touch.globalY) );
 				
@@ -88,7 +88,7 @@ package com.angrymole.mozzarella.gestures
 				type = GestureEvent.TAP_GESTURE;
 				gesture = new Tap(m_begin, m_end, duration);
 				
-			} else if ( duration < SWIPE_TIME ) {
+			} else if ( duration < SWIPE_TIME ){
 				type = GestureEvent.SWIPE_GESTURE;
 				gesture = new Swipe(m_begin, m_end, duration);
 				

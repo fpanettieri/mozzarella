@@ -66,6 +66,11 @@ package com.angrymole.mozzarella.game
 		{
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_STARTED));
 			
+			// TODO: remove previous pieces
+			for (i = m_pieces.length - 1; i >= 0; i--) {
+				removeChild( m_pieces.splice(i,1)[0] );
+			}
+			
 			var i:int;
 			var emptyColumns:Vector.<int> = new Vector.<int>();
 			for (i = 0; i < m_columns; i++) { emptyColumns.push(i); }

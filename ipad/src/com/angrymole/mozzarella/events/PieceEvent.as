@@ -11,9 +11,9 @@ package com.angrymole.mozzarella.events
 		public static const PIECE_SPAWNED:String = "pieceSpawnedEvent";
 		private var m_piece:Piece;
 		
-		public function PieceEvent(type:String, piece:Piece, bubbles:Boolean = false, data:Object = null)
+		public function PieceEvent(type:String, piece:Piece, bubbles:Boolean = false)
 		{
-			super(type, bubbles, data);
+			super(type, bubbles);
 			m_piece = piece;
 		}
 		

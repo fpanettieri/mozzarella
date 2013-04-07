@@ -60,11 +60,10 @@ package com.angrymole.mozzarella.gestures
 		private function renderCircle(_x:Number, _y:Number, _color:uint, _radius:int):void
 		{
 			var shape:flash.display.Sprite = new flash.display.Sprite();
-			with (shape.graphics) {
-				beginFill(_color, 1);
-				drawCircle(_radius, _radius, _radius);
-				endFill();
-			}
+			shape.graphics.beginFill(_color, 1);
+			shape.graphics.drawCircle(_radius, _radius, _radius);
+			shape.graphics.endFill();
+			
 			var bmd:BitmapData = new BitmapData(_radius * 2, _radius * 2, true, 0);
 			bmd.draw(shape);
 			var image:Image = new Image(Texture.fromBitmapData(bmd));
@@ -75,14 +74,11 @@ package com.angrymole.mozzarella.gestures
 		
 		private function renderLine(_begin:Point, _end:Point, _color:uint, _thickness:int):void
 		{
-			var shape:flash.display.Sprite = new flash.display.Sprite();
 			var bounds:Bounds = new Bounds(_begin, _end);
-			
-			with (shape.graphics) {
-				moveTo(bounds.maxX - _begin.x, bounds.maxY - _begin.y);
-				lineStyle(_thickness, _color);
-				lineTo(bounds.maxX - _end.x, bounds.maxY - _end.y);
-			}
+			var shape:flash.display.Sprite = new flash.display.Sprite();
+			shape.graphics.moveTo(bounds.maxX - _begin.x, bounds.maxY - _begin.y);
+			shape.graphics.lineStyle(_thickness, _color);
+			shape.graphics.lineTo(bounds.maxX - _end.x, bounds.maxY - _end.y);
 			
 			var bmd:BitmapData = new BitmapData(bounds.maxX - bounds.minX + _thickness, bounds.maxY - bounds.minY + _thickness, true, 0);
 			bmd.draw(shape);

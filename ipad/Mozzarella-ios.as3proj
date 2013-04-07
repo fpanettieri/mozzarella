@@ -87,5 +87,8 @@
     <option testMovieCommand="Run.bat" />
   </options>
   <!-- Plugin storage -->
-  <storage />
+  <storage>
+    <entry key="at_enabled"><![CDATA[1]]></entry>
+    <entry key="at_password"><![CDATA[]]></entry>
+  </storage>
 </project>

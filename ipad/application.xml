@@ -2,7 +2,7 @@
 <application xmlns="http://ns.adobe.com/air/application/3.6">
 	
 	<id>com.angrymole.mozzarella</id>
-	<versionNumber>0.1.6</versionNumber>
+	<versionNumber>0.2.5</versionNumber>
 	<supportedProfiles>mobileDevice</supportedProfiles>
 	<filename>Mozzarella</filename>
 	

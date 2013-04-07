@@ -14,9 +14,9 @@ package com.angrymole.mozzarella.events
 		
 		private var m_pieces:Vector.<Piece>;
 		
-		public function SpawnEvent (type:String, pieces:Vector.<Piece> = null, bubbles:Boolean = false, data:Object = null)
+		public function SpawnEvent (type:String, pieces:Vector.<Piece> = null, bubbles:Boolean = false)
 		{
-			super(type, bubbles, data);
+			super(type, bubbles);
 			m_pieces = pieces;
 		}
 		

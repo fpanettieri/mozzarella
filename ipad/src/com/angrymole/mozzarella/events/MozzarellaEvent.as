@@ -10,9 +10,9 @@ package com.angrymole.mozzarella.events
 	 */
 	public class MozzarellaEvent extends Event
 	{	
-		public function MozzarellaEvent(type:String, bubbles:Boolean = false, data:Object = null)
+		public function MozzarellaEvent(type:String, bubbles:Boolean = false)
 		{
-			super(type, bubbles, data);
+			super(type, bubbles, null);
 		}
 	}
 }

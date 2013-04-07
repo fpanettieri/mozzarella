@@ -18,6 +18,8 @@ package com.angrymole.mozzarella.game
 			
 			m_placeholder = new Placeholder(130, 590, 0x919C86);
 			addChild(m_placeholder);
+			
+			// FIXME: IMPLEMENT ALL THIS!
 		}
 	}
 }
