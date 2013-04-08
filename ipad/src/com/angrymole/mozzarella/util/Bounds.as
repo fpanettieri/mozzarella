@@ -32,6 +32,11 @@ package com.angrymole.mozzarella.util
 			}
 		}
 		
+		public function contains(_point:Point):Boolean
+		{
+			return m_minX <= _point.x && m_maxX >= _point.x && m_minY <= _point.y && m_maxY >= _point.y;
+		}
+		
 		public function get minX():int 
 		{
 			return m_minX;

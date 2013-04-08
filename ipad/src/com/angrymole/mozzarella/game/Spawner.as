@@ -3,7 +3,8 @@ package com.angrymole.mozzarella.game
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
-	import starling.animation.Juggler;
+	import flash.geom.Point;
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	
 	/**
@@ -21,7 +22,7 @@ package com.angrymole.mozzarella.game
 	 * 
 	 * @author Fabio Panettieri
 	 */
-	public class Spawner extends Sprite implements IUpdatable
+	public class Spawner extends Sprite
 	{
 		private var m_size:int;
 		private var m_columns:int;
@@ -31,7 +32,6 @@ package com.angrymole.mozzarella.game
 		private var m_delay:Number;
 		private var m_iteration:int;
 		
-		private var m_juggler:Juggler;
 		private var m_placeholder:Placeholder;
 		private var m_pieces:Vector.<Piece>;
 		
@@ -44,7 +44,6 @@ package com.angrymole.mozzarella.game
 			m_progression = _cfg.spawnProgression;
 			m_delay = _cfg.spawnDelay;
 			m_iteration = 0;
-			m_juggler = new Juggler();
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xC45A3B);
 			addChild(m_placeholder);
@@ -57,9 +56,11 @@ package com.angrymole.mozzarella.game
 			spawnPieces();
 		}
 		
-		public function update(_time:Number):void
+		public function removePieces():void
 		{
-			m_juggler.advanceTime(_time);
+			for (var i:int = 0 ; i < m_pieces.length; i++) {
+				removeChild( m_pieces.pop() );
+			}
 		}
 		
 		private function spawnPieces():void
@@ -67,9 +68,7 @@ package com.angrymole.mozzarella.game
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_STARTED));
 			
 			// TODO: remove previous pieces
-			for (i = m_pieces.length - 1; i >= 0; i--) {
-				removeChild( m_pieces.splice(i,1)[0] );
-			}
+			
 			
 			var i:int;
 			var emptyColumns:Vector.<int> = new Vector.<int>();
@@ -106,7 +105,23 @@ package com.angrymole.mozzarella.game
 				m_iteration++;
 			}
 			
-			m_juggler.delayCall(spawnPieces, m_delay);
+			Starling.juggler.delayCall(spawnPieces, m_delay);
+		}
+		
+		public function select(_x:Number, _y:Number):void
+		{
+			// TODO: implement selection
+			// if piece selected
+			//  if its the same, unselect it
+			//  else swap
+			// else select piece
+		}
+		
+		public function swap(_begin:Number, _end:Number):void
+		{
+			// TODO: calculate swape columns (_begin / m_size
+			// swap elements in the array
+			// start swap animation for each piece
 		}
 		
 		public function get pieces():Vector.<Piece> 

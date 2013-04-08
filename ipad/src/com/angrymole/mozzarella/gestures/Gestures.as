@@ -50,6 +50,7 @@ package com.angrymole.mozzarella.gestures
 			stage.addEventListener(TouchEvent.TOUCH, onTouch);
 		}
 		
+		// TODO: support multiple touchs and dispatch one event per touch
 		private function onTouch(_e:TouchEvent):void
 		{
 			var touch:Touch = _e.getTouch(stage);
