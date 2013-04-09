@@ -89,7 +89,7 @@ package com.angrymole.mozzarella.gestures
 				type = GestureEvent.TAP_GESTURE;
 				gesture = new Tap(m_begin, m_end, duration);
 				
-			} else if ( duration < SWIPE_TIME ){
+			} else if ( m_elapsed < SWIPE_TIME ){
 				type = GestureEvent.SWIPE_GESTURE;
 				gesture = new Swipe(m_begin, m_end, duration);
 				

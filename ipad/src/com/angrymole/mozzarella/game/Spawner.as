@@ -4,6 +4,7 @@ package com.angrymole.mozzarella.game
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
 	import flash.geom.Point;
+	import starling.animation.DelayedCall;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	
@@ -32,8 +33,11 @@ package com.angrymole.mozzarella.game
 		private var m_delay:Number;
 		private var m_iteration:int;
 		
+		private var m_delayedCall:DelayedCall;
+		
 		private var m_placeholder:Placeholder;
 		private var m_pieces:Vector.<Piece>;
+		private var m_selected:int;
 		
 		public function Spawner(_cfg:Configuration)
 		{
@@ -44,11 +48,12 @@ package com.angrymole.mozzarella.game
 			m_progression = _cfg.spawnProgression;
 			m_delay = _cfg.spawnDelay;
 			m_iteration = 0;
+			m_selected = -1;
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xC45A3B);
 			addChild(m_placeholder);
 			
-			m_pieces = new Vector.<Piece>();
+			m_pieces = new Vector.<Piece>(m_columns);
 		}
 		
 		public function onIntroComplete(_event:IntroEvent):void
@@ -59,16 +64,22 @@ package com.angrymole.mozzarella.game
 		public function removePieces():void
 		{
 			for (var i:int = 0 ; i < m_pieces.length; i++) {
-				removeChild( m_pieces.pop() );
+				if (m_pieces[i] == null) { continue; }
+				removeChild( m_pieces[i] );
+				m_pieces[i] = null;
 			}
 		}
 		
-		private function spawnPieces():void
+		public function spawnPieces():void
 		{
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_STARTED));
 			
-			// TODO: remove previous pieces
+			if ( m_delayedCall ) {
+				Starling.juggler.remove(m_delayedCall);
+			}
 			
+			// TODO: when piece spawn start, add all pieces to the grid
+			removePieces();
 			
 			var i:int;
 			var emptyColumns:Vector.<int> = new Vector.<int>();
@@ -93,7 +104,7 @@ package com.angrymole.mozzarella.game
 				piece = new Piece(row, column, type, m_size, true);
 				piece.x = column * m_size;
 				
-				m_pieces.push(piece);
+				m_pieces[column] = piece;
 				addChild(piece);
 			}
 			
@@ -105,23 +116,48 @@ package com.angrymole.mozzarella.game
 				m_iteration++;
 			}
 			
-			Starling.juggler.delayCall(spawnPieces, m_delay);
+			m_delayedCall = Starling.juggler.delayCall(spawnPieces, m_delay);
 		}
 		
-		public function select(_x:Number, _y:Number):void
+		public function select(_x:Number):void
 		{
-			// TODO: implement selection
-			// if piece selected
-			//  if its the same, unselect it
-			//  else swap
-			// else select piece
+			var touched:int = Math.floor( _x / m_size );
+			if (m_selected == -1 && m_pieces[touched] != null) {
+				m_selected = touched;
+				m_pieces[m_selected].select();
+				
+			} else if (m_selected > -1) {
+				m_pieces[m_selected].unselect();
+				if ( m_selected != touched ) {
+					swapPieces(m_selected, touched);
+				}
+				m_selected = -1;
+			}
 		}
 		
 		public function swap(_begin:Number, _end:Number):void
 		{
-			// TODO: calculate swape columns (_begin / m_size
-			// swap elements in the array
-			// start swap animation for each piece
+			var from:int = Math.floor(_begin / m_size);
+			var to:int = Math.floor(_end / m_size);
+			
+			if (from == to) { return; }
+			swapPieces(from, to);
+		}
+		
+		private function swapPieces(_from:int, _to:int):void
+		{
+			var swapped:Piece = m_pieces[_from];
+			if ( swapped == null) { return; }
+				
+			if ( m_pieces[_to] != null ){
+				m_pieces[_to].swap(_from);
+			}
+			m_pieces[_from] = m_pieces[_to];
+			
+			if (swapped != null ){
+				swapped.swap(_to);
+			}
+			m_pieces[_to] = swapped;
 		}
 		
 		public function get pieces():Vector.<Piece> 

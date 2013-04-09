@@ -33,6 +33,24 @@ package com.angrymole.mozzarella.game
 			// TODO: play intro animation
 		}
 		
+		public function select():void
+		{
+			// TODO: play select animation
+		}
+		
+		public function unselect():void
+		{
+			// TODO: stop select animation
+		}
+		
+		public function swap(_column:int):void
+		{
+			m_column = _column;
+			
+			// TODO: Play swap animation, while smoothly moving
+			x = m_column * m_size;
+		}
+		
 		public function get row():int 
 		{
 			return m_row;

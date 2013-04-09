@@ -27,7 +27,7 @@ package com.angrymole.mozzarella.game
 				m_grid.push(tap.x - m_gridBounds.minX, tap.y - m_gridBounds.minY);
 			
 			} else if (m_spawnerBounds.contains(tap.begin)) {
-				m_spawner.select(tap.x - m_spawnerBounds.minX, tap.y - m_spawnerBounds.minY);
+				m_spawner.select(tap.x - m_spawnerBounds.minX);
 			}
 		}
 		
@@ -37,6 +37,7 @@ package com.angrymole.mozzarella.game
 			if (m_spawnerBounds.contains(swipe.begin) && m_gridBounds.contains(swipe.end)) {
 				m_grid.addPieces(m_spawner.pieces);
 				m_spawner.removePieces();
+				m_spawner.spawnPieces();
 				
 			} else if (m_spawnerBounds.contains(swipe.begin) && m_spawnerBounds.contains(swipe.end)) {
 				m_spawner.swap(swipe.begin.x - m_spawnerBounds.minX, swipe.end.x - m_spawnerBounds.minX);
