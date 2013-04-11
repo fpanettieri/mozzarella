@@ -16,7 +16,8 @@ package com.angrymole.mozzarella.game
 		private var m_pieceTypes:Vector.<PieceType>;
 		private var m_spawnIterations:Vector.<int>;
 		private var m_spawnProgression:Vector.<int>;
-		private var m_spawnDelay:Number;
+		private var m_spawnLife:Vector.<int>;
+		private var m_swapTime:Number;
 		
 		public function Configuration(_level:XML) 
 		{
@@ -25,9 +26,10 @@ package com.angrymole.mozzarella.game
 			m_columns = 12;
 			m_pieceSize = PieceSize.LARGE;
 			m_pieceTypes = new <PieceType>[new PieceType(0x5E43C8), new PieceType(0x5C4862), new PieceType(0xCB3BFB)];
-			m_spawnIterations = new <int>[20, 40, 10];
+			m_spawnIterations = new <int>[20, 40, 80];
 			m_spawnProgression = new <int>[2, 4, 10, 12];
-			m_spawnDelay = 5;
+			m_spawnLife = new <int>[10, 8, 8, 6];
+			m_swapTime = 0.5;
 		}
 		
 		public function get rows():int 
@@ -60,9 +62,14 @@ package com.angrymole.mozzarella.game
 			return m_spawnProgression;
 		}
 		
-		public function get spawnDelay():Number 
+		public function get spawnLife():Vector.<int>
 		{
-			return m_spawnDelay;
+			return m_spawnLife;
+		}
+		
+		public function get swapTime():Number
+		{
+			return m_swapTime;
 		}
 	}
 }

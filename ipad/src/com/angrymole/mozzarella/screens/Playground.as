@@ -19,6 +19,9 @@ package com.angrymole.mozzarella.screens
 	
 	/**
 	 * An area where a single player can interact with the game
+	 * It responsible of containing all the elements that can interact with the player.
+	 * 
+	 * It instantiates, and hard wire everything so the game works
 	 * 
 	 * @author fpanettieri
 	 */
@@ -57,6 +60,7 @@ package com.angrymole.mozzarella.screens
 			m_spawner.y = 610;
 			addChild(m_spawner);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
 			m_console = new Console(768, 512, "Console");
 			m_console.x = 56;

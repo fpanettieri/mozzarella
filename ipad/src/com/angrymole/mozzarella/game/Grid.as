@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.gestures.Tap;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
 	import flash.geom.Point;
@@ -51,6 +52,11 @@ package com.angrymole.mozzarella.game
 		public function update(_time:Number):void
 		{
 			// TODO: move active pieces
+		}
+		
+		public function onSpawn(_event:SpawnEvent):void
+		{
+			trace("Pieces spawned bitch!", _event.pieces);
 		}
 		
 	}

@@ -7,7 +7,7 @@ call bat\SetupApplication.bat
 goto desktop
 ::goto android-debug
 ::goto android-test
-set INTERPRETER=-interpreter
+::set INTERPRETER=-interpreter
 ::goto ios-debug
 ::goto ios-test
 

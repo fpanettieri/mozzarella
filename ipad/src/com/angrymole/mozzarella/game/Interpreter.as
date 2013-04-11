@@ -34,10 +34,8 @@ package com.angrymole.mozzarella.game
 		public function onSwipe(_e:GestureEvent):void
 		{
 			var swipe:Swipe = _e.gesture as Swipe;
-			if (m_spawnerBounds.contains(swipe.begin) && m_gridBounds.contains(swipe.end)) {
-				m_grid.addPieces(m_spawner.pieces);
-				m_spawner.removePieces();
-				m_spawner.spawnPieces();
+			if (m_spawnerBounds.contains(swipe.begin) && m_gridBounds.contains(swipe.end) && m_spawner.areAllSwappable()) {
+				m_spawner.spawnComplete();
 				
 			} else if (m_spawnerBounds.contains(swipe.begin) && m_spawnerBounds.contains(swipe.end)) {
 				m_spawner.swap(swipe.begin.x - m_spawnerBounds.minX, swipe.end.x - m_spawnerBounds.minX);

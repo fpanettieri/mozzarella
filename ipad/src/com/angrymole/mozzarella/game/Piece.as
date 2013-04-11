@@ -1,5 +1,9 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.events.SpawnEvent;
+	import starling.animation.Transitions;
+	import starling.animation.Tween;
+	import starling.core.Starling;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	
@@ -29,13 +33,32 @@ package com.angrymole.mozzarella.game
 			
 			m_placeholder = new Placeholder(_size, _size, m_type.color);
 			addChild(m_placeholder);
-			
-			// TODO: play intro animation
+		}
+		
+		public function intro():void
+		{
+			var tween:Tween = new Tween(this, 0.3, Transitions.EASE_OUT_BACK);
+			tween.moveTo(x, 0);
+			tween.delay = Math.random() * 0.2;
+			tween.onComplete = onIntroComplete;
+			Starling.juggler.add(tween);
+		}
+		
+		private function onIntroComplete():void
+		{
+			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_PIECE));
 		}
 		
 		public function select():void
 		{
-			// TODO: play select animation
+			var tweenIn:Tween = new Tween(this, 0.2, Transitions.EASE_IN_OUT_BACK);
+			tweenIn.scaleTo(1.2);
+			Starling.juggler.add(tweenIn);
+			
+			var tweenOut:Tween = new Tween(this, 0.1, Transitions.LINEAR);
+			tweenOut.delay = 0.2;
+			tweenOut.scaleTo(1);
+			Starling.juggler.add(tweenOut);
 		}
 		
 		public function unselect():void
@@ -43,12 +66,20 @@ package com.angrymole.mozzarella.game
 			// TODO: stop select animation
 		}
 		
-		public function swap(_column:int):void
+		public function swap(_column:int, _time:Number):void
 		{
 			m_column = _column;
+			m_swappable = false;
 			
-			// TODO: Play swap animation, while smoothly moving
-			x = m_column * m_size;
+			var tween:Tween = new Tween(this, _time, Transitions.EASE_IN_OUT);
+			tween.moveTo(m_column * m_size, y);
+			tween.onComplete = onSwapComplete;
+			Starling.juggler.add(tween);
+		}
+		
+		private function onSwapComplete():void
+		{
+			m_swappable = true;
 		}
 		
 		public function get row():int 

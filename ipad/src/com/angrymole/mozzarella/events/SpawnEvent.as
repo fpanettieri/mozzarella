@@ -10,7 +10,8 @@ package com.angrymole.mozzarella.events
 	public class SpawnEvent extends MozzarellaEvent
 	{
 		public static const SPAWN_STARTED:String = "spawnStartedEvent";
-		public static const SPAWN_COMPLETE:String = "spawnCompletedEvent";
+		public static const SPAWN_PIECE:String = "spawnPieceEvent";
+		public static const SPAWN_COMPLETE:String = "spawnCompleteEvent";
 		
 		private var m_pieces:Vector.<Piece>;
 		
