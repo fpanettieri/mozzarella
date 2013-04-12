@@ -33,6 +33,7 @@ package com.angrymole.mozzarella.game
 		private var m_spawnLife:Vector.<int>;
 		private var m_swapTime:Number;
 		private var m_iteration:int;
+		private var m_globalIteration:int;
 		
 		private var m_spawnedPieces:int;
 		private var m_delayedCall:DelayedCall;
@@ -51,6 +52,7 @@ package com.angrymole.mozzarella.game
 			m_spawnLife = _cfg.spawnLife;
 			m_swapTime = _cfg.swapTime;
 			m_iteration = 0;
+			m_globalIteration = 0;
 			m_selected = -1;
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xC45A3B);
@@ -75,7 +77,6 @@ package com.angrymole.mozzarella.game
 			
 			var idx:int;
 			var column:int;
-			var row:int;
 			var type:PieceType;
 			var piece:Piece;
 			
@@ -87,9 +88,8 @@ package com.angrymole.mozzarella.game
 				column = emptyColumns[idx];
 				emptyColumns.splice(idx, 1);
 				
-				// FIXME: check if the row has to change in the future if we support multiple spawn positions
-				row = -1;
-				piece = new Piece(row, column, type, m_size, true);
+				// TODO: check if the row has to change in the future if we support multiple spawn positions
+				piece = new Piece(-1, column, type, m_size, true, m_globalIteration);
 				piece.x = column * m_size;
 				piece.y = 100 + Math.random() * 10;
 				piece.addEventListener(SpawnEvent.SPAWN_PIECE, onPieceSpawn);
@@ -109,6 +109,7 @@ package com.angrymole.mozzarella.game
 			} else {
 				m_iteration++;
 			}
+			m_globalIteration++;
 		}
 		
 		public function onPieceSpawn(_event:SpawnEvent):void
@@ -128,7 +129,7 @@ package com.angrymole.mozzarella.game
 			Starling.juggler.remove(m_delayedCall);
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_COMPLETE, m_pieces));
 			removePieces();
-			m_delayedCall = Starling.juggler.delayCall(spawnPieces, 1);
+			m_delayedCall = Starling.juggler.delayCall(spawnPieces, 0.5);
 		}
 		
 		public function removePieces():void

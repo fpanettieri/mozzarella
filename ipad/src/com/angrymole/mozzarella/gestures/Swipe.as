@@ -35,6 +35,11 @@ package com.angrymole.mozzarella.gestures
 			return m_bounds;
 		}
 		
+		public function get length():Number 
+		{
+			return Point.distance(m_begin, m_end);
+		}
+		
 		override public function toString():String
 		{
 			return "[Swipe begin: " + m_begin.x + "," + m_begin.y + " end: " + m_end.x + "," + 

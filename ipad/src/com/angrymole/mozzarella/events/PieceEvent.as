@@ -9,6 +9,8 @@ package com.angrymole.mozzarella.events
 	public class PieceEvent extends MozzarellaEvent
 	{
 		public static const PIECE_SPAWNED:String = "pieceSpawnedEvent";
+		public static const PIECE_DROPPED:String = "pieceDroppedEvent";
+		
 		private var m_piece:Piece;
 		
 		public function PieceEvent(type:String, piece:Piece, bubbles:Boolean = false)

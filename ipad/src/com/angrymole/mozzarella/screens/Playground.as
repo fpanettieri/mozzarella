@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.screens
 {
 	import com.angrymole.mozzarella.constants.PieceSize;
+	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GestureEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
@@ -14,6 +15,7 @@ package com.angrymole.mozzarella.screens
 	import com.angrymole.mozzarella.game.Spawner;
 	import com.angrymole.mozzarella.game.Updater;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
+	import flash.desktop.NativeApplication;
 	
 	import com.angrymole.mozzarella.gestures.Gestures;
 	
@@ -48,28 +50,23 @@ package com.angrymole.mozzarella.screens
 			addChild(m_updater);
 			
 			m_intro = new Intro();
-			addChild(m_intro);
 			
 			m_grid = new Grid(m_cfg);
 			m_grid.x = 56;
-			m_grid.y = 84;	
-			addChild(m_grid);
+			m_grid.y = 84;
 			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 56;
 			m_spawner.y = 610;
-			addChild(m_spawner);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
 			m_console = new Console(768, 512, "Console");
 			m_console.x = 56;
 			m_console.y = 0;
-			addChild(m_console);
 			
 			// Input handling
 			m_gestures = new Gestures();
-			addChild(m_gestures);
 			
 			m_interpreter = new Interpreter();
 			m_gestures.addEventListener(GestureEvent.TAP_GESTURE, m_interpreter.onTap);
@@ -80,15 +77,29 @@ package com.angrymole.mozzarella.screens
 			m_score = new Score([50, 100, 200]);
 			m_score.x = 850;
 			m_score.y = 84;
-			addChild(m_score);
 			
 			m_pause = new Pause();
 			m_pause.x = 850;
 			m_pause.y = 10;
+			
+			addChild(m_console);
+			addChild(m_spawner);
+			addChild(m_grid);
+			addChild(m_score);
+			addChild(m_intro);
 			addChild(m_pause);
+			addChild(m_gestures);
+			
+			m_grid.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			
 			// register real time objects
-			m_updater.register(m_grid);
+			//m_updater.register(m_grid);
+		}
+		
+		private function onGameOver(_event:GameOverEvent):void
+		{
+			trace("Game over!");
+			NativeApplication.nativeApplication.exit();
 		}
 	}
 }

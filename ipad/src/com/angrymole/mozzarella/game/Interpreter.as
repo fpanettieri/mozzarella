@@ -2,6 +2,7 @@ package com.angrymole.mozzarella.game
 {
 	import com.angrymole.mozzarella.events.GestureEvent;
 	import com.angrymole.mozzarella.gestures.Swipe;
+	import com.angrymole.mozzarella.gestures.SwipeDirection;
 	import com.angrymole.mozzarella.gestures.Tap;
 	import com.angrymole.mozzarella.util.Bounds;
 	import flash.geom.Point;
@@ -13,6 +14,8 @@ package com.angrymole.mozzarella.game
 	 */
 	public class Interpreter 
 	{
+		private const SWIPE_BUFFER:Number = 128;
+		
 		private var m_grid:Grid;
 		private var m_gridBounds:Bounds;
 		
@@ -34,7 +37,8 @@ package com.angrymole.mozzarella.game
 		public function onSwipe(_e:GestureEvent):void
 		{
 			var swipe:Swipe = _e.gesture as Swipe;
-			if (m_spawnerBounds.contains(swipe.begin) && m_gridBounds.contains(swipe.end) && m_spawner.areAllSwappable()) {
+			if (m_spawnerBounds.contains(swipe.begin) && m_gridBounds.contains(swipe.end) && 
+				m_spawner.areAllSwappable() && swipe.length > SWIPE_BUFFER && swipe.direction == SwipeDirection.UP) {
 				m_spawner.spawnComplete();
 				
 			} else if (m_spawnerBounds.contains(swipe.begin) && m_spawnerBounds.contains(swipe.end)) {
