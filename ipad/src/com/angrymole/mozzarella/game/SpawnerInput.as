@@ -60,7 +60,14 @@ package com.angrymole.mozzarella.game
 		{
 			m_touchedColumn = Math.floor( m_touchPosition.x / m_size );
 			m_selected = m_spawner.pieces[m_touchedColumn];
-			if (m_selected == null || !m_selected.swappable) { return; }
+			
+			if (m_selected == null) { return; }
+			if (!m_selected.swappable) { 
+				m_selected = null;
+				return; 
+			}
+			
+			m_selected = m_spawner.pieces[m_touchedColumn];
 			m_selected.select();
 		}
 		

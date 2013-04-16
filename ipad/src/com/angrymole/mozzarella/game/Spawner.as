@@ -151,7 +151,7 @@ package com.angrymole.mozzarella.game
 				m_pieces[i].swappable = false;
 			}
 			m_input.lockPieces();
-			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime * 2);
+			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime * 1.5);
 		}
 		
 		private function spawnComplete():void
