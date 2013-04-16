@@ -7,6 +7,9 @@ package com.angrymole.mozzarella.game
 	import starling.animation.DelayedCall;
 	import starling.core.Starling;
 	import starling.display.Sprite;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	
 	/**
 	 * It randomly spawn pieces that can be swaped before they are thrown into the grid.
@@ -40,7 +43,8 @@ package com.angrymole.mozzarella.game
 		
 		private var m_placeholder:Placeholder;
 		private var m_pieces:Vector.<Piece>;
-		private var m_selected:int;
+		
+		private var m_input:SpawnerInput;
 		
 		public function Spawner(_cfg:Configuration)
 		{
@@ -53,21 +57,41 @@ package com.angrymole.mozzarella.game
 			m_swapTime = _cfg.swapTime;
 			m_iteration = 0;
 			m_globalIteration = 0;
-			m_selected = -1;
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xC45A3B);
 			addChild(m_placeholder);
 			
 			m_pieces = new Vector.<Piece>(m_columns);
 			m_spawnedPieces = 0;
+			
+			m_input = new SpawnerInput(this, _cfg);
+			addEventListener(TouchEvent.TOUCH, m_input.onTouch);
 		}
 		
+		// Called when the 3,2,1 go animation has completed
 		public function onIntroComplete(_event:IntroEvent):void
 		{
 			spawnPieces();
 		}
 		
-		public function spawnPieces():void
+		public function swap(_from:int, _to:int):void
+		{
+			if (_from == _to) { 
+				m_pieces[_from].unselect(); 
+			} else {
+				var swapped:Piece = m_pieces[_to];
+				m_pieces[_from].swap(_to, m_swapTime);
+				m_pieces[_to] = m_pieces[_from];
+				m_pieces[_from] = swapped;
+				
+				if (swapped == null) { return; }
+				swapped.swap(_from, m_swapTime);
+				swapped.parent.setChildIndex(swapped, swapped.parent.numChildren - 2);
+			}
+		}
+		
+		// Spawn a new set of pieces
+		private function spawnPieces():void
 		{
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_STARTED));
 			
@@ -89,10 +113,11 @@ package com.angrymole.mozzarella.game
 				emptyColumns.splice(idx, 1);
 				
 				// TODO: check if the row has to change in the future if we support multiple spawn positions
-				piece = new Piece(-1, column, type, m_size, true, m_globalIteration);
+				piece = new Piece(-1, column, type, m_size, m_globalIteration);
 				piece.x = column * m_size;
 				piece.y = 100 + Math.random() * 10;
 				piece.addEventListener(SpawnEvent.SPAWN_PIECE, onPieceSpawn);
+				piece.touchable = false;
 				piece.intro();
 				
 				m_pieces[column] = piece;
@@ -112,19 +137,24 @@ package com.angrymole.mozzarella.game
 			m_globalIteration++;
 		}
 		
-		public function onPieceSpawn(_event:SpawnEvent):void
+		private function onPieceSpawn(_event:SpawnEvent):void
 		{
 			m_spawnedPieces--;
 			if (m_spawnedPieces > 0) { return; }
 			m_delayedCall = Starling.juggler.delayCall(lockPieces, m_spawnLife[0]);
 		}
 		
-		public function lockPieces():void
+		private function lockPieces():void
 		{
-			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime);
+			for (var i:int = 0 ; i < m_pieces.length; i++) {
+				if (m_pieces[i] == null) { continue; }
+				m_pieces[i].swappable = false;
+			}
+			m_input.lockPieces();
+			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime * 2);
 		}
 		
-		public function spawnComplete():void
+		private function spawnComplete():void
 		{
 			Starling.juggler.remove(m_delayedCall);
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_COMPLETE, m_pieces));
@@ -132,66 +162,13 @@ package com.angrymole.mozzarella.game
 			m_delayedCall = Starling.juggler.delayCall(spawnPieces, 0.5);
 		}
 		
-		public function removePieces():void
+		private function removePieces():void
 		{
 			for (var i:int = 0 ; i < m_pieces.length; i++) {
 				if (m_pieces[i] == null) { continue; }
 				removeChild( m_pieces[i] );
 				m_pieces[i] = null;
 			}
-			m_selected = -1;
-		}
-		
-		public function areAllSwappable():Boolean
-		{
-			for (var i:int = 0 ; i < m_pieces.length; i++) {
-				if (m_pieces[i] == null) { continue; }
-				if (m_pieces[i].swappable == false) { return false; }
-			}
-			return true;
-		}
-		
-		public function select(_x:Number):void
-		{
-			var touched:int = Math.floor( _x / m_size );
-			if (m_pieces[touched] != null && !m_pieces[touched].swappable) { return; }
-			
-			if (m_selected == -1 && m_pieces[touched] != null) {
-				m_selected = touched;
-				m_pieces[m_selected].select();
-				
-			} else if (m_selected > -1) {
-				m_pieces[m_selected].unselect();
-				if ( m_selected != touched ) {
-					swapPieces(m_selected, touched);
-				}
-				m_selected = -1;
-			}
-		}
-		
-		public function swap(_begin:Number, _end:Number):void
-		{
-			var from:int = Math.floor(_begin / m_size);
-			var to:int = Math.floor(_end / m_size);
-			
-			if (from == to) { return; }
-			swapPieces(from, to);
-		}
-		
-		private function swapPieces(_from:int, _to:int):void
-		{
-			var swapped:Piece = m_pieces[_from];
-			if ( swapped == null) { return; }
-				
-			if ( m_pieces[_to] != null ){
-				m_pieces[_to].swap(_from, m_swapTime);
-			}
-			m_pieces[_from] = m_pieces[_to];
-			
-			if (swapped != null ){
-				swapped.swap(_to, m_swapTime);
-			}
-			m_pieces[_to] = swapped;
 		}
 		
 		public function get pieces():Vector.<Piece> 

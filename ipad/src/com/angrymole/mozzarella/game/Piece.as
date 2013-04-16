@@ -18,21 +18,21 @@ package com.angrymole.mozzarella.game
 		private var m_column:int;
 		private var m_type:PieceType;
 		private var m_size:int;
-		private var m_swappable:Boolean;
 		private var m_selected:Boolean;
+		private var m_swappable:Boolean;
 		private var m_iteration:int;
 		private var m_tween:Tween;
 		
 		private var m_placeholder:Placeholder;
 		
-		public function Piece(_row:int, _column:int, _type:PieceType, _size:int, _swappable:Boolean, _iteration:int) 
+		public function Piece(_row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
 		{
 			m_row = _row;
 			m_column = _column;
 			m_type = _type;
 			m_size = _size;
-			m_swappable = _swappable;
 			m_selected = false;
+			m_swappable = true;
 			m_iteration = _iteration;
 			
 			m_placeholder = new Placeholder(_size, _size, m_type.color);
@@ -58,32 +58,39 @@ package com.angrymole.mozzarella.game
 			x = m_column * m_size;
 			y = 0;
 			
-			var tweenIn:Tween = new Tween(this, 0.2, Transitions.EASE_IN_OUT_BACK);
-			tweenIn.scaleTo(1.2);
-			Starling.juggler.add(tweenIn);
+			var tween:Tween = new Tween(this, 0.1, Transitions.LINEAR);
+			tween.scaleTo(1.2);
+			tween.moveTo(x - 6, -6);
+			Starling.juggler.add(tween);
 			
-			var tweenOut:Tween = new Tween(this, 0.1, Transitions.LINEAR);
-			tweenOut.delay = 0.2;
-			tweenOut.scaleTo(1);
-			Starling.juggler.add(tweenOut);
+			parent.setChildIndex(this, parent.numChildren - 1);
+			m_selected = true;
 		}
 		
 		public function unselect():void
 		{
-			// TODO: stop select animation
+			var tween:Tween = new Tween(this, 0.1, Transitions.LINEAR);
+			tween.scaleTo(1);
+			tween.moveTo(m_column * m_size, 0);
+			m_tween.onComplete = onSelectComplete;
+			Starling.juggler.add(tween);
 		}
 		
 		public function swap(_column:int, _time:Number):void
 		{
-			x = m_column * m_size;
-			
 			m_column = _column;
 			m_swappable = false;
 			
 			m_tween = new Tween(this, _time, Transitions.EASE_IN_OUT);
+			m_tween.scaleTo(1);
 			m_tween.moveTo(m_column * m_size, 0);
 			m_tween.onComplete = onSwapComplete;
 			Starling.juggler.add(m_tween);
+		}
+		
+		private function onSelectComplete():void
+		{
+			m_selected = false;
 		}
 		
 		private function onSwapComplete():void
@@ -112,9 +119,19 @@ package com.angrymole.mozzarella.game
 			return m_row;
 		}
 		
+		public function set row(value:int):void 
+		{
+			m_row = value;
+		}
+		
 		public function get column():int 
 		{
 			return m_column;
+		}
+		
+		public function set column(value:int):void 
+		{
+			m_column = value;
 		}
 		
 		public function get type():PieceType 
@@ -127,19 +144,24 @@ package com.angrymole.mozzarella.game
 			return m_size;
 		}
 		
+		public function get iteration():int 
+		{
+			return m_iteration;
+		}
+		
+		public function get selected():Boolean 
+		{
+			return m_selected;
+		}
+		
 		public function get swappable():Boolean 
 		{
 			return m_swappable;
 		}
 		
-		public function set row(value:int):void 
+		public function set swappable(value:Boolean):void 
 		{
-			m_row = value;
-		}
-		
-		public function get iteration():int 
-		{
-			return m_iteration;
+			m_swappable = value;
 		}
 		
 		public function toString():String

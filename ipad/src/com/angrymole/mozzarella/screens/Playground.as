@@ -8,14 +8,16 @@ package com.angrymole.mozzarella.screens
 	import com.angrymole.mozzarella.game.Configuration;
 	import com.angrymole.mozzarella.game.Console;
 	import com.angrymole.mozzarella.game.Grid;
-	import com.angrymole.mozzarella.game.Interpreter;
 	import com.angrymole.mozzarella.game.Intro;
 	import com.angrymole.mozzarella.game.Pause;
 	import com.angrymole.mozzarella.game.Score;
 	import com.angrymole.mozzarella.game.Spawner;
 	import com.angrymole.mozzarella.game.Updater;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
+	import com.angrymole.mozzarella.util.Bounds;
 	import flash.desktop.NativeApplication;
+	import flash.geom.Point;
+	import starling.events.TouchEvent;
 	
 	import com.angrymole.mozzarella.gestures.Gestures;
 	
@@ -37,9 +39,6 @@ package com.angrymole.mozzarella.screens
 		private var m_score:Score;
 		private var m_pause:Pause;
 		private var m_console:Console;
-		private var m_gestures:Gestures;
-		private var m_visualizer:GestureVisualizer;
-		private var m_interpreter:Interpreter;
 		
 		public function Playground()
 		{
@@ -66,13 +65,13 @@ package com.angrymole.mozzarella.screens
 			m_console.y = 0;
 			
 			// Input handling
-			m_gestures = new Gestures();
+			// m_gestures = new Gestures();
 			
-			m_interpreter = new Interpreter();
-			m_gestures.addEventListener(GestureEvent.TAP_GESTURE, m_interpreter.onTap);
-			m_gestures.addEventListener(GestureEvent.SWIPE_GESTURE, m_interpreter.onSwipe);
-			m_interpreter.grid = m_grid;
-			m_interpreter.spawner = m_spawner;
+			//m_interpreter = new Interpreter();
+			//m_gestures.addEventListener(GestureEvent.TAP_GESTURE, m_interpreter.onTap);
+			//m_gestures.addEventListener(GestureEvent.SWIPE_GESTURE, m_interpreter.onSwipe);
+			//m_interpreter.grid = m_grid;
+			//m_interpreter.spawner = m_spawner;			
 			
 			m_score = new Score([50, 100, 200]);
 			m_score.x = 850;
@@ -88,7 +87,7 @@ package com.angrymole.mozzarella.screens
 			addChild(m_score);
 			addChild(m_intro);
 			addChild(m_pause);
-			addChild(m_gestures);
+			//addChild(m_gestures);
 			
 			m_grid.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			
@@ -99,7 +98,7 @@ package com.angrymole.mozzarella.screens
 		private function onGameOver(_event:GameOverEvent):void
 		{
 			trace("Game over!");
-			NativeApplication.nativeApplication.exit();
+			//NativeApplication.nativeApplication.exit();
 		}
 	}
 }

@@ -7,9 +7,9 @@ call bat\SetupApplication.bat
 goto desktop
 ::goto android-debug
 ::goto android-test
-::set INTERPRETER=-interpreter
+set INTERPRETER=-interpreter
 ::goto ios-debug
-::goto ios-test
+goto ios-test
 
 :desktop
 :: http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-6fa6d7e0128cca93d31-8000.html
@@ -103,4 +103,4 @@ echo.
 echo Installing the app on the device failed
 
 :end
-pause
+::pause

@@ -34,7 +34,7 @@ package com.angrymole.mozzarella
 		private function deactivate(e:Event):void 
 		{
 			// TODO: Store current state
-			NativeApplication.nativeApplication.exit();
+			//NativeApplication.nativeApplication.exit();
 		}
 		
 	}

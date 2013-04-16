@@ -26,9 +26,9 @@ package com.angrymole.mozzarella.game
 			m_columns = 12;
 			m_pieceSize = PieceSize.LARGE;
 			m_pieceTypes = new <PieceType>[new PieceType(0x5E43C8), new PieceType(0x5C4862), new PieceType(0xCB3BFB)];
-			m_spawnIterations = new <int>[10, 20, 40];
-			m_spawnProgression = new <int>[2, 4, 10, 12];
-			m_spawnLife = new <int>[10, 8, 8, 6];
+			m_spawnIterations = new <int>[4, 10, 20, 40];
+			m_spawnProgression = new <int>[2, 4, 6, 10, 12];
+			m_spawnLife = new <int>[10, 9, 8, 7, 6];
 			m_swapTime = 0.3;
 		}
 		
