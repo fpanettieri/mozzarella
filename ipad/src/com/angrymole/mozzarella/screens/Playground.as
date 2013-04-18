@@ -63,16 +63,7 @@ package com.angrymole.mozzarella.screens
 			m_console = new Console(768, 512, "Console");
 			m_console.x = 56;
 			m_console.y = 0;
-			
-			// Input handling
-			// m_gestures = new Gestures();
-			
-			//m_interpreter = new Interpreter();
-			//m_gestures.addEventListener(GestureEvent.TAP_GESTURE, m_interpreter.onTap);
-			//m_gestures.addEventListener(GestureEvent.SWIPE_GESTURE, m_interpreter.onSwipe);
-			//m_interpreter.grid = m_grid;
-			//m_interpreter.spawner = m_spawner;			
-			
+
 			m_score = new Score([50, 100, 200]);
 			m_score.x = 850;
 			m_score.y = 84;
@@ -87,18 +78,14 @@ package com.angrymole.mozzarella.screens
 			addChild(m_score);
 			addChild(m_intro);
 			addChild(m_pause);
-			//addChild(m_gestures);
 			
 			m_grid.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
-			
-			// register real time objects
-			//m_updater.register(m_grid);
 		}
 		
 		private function onGameOver(_event:GameOverEvent):void
 		{
 			trace("Game over!");
-			//NativeApplication.nativeApplication.exit();
+			// NativeApplication.nativeApplication.exit();
 		}
 	}
 }

@@ -22,6 +22,7 @@ package com.angrymole.mozzarella.game
 		private var m_maxX:Number;
 		
 		// inner state
+		private var m_touched:Boolean;
 		private var m_touch:Touch;
 		private var m_touchPosition:Point;
 		private var m_touchedColumn:Number;
@@ -39,6 +40,7 @@ package com.angrymole.mozzarella.game
 			m_minX = m_size / 2 - 2;
 			m_maxX = (m_columns - 0.5) * m_size - 6;
 			
+			m_touched = false;
 			m_touchPosition = new Point();
 			m_previousPosition = new Point();
 		}
@@ -60,6 +62,7 @@ package com.angrymole.mozzarella.game
 		{
 			m_touchedColumn = Math.floor( m_touchPosition.x / m_size );
 			m_selected = m_spawner.pieces[m_touchedColumn];
+			m_touched = true;
 			
 			if (m_selected == null) { return; }
 			if (!m_selected.swappable) { 
@@ -73,6 +76,11 @@ package com.angrymole.mozzarella.game
 		
 		private function dragPiece():void
 		{
+			if (m_touched && m_touchPosition.y < -48) {
+				m_spawner.lockPieces();
+				m_touched = false;
+			}
+			
 			if (m_selected == null) { return; }
 
 			if (m_touchPosition.x <= m_minX) {
@@ -82,6 +90,7 @@ package com.angrymole.mozzarella.game
 			} else {
 				m_selected.x = m_touchPosition.x - m_size / 2 - 6;
 			}
+			
 			
 			// TODO: display transparent piece preview in grid
 		}

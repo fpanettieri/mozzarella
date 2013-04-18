@@ -144,14 +144,17 @@ package com.angrymole.mozzarella.game
 			m_delayedCall = Starling.juggler.delayCall(lockPieces, m_spawnLife[0]);
 		}
 		
-		private function lockPieces():void
+		public function lockPieces():void
 		{
+			Starling.juggler.remove(m_delayedCall);
 			for (var i:int = 0 ; i < m_pieces.length; i++) {
 				if (m_pieces[i] == null) { continue; }
 				m_pieces[i].swappable = false;
+				
+				// TODO: animate jump preparation
 			}
 			m_input.lockPieces();
-			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime * 1.5);
+			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime);
 		}
 		
 		private function spawnComplete():void
