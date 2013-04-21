@@ -4,12 +4,14 @@ package com.angrymole.mozzarella.screens
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GestureEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
+	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.Configuration;
 	import com.angrymole.mozzarella.game.Console;
 	import com.angrymole.mozzarella.game.Grid;
 	import com.angrymole.mozzarella.game.Intro;
 	import com.angrymole.mozzarella.game.Pause;
+	import com.angrymole.mozzarella.game.Preview;
 	import com.angrymole.mozzarella.game.Score;
 	import com.angrymole.mozzarella.game.Spawner;
 	import com.angrymole.mozzarella.game.Updater;
@@ -39,6 +41,7 @@ package com.angrymole.mozzarella.screens
 		private var m_score:Score;
 		private var m_pause:Pause;
 		private var m_console:Console;
+		private var m_preview:Preview;
 		
 		public function Playground()
 		{
@@ -54,10 +57,15 @@ package com.angrymole.mozzarella.screens
 			m_grid.x = 56;
 			m_grid.y = 84;
 			
+			m_preview = new Preview(m_grid);
+			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 56;
 			m_spawner.y = 610;
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
+			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
 			m_console = new Console(768, 512, "Console");
@@ -75,6 +83,7 @@ package com.angrymole.mozzarella.screens
 			addChild(m_console);
 			addChild(m_spawner);
 			addChild(m_grid);
+			addChild(m_preview);
 			addChild(m_score);
 			addChild(m_intro);
 			addChild(m_pause);

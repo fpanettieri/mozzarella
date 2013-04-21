@@ -11,6 +11,8 @@ package com.angrymole.mozzarella.events
 	{
 		public static const SPAWN_STARTED:String = "spawnStartedEvent";
 		public static const SPAWN_PIECE:String = "spawnPieceEvent";
+		public static const SPAWN_SWAPPABLE:String = "spawnSwappableEvent";
+		public static const SPAWN_LOCKED:String = "spawnLockedEvent";
 		public static const SPAWN_COMPLETE:String = "spawnCompleteEvent";
 		
 		private var m_pieces:Vector.<Piece>;

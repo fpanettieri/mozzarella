@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.events.PieceEvent;
 	import flash.geom.Point;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
@@ -91,12 +92,12 @@ package com.angrymole.mozzarella.game
 				m_selected.x = m_touchPosition.x - m_size / 2 - 6;
 			}
 			
-			
-			// TODO: display transparent piece preview in grid
+			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, m_selected));
 		}
 		
 		private function dropPiece():void
 		{
+			m_touched = false;
 			if (m_selected == null) { return; }
 			
 			if (m_touchPosition.x <= m_minX) {

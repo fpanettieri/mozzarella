@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.game 
 {
 	import com.angrymole.mozzarella.events.IntroEvent;
+	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
 	import flash.geom.Point;
@@ -87,6 +88,7 @@ package com.angrymole.mozzarella.game
 				if (swapped == null) { return; }
 				swapped.swap(_from, m_swapTime);
 				swapped.parent.setChildIndex(swapped, swapped.parent.numChildren - 2);
+				Starling.juggler.delayCall(dispatchEvent, m_swapTime * 1.1, new PieceEvent(PieceEvent.PIECE_DRAGGED, swapped));
 			}
 		}
 		
@@ -141,6 +143,7 @@ package com.angrymole.mozzarella.game
 		{
 			m_spawnedPieces--;
 			if (m_spawnedPieces > 0) { return; }
+			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_SWAPPABLE, m_pieces));
 			m_delayedCall = Starling.juggler.delayCall(lockPieces, m_spawnLife[0]);
 		}
 		
@@ -154,6 +157,7 @@ package com.angrymole.mozzarella.game
 				// TODO: animate jump preparation
 			}
 			m_input.lockPieces();
+			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_LOCKED, m_pieces));
 			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime);
 		}
 		

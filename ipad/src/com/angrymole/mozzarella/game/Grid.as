@@ -21,7 +21,6 @@ package com.angrymole.mozzarella.game
 		private var m_cells:Vector.<Vector.<Cell>>;
 		private var m_pieces:Vector.<Piece>;
 		
-		
 		private var m_placeholder:Placeholder;
 		
 		// TODO: create object that create groups
@@ -93,6 +92,21 @@ package com.angrymole.mozzarella.game
 		{
 			trace("piece event " + _event);
 			// TODO: build groups
+		}
+		
+		public function get cells():Vector.<Vector.<Cell>> 
+		{
+			return m_cells;
+		}
+		
+		public function get rows():int 
+		{
+			return m_rows;
+		}
+		
+		public function get columns():int 
+		{
+			return m_columns;
 		}
 	}
 }
