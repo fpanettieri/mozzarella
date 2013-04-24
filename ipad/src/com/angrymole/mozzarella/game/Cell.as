@@ -9,7 +9,6 @@ package com.angrymole.mozzarella.game
 		private var m_row:int;
 		private var m_column:int;
 		private var m_piece:Piece;
-		private var m_groups:Vector.<Group>;
 		
 		// TODO: track reference to the piece and the cell
 		
@@ -18,7 +17,6 @@ package com.angrymole.mozzarella.game
 			m_row = _row;
 			m_column = _column;
 			m_piece = _piece;
-			m_groups = new Vector.<Group>;
 		}
 		
 		public function get row():int 
@@ -33,7 +31,7 @@ package com.angrymole.mozzarella.game
 		
 		public function get empty():Boolean 
 		{
-			return m_piece == null && m_groups.length == 0;
+			return m_piece == null;
 		}
 		
 		public function get piece():Piece 

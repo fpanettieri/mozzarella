@@ -100,6 +100,7 @@ package com.angrymole.mozzarella.game
 		
 		public function drop(_from:int, _to:int):void
 		{
+			m_row = _to;
 			x = m_column * m_size;
 			
 			var duration:Number = (_from - _to) * 0.1;

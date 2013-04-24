@@ -18,6 +18,11 @@ package com.angrymole.mozzarella.game
 		{
 			return m_color;
 		}
+		
+		public function equals(_type:PieceType):Boolean
+		{
+			return _type.color == m_color;
+		}
 	}
 
 }

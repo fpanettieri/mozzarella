@@ -1,12 +1,13 @@
 package com.angrymole.mozzarella.game 
 {
 	import com.angrymole.mozzarella.events.GameOverEvent;
+	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.Piece;
 	import com.angrymole.mozzarella.gestures.Tap;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
-	import flash.geom.Point;
+	
 	import starling.display.Sprite;
 	
 	/**
@@ -20,19 +21,22 @@ package com.angrymole.mozzarella.game
 		
 		private var m_cells:Vector.<Vector.<Cell>>;
 		private var m_pieces:Vector.<Piece>;
+		private var m_groups:Vector.<Group>;
 		
 		private var m_placeholder:Placeholder;
 		
-		// TODO: create object that create groups
-		// TODO: create object that break groups
-		
+		private var m_grouper:GroupBuilder;
+		private var m_breaker:GroupBreaker;
 		
 		public function Grid(_cfg:Configuration) 
 		{
 			m_rows = _cfg.rows;
 			m_columns = _cfg.columns;
 			
+			m_pieces = new Vector.<Piece>();
+			m_groups = new Vector.<Group>();
 			m_cells = new Vector.<Vector.<Cell>>( m_rows );
+			
 			for ( var row:int = 0; row < m_rows; row++) {
 				m_cells[row] = new Vector.<Cell>( m_columns );
 				
@@ -45,20 +49,22 @@ package com.angrymole.mozzarella.game
 			m_placeholder = new Placeholder(m_columns * _cfg.pieceSize, m_rows * _cfg.pieceSize, 0x9E373E);
 			addChild(m_placeholder);
 			
-			m_pieces = new Vector.<Piece>();
+			m_grouper = new GroupBuilder(this);
+			addEventListener(GroupEvent.GROUP_CREATED, onGroupCreated);
+			
+			m_breaker = new GroupBreaker(this);
+			addChild(m_breaker);
 		}
 		
-		public function push(_x:Number, _y:Number):void
+		public function onSpawn(_event:SpawnEvent):void
 		{
-			trace("someone tapped me");
+			for (var i:int = 0; i < _event.pieces.length; i++) {
+				if (_event.pieces[i] == null) { continue; }
+				addPiece(_event.pieces[i]);
+			}
 		}
 		
-		public function slash(_from:Point, _to:Point, _direciton:int, _strength:Number):void
-		{
-			trace("someone slashed me");
-		}
-		
-		public function addPiece(_piece:Piece):void
+		private function addPiece(_piece:Piece):void
 		{
 			addChild(_piece);
 			_piece.y = m_rows * _piece.size + 15;
@@ -80,18 +86,16 @@ package com.angrymole.mozzarella.game
 			}
 		}
 		
-		public function onSpawn(_event:SpawnEvent):void
+		private function onPieceDropped(_event:PieceEvent):void
 		{
-			for (var i:int = 0; i < _event.pieces.length; i++) {
-				if (_event.pieces[i] == null) { continue; }
-				addPiece(_event.pieces[i]);
-			}
+			m_grouper.group(_event.piece);
 		}
 		
-		public function onPieceDropped(_event:PieceEvent):void
+		private function onGroupCreated(_event:GroupEvent):void
 		{
-			trace("piece event " + _event);
-			// TODO: build groups
+			m_groups.push(_event.group);
+			addChild(_event.group);
+			m_breaker.add(_event.group);
 		}
 		
 		public function get cells():Vector.<Vector.<Cell>> 
