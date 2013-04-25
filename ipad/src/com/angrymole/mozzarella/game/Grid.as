@@ -26,7 +26,6 @@ package com.angrymole.mozzarella.game
 		private var m_placeholder:Placeholder;
 		
 		private var m_grouper:GroupBuilder;
-		private var m_breaker:GroupBreaker;
 		
 		public function Grid(_cfg:Configuration) 
 		{
@@ -51,9 +50,6 @@ package com.angrymole.mozzarella.game
 			
 			m_grouper = new GroupBuilder(this);
 			addEventListener(GroupEvent.GROUP_CREATED, onGroupCreated);
-			
-			m_breaker = new GroupBreaker(this);
-			addChild(m_breaker);
 		}
 		
 		public function onSpawn(_event:SpawnEvent):void
@@ -95,7 +91,17 @@ package com.angrymole.mozzarella.game
 		{
 			m_groups.push(_event.group);
 			addChild(_event.group);
-			m_breaker.add(_event.group);
+			_event.group.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
+		}
+		
+		private function onGroupBroken(_event:GroupEvent):void
+		{
+			m_groups.splice(m_groups.indexOf(_event.group), 1);
+			removeChild(_event.group);
+			_event.group.removeEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
+			
+			// remove pieces
+			// make pieces above fall
 		}
 		
 		public function get cells():Vector.<Vector.<Cell>> 
