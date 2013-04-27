@@ -17,10 +17,10 @@ package com.angrymole.mozzarella.game
 		{
 			m_mastery = _mastery;
 			
-			m_bar = new Placeholder(130, 450, 0x919C86);
+			m_bar = new Placeholder(130, 450, 0x4D434E);
 			addChild(m_bar);
 			
-			m_button = new Placeholder(130, 130, 0x666666);
+			m_button = new Placeholder(130, 130, 0x584B53);
 			m_button.y = 460
 			addChild(m_button);
 			

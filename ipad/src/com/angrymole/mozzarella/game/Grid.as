@@ -48,7 +48,7 @@ package com.angrymole.mozzarella.game
 				}
 			}
 			
-			m_placeholder = new Placeholder(m_columns * _cfg.pieceSize, m_rows * _cfg.pieceSize, 0x9E373E);
+			m_placeholder = new Placeholder(m_columns * _cfg.pieceSize, m_rows * _cfg.pieceSize, 0x413b3b);
 			addChild(m_placeholder);
 			
 			m_grouper = new GroupBuilder(this);

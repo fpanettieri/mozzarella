@@ -59,7 +59,7 @@ package com.angrymole.mozzarella.game
 			m_iteration = 0;
 			m_globalIteration = 0;
 			
-			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0xC45A3B);
+			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0x584E4B);
 			addChild(m_placeholder);
 			
 			m_pieces = new Vector.<Piece>(m_columns);

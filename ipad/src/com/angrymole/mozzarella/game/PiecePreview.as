@@ -16,7 +16,7 @@ package com.angrymole.mozzarella.game
 		{
 			m_piece = _piece;
 			m_placeholder = new Placeholder(_piece.size, _piece.size, _piece.type.color);
-			m_placeholder.alpha = 0.3;
+			m_placeholder.alpha = 0.5;
 			addChild(m_placeholder);
 		}
 		
