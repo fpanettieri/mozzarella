@@ -3,6 +3,7 @@ package com.angrymole.mozzarella.screens
 	import com.angrymole.mozzarella.constants.PieceSize;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GestureEvent;
+	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
@@ -58,6 +59,7 @@ package com.angrymole.mozzarella.screens
 			m_grid.y = 84;
 			
 			m_preview = new Preview(m_grid);
+			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.onGroupsBroken);
 			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 56;

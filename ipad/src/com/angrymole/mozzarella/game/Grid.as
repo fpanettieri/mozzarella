@@ -2,6 +2,7 @@ package com.angrymole.mozzarella.game
 {
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupEvent;
+	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.Piece;
@@ -26,6 +27,8 @@ package com.angrymole.mozzarella.game
 		private var m_placeholder:Placeholder;
 		
 		private var m_grouper:GroupBuilder;
+		private var m_breaker:GroupBreaker;
+		private var m_dropper:PieceDropper;
 		
 		public function Grid(_cfg:Configuration) 
 		{
@@ -49,7 +52,15 @@ package com.angrymole.mozzarella.game
 			addChild(m_placeholder);
 			
 			m_grouper = new GroupBuilder(this);
-			addEventListener(GroupEvent.GROUP_CREATED, onGroupCreated);
+			m_grouper.addEventListener(GroupEvent.GROUP_CREATED, onGroupCreated);
+			
+			m_dropper = new PieceDropper(this);
+			
+			m_breaker = new GroupBreaker(this);
+			m_breaker.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
+			m_breaker.addEventListener(GroupEvent.GROUP_UNGROUPED, onGroupBroken);
+			m_breaker.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, onGroupsBroken);
+			addChild(m_breaker);
 		}
 		
 		public function onSpawn(_event:SpawnEvent):void
@@ -65,6 +76,7 @@ package com.angrymole.mozzarella.game
 			addChild(_piece);
 			_piece.y = m_rows * _piece.size + 15;
 			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
+			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			
 			var row:int = _piece.row;
 			for ( row = m_rows - 1; row >= 0; row--){
@@ -82,14 +94,28 @@ package com.angrymole.mozzarella.game
 			}
 		}
 		
+		private function removePiece(_piece:Piece):void
+		{
+			removeChild(_piece);
+			_piece.removeEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
+			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
+			m_cells[_piece.row][_piece.column].piece = null;
+		}
+		
 		private function onPieceDropped(_event:PieceEvent):void
 		{
 			m_grouper.group(_event.piece);
 		}
 		
+		private function onPieceBroken(_event:PieceEvent):void
+		{
+			removePiece(_event.piece);
+		}
+		
 		private function onGroupCreated(_event:GroupEvent):void
 		{
 			m_groups.push(_event.group);
+			m_breaker.add(_event.group);
 			addChild(_event.group);
 			_event.group.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
 		}
@@ -99,9 +125,12 @@ package com.angrymole.mozzarella.game
 			m_groups.splice(m_groups.indexOf(_event.group), 1);
 			removeChild(_event.group);
 			_event.group.removeEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
-			
-			// remove pieces
-			// make pieces above fall
+		}
+		
+		private function onGroupsBroken(_event:GroupsBrokenEvent):void
+		{
+			m_dropper.onGroupsBroken(_event);
+			dispatchEvent(_event);
 		}
 		
 		public function get cells():Vector.<Vector.<Cell>> 
@@ -117,6 +146,24 @@ package com.angrymole.mozzarella.game
 		public function get columns():int 
 		{
 			return m_columns;
+		}
+		
+		public function toString():String
+		{
+			var str:String = "";
+			for ( var row:int = 0; row < m_rows; row++) {
+				for ( var column:int = 0; column < m_columns; column++) {
+					if (cells[row][column].empty) {
+						str += "0 ";
+						
+					} else {
+						str += cells[row][column].piece.type.id + " ";
+					}
+				}
+				str += "\n";
+			}
+			str += "\n";
+			return str;
 		}
 	}
 }

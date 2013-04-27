@@ -2,13 +2,15 @@ package com.angrymole.mozzarella.game
 {
 	import com.angrymole.mozzarella.events.GroupEvent;
 	
+	import starling.display.Sprite;
+	
 	/**
 	 * Build group of pieces when 4 pieces 
 	 * are next to each other in the grid
 	 * 
 	 * @author Fabio Panettieri
 	 */
-	public class GroupBuilder 
+	public class GroupBuilder extends Sprite
 	{
 		private var m_grid:Grid;
 		
@@ -35,7 +37,7 @@ package com.angrymole.mozzarella.game
 			cells.push(m_grid.cells[_piece.row][_piece.column - 1]);
 			cells.push(m_grid.cells[_piece.row][_piece.column]);
 			
-			dispatchEvent(_piece, cells);
+			groupCells(_piece, cells);
 		}
 	
 		private function groupRight(_piece:Piece):void
@@ -48,10 +50,10 @@ package com.angrymole.mozzarella.game
 			cells.push(m_grid.cells[_piece.row][_piece.column]);
 			cells.push(m_grid.cells[_piece.row][_piece.column + 1]);
 			
-			dispatchEvent(_piece, cells);
+			groupCells(_piece, cells);
 		}
 		
-		private function dispatchEvent(_piece:Piece, _cells:Vector.<Cell>):void
+		private function groupCells(_piece:Piece, _cells:Vector.<Cell>):void
 		{
 			for ( var i:int = 0; i < _cells.length; i++) {
 				if (_cells[i].empty || !_cells[i].piece.type.equals(_piece.type)) {
@@ -60,7 +62,7 @@ package com.angrymole.mozzarella.game
 			}
 			
 			var group:Group = new Group(_cells[0].piece, _cells[1].piece, _cells[2].piece, _cells[3].piece);				
-			m_grid.dispatchEvent(new GroupEvent(GroupEvent.GROUP_CREATED, group));
+			dispatchEvent(new GroupEvent(GroupEvent.GROUP_CREATED, group));
 		}
 	}
 

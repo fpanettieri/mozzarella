@@ -11,6 +11,7 @@ package com.angrymole.mozzarella.events
 		public static const PIECE_SPAWNED:String = "pieceSpawnedEvent";
 		public static const PIECE_DRAGGED:String = "pieceDraggedEvent";
 		public static const PIECE_DROPPED:String = "pieceDroppedEvent";
+		public static const PIECE_BROKEN:String = "pieceBrokenEvent";
 		
 		private var m_piece:Piece;
 		

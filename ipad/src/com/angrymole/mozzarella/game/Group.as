@@ -13,29 +13,24 @@ package com.angrymole.mozzarella.game
 	 */
 	public class Group extends Sprite 
 	{
-		private var m_tl:Piece;
-		private var m_tr:Piece;
-		private var m_bl:Piece;
-		private var m_br:Piece;
-		
+		private var m_pieces:Vector.<Piece>;
 		private var m_placeholder:Placeholder;
 		
+		// aux var used to detect the group touch
 		private var m_touch:Touch;
 		private var m_beginTouch:Touch;
 		private var m_endTouch:Touch;
 		
 		public function Group(_tl:Piece, _tr:Piece, _bl:Piece, _br:Piece)
 		{
-			m_tl = _tl;
-			m_tr = _tr;
-			m_bl = _bl;
-			m_br = _br;
+			m_pieces = Vector.<Piece>([_tl, _tr, _bl, _br]);
+			for (var i:int = 0; i < m_pieces.length; i++) {
+				m_pieces[i].addGroup(this);
+				
+				// TODO: fade out pieces?
+				m_pieces[i].visible = false;
+			}
 
-			m_tl.visible = false;
-			m_tr.visible = false;
-			m_bl.visible = false;
-			m_br.visible = false;
-			
 			m_placeholder = new Placeholder(_tl.size * 2, _tl.size * 2, _tl.type.color);
 			addChild(m_placeholder);
 			
@@ -45,8 +40,21 @@ package com.angrymole.mozzarella.game
 			addEventListener(TouchEvent.TOUCH, onTouch);
 		}
 		
+		public function broken():void
+		{
+			// TODO: play break animation and dispatch the event on the callback
+			dispatchEvent(new GroupEvent(GroupEvent.GROUP_BROKEN, this));
+		}
 		
-		// FIXME: ASAP not working
+		public function ungroup():void
+		{
+			// TODO: play ungroup animation
+			for (var i:int = 0; i < m_pieces.length; i++) {
+				m_pieces[i].removeGroup(this);
+			}
+			dispatchEvent(new GroupEvent(GroupEvent.GROUP_BROKEN, this));
+		}
+		
 		private function onTouch(_event:TouchEvent):void
 		{
 			m_touch = _event.getTouch(this);
@@ -57,28 +65,33 @@ package com.angrymole.mozzarella.game
 				
 			} else if ( m_touch.phase == TouchPhase.ENDED ) {
 				m_endTouch = m_touch;
-				dispatchEvent(new GroupEvent(GroupEvent.GROUP_BROKEN, this));
+				dispatchEvent(new GroupEvent(GroupEvent.GROUP_TOUCHED, this));
 			}
+		}
+		
+		public function get pieces():Vector.<Piece> 
+		{
+			return m_pieces;
 		}
 		
 		public function get tl():Piece 
 		{
-			return m_tl;
+			return m_pieces[0];
 		}
 		
 		public function get tr():Piece 
 		{
-			return m_tr;
+			return m_pieces[1];
 		}
 		
 		public function get bl():Piece 
 		{
-			return m_bl;
+			return m_pieces[2];
 		}
 		
 		public function get br():Piece 
 		{
-			return m_br;
+			return m_pieces[3];
 		}
 		
 		public function get beginTouch():Touch 
@@ -89,6 +102,16 @@ package com.angrymole.mozzarella.game
 		public function get endTouch():Touch 
 		{
 			return m_endTouch;
+		}
+		
+		public static function compare(x:Group, y:Group):Number
+		{
+			if (x === y) 					{ return 0; }
+			if (x.tl.row < y.tl.row) 		{ return -1; }
+			if (x.tl.column < y.tl.column) 	{ return -1; }
+			if (x.tl.row > y.tl.row) 		{ return 1; }
+			if (x.tl.column > y.tl.column) 	{ return 1; }
+			return 0;
 		}
 	}
 }

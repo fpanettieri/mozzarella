@@ -1,7 +1,8 @@
 package com.angrymole.mozzarella.game 
 {
 	/**
-	 * ...
+	 * Used to store a single piece in the grid
+	 * 
 	 * @author Fabio Panettieri
 	 */
 	public class Cell 
@@ -9,8 +10,6 @@ package com.angrymole.mozzarella.game
 		private var m_row:int;
 		private var m_column:int;
 		private var m_piece:Piece;
-		
-		// TODO: track reference to the piece and the cell
 		
 		public function Cell(_row:int, _column:int, _piece:Piece = null) 
 		{

@@ -7,11 +7,18 @@ package com.angrymole.mozzarella.game
 	 */
 	public class PieceType 
 	{
+		private var m_id:int;
 		private var m_color:uint;
 		
-		public function PieceType(_color:uint) 
+		public function PieceType(_id:int,  _color:uint) 
 		{
+			m_id = _id;
 			m_color = _color;
+		}
+		
+		public function get id():int 
+		{
+			return m_id;
 		}
 		
 		public function get color():uint 
@@ -21,7 +28,7 @@ package com.angrymole.mozzarella.game
 		
 		public function equals(_type:PieceType):Boolean
 		{
-			return _type.color == m_color;
+			return m_id == _type.id && m_color == _type.color;
 		}
 	}
 

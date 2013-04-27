@@ -9,7 +9,9 @@ package com.angrymole.mozzarella.events
 	public class GroupEvent extends MozzarellaEvent
 	{
 		public static const GROUP_CREATED:String = "groupCreatedEvent";
+		public static const GROUP_TOUCHED:String = "groupTouchedEvent";
 		public static const GROUP_BROKEN:String = "groupBrokenEvent";
+		public static const GROUP_UNGROUPED:String = "groupUngroupedEvent";
 		
 		private var m_group:Group;
 		

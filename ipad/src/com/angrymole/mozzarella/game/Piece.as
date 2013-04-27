@@ -20,6 +20,7 @@ package com.angrymole.mozzarella.game
 		private var m_size:int;
 		private var m_selected:Boolean;
 		private var m_swappable:Boolean;
+		private var m_groups:Vector.<Group>;
 		private var m_iteration:int;
 		private var m_tween:Tween;
 		
@@ -33,6 +34,7 @@ package com.angrymole.mozzarella.game
 			m_size = _size;
 			m_selected = false;
 			m_swappable = true;
+			m_groups = new Vector.<Group>();
 			m_iteration = _iteration;
 			
 			m_placeholder = new Placeholder(_size, _size, m_type.color);
@@ -110,6 +112,30 @@ package com.angrymole.mozzarella.game
 			Starling.juggler.add(tween);
 		}
 		
+		public function addGroup(_group:Group):void
+		{
+			m_groups.push(_group);
+		}
+		
+		public function removeGroup(_group:Group):void
+		{
+			var idx:int = m_groups.indexOf(_group);
+			if (idx < 0) { return; }
+			m_groups.splice(idx, 1);
+		}
+		
+		public function clearGroups():void
+		{
+			m_groups.length = 0;
+		}
+		
+		public function ungroup():void
+		{
+			for ( var i:int = 0; i < m_groups.length; i++) {
+				m_groups[i].ungroup();
+			}
+		}
+		
 		private function onDropComplete():void
 		{
 			dispatchEvent(new PieceEvent(PieceEvent.PIECE_DROPPED, this));
@@ -163,6 +189,16 @@ package com.angrymole.mozzarella.game
 		public function set swappable(value:Boolean):void 
 		{
 			m_swappable = value;
+		}
+		
+		public function get groups():Vector.<Group> 
+		{
+			return m_groups;
+		}
+		
+		public function get grouped():Boolean 
+		{
+			return m_groups.length > 0;
 		}
 		
 		public function toString():String

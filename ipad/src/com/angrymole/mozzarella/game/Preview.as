@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import starling.display.Sprite;
@@ -37,6 +38,13 @@ package com.angrymole.mozzarella.game
 		public function onPiecesLocked(_e:SpawnEvent):void
 		{
 			clear();
+		}
+		
+		public function onGroupsBroken(_e:GroupsBrokenEvent):void
+		{
+			for ( var i:int = 0; i < m_pieces.length; i++) {
+				update(m_pieces[i]);
+			}
 		}
 		
 		private function add(_piece:Piece):void
