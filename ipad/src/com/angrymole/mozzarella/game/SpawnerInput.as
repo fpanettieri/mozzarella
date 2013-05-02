@@ -23,7 +23,9 @@ package com.angrymole.mozzarella.game
 		private var m_maxX:Number;
 		
 		// inner state
+		private var m_touched:Boolean;
 		private var m_touch:Touch;
+		private var m_previousPosition:Point;
 		private var m_touchPosition:Point;
 		private var m_touchedColumn:int;
 		
@@ -40,7 +42,9 @@ package com.angrymole.mozzarella.game
 			m_minX = m_size / 2 - 2;
 			m_maxX = (m_columns - 0.5) * m_size - 6;
 			
+			m_touched = false;
 			m_touchPosition = new Point();
+			m_previousPosition = new Point();
 			
 			m_tapped = null;
 			m_selected = null;
@@ -61,6 +65,7 @@ package com.angrymole.mozzarella.game
 		
 		private function grabPiece():void
 		{
+			m_touched = true;
 			m_touchedColumn = Math.floor( m_touchPosition.x / m_size );
 			
 			if (m_tapped != null) {
@@ -83,11 +88,15 @@ package com.angrymole.mozzarella.game
 		
 		private function dragPiece():void
 		{
-			// TODO: remove this option?
-			//if (m_touched && m_touchPosition.y < -48) {
-			//	m_spawner.lockPieces();
-			//	m_touched = false;
-			//}
+			// drop pieces when swipe up
+			if ( m_touched && m_touchPosition.y < -32 ) {
+				m_touch.getPreviousLocation (m_spawner, m_previousPosition);
+				if( m_previousPosition.y - m_touchPosition.y > 3) {
+					m_spawner.lockPieces();
+					m_touched = false;
+					return;
+				}
+			}
 			
 			if (m_selected == null) { return; }
 			
@@ -104,6 +113,7 @@ package com.angrymole.mozzarella.game
 		
 		private function dropPiece():void
 		{
+			m_touched = false;
 			if (m_selected == null) { return; }
 			
 			var column:int;
