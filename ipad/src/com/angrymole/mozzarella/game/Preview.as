@@ -50,7 +50,8 @@ package com.angrymole.mozzarella.game
 		private function add(_piece:Piece):void
 		{
 			if (m_pieces.indexOf(_piece) > -1) {
-				throw new Error("Piece already previewed");
+				trace("DEBUG: Piece already previewed ", _piece);
+				return;
 			}
 			m_pieces.push(_piece);
 			
@@ -64,7 +65,8 @@ package com.angrymole.mozzarella.game
 		{
 			var pos:int = m_pieces.indexOf(_piece);
 			if (pos < 0) {
-				throw new Error("Piece not previewed");
+				trace("DEBUG: Piece not previewed ", _piece);
+				return;
 			}
 			m_previews[pos].update(m_grid);
 		}

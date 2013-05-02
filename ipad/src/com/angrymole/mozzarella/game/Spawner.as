@@ -77,18 +77,24 @@ package com.angrymole.mozzarella.game
 		
 		public function swap(_from:int, _to:int):void
 		{
-			if (_from == _to) { 
-				m_pieces[_from].unselect(); 
-			} else {
-				var swapped:Piece = m_pieces[_to];
-				m_pieces[_from].swap(_to, m_swapTime);
-				m_pieces[_to] = m_pieces[_from];
-				m_pieces[_from] = swapped;
-				
-				if (swapped == null) { return; }
-				swapped.swap(_from, m_swapTime);
-				swapped.parent.setChildIndex(swapped, swapped.parent.numChildren - 2);
-				Starling.juggler.delayCall(dispatchEvent, m_swapTime * 1.1, new PieceEvent(PieceEvent.PIECE_DRAGGED, swapped));
+			var from:Piece = m_pieces[_from];
+			var to:Piece = m_pieces[_to];
+			
+			m_pieces[_from] = to;
+			m_pieces[_to] = from;
+			
+			if (from != null) {
+				from.swap(_to, m_swapTime);
+				from.unselect(); 
+				from.parent.setChildIndex(from, from.parent.numChildren - 1);
+				Starling.juggler.delayCall(dispatchEvent, m_swapTime * 1.1, new PieceEvent(PieceEvent.PIECE_DRAGGED, from));
+			}
+			
+			if (to != null) {
+				to.swap(_from, m_swapTime);
+				to.unselect();
+				to.parent.setChildIndex(to, to.parent.numChildren - 2);
+				Starling.juggler.delayCall(dispatchEvent, m_swapTime * 1.1, new PieceEvent(PieceEvent.PIECE_DRAGGED, to));
 			}
 		}
 		

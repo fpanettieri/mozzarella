@@ -23,12 +23,11 @@ package com.angrymole.mozzarella.game
 		private var m_maxX:Number;
 		
 		// inner state
-		private var m_touched:Boolean;
 		private var m_touch:Touch;
 		private var m_touchPosition:Point;
-		private var m_touchedColumn:Number;
-		private var m_previousPosition:Point;
+		private var m_touchedColumn:int;
 		
+		private var m_tapped:Piece;
 		private var m_selected:Piece;
 		
 		public function SpawnerInput(_spawner:Spawner, _cfg:Configuration)
@@ -41,9 +40,10 @@ package com.angrymole.mozzarella.game
 			m_minX = m_size / 2 - 2;
 			m_maxX = (m_columns - 0.5) * m_size - 6;
 			
-			m_touched = false;
 			m_touchPosition = new Point();
-			m_previousPosition = new Point();
+			
+			m_tapped = null;
+			m_selected = null;
 		}
 		
 		public function onTouch(_event:TouchEvent):void
@@ -62,28 +62,35 @@ package com.angrymole.mozzarella.game
 		private function grabPiece():void
 		{
 			m_touchedColumn = Math.floor( m_touchPosition.x / m_size );
-			m_selected = m_spawner.pieces[m_touchedColumn];
-			m_touched = true;
 			
+			if (m_tapped != null) {
+				m_spawner.swap(m_tapped.column, m_touchedColumn);
+				m_selected = null;
+				m_tapped = null;
+				return;
+			}
+			
+			m_selected = m_spawner.pieces[m_touchedColumn];
 			if (m_selected == null) { return; }
+			
 			if (!m_selected.swappable) { 
 				m_selected = null;
 				return; 
 			}
 			
-			m_selected = m_spawner.pieces[m_touchedColumn];
 			m_selected.select();
 		}
 		
 		private function dragPiece():void
 		{
-			if (m_touched && m_touchPosition.y < -48) {
-				m_spawner.lockPieces();
-				m_touched = false;
-			}
+			// TODO: remove this option?
+			//if (m_touched && m_touchPosition.y < -48) {
+			//	m_spawner.lockPieces();
+			//	m_touched = false;
+			//}
 			
 			if (m_selected == null) { return; }
-
+			
 			if (m_touchPosition.x <= m_minX) {
 				m_selected.x = -6;
 			} else if (m_touchPosition.x >= m_maxX) {
@@ -97,23 +104,29 @@ package com.angrymole.mozzarella.game
 		
 		private function dropPiece():void
 		{
-			m_touched = false;
 			if (m_selected == null) { return; }
 			
+			var column:int;
 			if (m_touchPosition.x <= m_minX) {
-				m_touchedColumn = 0;
+				column = 0;
 			} else if (m_touchPosition.x >= m_maxX) {
-				m_touchedColumn = m_columns - 1;
+				column = m_columns - 1;
 			} else {
-				m_touchedColumn = Math.floor(m_touchPosition.x / m_size);
+				column = Math.floor(m_touchPosition.x / m_size);
 			}
 			
-			m_spawner.swap(m_selected.column, m_touchedColumn);
+			if (m_touchedColumn == column) {
+				m_tapped = m_spawner.pieces[column];
+				
+			} else {
+				m_spawner.swap(m_selected.column, column);
+			}
 			m_selected == null;
 		}
 		
 		public function lockPieces():void
 		{
+			m_tapped = null;
 			if (m_selected == null) { return; }
 			m_selected.unselect();
 			m_selected = null;

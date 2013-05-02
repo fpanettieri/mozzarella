@@ -57,25 +57,21 @@ package com.angrymole.mozzarella.game
 		
 		public function select():void
 		{
-			x = m_column * m_size;
-			y = 0;
-			
-			var tween:Tween = new Tween(this, 0.1, Transitions.LINEAR);
-			tween.scaleTo(1.2);
-			tween.moveTo(x - 6, -6);
-			Starling.juggler.add(tween);
+			m_selected = true;
+			x = m_column * m_size - 6;
+			y = -6;
+			scaleX = 1.2;
+			scaleY = 1.2;
 			
 			parent.setChildIndex(this, parent.numChildren - 1);
-			m_selected = true;
 		}
 		
 		public function unselect():void
 		{
-			var tween:Tween = new Tween(this, 0.1, Transitions.LINEAR);
-			tween.scaleTo(1);
-			tween.moveTo(m_column * m_size, 0);
-			m_tween.onComplete = onSelectComplete;
-			Starling.juggler.add(tween);
+			m_selected = false;
+			m_tween = new Tween(this, 0.2, Transitions.LINEAR);
+			m_tween.scaleTo(1);
+			Starling.juggler.add(m_tween);
 		}
 		
 		public function swap(_column:int, _time:Number):void
@@ -84,15 +80,9 @@ package com.angrymole.mozzarella.game
 			m_swappable = false;
 			
 			m_tween = new Tween(this, _time, Transitions.EASE_IN_OUT);
-			m_tween.scaleTo(1);
 			m_tween.moveTo(m_column * m_size, 0);
 			m_tween.onComplete = onSwapComplete;
 			Starling.juggler.add(m_tween);
-		}
-		
-		private function onSelectComplete():void
-		{
-			m_selected = false;
 		}
 		
 		private function onSwapComplete():void
