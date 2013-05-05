@@ -78,6 +78,7 @@ package com.angrymole.mozzarella.game
 		public function onTimeTravel(_event:TimeTravelEvent):void
 		{
 			m_traveler.travel(_event);
+			dispatchEvent(_event);
 		}
 		
 		private function addPiece(_piece:Piece):void

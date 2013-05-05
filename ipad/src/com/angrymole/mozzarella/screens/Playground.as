@@ -59,6 +59,7 @@ package com.angrymole.mozzarella.screens
 			
 			m_preview = new Preview(m_grid);
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.onGroupsBroken);
+			m_grid.addEventListener(TimeTravelEvent.TIME_TRAVEL, m_preview.onTimeTravel);
 			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 56;
