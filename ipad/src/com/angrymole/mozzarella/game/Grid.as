@@ -5,6 +5,7 @@ package com.angrymole.mozzarella.game
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
+	import com.angrymole.mozzarella.events.TimeTravelEvent;
 	import com.angrymole.mozzarella.game.Piece;
 	import com.angrymole.mozzarella.gestures.Tap;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
@@ -29,6 +30,7 @@ package com.angrymole.mozzarella.game
 		private var m_grouper:GroupBuilder;
 		private var m_breaker:GroupBreaker;
 		private var m_dropper:PieceDropper;
+		private var m_traveler:TimeTraveler;
 		
 		public function Grid(_cfg:Configuration) 
 		{
@@ -61,6 +63,8 @@ package com.angrymole.mozzarella.game
 			m_breaker.addEventListener(GroupEvent.GROUP_UNGROUPED, onGroupBroken);
 			m_breaker.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, onGroupsBroken);
 			addChild(m_breaker);
+			
+			m_traveler = new TimeTraveler(this);
 		}
 		
 		public function onSpawn(_event:SpawnEvent):void
@@ -71,12 +75,19 @@ package com.angrymole.mozzarella.game
 			}
 		}
 		
+		public function onTimeTravel(_event:TimeTravelEvent):void
+		{
+			m_traveler.travel(_event);
+		}
+		
 		private function addPiece(_piece:Piece):void
 		{
+			m_pieces.push(_piece);
 			addChild(_piece);
 			_piece.y = m_rows * _piece.size + 15;
 			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
+			_piece.addEventListener(PieceEvent.PIECE_VANISHED, onPieceVanished);
 			
 			var row:int = _piece.row;
 			for ( row = m_rows - 1; row >= 0; row--){
@@ -96,9 +107,11 @@ package com.angrymole.mozzarella.game
 		
 		private function removePiece(_piece:Piece):void
 		{
+			m_pieces.splice(m_pieces.indexOf(_piece), 1);
 			removeChild(_piece);
 			_piece.removeEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
+			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceVanished);
 			m_cells[_piece.row][_piece.column].piece = null;
 		}
 		
@@ -108,6 +121,11 @@ package com.angrymole.mozzarella.game
 		}
 		
 		private function onPieceBroken(_event:PieceEvent):void
+		{
+			removePiece(_event.piece);
+		}
+		
+		private function onPieceVanished(_event:PieceEvent):void
 		{
 			removePiece(_event.piece);
 		}
@@ -146,6 +164,11 @@ package com.angrymole.mozzarella.game
 		public function get columns():int 
 		{
 			return m_columns;
+		}
+		
+		public function get pieces():Vector.<Piece> 
+		{
+			return m_pieces;
 		}
 		
 		public function toString():String

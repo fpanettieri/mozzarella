@@ -83,6 +83,15 @@ package com.angrymole.mozzarella.game
 			// TODO: play swap sound
 		}
 		
+		public function vanish():void
+		{
+			ungroup();
+			// TODO: remove the piece from the grid
+			// TODO: play vanish sound and animation
+			// TODO: dispatch this event on animation complete
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_VANISHED, this));
+		}
+		
 		private function onSwapComplete():void
 		{
 			m_swappable = true;

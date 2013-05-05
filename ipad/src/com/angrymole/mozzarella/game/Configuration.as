@@ -18,6 +18,7 @@ package com.angrymole.mozzarella.game
 		private var m_spawnProgression:Vector.<int>;
 		private var m_spawnLife:Vector.<int>;
 		private var m_swapTime:Number;
+		private var m_mastery:Vector.<int>;
 		
 		public function Configuration(_level:XML) 
 		{
@@ -30,6 +31,7 @@ package com.angrymole.mozzarella.game
 			m_spawnProgression = new <int>[2, 4, 6, 10, 12];
 			m_spawnLife = new <int>[10, 9, 8, 7, 6];
 			m_swapTime = 0.3;
+			m_mastery = new <int>[10000, 30000, 100000];
 		}
 		
 		public function get rows():int 
@@ -70,6 +72,11 @@ package com.angrymole.mozzarella.game
 		public function get swapTime():Number
 		{
 			return m_swapTime;
+		}
+		
+		public function get mastery():Vector.<int> 
+		{
+			return m_mastery;
 		}
 	}
 }

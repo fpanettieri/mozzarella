@@ -7,6 +7,7 @@ package com.angrymole.mozzarella.screens
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
+	import com.angrymole.mozzarella.events.TimeTravelEvent;
 	import com.angrymole.mozzarella.game.Configuration;
 	import com.angrymole.mozzarella.game.Console;
 	import com.angrymole.mozzarella.game.Grid;
@@ -52,8 +53,6 @@ package com.angrymole.mozzarella.screens
 			m_updater = new Updater();
 			addChild(m_updater);
 			
-			m_intro = new Intro();
-			
 			m_grid = new Grid(m_cfg);
 			m_grid.x = 56;
 			m_grid.y = 84;
@@ -64,20 +63,25 @@ package com.angrymole.mozzarella.screens
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 56;
 			m_spawner.y = 610;
-			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
+
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
+			m_intro = new Intro();
+			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
+			
+			m_score = new Score(m_cfg);
+			m_score.x = 850;
+			m_score.y = 84;
+			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_score.onGroupsBroken);
+			m_score.addEventListener(TimeTravelEvent.TIME_TRAVEL, m_grid.onTimeTravel);
+			
 			m_console = new Console(768, 512, "Console");
 			m_console.x = 56;
 			m_console.y = 0;
 
-			m_score = new Score([50, 100, 200]);
-			m_score.x = 850;
-			m_score.y = 84;
-			
 			m_pause = new Pause();
 			m_pause.x = 850;
 			m_pause.y = 10;
