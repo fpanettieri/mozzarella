@@ -55,8 +55,10 @@ package com.angrymole.mozzarella.game
 			m_text.y = 420;
 			addChild(m_text);
 			
-			m_score = 0;
+			m_score = 2500;
 			m_maxScore = m_mastery[2] * 1.1;
+			
+			updateBar();
 		}
 		
 		public function onGroupsBroken(_e:GroupsBrokenEvent):void

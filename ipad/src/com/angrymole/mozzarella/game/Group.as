@@ -52,7 +52,7 @@ package com.angrymole.mozzarella.game
 			for (var i:int = 0; i < m_pieces.length; i++) {
 				m_pieces[i].removeGroup(this);
 			}
-			dispatchEvent(new GroupEvent(GroupEvent.GROUP_BROKEN, this));
+			dispatchEvent(new GroupEvent(GroupEvent.GROUP_UNGROUPED, this));
 		}
 		
 		private function onTouch(_event:TouchEvent):void

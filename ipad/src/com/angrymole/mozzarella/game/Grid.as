@@ -60,7 +60,6 @@ package com.angrymole.mozzarella.game
 			
 			m_breaker = new GroupBreaker(this);
 			m_breaker.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
-			m_breaker.addEventListener(GroupEvent.GROUP_UNGROUPED, onGroupBroken);
 			m_breaker.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, onGroupsBroken);
 			addChild(m_breaker);
 			
@@ -137,6 +136,7 @@ package com.angrymole.mozzarella.game
 			m_breaker.add(_event.group);
 			addChild(_event.group);
 			_event.group.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
+			_event.group.addEventListener(GroupEvent.GROUP_UNGROUPED, onGroupUngrouped);
 		}
 		
 		private function onGroupBroken(_event:GroupEvent):void
@@ -144,6 +144,13 @@ package com.angrymole.mozzarella.game
 			m_groups.splice(m_groups.indexOf(_event.group), 1);
 			removeChild(_event.group);
 			_event.group.removeEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
+		}
+		
+		private function onGroupUngrouped(_event:GroupEvent):void
+		{
+			m_groups.splice(m_groups.indexOf(_event.group), 1);
+			removeChild(_event.group);
+			_event.group.removeEventListener(GroupEvent.GROUP_UNGROUPED, onGroupUngrouped);
 		}
 		
 		private function onGroupsBroken(_event:GroupsBrokenEvent):void

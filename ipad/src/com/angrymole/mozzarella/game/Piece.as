@@ -123,6 +123,9 @@ package com.angrymole.mozzarella.game
 			var idx:int = m_groups.indexOf(_group);
 			if (idx < 0) { return; }
 			m_groups.splice(idx, 1);
+			
+			// TODO: pop animation?
+			visible = m_groups.length == 0;
 		}
 		
 		public function clearGroups():void
