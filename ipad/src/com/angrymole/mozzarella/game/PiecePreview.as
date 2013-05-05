@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.constants.Constants;
 	import starling.display.Sprite;
 	
 	/**
@@ -22,7 +23,7 @@ package com.angrymole.mozzarella.game
 		
 		public function update(_grid:Grid):void
 		{
-			var column:int = Math.round((m_piece.x + 6) / m_piece.size);
+			var column:int = Math.round((m_piece.x + Constants.GRABBED_MARGIN) / m_piece.size);
 			var empty:int = 0;
 			for ( var row:int = _grid.rows - 1; row >= 0; row--) {
 				if (_grid.cells[row][column].empty) {

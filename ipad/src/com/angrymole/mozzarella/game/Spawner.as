@@ -76,7 +76,7 @@ package com.angrymole.mozzarella.game
 			spawnPieces();
 		}
 		
-		public function swap(_from:int, _to:int):void
+		public function swap(_from:int, _to:int, _duration:Number):void
 		{
 			var from:Piece = m_pieces[_from];
 			var to:Piece = m_pieces[_to];
@@ -85,12 +85,12 @@ package com.angrymole.mozzarella.game
 			m_pieces[_to] = from;
 			
 			if (from != null) {
-				from.swap(_to);
+				from.swap(_to, _duration);
 				from.parent.setChildIndex(from, from.parent.numChildren - 1);
 			}
 			
 			if (to != null) {
-				to.swap(_from);
+				to.swap(_from, _duration);
 				to.parent.setChildIndex(to, to.parent.numChildren - 2);
 			}
 		}

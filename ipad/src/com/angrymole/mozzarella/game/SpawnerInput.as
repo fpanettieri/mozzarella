@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.constants.Constants;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import flash.geom.Point;
 	import starling.events.Touch;
@@ -27,7 +28,7 @@ package com.angrymole.mozzarella.game
 		private var m_touch:Touch;
 		private var m_previousPosition:Point;
 		private var m_touchPosition:Point;
-		private var m_touchedColumn:int;
+		private var m_grabbedColumn:int;
 		
 		private var m_tapped:Piece;
 		private var m_selected:Piece;
@@ -40,7 +41,7 @@ package com.angrymole.mozzarella.game
 			m_columns = _cfg.columns;
 			
 			m_minX = m_size / 2 - 2;
-			m_maxX = (m_columns - 0.5) * m_size - 6;
+			m_maxX = (m_columns - 0.5) * m_size - Constants.GRABBED_MARGIN;
 			
 			m_touched = false;
 			m_touchPosition = new Point();
@@ -66,16 +67,16 @@ package com.angrymole.mozzarella.game
 		private function grabPiece():void
 		{
 			m_touched = true;
-			m_touchedColumn = Math.floor( m_touchPosition.x / m_size );
+			m_grabbedColumn = touchedColumn();
 			
 			if (m_tapped != null) {
-				m_spawner.swap(m_tapped.column, m_touchedColumn);
+				m_spawner.swap(m_tapped.column, touchedColumn(), Constants.SWAP_TIME);
 				m_selected = null;
 				m_tapped = null;
 				return;
 			}
 			
-			m_selected = m_spawner.pieces[m_touchedColumn];
+			m_selected = m_spawner.pieces[m_grabbedColumn];
 			if (m_selected == null) { return; }
 			
 			if (!m_selected.swappable) { 
@@ -91,7 +92,8 @@ package com.angrymole.mozzarella.game
 			// drop pieces when swipe up
 			if ( m_touched && m_touchPosition.y < -32 ) {
 				m_touch.getPreviousLocation (m_spawner, m_previousPosition);
-				if( m_previousPosition.y - m_touchPosition.y > 3) {
+				if ( m_previousPosition.y - m_touchPosition.y > 3) {
+					m_spawner.swap(m_grabbedColumn, touchedColumn(), 0);
 					m_spawner.lockPieces();
 					m_touched = false;
 					return;
@@ -101,11 +103,11 @@ package com.angrymole.mozzarella.game
 			if (m_selected == null) { return; }
 			
 			if (m_touchPosition.x <= m_minX) {
-				m_selected.x = -6;
+				m_selected.x = -Constants.GRABBED_MARGIN;
 			} else if (m_touchPosition.x >= m_maxX) {
 				m_selected.x = m_maxX - m_size / 2;
 			} else {
-				m_selected.x = m_touchPosition.x - m_size / 2 - 6;
+				m_selected.x = m_touchPosition.x - m_size / 2 - Constants.GRABBED_MARGIN;
 			}
 			
 			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, m_selected));
@@ -116,21 +118,13 @@ package com.angrymole.mozzarella.game
 			m_touched = false;
 			if (m_selected == null) { return; }
 			
-			var column:int;
-			if (m_touchPosition.x <= m_minX) {
-				column = 0;
-			} else if (m_touchPosition.x >= m_maxX) {
-				column = m_columns - 1;
-			} else {
-				column = Math.floor(m_touchPosition.x / m_size);
-			}
-			
-			if (m_touchedColumn == column) {
+			var column:int = touchedColumn();
+			if (m_grabbedColumn == column) {
 				m_tapped = m_spawner.pieces[column];
-				m_selected.x = column * m_size - 6;
+				m_selected.x = column * m_size - Constants.GRABBED_MARGIN;
 				
 			} else {
-				m_spawner.swap(m_selected.column, column);
+				m_spawner.swap(m_selected.column, column, Constants.SWAP_TIME);
 			}
 			m_selected == null;
 		}
@@ -140,6 +134,17 @@ package com.angrymole.mozzarella.game
 			m_tapped = null;
 			if (m_selected == null) { return; }
 			m_selected = null;
+		}
+		
+		private function touchedColumn():int
+		{
+			if (m_touchPosition.x <= m_minX) {
+				return 0;
+			} else if (m_touchPosition.x >= m_maxX) {
+				return m_columns - 1;
+			} else {
+				return Math.floor(m_touchPosition.x / m_size);
+			}
 		}
 	}
 

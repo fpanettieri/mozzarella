@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game 
 {
+	import com.angrymole.mozzarella.constants.Constants;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import starling.animation.Transitions;
@@ -57,8 +58,8 @@ package com.angrymole.mozzarella.game
 		
 		public function grab():void
 		{
-			x = m_column * m_size - 6;
-			y = -6;
+			x = m_column * m_size - Constants.GRABBED_MARGIN;
+			y = -Constants.GRABBED_MARGIN;
 			scaleX = 1.2;
 			scaleY = 1.2;
 			
@@ -67,9 +68,9 @@ package com.angrymole.mozzarella.game
 			// TODO: play grab sound
 		}
 		
-		public function swap(_column:int):void
+		public function swap(_column:int, _duration:Number):void
 		{
-			var duration:Number = Math.abs(m_column - _column) * 0.05 + 0.1;
+			var duration:Number = Math.abs(m_column - _column) * _duration;
 			m_column = _column;
 			m_swappable = false;
 			
