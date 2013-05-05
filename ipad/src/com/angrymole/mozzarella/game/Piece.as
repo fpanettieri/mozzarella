@@ -14,11 +14,11 @@ package com.angrymole.mozzarella.game
 	 */
 	public class Piece extends Sprite 
 	{
+		private var m_id:int;
 		private var m_row:int;
 		private var m_column:int;
 		private var m_type:PieceType;
 		private var m_size:int;
-		private var m_selected:Boolean;
 		private var m_swappable:Boolean;
 		private var m_groups:Vector.<Group>;
 		private var m_iteration:int;
@@ -26,13 +26,13 @@ package com.angrymole.mozzarella.game
 		
 		private var m_placeholder:Placeholder;
 		
-		public function Piece(_row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
+		public function Piece(_id:int, _row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
 		{
+			m_id = _id;
 			m_row = _row;
 			m_column = _column;
 			m_type = _type;
 			m_size = _size;
-			m_selected = false;
 			m_swappable = true;
 			m_groups = new Vector.<Group>();
 			m_iteration = _iteration;
@@ -55,39 +55,37 @@ package com.angrymole.mozzarella.game
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_PIECE));
 		}
 		
-		public function select():void
+		public function grab():void
 		{
-			m_selected = true;
 			x = m_column * m_size - 6;
 			y = -6;
 			scaleX = 1.2;
 			scaleY = 1.2;
 			
 			parent.setChildIndex(this, parent.numChildren - 1);
+			
+			// TODO: play grab sound
 		}
 		
-		public function unselect():void
+		public function swap(_column:int):void
 		{
-			m_selected = false;
-			m_tween = new Tween(this, 0.2, Transitions.LINEAR);
-			m_tween.scaleTo(1);
-			Starling.juggler.add(m_tween);
-		}
-		
-		public function swap(_column:int, _time:Number):void
-		{
+			var duration:Number = Math.abs(m_column - _column) * 0.05 + 0.1;
 			m_column = _column;
 			m_swappable = false;
 			
-			m_tween = new Tween(this, _time, Transitions.EASE_IN_OUT);
+			m_tween = new Tween(this, duration, Transitions.EASE_IN_OUT);
 			m_tween.moveTo(m_column * m_size, 0);
+			m_tween.scaleTo(1);
 			m_tween.onComplete = onSwapComplete;
 			Starling.juggler.add(m_tween);
+			
+			// TODO: play swap sound
 		}
 		
 		private function onSwapComplete():void
 		{
 			m_swappable = true;
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, this, true));
 		}
 		
 		public function drop(_from:int, _to:int):void
@@ -98,8 +96,11 @@ package com.angrymole.mozzarella.game
 			var duration:Number = (_from - _to) * 0.1;
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
 			tween.moveTo(x, _to * m_size);
+			tween.scaleTo(1);
 			tween.onComplete = onDropComplete;
-			Starling.juggler.add(tween);
+			queueTween(tween);
+			
+			// TODO: play drop sound
 		}
 		
 		public function addGroup(_group:Group):void
@@ -123,6 +124,17 @@ package com.angrymole.mozzarella.game
 		{
 			for ( var i:int = 0; i < m_groups.length; i++) {
 				m_groups[i].ungroup();
+			}
+		}
+		
+		private function queueTween(_tween:Tween):void
+		{
+			if (m_tween == null || m_tween.isComplete) {
+				m_tween = _tween;
+				Starling.juggler.add(m_tween);
+			} else {
+				m_tween.nextTween = _tween;
+				m_tween = _tween;
 			}
 		}
 		
@@ -164,11 +176,6 @@ package com.angrymole.mozzarella.game
 		public function get iteration():int 
 		{
 			return m_iteration;
-		}
-		
-		public function get selected():Boolean 
-		{
-			return m_selected;
 		}
 		
 		public function get swappable():Boolean 

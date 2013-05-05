@@ -83,7 +83,7 @@ package com.angrymole.mozzarella.game
 				return; 
 			}
 			
-			m_selected.select();
+			m_selected.grab();
 		}
 		
 		private function dragPiece():void
@@ -127,6 +127,7 @@ package com.angrymole.mozzarella.game
 			
 			if (m_touchedColumn == column) {
 				m_tapped = m_spawner.pieces[column];
+				m_selected.x = column * m_size - 6;
 				
 			} else {
 				m_spawner.swap(m_selected.column, column);
@@ -138,7 +139,6 @@ package com.angrymole.mozzarella.game
 		{
 			m_tapped = null;
 			if (m_selected == null) { return; }
-			m_selected.unselect();
 			m_selected = null;
 		}
 	}

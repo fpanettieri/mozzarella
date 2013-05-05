@@ -39,6 +39,7 @@ package com.angrymole.mozzarella.game
 		private var m_iteration:int;
 		private var m_globalIteration:int;
 		
+		private var m_pieceId:int;
 		private var m_spawnedPieces:int;
 		private var m_delayedCall:DelayedCall;
 		
@@ -84,17 +85,13 @@ package com.angrymole.mozzarella.game
 			m_pieces[_to] = from;
 			
 			if (from != null) {
-				from.swap(_to, m_swapTime);
-				from.unselect(); 
+				from.swap(_to);
 				from.parent.setChildIndex(from, from.parent.numChildren - 1);
-				Starling.juggler.delayCall(dispatchEvent, m_swapTime * 1.1, new PieceEvent(PieceEvent.PIECE_DRAGGED, from));
 			}
 			
 			if (to != null) {
-				to.swap(_from, m_swapTime);
-				to.unselect();
+				to.swap(_from);
 				to.parent.setChildIndex(to, to.parent.numChildren - 2);
-				Starling.juggler.delayCall(dispatchEvent, m_swapTime * 1.1, new PieceEvent(PieceEvent.PIECE_DRAGGED, to));
 			}
 		}
 		
@@ -121,7 +118,7 @@ package com.angrymole.mozzarella.game
 				emptyColumns.splice(idx, 1);
 				
 				// TODO: check if the row has to change in the future if we support multiple spawn positions
-				piece = new Piece(-1, column, type, m_size, m_globalIteration);
+				piece = new Piece(++m_pieceId, -1, column, type, m_size, m_globalIteration);
 				piece.x = column * m_size;
 				piece.y = 100 + Math.random() * 10;
 				piece.addEventListener(SpawnEvent.SPAWN_PIECE, onPieceSpawn);
