@@ -25,7 +25,7 @@ package com.angrymole.mozzarella.game
 		{
 			var column:int = Math.round((m_piece.x + Constants.GRABBED_MARGIN) / m_piece.size);
 			var empty:int = 0;
-			for ( var row:int = _grid.rows - 1; row >= 0; row--) {
+			for ( var row:int = 0; row < _grid.rows; row++) {
 				if (_grid.cells[row][column].empty) {
 					empty = row;
 				} else {

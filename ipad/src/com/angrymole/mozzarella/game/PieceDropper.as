@@ -20,7 +20,7 @@ package com.angrymole.mozzarella.game
 		public function onGroupsBroken(_event:GroupsBrokenEvent):void
 		{
 			for (var column:int = 0; column < m_grid.columns; column++) {
-				for (var row:int = 0; row < m_grid.rows; row++) {
+				for (var row:int = m_grid.rows - 1; row >= 0; row--) {
 					if ( !m_grid.cells[row][column].empty ) { continue; }
 					if ( !fillCell(row, column)) { break; }
 				}
@@ -29,7 +29,7 @@ package com.angrymole.mozzarella.game
 
 		private function fillCell(_row:int, _column:int):Boolean
 		{
-			for (var row:int = _row; row < m_grid.rows; row++) {
+			for (var row:int = _row; row >= 0; row--) {
 				if (m_grid.cells[row][_column].empty ) { continue; }
 				
 				var piece:Piece = m_grid.cells[row][_column].piece;

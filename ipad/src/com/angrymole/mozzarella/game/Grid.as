@@ -84,24 +84,25 @@ package com.angrymole.mozzarella.game
 		{
 			m_pieces.push(_piece);
 			addChild(_piece);
-			_piece.y = m_rows * _piece.size + 15;
+			_piece.y = -100;
 			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			_piece.addEventListener(PieceEvent.PIECE_VANISHED, onPieceVanished);
 			
-			var row:int = _piece.row;
-			for ( row = m_rows - 1; row >= 0; row--){
-				if ( !m_cells[row][_piece.column].empty ) {
+			var empty:int = 0;
+			for ( var row:int = 0; row < m_rows; row++) {
+				if (m_cells[row][_piece.column].empty) {
+					empty = row;
+				} else {
 					break;
 				}
 			}
-			row++
 			
-			if (row >= m_rows) {
+			if (empty >= m_rows) {
 				dispatchEvent(new GameOverEvent(GameOverEvent.GAME_OVER));
 			} else {
-				m_cells[row][_piece.column].piece = _piece;
-				_piece.drop(m_rows, row);	
+				m_cells[empty][_piece.column].piece = _piece;
+				_piece.drop(_piece.row, empty);	
 			}
 		}
 		

@@ -54,16 +54,16 @@ package com.angrymole.mozzarella.screens
 			addChild(m_updater);
 			
 			m_grid = new Grid(m_cfg);
-			m_grid.x = 56;
-			m_grid.y = 84;
+			m_grid.x = 128;
+			m_grid.y = 168;
 			
 			m_preview = new Preview(m_grid);
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.onGroupsBroken);
 			m_grid.addEventListener(TimeTravelEvent.TIME_TRAVEL, m_preview.onTimeTravel);
 			
 			m_spawner = new Spawner(m_cfg);
-			m_spawner.x = 56;
-			m_spawner.y = 610;
+			m_spawner.x = 128;
+			m_spawner.y = 84;
 
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);

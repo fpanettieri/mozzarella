@@ -103,7 +103,7 @@ package com.angrymole.mozzarella.game
 			m_row = _to;
 			x = m_column * m_size;
 			
-			var duration:Number = (_from - _to) * 0.1;
+			var duration:Number = Math.abs(_from - _to) * 0.1;
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
 			tween.moveTo(x, _to * m_size);
 			tween.scaleTo(1);

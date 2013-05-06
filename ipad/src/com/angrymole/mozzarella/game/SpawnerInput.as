@@ -26,7 +26,6 @@ package com.angrymole.mozzarella.game
 		// inner state
 		private var m_touched:Boolean;
 		private var m_touch:Touch;
-		private var m_previousPosition:Point;
 		private var m_touchPosition:Point;
 		private var m_grabbedColumn:int;
 		
@@ -45,7 +44,6 @@ package com.angrymole.mozzarella.game
 			
 			m_touched = false;
 			m_touchPosition = new Point();
-			m_previousPosition = new Point();
 			
 			m_tapped = null;
 			m_selected = null;
@@ -89,17 +87,6 @@ package com.angrymole.mozzarella.game
 		
 		private function dragPiece():void
 		{
-			// drop pieces when swipe up
-			if ( m_touched && m_touchPosition.y < -32 ) {
-				m_touch.getPreviousLocation (m_spawner, m_previousPosition);
-				if ( m_previousPosition.y - m_touchPosition.y > 3) {
-					m_spawner.swap(m_grabbedColumn, touchedColumn(), 0);
-					m_spawner.lockPieces();
-					m_touched = false;
-					return;
-				}
-			}
-			
 			if (m_selected == null) { return; }
 			
 			if (m_touchPosition.x <= m_minX) {
