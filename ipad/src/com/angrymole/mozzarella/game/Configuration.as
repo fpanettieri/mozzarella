@@ -31,7 +31,7 @@ package com.angrymole.mozzarella.game
 			m_spawnCount = new <int>[2, 4, 6, 10, 12];
 			m_spawnLife = new <int>[8, 12, 12, 10, 10];
 			m_swapTime = 0.3;
-			m_mastery = new <int>[2000, 5000, 10000];
+			m_mastery = new <int>[30000, 60000, 100000];
 		}
 		
 		public function get rows():int 

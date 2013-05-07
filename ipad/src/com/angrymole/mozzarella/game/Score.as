@@ -18,6 +18,7 @@ package com.angrymole.mozzarella.game
 	{
 		private var m_bg:Placeholder;
 		private var m_bar:Placeholder;
+		private var m_masteryBars:Vector.<Placeholder>;
 		
 		// internal state
 		private var m_mastery:Vector.<int>;
@@ -44,11 +45,20 @@ package com.angrymole.mozzarella.game
 			addChild(m_bar);
 			
 			m_text = new TextField(64, 30, "0");
-			m_text.y = 512;
+			m_text.y = 540;
 			addChild(m_text);
 			
 			m_score = 0;
 			m_maxScore = m_mastery[2] * 1.1;
+			
+			m_masteryBars = new Vector.<Placeholder>();
+			var bar:Placeholder;
+			for (var i:int = 0; i < m_mastery.length; i++) {
+				bar = new Placeholder(64, 2, 0x303030);
+				bar.y = m_mastery[i] / m_maxScore * 584;
+				m_masteryBars.push(bar);
+				addChild(bar);
+			}
 			
 			update();
 		}
