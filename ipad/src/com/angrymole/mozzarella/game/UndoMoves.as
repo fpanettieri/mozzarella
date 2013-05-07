@@ -1,7 +1,7 @@
 package com.angrymole.mozzarella.game 
 {
 	import com.angrymole.mozzarella.events.GroupEvent;
-	import com.angrymole.mozzarella.events.TimeTravelEvent;
+	import com.angrymole.mozzarella.events.PowerupEvent;
 	
 	import starling.display.Sprite;
 	
@@ -10,16 +10,16 @@ package com.angrymole.mozzarella.game
 	 * 
 	 * @author Fabio Panettieri
 	 */
-	public class TimeTraveler
+	public class UndoMoves
 	{
 		private var m_grid:Grid;
 		
-		public function TimeTraveler(_grid:Grid) 
+		public function UndoMoves(_grid:Grid) 
 		{
 			m_grid = _grid;
 		}
 		
-		public function travel(_event:TimeTravelEvent):void
+		public function undo():void
 		{
 			var iteration:int = -1;
 			for each( var piece:Piece in m_grid.pieces) {

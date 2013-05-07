@@ -4,8 +4,8 @@ package com.angrymole.mozzarella.game
 	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
+	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
-	import com.angrymole.mozzarella.events.TimeTravelEvent;
 	import com.angrymole.mozzarella.game.Piece;
 	import com.angrymole.mozzarella.gestures.Tap;
 	import com.angrymole.mozzarella.interfaces.IUpdatable;
@@ -30,7 +30,7 @@ package com.angrymole.mozzarella.game
 		private var m_grouper:GroupBuilder;
 		private var m_breaker:GroupBreaker;
 		private var m_dropper:PieceDropper;
-		private var m_traveler:TimeTraveler;
+		private var m_undo:UndoMoves;
 		
 		public function Grid(_cfg:Configuration) 
 		{
@@ -63,7 +63,7 @@ package com.angrymole.mozzarella.game
 			m_breaker.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, onGroupsBroken);
 			addChild(m_breaker);
 			
-			m_traveler = new TimeTraveler(this);
+			m_undo = new UndoMoves(this);
 		}
 		
 		public function onSpawn(_event:SpawnEvent):void
@@ -74,9 +74,9 @@ package com.angrymole.mozzarella.game
 			}
 		}
 		
-		public function onTimeTravel(_event:TimeTravelEvent):void
+		public function onUndoMove(_event:PowerupEvent):void
 		{
-			m_traveler.travel(_event);
+			m_undo.undo();
 			dispatchEvent(_event);
 		}
 		

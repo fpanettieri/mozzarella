@@ -2,8 +2,8 @@ package com.angrymole.mozzarella.game
 {
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
+	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
-	import com.angrymole.mozzarella.events.TimeTravelEvent;
 	import starling.display.Sprite;
 	
 	/**
@@ -48,7 +48,7 @@ package com.angrymole.mozzarella.game
 			}
 		}
 		
-		public function onTimeTravel(_e:TimeTravelEvent):void
+		public function onUndoMove(_e:PowerupEvent):void
 		{
 			for ( var i:int = 0; i < m_pieces.length; i++) {
 				update(m_pieces[i]);

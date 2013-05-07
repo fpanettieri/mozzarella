@@ -6,16 +6,18 @@ package com.angrymole.mozzarella.screens
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
+	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
-	import com.angrymole.mozzarella.events.TimeTravelEvent;
 	import com.angrymole.mozzarella.game.Configuration;
 	import com.angrymole.mozzarella.game.Console;
+	import com.angrymole.mozzarella.game.DropTrigger;
 	import com.angrymole.mozzarella.game.Grid;
 	import com.angrymole.mozzarella.game.Intro;
 	import com.angrymole.mozzarella.game.Pause;
 	import com.angrymole.mozzarella.game.Preview;
 	import com.angrymole.mozzarella.game.Score;
 	import com.angrymole.mozzarella.game.Spawner;
+	import com.angrymole.mozzarella.game.UndoPowerup;
 	import com.angrymole.mozzarella.game.Updater;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
 	import com.angrymole.mozzarella.util.Bounds;
@@ -42,8 +44,9 @@ package com.angrymole.mozzarella.screens
 		private var m_spawner:Spawner;
 		private var m_score:Score;
 		private var m_pause:Pause;
-		private var m_console:Console;
 		private var m_preview:Preview;
+		private var m_undo:UndoPowerup;
+		private var m_drop:DropTrigger;
 		
 		public function Playground()
 		{
@@ -54,44 +57,49 @@ package com.angrymole.mozzarella.screens
 			addChild(m_updater);
 			
 			m_grid = new Grid(m_cfg);
-			m_grid.x = 128;
-			m_grid.y = 168;
+			m_grid.x = 160;
+			m_grid.y = 164;
 			
 			m_preview = new Preview(m_grid);
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.onGroupsBroken);
-			m_grid.addEventListener(TimeTravelEvent.TIME_TRAVEL, m_preview.onTimeTravel);
+			m_grid.addEventListener(PowerupEvent.UNDO_MOVE, m_preview.onUndoMove);
 			
 			m_spawner = new Spawner(m_cfg);
-			m_spawner.x = 128;
-			m_spawner.y = 84;
+			m_spawner.x = 160;
+			m_spawner.y = 92;
 
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
+			m_drop = new DropTrigger(m_spawner);
+			m_drop. x = 815;
+			m_drop.y = 92;
+			
 			m_intro = new Intro();
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
 			
 			m_score = new Score(m_cfg);
-			m_score.x = 850;
-			m_score.y = 84;
+			m_score.x = 64;
+			m_score.y = 92;
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_score.onGroupsBroken);
-			m_score.addEventListener(TimeTravelEvent.TIME_TRAVEL, m_grid.onTimeTravel);
 			
-			m_console = new Console(768, 512, "Console");
-			m_console.x = 56;
-			m_console.y = 0;
-
 			m_pause = new Pause();
 			m_pause.x = 850;
 			m_pause.y = 10;
 			
-			addChild(m_console);
+			m_undo = new UndoPowerup(m_score);
+			m_undo.x = 870;
+			m_undo.y = 410;
+			m_undo.addEventListener(PowerupEvent.UNDO_MOVE, m_grid.onUndoMove);
+			
 			addChild(m_spawner);
+			addChild(m_drop);
 			addChild(m_grid);
 			addChild(m_preview);
 			addChild(m_score);
+			addChild(m_undo);
 			addChild(m_intro);
 			addChild(m_pause);
 			

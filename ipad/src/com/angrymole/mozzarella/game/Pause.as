@@ -12,7 +12,7 @@ package com.angrymole.mozzarella.game
 		
 		public function Pause() 
 		{
-			m_placeholder = new Placeholder(130, 44, 0x666666);
+			m_placeholder = new Placeholder(130, 44, 0x666666, "pause");
 			addChild(m_placeholder);
 			
 			// SCORE AND PAUSE BUTTONS ARE NOT ADDED TO THE INTERPRETER
