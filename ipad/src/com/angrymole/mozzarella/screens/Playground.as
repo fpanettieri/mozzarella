@@ -76,6 +76,9 @@ package com.angrymole.mozzarella.screens
 			m_drop = new DropTrigger(m_spawner);
 			m_drop. x = 815;
 			m_drop.y = 92;
+			m_spawner.addEventListener(SpawnEvent.SPAWN_STARTED, m_drop.onSpawnStarted);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_drop.onSpawnSwappable);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_drop.onSpawnLocked);
 			
 			m_intro = new Intro();
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);

@@ -33,7 +33,7 @@ package com.angrymole.mozzarella.game
 		private var m_columns:int;
 		private var m_types:Vector.<PieceType>;
 		private var m_iterations:Vector.<int>;
-		private var m_progression:Vector.<int>;
+		private var m_spawnCount:Vector.<int>;
 		private var m_spawnLife:Vector.<int>;
 		private var m_swapTime:Number;
 		private var m_iteration:int;
@@ -54,7 +54,7 @@ package com.angrymole.mozzarella.game
 			m_columns = _cfg.columns;
 			m_types = _cfg.pieceTypes;
 			m_iterations = _cfg.spawnIterations;
-			m_progression = _cfg.spawnProgression;
+			m_spawnCount = _cfg.spawnCount;
 			m_spawnLife = _cfg.spawnLife;
 			m_swapTime = _cfg.swapTime;
 			m_iteration = 0;
@@ -109,7 +109,7 @@ package com.angrymole.mozzarella.game
 			var type:PieceType;
 			var piece:Piece;
 			
-			var pieceCount:int = m_progression[0];
+			var pieceCount:int = m_spawnCount[0];
 			for (i = 0; i < pieceCount; i++) {
 				type = m_types[ Math.floor( Math.random() * m_types.length ) ];
 				
@@ -133,7 +133,7 @@ package com.angrymole.mozzarella.game
 			
 			if ( m_iterations.length > 0 && m_iteration == m_iterations[0]) {
 				m_iterations.shift();
-				m_progression.shift();
+				m_spawnCount.shift();
 				m_spawnLife.shift();
 				m_iteration = 0;
 			} else {
@@ -184,6 +184,11 @@ package com.angrymole.mozzarella.game
 		public function get pieces():Vector.<Piece> 
 		{
 			return m_pieces;
+		}
+		
+		public function get spawnLife():int
+		{
+			return m_spawnLife[0];
 		}
 	}
 }

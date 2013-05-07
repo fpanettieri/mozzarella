@@ -15,7 +15,7 @@ package com.angrymole.mozzarella.game
 		private var m_pieceSize:int;
 		private var m_pieceTypes:Vector.<PieceType>;
 		private var m_spawnIterations:Vector.<int>;
-		private var m_spawnProgression:Vector.<int>;
+		private var m_spawnCount:Vector.<int>;
 		private var m_spawnLife:Vector.<int>;
 		private var m_swapTime:Number;
 		private var m_mastery:Vector.<int>;
@@ -27,9 +27,9 @@ package com.angrymole.mozzarella.game
 			m_columns = 10;
 			m_pieceSize = PieceSize.LARGE;
 			m_pieceTypes = new <PieceType>[new PieceType(1, 0xfe853c), new PieceType(2, 0xfd4f4e), new PieceType(3, 0x888e68), new PieceType(4, 0xd7dbba)];
-			m_spawnIterations = new <int>[4, 10, 20, 40];
-			m_spawnProgression = new <int>[2, 4, 6, 10, 12];
-			m_spawnLife = new <int>[10, 9, 8, 7, 6];
+			m_spawnIterations = new <int>[10, 20, 40, 80];
+			m_spawnCount = new <int>[2, 4, 6, 10, 12];
+			m_spawnLife = new <int>[8, 12, 12, 10, 10];
 			m_swapTime = 0.3;
 			m_mastery = new <int>[2000, 5000, 10000];
 		}
@@ -59,9 +59,9 @@ package com.angrymole.mozzarella.game
 			return m_spawnIterations;
 		}
 
-		public function get spawnProgression():Vector.<int>  
+		public function get spawnCount():Vector.<int>  
 		{
-			return m_spawnProgression;
+			return m_spawnCount;
 		}
 		
 		public function get spawnLife():Vector.<int>
