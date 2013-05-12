@@ -29,6 +29,8 @@ package com.angrymole.mozzarella.game
 	 */
 	public class Spawner extends Sprite
 	{
+		private var GRAB_BUFFER:Number = 32;
+		
 		private var m_size:int;
 		private var m_columns:int;
 		private var m_types:Vector.<PieceType>;
@@ -46,6 +48,7 @@ package com.angrymole.mozzarella.game
 		private var m_placeholder:Placeholder;
 		private var m_pieces:Vector.<Piece>;
 		
+		private var m_container:Sprite;
 		private var m_input:SpawnerInput;
 		
 		public function Spawner(_cfg:Configuration)
@@ -61,13 +64,18 @@ package com.angrymole.mozzarella.game
 			m_globalIteration = 0;
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0x584E4B);
+			m_placeholder.y = GRAB_BUFFER;
 			addChild(m_placeholder);
 			
 			m_pieces = new Vector.<Piece>(m_columns);
 			m_spawnedPieces = 0;
 			
-			m_input = new SpawnerInput(this, _cfg);
-			addEventListener(TouchEvent.TOUCH, m_input.onTouch);
+			m_container = new Sprite();
+			m_container.y = GRAB_BUFFER;
+			addChild(m_container);
+			
+			m_input = new SpawnerInput(this, _cfg, 0, GRAB_BUFFER);
+			addChild(m_input);
 		}
 		
 		// Called when the 3,2,1 go animation has completed
@@ -120,13 +128,13 @@ package com.angrymole.mozzarella.game
 				// TODO: check if the row has to change in the future if we support multiple spawn positions
 				piece = new Piece(++m_pieceId, -1, column, type, m_size, m_globalIteration);
 				piece.x = column * m_size;
-				piece.y = -100 + Math.random() * 10;
+				piece.y = 100 + Math.random() * 10;
 				piece.addEventListener(SpawnEvent.SPAWN_PIECE, onPieceSpawn);
 				piece.touchable = false;
 				piece.intro();
 				
 				m_pieces[column] = piece;
-				addChild(piece);
+				m_container.addChild(piece);
 				
 				m_spawnedPieces++;
 			}
@@ -176,7 +184,7 @@ package com.angrymole.mozzarella.game
 		{
 			for (var i:int = 0 ; i < m_pieces.length; i++) {
 				if (m_pieces[i] == null) { continue; }
-				removeChild( m_pieces[i] );
+				m_container.removeChild( m_pieces[i] );
 				m_pieces[i] = null;
 			}
 		}

@@ -58,7 +58,7 @@ package com.angrymole.mozzarella.screens
 			
 			m_grid = new Grid(m_cfg);
 			m_grid.x = 160;
-			m_grid.y = 164;
+			m_grid.y = 60;
 			
 			m_preview = new Preview(m_grid);
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.onGroupsBroken);
@@ -66,7 +66,7 @@ package com.angrymole.mozzarella.screens
 			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 160;
-			m_spawner.y = 92;
+			m_spawner.y = 580;
 
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
@@ -75,7 +75,7 @@ package com.angrymole.mozzarella.screens
 			
 			m_drop = new DropTrigger(m_spawner);
 			m_drop. x = 815;
-			m_drop.y = 92;
+			m_drop.y = 580;
 			m_spawner.addEventListener(SpawnEvent.SPAWN_STARTED, m_drop.onSpawnStarted);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_drop.onSpawnSwappable);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_drop.onSpawnLocked);
@@ -97,9 +97,10 @@ package com.angrymole.mozzarella.screens
 			m_undo.y = 410;
 			m_undo.addEventListener(PowerupEvent.UNDO_MOVE, m_grid.onUndoMove);
 			
-			addChild(m_spawner);
+			
 			addChild(m_drop);
 			addChild(m_grid);
+			addChild(m_spawner);
 			addChild(m_preview);
 			addChild(m_score);
 			addChild(m_undo);

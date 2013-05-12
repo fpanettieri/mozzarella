@@ -60,8 +60,8 @@ package com.angrymole.mozzarella.game
 		{
 			x = m_column * m_size - Constants.GRABBED_MARGIN;
 			y = -Constants.GRABBED_MARGIN;
-			scaleX = 1.2;
-			scaleY = 1.2;
+			scaleX = 1.3;
+			scaleY = 1.3;
 			
 			parent.setChildIndex(this, parent.numChildren - 1);
 			

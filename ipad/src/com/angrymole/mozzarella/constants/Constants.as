@@ -7,7 +7,7 @@ package com.angrymole.mozzarella.constants
 	public class Constants
 	{
 		public static const SWAP_TIME:Number = 0.05;
-		public static const GRABBED_MARGIN:int = 6;
+		public static const GRABBED_MARGIN:int = 9;
 	}
 
 }

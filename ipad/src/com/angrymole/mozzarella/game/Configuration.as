@@ -27,11 +27,11 @@ package com.angrymole.mozzarella.game
 			m_columns = 10;
 			m_pieceSize = PieceSize.LARGE;
 			m_pieceTypes = new <PieceType>[new PieceType(1, 0xfe853c), new PieceType(2, 0xfd4f4e), new PieceType(3, 0x888e68), new PieceType(4, 0xd7dbba)];
-			m_spawnIterations = new <int>[20, 40, 80, 160];
+			m_spawnIterations = new <int>[6, 20, 40, 80];
 			m_spawnCount = new <int>[2, 4, 6, 10, 12];
-			m_spawnLife = new <int>[8, 12, 12, 10, 10];
+			m_spawnLife = new <int>[10, 12, 12, 10, 10];
 			m_swapTime = 0.3;
-			m_mastery = new <int>[30000, 60000, 100000];
+			m_mastery = new <int>[1000, 5000, 10000];
 		}
 		
 		public function get rows():int 

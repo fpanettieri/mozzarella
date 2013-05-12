@@ -26,6 +26,7 @@ package com.angrymole.mozzarella
 			stage.align = StageAlign.TOP_LEFT;
 			stage.addEventListener(Event.DEACTIVATE, deactivate);
 			
+			Starling.multitouchEnabled = false;
 			_starling = new Starling(Game, stage);
 			_starling.start();
 			_starling.showStats = true;
