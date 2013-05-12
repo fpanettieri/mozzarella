@@ -16,7 +16,7 @@ package com.angrymole.mozzarella.game
 	public class SpawnerInput extends Sprite
 	{
 		// used to allow fast play
-		private const FUZZY_GRAB_DISTANCE:int = 48;
+		private const FUZZY_GRAB_DISTANCE:int = 64;
 		private const TAP_DURATION:Number = 0.4;
 		private const TAP_DISTANCE:Number = 24;
 		
@@ -59,7 +59,7 @@ package com.angrymole.mozzarella.game
 			m_selected = null;
 			
 			m_quad = new Quad(_spawner.width, _spawner.height + _vBuffer * 2, 0, true);
-			m_quad.alpha = 0.1;
+			m_quad.alpha = 0;
 			m_quad.addEventListener(TouchEvent.TOUCH, onTouch);
 			addChild(m_quad);
 		}

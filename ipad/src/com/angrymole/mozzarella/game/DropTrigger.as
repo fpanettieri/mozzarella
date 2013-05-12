@@ -63,7 +63,7 @@ package com.angrymole.mozzarella.game
 
 		private function onTouch(_event:TouchEvent):void
 		{
-			m_touch = _event.getTouch(m_button, TouchPhase.BEGAN);
+			m_touch = _event.getTouch(m_button, TouchPhase.ENDED);
 			if (m_touch == null) { return; }
 			
 			m_active = false;
