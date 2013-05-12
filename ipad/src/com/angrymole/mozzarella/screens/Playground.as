@@ -97,10 +97,9 @@ package com.angrymole.mozzarella.screens
 			m_undo.y = 410;
 			m_undo.addEventListener(PowerupEvent.UNDO_MOVE, m_grid.onUndoMove);
 			
-			
-			addChild(m_drop);
-			addChild(m_grid);
 			addChild(m_spawner);
+			addChild(m_grid);
+			addChild(m_drop);
 			addChild(m_preview);
 			addChild(m_score);
 			addChild(m_undo);

@@ -4,6 +4,7 @@ package com.angrymole.mozzarella.game
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.Placeholder;
 	import com.angrymole.mozzarella.game.Score;
+	import flash.events.MouseEvent;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Touch;
@@ -41,6 +42,10 @@ package com.angrymole.mozzarella.game
 			m_remainingText = new TextField(30, 30, "", "Verdana", 24);
 			m_remainingText.x = 90;
 			addChild(m_remainingText);
+			
+			// right click drop pieces on pc
+			Starling.current.nativeStage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, pressTriggger);
+			Starling.current.nativeStage.addEventListener(MouseEvent.RIGHT_MOUSE_UP, releaseTriggger);
 		}
 		
 		public function onSpawnStarted(_e:SpawnEvent):void
@@ -63,13 +68,27 @@ package com.angrymole.mozzarella.game
 
 		private function onTouch(_event:TouchEvent):void
 		{
-			m_touch = _event.getTouch(m_button, TouchPhase.ENDED);
+			m_touch = _event.getTouch(m_button);
 			if (m_touch == null) { return; }
 			
+			switch(m_touch.phase) {
+				case TouchPhase.BEGAN: pressTriggger(); break;
+				case TouchPhase.ENDED: releaseTriggger(); break;
+			}
+		}
+		
+		private function pressTriggger(_event:MouseEvent = null):void
+		{
+			m_button.alpha = 0.5;
+        }
+		
+		private function releaseTriggger(_event:MouseEvent = null):void
+		{
+			m_button.alpha = 1;
 			m_active = false;
 			m_remaining = 0;
 			m_spawner.lockPieces();
-		}
+        }
 		
 		private function updateRemainingTime():void
 		{

@@ -21,7 +21,7 @@ package com.angrymole.mozzarella.game
 		
 		public function group(_piece:Piece):void
 		{
-			if (_piece.row == m_grid.rows - 1) { return; }
+			if (_piece.row == 0) { return; }
 			
 			groupLeft(_piece);
 			groupRight(_piece);
@@ -32,10 +32,10 @@ package com.angrymole.mozzarella.game
 			if (_piece.column == 0) { return; }
 			
 			var cells:Vector.<Cell> = new Vector.<Cell>()
+			cells.push(m_grid.cells[_piece.row - 1][_piece.column - 1]);
+			cells.push(m_grid.cells[_piece.row - 1][_piece.column]);
 			cells.push(m_grid.cells[_piece.row][_piece.column - 1]);
 			cells.push(m_grid.cells[_piece.row][_piece.column]);
-			cells.push(m_grid.cells[_piece.row + 1][_piece.column - 1]);
-			cells.push(m_grid.cells[_piece.row + 1][_piece.column]);
 			
 			groupCells(_piece, cells);
 		}
@@ -45,10 +45,10 @@ package com.angrymole.mozzarella.game
 			if (_piece.column == m_grid.columns - 1) { return; }
 			
 			var cells:Vector.<Cell> = new Vector.<Cell>()
+			cells.push(m_grid.cells[_piece.row - 1][_piece.column]);
+			cells.push(m_grid.cells[_piece.row - 1][_piece.column + 1]);
 			cells.push(m_grid.cells[_piece.row][_piece.column]);
 			cells.push(m_grid.cells[_piece.row][_piece.column + 1]);
-			cells.push(m_grid.cells[_piece.row + 1][_piece.column]);
-			cells.push(m_grid.cells[_piece.row + 1][_piece.column + 1]);
 			
 			groupCells(_piece, cells);
 		}

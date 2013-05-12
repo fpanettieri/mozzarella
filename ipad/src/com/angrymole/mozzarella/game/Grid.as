@@ -84,13 +84,13 @@ package com.angrymole.mozzarella.game
 		{
 			m_pieces.push(_piece);
 			addChild(_piece);
-			_piece.y = -100;
+			_piece.y = (m_columns - 1) * _piece.size;
 			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			_piece.addEventListener(PieceEvent.PIECE_VANISHED, onPieceVanished);
 			
 			var empty:int = 0;
-			for ( var row:int = 0; row < m_rows; row++) {
+			for ( var row:int = m_rows - 1; row > -1; row--) {
 				if (m_cells[row][_piece.column].empty) {
 					empty = row;
 				} else {
@@ -102,7 +102,7 @@ package com.angrymole.mozzarella.game
 				dispatchEvent(new GameOverEvent(GameOverEvent.GAME_OVER));
 			} else {
 				m_cells[empty][_piece.column].piece = _piece;
-				_piece.drop(_piece.row, empty);	
+				_piece.drop(m_columns - 1, empty);	
 			}
 		}
 		
