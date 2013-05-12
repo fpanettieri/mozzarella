@@ -126,9 +126,8 @@ package com.angrymole.mozzarella.game
 				m_spawner.swap(m_selected.column, column, Constants.SWAP_TIME);
 				
 			} else {
-				m_tapped = m_spawner.pieces[column];
-				m_selected.x = column * m_size - Constants.GRABBED_MARGIN;
-				
+				m_tapped = m_selected;
+				m_tapped.x = m_tapped.column * m_size - Constants.GRABBED_MARGIN;
 			}
 			m_selected == null;
 		}
