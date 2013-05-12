@@ -17,7 +17,7 @@ package com.angrymole.mozzarella.game
 	{
 		// used to allow fast play
 		private const FUZZY_GRAB_DISTANCE:int = 48;
-		private const TAP_DURATION:Number = 0.6;
+		private const TAP_DURATION:Number = 0.4;
 		private const TAP_DISTANCE:Number = 24;
 		
 		private var m_spawner:Spawner;
@@ -37,7 +37,6 @@ package com.angrymole.mozzarella.game
 		private var m_touch:Touch;
 		private var m_touchPosition:Point;
 		private var m_grabPosition:Point;
-		private var m_grabColumn:int;
 		private var m_grabTimestamp:Number;
 		
 		private var m_tapped:Piece;
@@ -70,30 +69,27 @@ package com.angrymole.mozzarella.game
 			m_touch = _event.getTouch(this);
 			if (m_touch == null) { return; }
 			
-			m_touch.getLocation(this, m_touchPosition);
+			m_touch.getLocation(m_quad, m_touchPosition);
 			switch(m_touch.phase) {
-				case TouchPhase.BEGAN: grabPiece(); break;
-				case TouchPhase.MOVED: dragPiece(); break;
-				case TouchPhase.ENDED: dropPiece(); break;
+				case TouchPhase.BEGAN: onTouchBegin(); break;
+				case TouchPhase.MOVED: onTouchMove(); break;
+				case TouchPhase.ENDED: onTouchEnd(); break;
 			}
 		}
 		
-		private function grabPiece():void
+		private function onTouchBegin():void
 		{
-			trace("grab");
 			if (m_tapped != null) {
-				trace("swapping tapped piece");
 				m_spawner.swap(m_tapped.column, touchedColumn(), Constants.SWAP_TIME);
 				m_selected = null;
 				m_tapped = null;
 				return;
 			}
 			
-			m_grabPosition = m_touchPosition;
+			m_grabPosition = m_touchPosition.clone();
 			m_grabTimestamp = m_touch.timestamp;
-			m_grabColumn = fuzzyColumn();
 			
-			m_selected = m_spawner.pieces[m_grabColumn];
+			m_selected = m_spawner.pieces[fuzzyColumn()];
 			if (m_selected == null) { return; }
 			
 			if (!m_selected.swappable) { 
@@ -102,9 +98,10 @@ package com.angrymole.mozzarella.game
 			}
 			
 			m_selected.grab();
+			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, m_selected));
 		}
 		
-		private function dragPiece():void
+		private function onTouchMove():void
 		{
 			if (m_selected == null) { return; }
 			
@@ -119,16 +116,11 @@ package com.angrymole.mozzarella.game
 			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, m_selected));
 		}
 		
-		private function dropPiece():void
+		private function onTouchEnd():void
 		{
-			trace("drop");
 			if (m_selected == null) { return; }
 			
 			var column:int = touchedColumn();
-			
-			trace("Tap length:", m_grabTimestamp, m_touch.timestamp, m_touch.timestamp - m_grabTimestamp);
-			trace("Tap distance:", m_grabPosition.x, m_touchPosition.x,Math.abs(m_grabPosition.x - m_touchPosition.x));
-			
 			if (m_touch.timestamp - m_grabTimestamp > TAP_DURATION || 
 				Math.abs(m_grabPosition.x - m_touchPosition.x) > TAP_DISTANCE) {
 				m_spawner.swap(m_selected.column, column, Constants.SWAP_TIME);
@@ -136,6 +128,7 @@ package com.angrymole.mozzarella.game
 			} else {
 				m_tapped = m_spawner.pieces[column];
 				m_selected.x = column * m_size - Constants.GRABBED_MARGIN;
+				
 			}
 			m_selected == null;
 		}
@@ -166,7 +159,7 @@ package com.angrymole.mozzarella.game
 			for ( var i:int = 0; i < m_spawner.pieces.length; i++) {
 				if (m_spawner.pieces[i] == null) { continue; }
 				
-				distance = m_spawner.pieces[i].x + m_size / 2 - m_touchPosition.x;
+				distance = Math.abs(m_spawner.pieces[i].x + m_size / 2 - m_touchPosition.x);
 				if (distance > FUZZY_GRAB_DISTANCE || distance >= minDistance) { continue; }
 				
 				minDistance = distance;
