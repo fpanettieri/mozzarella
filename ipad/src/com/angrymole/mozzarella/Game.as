@@ -1,12 +1,14 @@
 package com.angrymole.mozzarella 
 {
 	import com.angrymole.mozzarella.events.ScreenEvent;
+	import com.angrymole.mozzarella.game.Assets;
 	import com.angrymole.mozzarella.screens.Playground;
 	import com.angrymole.mozzarella.screens.Screen;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.text.TextField;
+	import starling.utils.AssetManager;
 	
 	/**
 	 * Control screen flow
@@ -14,6 +16,7 @@ package com.angrymole.mozzarella
 	 */
 	public class Game extends Sprite
 	{
+		private var m_assets:Assets;
 		private var m_screens:Vector.<Screen>;
 		
 		public static function get current():Game
@@ -24,6 +27,18 @@ package com.angrymole.mozzarella
 		public function Game()
 		{
 			m_screens = new Vector.<Screen>();
+			m_assets = new Assets();
+			m_assets.load(onProgress, onComplete);
+			// TODO: add loading screen
+		}
+		
+		private function onProgress(_progress:Number):void
+		{
+			// TODO: update loading screen progress
+		}
+		
+		private function onComplete():void
+		{
 			addScreen(new Playground());
 		}
 		
@@ -62,6 +77,11 @@ package com.angrymole.mozzarella
 		public function topScreen():Screen
 		{
 			return m_screens[m_screens.length - 1];
+		}
+		
+		public function get assets():AssetManager
+		{
+			return m_assets.manager;
 		}
 		
 		private function addListeners(_screen:Screen):void
