@@ -1,24 +1,21 @@
 package com.angrymole.mozzarella.screens
 {
-	import com.angrymole.mozzarella.constants.PieceSize;
 	import com.angrymole.mozzarella.events.GameOverEvent;
-	import com.angrymole.mozzarella.events.GestureEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
-	import com.angrymole.mozzarella.game.Configuration;
-	import com.angrymole.mozzarella.game.Console;
-	import com.angrymole.mozzarella.game.DropTrigger;
-	import com.angrymole.mozzarella.game.Grid;
-	import com.angrymole.mozzarella.game.Intro;
-	import com.angrymole.mozzarella.game.Pause;
-	import com.angrymole.mozzarella.game.Preview;
-	import com.angrymole.mozzarella.game.Score;
-	import com.angrymole.mozzarella.game.Spawner;
-	import com.angrymole.mozzarella.game.UndoPowerup;
-	import com.angrymole.mozzarella.game.Updater;
+	import com.angrymole.mozzarella.game.core.Configuration;
+	import com.angrymole.mozzarella.game.grid.Grid;
+	import com.angrymole.mozzarella.game.grid.Preview;
+	import com.angrymole.mozzarella.game.powerups.Vacuum;
+	import com.angrymole.mozzarella.game.ui.DropTrigger;
+	import com.angrymole.mozzarella.game.ui.Intro;
+	import com.angrymole.mozzarella.game.ui.Pause;
+	import com.angrymole.mozzarella.game.ui.Score;
+	import com.angrymole.mozzarella.game.ui.Spawner;
+	import com.angrymole.mozzarella.game.ui.VaccumTrigger;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
 	import com.angrymole.mozzarella.util.Bounds;
 	import flash.desktop.NativeApplication;
@@ -38,14 +35,13 @@ package com.angrymole.mozzarella.screens
 	public class Playground extends Screen
 	{
 		private var m_cfg:Configuration;
-		private var m_updater:Updater;
 		private var m_intro:Intro;
 		private var m_grid:Grid;
 		private var m_spawner:Spawner;
 		private var m_score:Score;
 		private var m_pause:Pause;
 		private var m_preview:Preview;
-		private var m_undo:UndoPowerup;
+		private var m_vacuum:VaccumTrigger;
 		private var m_drop:DropTrigger;
 		
 		public function Playground()
@@ -53,16 +49,13 @@ package com.angrymole.mozzarella.screens
 			// FIXME: detect current level and load xml
 			m_cfg = new Configuration(new XML());
 			
-			m_updater = new Updater();
-			addChild(m_updater);
-			
 			m_grid = new Grid(m_cfg);
 			m_grid.x = 160;
 			m_grid.y = 60;
 			
 			m_preview = new Preview(m_grid);
-			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.onGroupsBroken);
-			m_grid.addEventListener(PowerupEvent.UNDO_MOVE, m_preview.onUndoMove);
+			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.updateAll);
+			m_grid.addEventListener(PowerupEvent.VACUUM, m_preview.updateAll);
 			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 160;
@@ -92,17 +85,17 @@ package com.angrymole.mozzarella.screens
 			m_pause.x = 850;
 			m_pause.y = 10;
 			
-			m_undo = new UndoPowerup(m_score);
-			m_undo.x = 870;
-			m_undo.y = 410;
-			m_undo.addEventListener(PowerupEvent.UNDO_MOVE, m_grid.onUndoMove);
+			m_vacuum = new VaccumTrigger(m_score);
+			m_vacuum.x = 870;
+			m_vacuum.y = 410;
+			m_vacuum.addEventListener(PowerupEvent.VACUUM, m_grid.onVacuum);
 			
 			addChild(m_spawner);
 			addChild(m_grid);
 			addChild(m_drop);
 			addChild(m_preview);
 			addChild(m_score);
-			addChild(m_undo);
+			addChild(m_vacuum);
 			addChild(m_intro);
 			addChild(m_pause);
 			

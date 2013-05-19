@@ -1,6 +1,6 @@
 package com.angrymole.mozzarella.events
 {
-	import com.angrymole.mozzarella.game.Group;
+	import com.angrymole.mozzarella.game.grid.Group;
 	
 	/**
 	 * Used to notify piece related events

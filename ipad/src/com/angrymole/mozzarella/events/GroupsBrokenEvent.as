@@ -1,6 +1,5 @@
 package com.angrymole.mozzarella.events
 {
-	import com.angrymole.mozzarella.game.Group;
 	import flash.geom.Point;
 	
 	/**
