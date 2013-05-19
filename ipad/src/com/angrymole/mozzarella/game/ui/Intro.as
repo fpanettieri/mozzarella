@@ -34,13 +34,13 @@ package com.angrymole.mozzarella.game.ui
 			addChild(m_text);
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 0.5,
+				delay: 0,
 				scaleX: 1,
 				scaleY: 1
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 1,
+				delay: 0.5,
 				scaleX: 0.2,
 				scaleY: 0.2,
 				onComplete: setText,
@@ -48,13 +48,13 @@ package com.angrymole.mozzarella.game.ui
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 1.5,
+				delay: 1,
 				scaleX: 1,
 				scaleY: 1
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 2,
+				delay: 1.5,
 				scaleX: 0.2,
 				scaleY: 0.2,
 				onComplete: setText,
@@ -62,13 +62,13 @@ package com.angrymole.mozzarella.game.ui
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 2.5,
+				delay: 2,
 				scaleX: 1,
 				scaleY: 1
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 3,
+				delay: 2.5,
 				scaleX: 0.2,
 				scaleY: 0.2,
 				onComplete: setText,
@@ -76,13 +76,13 @@ package com.angrymole.mozzarella.game.ui
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 3.5,
+				delay: 3,
 				scaleX: 1,
 				scaleY: 1
 			});
 			
 			Starling.juggler.tween(m_text, 0.5, {
-				delay: 4,
+				delay: 3.5,
 				scaleX: 0,
 				scaleY: 0,
 				onComplete: dispatchEvent,

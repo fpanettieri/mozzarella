@@ -41,8 +41,8 @@ package com.angrymole.mozzarella.game.piece
 			m_groups = new Vector.<Group>();
 			m_iteration = _iteration;
 			
-			m_placeholder = new Placeholder(_size, _size, m_type.color);
-			addChild(m_placeholder);
+			m_asset = PieceAssetFactory.getAsset(_type);
+			addChild(m_asset.asset);
 		}
 		
 		public function intro():void
@@ -212,6 +212,11 @@ package com.angrymole.mozzarella.game.piece
 		public function get grouped():Boolean 
 		{
 			return m_groups.length > 0;
+		}
+		
+		public function get asset():PieceAsset 
+		{
+			return m_asset;
 		}
 		
 		public function toString():String

@@ -33,8 +33,9 @@ package com.angrymole.mozzarella.game.grid
 				m_pieces[i].visible = false;
 			}
 
-			m_placeholder = new Placeholder(_tl.size * 2, _tl.size * 2, _tl.type.color);
-			addChild(m_placeholder);
+			// TODO: create group asset factory
+			//m_placeholder = new Placeholder(_tl.size * 2, _tl.size * 2,0x01000000);
+			//addChild(m_placeholder);
 			
 			x = _tl.x;
 			y = _tl.y;

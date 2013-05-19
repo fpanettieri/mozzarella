@@ -2,7 +2,8 @@ package com.angrymole.mozzarella.game.grid
 {
 	import com.angrymole.mozzarella.constants.Constants;
 	import com.angrymole.mozzarella.game.piece.Piece;
-	import com.angrymole.mozzarella.util.Placeholder;
+	import com.angrymole.mozzarella.game.piece.PieceAsset;
+	import flash.display.DisplayObject;
 	import starling.display.Sprite;
 	
 	/**
@@ -13,14 +14,14 @@ package com.angrymole.mozzarella.game.grid
 	public class PiecePreview extends Sprite
 	{
 		private var m_piece:Piece;
-		private var m_placeholder:Placeholder;
+		private var m_asset:PieceAsset;
 		
 		public function PiecePreview(_piece:Piece) 
 		{
 			m_piece = _piece;
-			m_placeholder = new Placeholder(_piece.size, _piece.size, _piece.type.color);
-			m_placeholder.alpha = 0.5;
-			addChild(m_placeholder);
+			m_asset = m_piece.asset.clone();
+			m_asset.alpha = 0.5;
+			addChild(m_asset.asset);
 		}
 		
 		public function update(_grid:Grid):void

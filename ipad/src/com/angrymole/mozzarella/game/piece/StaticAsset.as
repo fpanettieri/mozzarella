@@ -1,19 +1,17 @@
 package com.angrymole.mozzarella.game.piece 
 {
+	import starling.display.Image;
+	import starling.textures.Texture;
 	/**
 	 * ...
 	 * @author Fabio Panettieri
 	 */
 	public class StaticAsset extends PieceAsset
 	{
-		public function StaticAsset() 
+		public function StaticAsset(_type:PieceType, _texture:Texture)
 		{
-			
-		}
-		
-		public function get asset():Sprite
-		{
-			return null;
+			super(_type);
+			m_asset = new Image(_texture);
 		}
 	}
 }

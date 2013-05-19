@@ -13,8 +13,9 @@ package com.angrymole.mozzarella.game.piece
 		private var m_armature:Armature;
 		private var m_loaded:Boolean;
 		
-		public function AnimatedAsset(_resource:Class) extends PieceAsset
+		public function AnimatedAsset(_type:PieceType, _resource:Class) extends PieceAsset
 		{
+			super(_type);
 			m_loaded = false;
 			m_factory = new StarlingFactory();
 			m_factory.addEventListener(Event.COMPLETE, onAssetParsed);
