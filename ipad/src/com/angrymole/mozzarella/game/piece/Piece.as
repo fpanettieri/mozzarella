@@ -3,7 +3,6 @@ package com.angrymole.mozzarella.game.piece
 	import com.angrymole.mozzarella.constants.Constants;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
-	import com.angrymole.mozzarella.game.grid.Group;
 	import com.angrymole.mozzarella.util.Placeholder;
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
@@ -27,8 +26,6 @@ package com.angrymole.mozzarella.game.piece
 		private var m_groups:Vector.<Group>;
 		private var m_iteration:int;
 		private var m_tween:Tween;
-		
-		private var m_placeholder:Placeholder;
 		
 		public function Piece(_id:int, _row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
 		{

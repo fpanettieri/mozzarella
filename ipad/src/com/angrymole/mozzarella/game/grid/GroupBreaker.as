@@ -3,6 +3,7 @@ package com.angrymole.mozzarella.game.grid
 	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
+	import com.angrymole.mozzarella.game.piece.Group;
 	import com.angrymole.mozzarella.game.piece.Piece;
 	import com.angrymole.mozzarella.game.piece.PieceType;
 	import flash.geom.Point;

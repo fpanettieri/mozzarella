@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.game.grid 
 {
 	import com.angrymole.mozzarella.events.GroupEvent;
+	import com.angrymole.mozzarella.game.piece.Group;
 	import com.angrymole.mozzarella.game.piece.Piece;
 	
 	import starling.display.Sprite;

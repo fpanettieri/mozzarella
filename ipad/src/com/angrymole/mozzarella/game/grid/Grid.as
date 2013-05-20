@@ -7,6 +7,7 @@ package com.angrymole.mozzarella.game.grid
 	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
+	import com.angrymole.mozzarella.game.piece.Group;
 	import com.angrymole.mozzarella.game.piece.Piece;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
 	import com.angrymole.mozzarella.gestures.Tap;

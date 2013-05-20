@@ -1,4 +1,4 @@
-package com.angrymole.mozzarella.game.grid 
+package com.angrymole.mozzarella.game.piece 
 {
 	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.game.piece.Piece;
@@ -16,7 +16,7 @@ package com.angrymole.mozzarella.game.grid
 	public class Group extends Sprite 
 	{
 		private var m_pieces:Vector.<Piece>;
-		private var m_placeholder:Placeholder;
+		private var m_asset:PieceAsset;
 		
 		// aux var used to detect the group touch
 		private var m_touch:Touch;
@@ -32,10 +32,9 @@ package com.angrymole.mozzarella.game.grid
 				// TODO: fade out pieces?
 				m_pieces[i].visible = false;
 			}
-
-			// TODO: create group asset factory
-			//m_placeholder = new Placeholder(_tl.size * 2, _tl.size * 2,0x01000000);
-			//addChild(m_placeholder);
+			
+			m_asset = GroupAssetFactory.getAsset(_tl.type);
+			addChild(m_asset.asset);
 			
 			x = _tl.x;
 			y = _tl.y;
