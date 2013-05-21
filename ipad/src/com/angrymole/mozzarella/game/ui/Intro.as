@@ -24,70 +24,18 @@ package com.angrymole.mozzarella.game.ui
 		{
 			dispatchEvent(new IntroEvent(IntroEvent.INTRO_STARTED));
 			
-			m_text = new TextField(400, 400, "3", "Verdana", 80);
+			m_text = new TextField(400, 400, ". . .", "Verdana", 64, 0xffD0D0D0);
 			m_text.x = (1024 - 400) / 2;
 			m_text.y = (768 - 400) / 2;
 			m_text.hAlign = HAlign.CENTER;
 			m_text.vAlign = VAlign.CENTER;
-			m_text.scaleX = 0
-			m_text.scaleX = 0;
 			addChild(m_text);
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 0,
-				scaleX: 1,
-				scaleY: 1
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 0.5,
-				scaleX: 0.2,
-				scaleY: 0.2,
-				onComplete: setText,
-				onCompleteArgs: ["2"]
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 1,
-				scaleX: 1,
-				scaleY: 1
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 1.5,
-				scaleX: 0.2,
-				scaleY: 0.2,
-				onComplete: setText,
-				onCompleteArgs: ["1"]
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 2,
-				scaleX: 1,
-				scaleY: 1
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 2.5,
-				scaleX: 0.2,
-				scaleY: 0.2,
-				onComplete: setText,
-				onCompleteArgs: ["GO!"]
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 3,
-				scaleX: 1,
-				scaleY: 1
-			});
-			
-			Starling.juggler.tween(m_text, 0.5, {
-				delay: 3.5,
-				scaleX: 0,
-				scaleY: 0,
-				onComplete: dispatchEvent,
-				onCompleteArgs: [new IntroEvent(IntroEvent.INTRO_COMPLETE)]
-			});
+
+			Starling.juggler.delayCall(setText, 1, "o . .");
+			Starling.juggler.delayCall(setText, 2, "o o .");
+			Starling.juggler.delayCall(setText, 3, "o o o");
+			Starling.juggler.delayCall(dispatchEvent, 4, new IntroEvent(IntroEvent.INTRO_COMPLETE));
+			Starling.juggler.delayCall(removeChild, 4, m_text);
 		}
 		
 		private function setText(_text:String):void
