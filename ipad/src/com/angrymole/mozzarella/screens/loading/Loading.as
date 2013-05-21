@@ -2,7 +2,6 @@ package com.angrymole.mozzarella.screens.loading
 {
 	import com.angrymole.dragonbones.StarlingArmature;
 	import com.angrymole.mozzarella.screens.Screen;
-	import com.angrymole.starling.resources.Resource;
 	import dragonBones.animation.WorldClock;
 	import dragonBones.Armature;
 	import dragonBones.factorys.StarlingFactory;
@@ -37,8 +36,8 @@ package com.angrymole.mozzarella.screens.loading
 			m_progress = 0;
         }
 		
-		public function load(_assets:Vector.<Resource>, _onLoad:Function):void
-		{
+		//public function load(_assets:Vector.<Resource>, _onLoad:Function):void
+		//{
 			//if(m_resources.validate
 			// TODO: implement this!!!
 			// check if there are new assets that need to be loaded
@@ -47,7 +46,7 @@ package com.angrymole.mozzarella.screens.loading
 			// unload and free unused assets to release resources
 			// load new assets displaying the loading screen with percentage
 			// when all assets are loaded and parsed, fade out the loading screen
-		}
+		//}
          
         private function onDataParsed(_e:Event):void
         {

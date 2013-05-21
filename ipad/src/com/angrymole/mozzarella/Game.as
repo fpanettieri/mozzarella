@@ -2,7 +2,7 @@ package com.angrymole.mozzarella
 {
 	import com.angrymole.mozzarella.events.ScreenEvent;
 	import com.angrymole.mozzarella.game.core.Assets;
-	import com.angrymole.mozzarella.screens.Playground;
+	import com.angrymole.mozzarella.screens.loading.Loading;
 	import com.angrymole.mozzarella.screens.Screen;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -17,6 +17,7 @@ package com.angrymole.mozzarella
 	public class Game extends Sprite
 	{
 		private var m_assets:Assets;
+		private var m_loading:Loading;
 		private var m_screens:Vector.<Screen>;
 		
 		public static function get current():Game
@@ -27,8 +28,11 @@ package com.angrymole.mozzarella
 		public function Game()
 		{
 			m_screens = new Vector.<Screen>();
-			m_assets = new Assets();
-			m_assets.load(onProgress, onComplete);
+			m_loading = new Loading();
+			addScreen(m_loading);
+			
+			//m_assets = new Assets();
+			//m_assets.load(onProgress, onComplete);
 			// TODO: add loading screen
 		}
 		
@@ -39,7 +43,7 @@ package com.angrymole.mozzarella
 		
 		private function onComplete():void
 		{
-			addScreen(new Playground());
+			//addScreen(new Playground());
 		}
 		
 		public function addScreen(_screen:Screen):void
