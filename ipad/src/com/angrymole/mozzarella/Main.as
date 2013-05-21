@@ -1,6 +1,5 @@
 package com.angrymole.mozzarella
 {
-	import com.angrymole.mozzarella.screens.Playground;
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
 	import flash.display.Sprite;
@@ -12,7 +11,8 @@ package com.angrymole.mozzarella
 	import starling.core.Starling;
 	
 	/**
-	 * ...
+	 * Initializes starling and create the game
+	 * Handles the loss of context, storing the current game state
 	 * @author Fabio R. Panettieri
 	 */
 	[SWF(width="1024", height="768", frameRate="30", backgroundColor="#2B2E36")]
@@ -34,7 +34,7 @@ package com.angrymole.mozzarella
 		
 		private function deactivate(e:Event):void 
 		{
-			// TODO: Store current state
+			// TODO: Store game state
 			//NativeApplication.nativeApplication.exit();
 		}
 		

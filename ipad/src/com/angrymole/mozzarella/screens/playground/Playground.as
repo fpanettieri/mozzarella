@@ -1,4 +1,4 @@
-package com.angrymole.mozzarella.screens
+package com.angrymole.mozzarella.screens.playground
 {
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
