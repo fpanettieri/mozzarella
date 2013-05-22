@@ -8,11 +8,16 @@ package com.angrymole.mozzarella.screens
 	 */
 	public class Screen extends Sprite
 	{
+		protected var m_assets:ScreenAssets;
 		
-		public function Screen()
+		public function get assets():ScreenAssets
 		{
-		
+			return m_assets;
 		}
-	
+		
+		public function onLoad():void
+		{
+			throw new Error("Screens must implement this method to instantiate objects and prepare the screen");
+		}
 	}
 }

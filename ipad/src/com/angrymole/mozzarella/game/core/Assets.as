@@ -1,6 +1,8 @@
 package com.angrymole.mozzarella.game.core 
 {
+	import com.angrymole.mozzarella.screens.ScreenAssets;
 	import flash.filesystem.File;
+	import starling.textures.Texture;
 	import starling.utils.AssetManager;
 	
 	/**
@@ -9,41 +11,29 @@ package com.angrymole.mozzarella.game.core
 	 */
 	public class Assets 
 	{
-		private var m_appDir:File;
-		private var m_manager:AssetManager;
-		
 		private var m_onProgress:Function;
 		private var m_onComplete:Function;
 		
 		public function Assets() 
 		{
-			m_appDir = File.applicationDirectory;
-			
-			m_manager = new AssetManager();
-			m_manager.verbose = true;
 		}
 		
-		public function load(_onProgress:Function, _onComplete:Function):void
+		public function load(_assets:ScreenAssets, _onProgress:Function, _onComplete:Function):void
 		{
-			m_onProgress = _onProgress;
-			m_onComplete = _onComplete;
+			// load missing assets
 			
-			m_manager.enqueue(m_appDir.resolvePath("assets"));
-			m_manager.loadQueue(onProgress);
 		}
 		
-		public function get manager():AssetManager 
+		public function dispose(_assets:ScreenAssets):void
 		{
-			return m_manager;
+			// remove unused assets
+			// load missing assets
+			
 		}
 		
-		private function onProgress(_progress:Number):void
+		public function getTexture(_name:String):Texture
 		{
-			trace("Loading assets, progress:", _progress);
-			m_onProgress(_progress);
-			
-			if (_progress < 1) { return; }
-			m_onComplete();
+			return null;
 		}
 	}
 }

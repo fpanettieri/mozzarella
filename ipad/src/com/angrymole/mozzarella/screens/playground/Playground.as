@@ -17,6 +17,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.ui.Spawner;
 	import com.angrymole.mozzarella.game.ui.VaccumTrigger;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
+	import com.angrymole.mozzarella.screens.Screen;
 	import com.angrymole.mozzarella.util.Bounds;
 	import flash.desktop.NativeApplication;
 	import flash.geom.Point;
@@ -49,6 +50,12 @@ package com.angrymole.mozzarella.screens.playground
 			// FIXME: detect current level and load xml
 			m_cfg = new Configuration(new XML());
 			
+			// TODO: implement assets list an loading
+			//m_assets = PlaygroundAssets();
+		}
+		
+		override public function onLoad():void
+		{
 			m_grid = new Grid(m_cfg);
 			m_grid.x = 160;
 			m_grid.y = 60;

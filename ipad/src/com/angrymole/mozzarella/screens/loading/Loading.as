@@ -1,6 +1,8 @@
 package com.angrymole.mozzarella.screens.loading 
 {
 	import com.angrymole.dragonbones.StarlingArmature;
+	import com.angrymole.mozzarella.events.ScreenEvent;
+	import com.angrymole.mozzarella.Game;
 	import com.angrymole.mozzarella.screens.Screen;
 	import dragonBones.animation.WorldClock;
 	import dragonBones.Armature;
@@ -8,6 +10,9 @@ package com.angrymole.mozzarella.screens.loading
 	import flash.events.Event;
 	import starling.core.Starling;
 	import starling.display.Sprite;
+	import starling.text.TextField;
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
 	
 	/**
 	 * Loading screen, the only screen using embeded assets
@@ -23,32 +28,20 @@ package com.angrymole.mozzarella.screens.loading
 		private var m_factory:StarlingFactory;
 		private var m_armature:StarlingArmature;
 		private var m_sprite:Sprite;
+		private var m_text:TextField;
 		
 		private var m_progress:Number;
-		
-		// TODO: add a resources 
-		
+
 		public function Loading() 
 		{
 			m_factory = new StarlingFactory();
 			m_factory.addEventListener(Event.COMPLETE, onDataParsed);
             m_factory.parseData(new LoadingResources());
 			m_progress = 0;
+			alpha = 0;
         }
 		
-		//public function load(_assets:Vector.<Resource>, _onLoad:Function):void
-		//{
-			//if(m_resources.validate
-			// TODO: implement this!!!
-			// check if there are new assets that need to be loaded
-			// if not, just call the callback (_onLoad);
-			
-			// unload and free unused assets to release resources
-			// load new assets displaying the loading screen with percentage
-			// when all assets are loaded and parsed, fade out the loading screen
-		//}
-         
-        private function onDataParsed(_e:Event):void
+		private function onDataParsed(_e:Event):void
         {
 			m_armature = new StarlingArmature(m_factory.buildArmature("peluca"));
 			m_sprite = m_armature.display as Sprite;
@@ -57,10 +50,39 @@ package com.angrymole.mozzarella.screens.loading
 			m_sprite.scaleX = 0.3;
 			m_sprite.scaleY = 0.3;
 			addChild(m_sprite);
-
+			
+			m_text = new TextField(128, 40, "0 %");
+			m_text.x = 750;
+			m_text.y = 500;
+			m_text.hAlign = HAlign.CENTER;
+			m_text.vAlign = VAlign.CENTER;
+			addChild(m_text);
+			dispatchEvent(new ScreenEvent(ScreenEvent.SCREEN_LOADED, this));
+		}
+		
+		public function onProgress(_progress:Number):void
+		{
+			m_progress = _progress * 100;
+			m_text.text = m_progress.toFixed(1) + " %";
+		}
+		
+		public function fadeIn():void
+		{
+			Starling.juggler.tween(this, 0.5, { alpha: 1 } );
 			Starling.juggler.add(m_armature);
 			m_armature.animation.gotoAndPlay("loop", -1, -1, true);
 		}
+		
+		public function fadeOut():void
+		{
+			Starling.juggler.tween(this, 0.5, { alpha: 0, onComplete: onFadeOutComplete } );
+			Starling.juggler.remove(m_armature);
+		}
+		
+		private function onFadeOutComplete():void
+		{
+			m_armature.animation.stop();
+			dispatchEvent( new ScreenEvent(ScreenEvent.REMOVE_SCREEN, this) );
+		}
 	}
-
 }

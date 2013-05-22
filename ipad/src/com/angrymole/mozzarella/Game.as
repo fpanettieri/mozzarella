@@ -3,6 +3,7 @@ package com.angrymole.mozzarella
 	import com.angrymole.mozzarella.events.ScreenEvent;
 	import com.angrymole.mozzarella.game.core.Assets;
 	import com.angrymole.mozzarella.screens.loading.Loading;
+	import com.angrymole.mozzarella.screens.playground.Playground;
 	import com.angrymole.mozzarella.screens.Screen;
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -27,23 +28,30 @@ package com.angrymole.mozzarella
 		
 		public function Game()
 		{
+			m_assets = new Assets();
 			m_screens = new Vector.<Screen>();
 			m_loading = new Loading();
+			m_loading.addEventListener(ScreenEvent.SCREEN_LOADED, onLoadingLoaded);
+		}
+		
+		private function onLoadingLoaded(_event:ScreenEvent):void
+		{
+			m_loading.removeEventListener(ScreenEvent.SCREEN_LOADED, onLoadingLoaded);
+			loadScreen(new Playground());
+		}
+		
+		public function loadScreen(_screen:Screen):void
+		{
+			addScreen(_screen);
 			addScreen(m_loading);
-			
-			//m_assets = new Assets();
-			//m_assets.load(onProgress, onComplete);
-			// TODO: add loading screen
+			m_loading.fadeIn();
+			m_assets.load(_screen.assets, m_loading.onProgress, onScreenLoaded);
 		}
 		
-		private function onProgress(_progress:Number):void
+		private function onScreenLoaded():void
 		{
-			// TODO: update loading screen progress
-		}
-		
-		private function onComplete():void
-		{
-			//addScreen(new Playground());
+			m_screens[m_screens.length - 2].onLoad();
+			m_loading.fadeOut();
 		}
 		
 		public function addScreen(_screen:Screen):void
@@ -78,14 +86,19 @@ package com.angrymole.mozzarella
 			}
 		}
 		
+		public function bringToFront(_screen:Screen):void
+		{
+			setChildIndex(_screen, numChildren - 1);
+		}
+		
 		public function topScreen():Screen
 		{
 			return m_screens[m_screens.length - 1];
 		}
 		
-		public function get assets():AssetManager
+		public function get assets():Assets
 		{
-			return m_assets.manager;
+			return m_assets;
 		}
 		
 		private function addListeners(_screen:Screen):void
