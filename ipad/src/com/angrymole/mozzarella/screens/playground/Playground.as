@@ -57,6 +57,12 @@ package com.angrymole.mozzarella.screens.playground
 			m_assets.push(new TextureAsset("peluca_03", "/assets/peluca_03.png"));
 			m_assets.push(new TextureAsset("peluca_05", "/assets/peluca_05.png"));
 			m_assets.push(new TextureAsset("peluca_06", "/assets/peluca_06.png"));
+			
+			m_assets.push(new TextureAsset("pelucon_01", "/assets/pelucon_01.png"));
+			m_assets.push(new TextureAsset("pelucon_02", "/assets/pelucon_02.png"));
+			m_assets.push(new TextureAsset("pelucon_03", "/assets/pelucon_03.png"));
+			m_assets.push(new TextureAsset("pelucon_05", "/assets/pelucon_05.png"));
+			m_assets.push(new TextureAsset("pelucon_06", "/assets/pelucon_06.png"));
 		}
 		
 		override public function onLoad():void
