@@ -1,9 +1,6 @@
 package com.angrymole.assets 
 {
-	import flash.display.Bitmap;
-	import flash.media.Sound;
 	import flash.utils.ByteArray;
-	import starling.textures.Texture;
 	
 	/**
 	 * ...

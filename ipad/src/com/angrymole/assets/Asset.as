@@ -1,7 +1,7 @@
 package com.angrymole.assets 
 {
-	import flash.events.EventDispatcher;
 	import flash.utils.ByteArray;
+	import starling.events.EventDispatcher;
 	
 	/**
 	 * Used to identify an external asset that can be loaded ingame
@@ -10,7 +10,7 @@ package com.angrymole.assets
 	 */
 	public class Asset extends EventDispatcher
 	{
-		private var m_id:String;
+		protected var m_id:String;
 		private var m_path:String;
 		
 		public function Asset(_id:String, _path:String)
@@ -36,7 +36,7 @@ package com.angrymole.assets
 			return m_path;
 		}
 		
-		override public function toString():String
+		public function toString():String
 		{
 			return "[Asset path:" + m_path + "]";
 		}

@@ -2,7 +2,7 @@ package com.angrymole.assets
 {
 	import com.angrymole.dragonbones.StarlingArmature;
 	import dragonBones.factorys.StarlingFactory;
-	import flash.events.Event;
+
 	import flash.utils.ByteArray;
 	
 	/**

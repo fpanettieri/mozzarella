@@ -1,17 +1,13 @@
 package com.angrymole.assets 
 {
-	import com.angrymole.mozzarella.screens.ScreenAssets;
+	import com.angrymole.mozzarella.Game;
 	import flash.filesystem.File;
 	import flash.net.URLLoader;
 	import flash.utils.Dictionary;
-	import starling.textures.Texture;
-	import starling.utils.AssetManager;
 	
 	/**
 	 * Ensures only one copy of the resource exists in memory at the given time.
 	 * Manage lifetime of resources loading and unloading them as needed.
-	 * 
-	 * 
 	 * 
 	 * @author Fabio Panettieri
 	 */
@@ -19,6 +15,11 @@ package com.angrymole.assets
 	{
 		private var m_assets:Dictionary;
 		private var m_loader:AssetLoader;
+		
+		public static function get i():Assets
+		{
+			return Game.current.assets;
+		}
 		
 		public function Assets()
 		{
@@ -40,7 +41,7 @@ package com.angrymole.assets
 			}
 		}
 		
-		public function getAsset(_name:String):Texture
+		public function getAsset(_name:String):Asset
 		{
 			return m_assets[_name];
 		}

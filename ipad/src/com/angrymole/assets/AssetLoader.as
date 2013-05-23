@@ -1,13 +1,13 @@
 package com.angrymole.assets 
 {
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
+	import starling.events.EventDispatcher;
 	
 	/**
 	 * Used to queue and load external assets that have not been loaded or initialized yet
@@ -48,6 +48,15 @@ package com.angrymole.assets
 			m_index = 0;
 			m_progress = 0;
 			
+			loadNextAsset();
+		}
+		
+		private function loadNextAsset():void
+		{
+			if (m_queue[m_index] is TextureAtlasAsset) {
+				m_queue.splice(m_index, 0, new XmlAsset(m_queue[m_index].id + "Xml", m_queue[m_index]["xmlPath"]));
+			}
+			
 			m_loader.load( new URLRequest(m_queue[m_index].path) );
 		}
 		
@@ -60,21 +69,20 @@ package com.angrymole.assets
 		private function onAssetInitialized(_event:AssetEvent):void
 		{
 			m_queue[m_index].removeEventListener(AssetEvent.LOADED, onAssetInitialized);
+			dispatchEvent(_event);
 			
 			if ( ++m_index < m_queue.length) {
-				m_loader.load( new URLRequest(m_queue[m_index].path) );
+				loadNextAsset();
 				return;
 			}
 			
 			m_onComplete();
 			m_loading = false;
-			
 		}
 		
 		private function onLoadProgress(_event:ProgressEvent):void
 		{
 			m_progress = (m_index + m_loader.bytesLoaded / m_loader.bytesTotal) / m_queue.length;
-			trace("progress:", m_progress);
 			m_onProgress(m_progress);
 		}
 		

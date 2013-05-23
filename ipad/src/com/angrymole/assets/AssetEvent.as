@@ -1,6 +1,6 @@
 package com.angrymole.assets 
 {
-	import flash.events.Event;
+	import starling.events.Event;
 	
 	/**
 	 * Used to notify asset loading evetns

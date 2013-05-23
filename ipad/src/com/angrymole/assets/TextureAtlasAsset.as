@@ -5,20 +5,23 @@ package com.angrymole.assets
 	import flash.events.Event;
 	import flash.utils.ByteArray;
 	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 
-	
 	/**
 	 * ...
 	 * @author Fabio Panettieri
 	 */
-	public class TextureAsset extends Asset
+	public class TextureAtlasAsset extends Asset
 	{
+		private var m_xmlPath:String;
 		private var m_loader:Loader;
-		private var m_texture:Texture;
+		private var m_atlas:TextureAtlas;
 		
-		public function TextureAsset(_id:String, _path:String)
+		public function TextureAtlasAsset(_id:String, _path:String, _xml:String)
 		{
 			super(_id, _path);
+			m_xmlPath = _xml;
+
 			m_loader = new Loader();
 			m_loader.contentLoaderInfo.addEventListener( Event.COMPLETE, onByteArrayLoaded );
 		}
@@ -30,7 +33,10 @@ package com.angrymole.assets
 		
 		private function onByteArrayLoaded(_event:Event):void
 		{
-			m_texture = Texture.fromBitmap(m_loader.content as Bitmap);
+			var texture:Texture = Texture.fromBitmap(m_loader.content as Bitmap);
+			var xml:XML = (Assets.i.getAsset(m_id + "Xml") as XmlAsset).xml;
+			
+			m_atlas = new TextureAtlas(texture, xml);
 			m_loader.unload();
 			dispatchEvent(new AssetEvent(AssetEvent.LOADED, this));
 		}
@@ -38,12 +44,17 @@ package com.angrymole.assets
 		override public function unload():void
 		{
 			m_loader.removeEventListener( Event.COMPLETE, onByteArrayLoaded );
-			m_texture.dispose();
+			m_atlas.dispose();
 		}
 		
-		public function get texture():Texture 
+		public function get atlas():TextureAtlas 
 		{
-			return m_texture;
+			return m_atlas;
+		}
+		
+		public function get xmlPath():String 
+		{
+			return m_xmlPath;
 		}
 	}
 }
