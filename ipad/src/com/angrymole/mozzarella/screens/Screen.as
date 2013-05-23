@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.screens
 {
+	import com.angrymole.assets.Asset;
 	import starling.display.Sprite;
 	
 	/**
@@ -8,9 +9,9 @@ package com.angrymole.mozzarella.screens
 	 */
 	public class Screen extends Sprite
 	{
-		protected var m_assets:ScreenAssets;
+		protected var m_assets:Vector.<Asset>;
 		
-		public function get assets():ScreenAssets
+		public function get assets():Vector.<Asset>
 		{
 			return m_assets;
 		}

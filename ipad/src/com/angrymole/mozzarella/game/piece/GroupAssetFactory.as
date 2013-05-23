@@ -1,5 +1,6 @@
 package com.angrymole.mozzarella.game.piece 
 {
+	import com.angrymole.assets.TextureAsset;
 	import com.angrymole.mozzarella.Game;
 	import com.angrymole.mozzarella.game.piece.PieceAsset;
 	import com.angrymole.mozzarella.game.piece.PieceType;
@@ -25,7 +26,8 @@ package com.angrymole.mozzarella.game.piece
 		
 		private static function staticAsset(_type:PieceType, _texture:String):StaticAsset
 		{
-			return new StaticAsset(_type, Game.current.assets.getTexture(_texture))
+			var asset:TextureAsset = Game.current.assets.getAsset(_texture) as TextureAsset;
+			return new StaticAsset(_type, asset.texture);
 		}
 	}
 

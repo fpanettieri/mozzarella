@@ -21,7 +21,7 @@ package com.angrymole.mozzarella.game.piece
 		
 		private static function staticAsset(_type:PieceType, _texture:String):StaticAsset
 		{
-			return new StaticAsset(_type, Game.current.assets.getTexture(_texture))
+			return new StaticAsset(_type, Game.current.assets.getAsset(_texture))
 		}
 	}
 

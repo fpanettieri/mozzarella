@@ -1,7 +1,7 @@
 package com.angrymole.mozzarella 
 {
+	import com.angrymole.assets.Assets;
 	import com.angrymole.mozzarella.events.ScreenEvent;
-	import com.angrymole.mozzarella.game.core.Assets;
 	import com.angrymole.mozzarella.screens.loading.Loading;
 	import com.angrymole.mozzarella.screens.playground.Playground;
 	import com.angrymole.mozzarella.screens.Screen;
