@@ -29,10 +29,7 @@ package com.angrymole.assets
 			throw new Error("Each asset type must implement custom initialization when loaded");
 		}
 		
-		public function unload():void
-		{
-			throw new Error("Each asset type must implement custom clean up when unloaded");
-		}
+		public function unload():void { }
 		
 		public function get path():String 
 		{

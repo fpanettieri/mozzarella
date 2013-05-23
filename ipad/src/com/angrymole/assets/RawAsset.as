@@ -24,11 +24,6 @@ package com.angrymole.assets
 			dispatchEvent(new AssetEvent(AssetEvent.LOADED, this));
 		}
 		
-		override public function unload():void
-		{
-			
-		}
-		
 		public function get bytes():ByteArray 
 		{
 			return m_bytes;
