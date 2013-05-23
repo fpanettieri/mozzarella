@@ -2,7 +2,6 @@ package com.angrymole.mozzarella.screens.playground
 {
 	import com.angrymole.assets.Asset;
 	import com.angrymole.assets.TextureAsset;
-	import com.angrymole.assets.TextureAtlasAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
@@ -53,14 +52,11 @@ package com.angrymole.mozzarella.screens.playground
 			// FIXME: detect current level and load xml
 			m_cfg = new Configuration(new XML());
 			
-			// TODO: implement assets list an loading
-			m_assets = new Vector.<Asset>();
 			m_assets.push(new TextureAsset("peluca_01", "/assets/peluca_01.png"));
 			m_assets.push(new TextureAsset("peluca_02", "/assets/peluca_02.png"));
 			m_assets.push(new TextureAsset("peluca_03", "/assets/peluca_03.png"));
 			m_assets.push(new TextureAsset("peluca_05", "/assets/peluca_05.png"));
 			m_assets.push(new TextureAsset("peluca_06", "/assets/peluca_06.png"));
-			//m_assets.push(new TextureAtlasAsset("peluca_06", "/assets/peluca_06.png", "/assets/peluca_06.xml"));
 		}
 		
 		override public function onLoad():void

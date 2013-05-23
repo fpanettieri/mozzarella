@@ -46,6 +46,11 @@ package com.angrymole.assets
 			return m_assets[_name];
 		}
 		
+		public function contains(_name:String):Boolean
+		{
+			return _name in m_assets;
+		}
+		
 		private function onAssetLoaded(_event:AssetEvent):void
 		{
 			m_assets[_event.asset.id] = _event.asset;

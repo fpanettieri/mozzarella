@@ -53,11 +53,20 @@ package com.angrymole.assets
 		
 		private function loadNextAsset():void
 		{
+			// special case: atlas need to load its xml first
 			if (m_queue[m_index] is TextureAtlasAsset) {
 				m_queue.splice(m_index, 0, new XmlAsset(m_queue[m_index].id + "Xml", m_queue[m_index]["xmlPath"]));
 			}
 			
-			m_loader.load( new URLRequest(m_queue[m_index].path) );
+			// skip duplicated assets
+			while (Assets.i.contains(m_queue[m_index].id) ){ m_index++; }
+			
+			if (m_index >= m_queue.length) {
+				notifyLoadComplete();
+				
+			} else {
+				m_loader.load( new URLRequest(m_queue[m_index].path) );
+			}
 		}
 		
 		private function onLoadComplete(_event:Event):void
@@ -76,8 +85,7 @@ package com.angrymole.assets
 				return;
 			}
 			
-			m_onComplete();
-			m_loading = false;
+			notifyLoadComplete();
 		}
 		
 		private function onLoadProgress(_event:ProgressEvent):void
@@ -89,6 +97,13 @@ package com.angrymole.assets
 		private function onLoadError(_event:IOErrorEvent):void
 		{
 			throw new Error("Error loading asset:", m_queue[m_index]);
+		}
+		
+		private function notifyLoadComplete():void
+		{
+			m_onProgress(1);
+			m_onComplete();
+			m_loading = false;
 		}
 		
 		public function get progress():Number 

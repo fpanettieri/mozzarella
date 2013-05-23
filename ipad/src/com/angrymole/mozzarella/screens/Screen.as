@@ -9,7 +9,7 @@ package com.angrymole.mozzarella.screens
 	 */
 	public class Screen extends Sprite
 	{
-		protected var m_assets:Vector.<Asset>;
+		protected var m_assets:Vector.<Asset> = new Vector.<Asset>();
 		
 		public function get assets():Vector.<Asset>
 		{

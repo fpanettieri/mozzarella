@@ -23,9 +23,9 @@ package com.angrymole.assets
 			dispatchEvent(new AssetEvent(AssetEvent.LOADED, this));
 		}
 		
-		public function get texture():Texture 
+		public function get sound():Sound 
 		{
-			return m_texture;
+			return m_sound;
 		}
 	}
 }
