@@ -10,17 +10,13 @@ package com.angrymole.mozzarella.game.ui
 	 * ...
 	 * @author ...
 	 */
-	public class VaccumTrigger extends Sprite 
+	public class VacuumTrigger extends Sprite 
 	{
-		// injected dependency
-		private var m_score:Score;
-		
 		private var m_button:Placeholder;
 		private var m_touch:Touch;
 		
-		public function VaccumTrigger(_score:Score) 
+		public function VacuumTrigger() 
 		{
-			m_score = _score;
 			m_button = new Placeholder(88, 88, 0x584B53, "vacuum");
 			addChild(m_button);
 			m_button.addEventListener(TouchEvent.TOUCH, onTouch);
@@ -43,12 +39,6 @@ package com.angrymole.mozzarella.game.ui
 		
 		private function vacuum():void
 		{
-			// TODO: 1000 undo cost, should be configured per level, and increment on consecutive uses
-			// if the playe breaks a new group, the cost resets
-			
-			// TODO: indicate that score is not enough
-			if ( m_score.score < 1000) { return; }
-			m_score.extraScore( -1000);
 			dispatchEvent( new PowerupEvent(PowerupEvent.VACUUM) );
 		}
 	}

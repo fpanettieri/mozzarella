@@ -67,8 +67,7 @@ package com.angrymole.mozzarella.game.ui
 		
 		public function onGroupsBroken(_e:GroupsBrokenEvent):void
 		{
-			m_score += _e.pieces * 10;
-			m_score += _e.groups * 100;
+			m_score += _e.pieces * 15 + _e.groups * 80;
 			update();
 		}
 		

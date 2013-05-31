@@ -33,7 +33,6 @@ package com.angrymole.mozzarella.game.grid
 		private var m_grouper:GroupBuilder;
 		private var m_breaker:GroupBreaker;
 		private var m_dropper:PieceDropper;
-		private var m_vacuum:Vacuum;
 		
 		public function Grid(_cfg:Configuration) 
 		{
@@ -65,8 +64,6 @@ package com.angrymole.mozzarella.game.grid
 			m_breaker.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
 			m_breaker.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, onGroupsBroken);
 			addChild(m_breaker);
-			
-			m_vacuum = new Vacuum(this);
 		}
 		
 		public function onSpawn(_event:SpawnEvent):void
@@ -75,12 +72,6 @@ package com.angrymole.mozzarella.game.grid
 				if (_event.pieces[i] == null) { continue; }
 				addPiece(_event.pieces[i]);
 			}
-		}
-		
-		public function onVacuum(_event:PowerupEvent):void
-		{
-			m_vacuum.vacuum();
-			dispatchEvent(_event);
 		}
 		
 		private function addPiece(_piece:Piece):void

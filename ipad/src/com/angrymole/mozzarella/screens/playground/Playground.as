@@ -17,7 +17,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.ui.Pause;
 	import com.angrymole.mozzarella.game.ui.Score;
 	import com.angrymole.mozzarella.game.ui.Spawner;
-	import com.angrymole.mozzarella.game.ui.VaccumTrigger;
+	import com.angrymole.mozzarella.game.ui.VacuumTrigger;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
 	import com.angrymole.mozzarella.screens.Screen;
 	import com.angrymole.mozzarella.util.Bounds;
@@ -44,7 +44,8 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_score:Score;
 		private var m_pause:Pause;
 		private var m_preview:Preview;
-		private var m_vacuum:VaccumTrigger;
+		private var m_vacuumT:VacuumTrigger;
+		private var m_vacuum:Vacuum;
 		private var m_drop:DropTrigger;
 		
 		public function Playground()
@@ -103,16 +104,20 @@ package com.angrymole.mozzarella.screens.playground
 			m_pause.x = 850;
 			m_pause.y = 10;
 			
-			m_vacuum = new VaccumTrigger(m_score);
-			m_vacuum.x = 870;
-			m_vacuum.y = 410;
-			m_vacuum.addEventListener(PowerupEvent.VACUUM, m_grid.onVacuum);
+			m_vacuum = new Vacuum(m_grid, m_score);
+			m_vacuumT = new VacuumTrigger();
+			m_vacuumT.x = 870;
+			m_vacuumT.y = 410;
+			m_vacuumT.addEventListener(PowerupEvent.VACUUM, m_vacuum.vacuum);
+			
+			
 			
 			addChild(m_spawner);
 			addChild(m_grid);
 			addChild(m_drop);
 			addChild(m_preview);
 			addChild(m_score);
+			addChild(m_vacuumT);
 			addChild(m_vacuum);
 			addChild(m_intro);
 			addChild(m_pause);
