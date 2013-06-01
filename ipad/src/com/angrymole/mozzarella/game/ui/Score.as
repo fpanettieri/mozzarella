@@ -77,6 +77,12 @@ package com.angrymole.mozzarella.game.ui
 			update();
 		}
 		
+		public function reduceScore(_score:Number):void
+		{
+			m_score -= _score;
+			update();
+		}
+		
 		private function update():void
 		{
 			var height:int = Math.floor(584 * m_score / m_maxScore);

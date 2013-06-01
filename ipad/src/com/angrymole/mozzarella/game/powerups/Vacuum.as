@@ -1,11 +1,13 @@
 package com.angrymole.mozzarella.game.powerups 
 {
 	import com.angrymole.mozzarella.events.GroupEvent;
-	import com.angrymole.mozzarella.events.PowerupEvent;
+	import com.angrymole.mozzarella.events.SpawnEvent;
+	import com.angrymole.mozzarella.events.VacuumEvent;
 	import com.angrymole.mozzarella.game.grid.Cell;
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.piece.Piece;
 	import com.angrymole.mozzarella.game.ui.Score;
+	import flash.events.TimerEvent;
 	
 	import starling.display.Sprite;
 	
@@ -29,23 +31,24 @@ package com.angrymole.mozzarella.game.powerups
 			m_score = _score;
 		}
 		
-		public function vacuum(_event:PowerupEvent):void
+		public function vacuum(_event:VacuumEvent):void
 		{
-			// todo: pause the spawner countdown (this might be done listening to the powerupevent maybe, no actually a special
-			// SpawnerEvent.PAUSE_COUNTDOWN
-			// SpawnerEvent.RESUME_COUNTOWN 
-			// sound better
+			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_STARTED));
 			
 			var pieces:Vector.<Piece> = findGarbage();
+			var payable:int = Math.floor(m_score.score / PIECE_COST);
+			var count:int = Math.min( Math.min( payable, MAX_GARBAGE ), pieces.length );
+
+			m_score.reduceScore(count * PIECE_COST);
+			for (var i:int = 0; i < count; i++) {
+				m_grid.removePiece(pieces[i]);
+			}
+			m_grid.dropPieces();
 			
-			// todo: check how many pieces the player can pay for
-			// discount those points
-			// remove pieces from the grid
-			// drop pieces
-			// play vacuum animation
+			// TODO: play vacuum animation
 			// dispatch restore animation
-		
-			trace(pieces.length);
+			
+			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_COMPLETE));
 		}
 		
 		public function findGarbage():Vector.<Piece>
@@ -53,10 +56,10 @@ package com.angrymole.mozzarella.game.powerups
 			var pieces:Vector.<Piece> = new Vector.<Piece>();
 			var cell:Cell;
 			for ( var row:int = m_grid.rows - 1; row > -1; row-- ) {
-				for ( var column:int = 0; column < m_grid.columns - 1; column++ ) {
+				for ( var column:int = 0; column < m_grid.columns; column++ ) {
 					cell = m_grid.cells[row][column];
 					if (cell.empty || cell.piece.grouped || isLocked(cell.piece)) { continue; }
-					pieces.push(cell.piece);
+					pieces.splice(Math.floor(Math.random() * pieces.length), 0, cell.piece);
 				}
 			}
 			return pieces;

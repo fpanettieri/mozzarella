@@ -1,6 +1,6 @@
 package com.angrymole.mozzarella.game.ui 
 {
-	import com.angrymole.mozzarella.events.PowerupEvent;
+	import com.angrymole.mozzarella.events.VacuumEvent;
 	import com.angrymole.mozzarella.util.Placeholder;
 	import starling.display.Sprite;
 	import starling.events.Touch;
@@ -39,7 +39,7 @@ package com.angrymole.mozzarella.game.ui
 		
 		private function vacuum():void
 		{
-			dispatchEvent( new PowerupEvent(PowerupEvent.VACUUM) );
+			dispatchEvent( new VacuumEvent(VacuumEvent.TRIGGER_VACUUM) );
 		}
 	}
 }

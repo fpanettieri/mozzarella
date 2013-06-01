@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.game.grid 
 {
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
+	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.game.piece.Piece;
 
 	
@@ -18,7 +19,7 @@ package com.angrymole.mozzarella.game.grid
 			m_grid = _grid;
 		}
 		
-		public function onGroupsBroken(_event:GroupsBrokenEvent):void
+		public function dropPieces():void
 		{
 			for (var column:int = 0; column < m_grid.columns; column++) {
 				for (var row:int = 0; row < m_grid.rows; row++) {

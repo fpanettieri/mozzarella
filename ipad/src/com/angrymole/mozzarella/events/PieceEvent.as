@@ -8,11 +8,11 @@ package com.angrymole.mozzarella.events
 	 */
 	public class PieceEvent extends MozzarellaEvent
 	{
+		public static const DROP_PIECES:String = "dropPiecesEvent";
 		public static const PIECE_SPAWNED:String = "pieceSpawnedEvent";
 		public static const PIECE_DRAGGED:String = "pieceDraggedEvent";
 		public static const PIECE_DROPPED:String = "pieceDroppedEvent";
 		public static const PIECE_BROKEN:String = "pieceBrokenEvent";
-		public static const PIECE_VANISHED:String = "pieceVanishedEvent";
 		
 		private var m_piece:Piece;
 		

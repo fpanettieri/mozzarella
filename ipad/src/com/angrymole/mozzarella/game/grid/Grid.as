@@ -4,7 +4,6 @@ package com.angrymole.mozzarella.game.grid
 	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
-	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
 	import com.angrymole.mozzarella.game.piece.Group;
@@ -81,7 +80,6 @@ package com.angrymole.mozzarella.game.grid
 			_piece.y = (m_columns - 1) * _piece.size;
 			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
-			_piece.addEventListener(PieceEvent.PIECE_VANISHED, onPieceVanished);
 			
 			var empty:int = 0;
 			for ( var row:int = m_rows - 1; row > -1; row--) {
@@ -100,19 +98,18 @@ package com.angrymole.mozzarella.game.grid
 			}
 		}
 		
-		private function removePiece(_piece:Piece):void
+		public function removePiece(_piece:Piece):void
 		{
 			m_pieces.splice(m_pieces.indexOf(_piece), 1);
 			removeChild(_piece);
 			_piece.removeEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
-			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceVanished);
 			m_cells[_piece.row][_piece.column].piece = null;
 		}
 		
-		private function onPieceDropped(_event:PieceEvent):void
+		public function dropPieces():void
 		{
-			m_grouper.group(_event.piece);
+			m_dropper.dropPieces();
 		}
 		
 		private function onPieceBroken(_event:PieceEvent):void
@@ -120,9 +117,9 @@ package com.angrymole.mozzarella.game.grid
 			removePiece(_event.piece);
 		}
 		
-		private function onPieceVanished(_event:PieceEvent):void
+		private function onPieceDropped(_event:PieceEvent):void
 		{
-			removePiece(_event.piece);
+			m_grouper.group(_event.piece);
 		}
 		
 		private function onGroupCreated(_event:GroupEvent):void
@@ -150,7 +147,7 @@ package com.angrymole.mozzarella.game.grid
 		
 		private function onGroupsBroken(_event:GroupsBrokenEvent):void
 		{
-			m_dropper.onGroupsBroken(_event);
+			m_dropper.dropPieces();
 			dispatchEvent(_event);
 		}
 		

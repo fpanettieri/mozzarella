@@ -1,6 +1,5 @@
 package com.angrymole.mozzarella.game.ui 
 {
-	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.util.Placeholder;
 	import flash.events.MouseEvent;

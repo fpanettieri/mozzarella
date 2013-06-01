@@ -3,7 +3,6 @@ package com.angrymole.mozzarella.game.grid
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.MozzarellaEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
-	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.piece.Piece;
 	import starling.display.Sprite;

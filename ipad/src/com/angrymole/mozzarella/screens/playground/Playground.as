@@ -6,8 +6,8 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
-	import com.angrymole.mozzarella.events.PowerupEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
+	import com.angrymole.mozzarella.events.VacuumEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.grid.Preview;
@@ -74,7 +74,6 @@ package com.angrymole.mozzarella.screens.playground
 			
 			m_preview = new Preview(m_grid);
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.updateAll);
-			m_grid.addEventListener(PowerupEvent.VACUUM, m_preview.updateAll);
 			
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 160;
@@ -105,10 +104,12 @@ package com.angrymole.mozzarella.screens.playground
 			m_pause.y = 10;
 			
 			m_vacuum = new Vacuum(m_grid, m_score);
+			m_vacuum .addEventListener(VacuumEvent.VACUUM_COMPLETE, m_preview.updateAll);
+			
 			m_vacuumT = new VacuumTrigger();
 			m_vacuumT.x = 870;
 			m_vacuumT.y = 410;
-			m_vacuumT.addEventListener(PowerupEvent.VACUUM, m_vacuum.vacuum);
+			m_vacuumT.addEventListener(VacuumEvent.TRIGGER_VACUUM, m_vacuum.vacuum);
 			
 			
 			
