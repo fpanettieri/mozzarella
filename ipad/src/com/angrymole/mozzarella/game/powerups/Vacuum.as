@@ -31,7 +31,7 @@ package com.angrymole.mozzarella.game.powerups
 			m_score = _score;
 		}
 		
-		public function vacuum(_event:VacuumEvent):void
+		public function onVacuumTrigger(_event:VacuumEvent):void
 		{
 			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_STARTED));
 			

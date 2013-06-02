@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.game.ui 
 {
 	import com.angrymole.mozzarella.events.IntroEvent;
+	import com.angrymole.mozzarella.events.MozzarellaEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
@@ -44,6 +45,10 @@ package com.angrymole.mozzarella.game.ui
 		private var m_iteration:int;
 		private var m_globalIteration:int;
 		
+		private var m_enabled:Boolean;
+		private var m_ready:Boolean;
+		private var m_paused:Boolean;
+		
 		private var m_pieceId:int;
 		private var m_spawnedPieces:int;
 		private var m_delayedCall:DelayedCall;
@@ -79,12 +84,36 @@ package com.angrymole.mozzarella.game.ui
 			
 			m_input = new SpawnerInput(this, _cfg, 0, GRAB_BUFFER);
 			addChild(m_input);
+			
+			m_enabled = false;
+			m_ready = false;
+			m_paused = false;
 		}
 		
-		// Called when the 3,2,1 go animation has completed
 		public function onIntroComplete(_event:IntroEvent):void
 		{
+			m_enabled = true;
 			spawnPieces();
+		}
+		
+		public function onSpawnTrigger(_event:SpawnEvent):void
+		{
+			if (!m_enabled || !m_ready || m_paused) { return; }
+			lockPieces();
+		}
+		
+		public function onPause(_event:MozzarellaEvent):void
+		{
+			m_paused = true;
+			if (m_delayedCall == null) { return; }
+			Starling.juggler.remove(m_delayedCall);
+		}
+		
+		public function onResume(_event:MozzarellaEvent):void
+		{
+			m_paused = false;
+			if (m_delayedCall == null) { return; }
+			Starling.juggler.add(m_delayedCall);
 		}
 		
 		public function swap(_from:int, _to:int, _duration:Number):void
@@ -106,10 +135,10 @@ package com.angrymole.mozzarella.game.ui
 			}
 		}
 		
-		// Spawn a new set of pieces
 		private function spawnPieces():void
 		{
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_STARTED));
+			m_ready = false;
 			
 			var i:int;
 			var emptyColumns:Vector.<int> = new Vector.<int>();
@@ -157,12 +186,15 @@ package com.angrymole.mozzarella.game.ui
 		{
 			m_spawnedPieces--;
 			if (m_spawnedPieces > 0) { return; }
+			m_ready = true;
+			
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_SWAPPABLE, m_pieces));
 			m_delayedCall = Starling.juggler.delayCall(lockPieces, m_spawnLife[0]);
 		}
 		
 		public function lockPieces():void
 		{
+			m_ready = false;
 			Starling.juggler.remove(m_delayedCall);
 			for (var i:int = 0 ; i < m_pieces.length; i++) {
 				if (m_pieces[i] == null) { continue; }
@@ -172,10 +204,13 @@ package com.angrymole.mozzarella.game.ui
 			}
 			m_input.lockPieces();
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_LOCKED, m_pieces));
-			m_delayedCall = Starling.juggler.delayCall(spawnComplete, m_swapTime);
+			
+			// TODO: use hairy balls windup animation time here
+			var windupTime:Number = m_swapTime;
+			m_delayedCall = Starling.juggler.delayCall(addPiecesToGrid, windupTime);
 		}
 		
-		private function spawnComplete():void
+		private function addPiecesToGrid():void
 		{
 			Starling.juggler.remove(m_delayedCall);
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_COMPLETE, m_pieces));

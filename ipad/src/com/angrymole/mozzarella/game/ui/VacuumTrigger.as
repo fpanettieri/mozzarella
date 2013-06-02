@@ -39,7 +39,7 @@ package com.angrymole.mozzarella.game.ui
 		
 		private function vacuum():void
 		{
-			dispatchEvent( new VacuumEvent(VacuumEvent.TRIGGER_VACUUM) );
+			dispatchEvent( new VacuumEvent(VacuumEvent.VACUUM_TRIGGER) );
 		}
 	}
 }

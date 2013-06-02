@@ -6,7 +6,7 @@ package com.angrymole.mozzarella.events
 	 */
 	public class VacuumEvent extends MozzarellaEvent
 	{
-		public static const TRIGGER_VACUUM:String = "triggerVacuumEvent";
+		public static const VACUUM_TRIGGER:String = "vacuumTriggerEvent";
 		public static const VACUUM_STARTED:String = "vacuumStartedEvent";
 		public static const VACUUM_COMPLETE:String = "vacuumCompleteEvent";
 		

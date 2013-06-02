@@ -12,11 +12,12 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.grid.Preview;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
-	import com.angrymole.mozzarella.game.ui.DropTrigger;
 	import com.angrymole.mozzarella.game.ui.Intro;
 	import com.angrymole.mozzarella.game.ui.Pause;
 	import com.angrymole.mozzarella.game.ui.Score;
 	import com.angrymole.mozzarella.game.ui.Spawner;
+	import com.angrymole.mozzarella.game.ui.SpawnTrigger;
+	import com.angrymole.mozzarella.game.ui.SpawnTrigger;
 	import com.angrymole.mozzarella.game.ui.VacuumTrigger;
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
 	import com.angrymole.mozzarella.screens.Screen;
@@ -41,12 +42,12 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_intro:Intro;
 		private var m_grid:Grid;
 		private var m_spawner:Spawner;
+		private var m_spawnTrigger:SpawnTrigger;
 		private var m_score:Score;
 		private var m_pause:Pause;
 		private var m_preview:Preview;
-		private var m_vacuumT:VacuumTrigger;
 		private var m_vacuum:Vacuum;
-		private var m_drop:DropTrigger;
+		private var m_vacuumTrigger:VacuumTrigger;
 		
 		public function Playground()
 		{
@@ -78,18 +79,16 @@ package com.angrymole.mozzarella.screens.playground
 			m_spawner = new Spawner(m_cfg);
 			m_spawner.x = 160;
 			m_spawner.y = 580;
-
+			
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
-			m_drop = new DropTrigger(m_spawner);
-			m_drop. x = 832;
-			m_drop.y = 580;
-			m_spawner.addEventListener(SpawnEvent.SPAWN_STARTED, m_drop.onSpawnStarted);
-			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_drop.onSpawnSwappable);
-			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_drop.onSpawnLocked);
+			m_spawnTrigger = new SpawnTrigger();
+			m_spawnTrigger. x = 832;
+			m_spawnTrigger.y = 580;
+			m_spawnTrigger.addEventListener(SpawnEvent.SPAWN_TRIGGER, m_spawner.onSpawnTrigger);
 			
 			m_intro = new Intro();
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
@@ -104,22 +103,22 @@ package com.angrymole.mozzarella.screens.playground
 			m_pause.y = 10;
 			
 			m_vacuum = new Vacuum(m_grid, m_score);
-			m_vacuum .addEventListener(VacuumEvent.VACUUM_COMPLETE, m_preview.updateAll);
+			m_vacuum.addEventListener(VacuumEvent.VACUUM_COMPLETE, m_preview.updateAll);
+			m_vacuum.addEventListener(VacuumEvent.VACUUM_STARTED, m_spawner.onPause);
+			m_vacuum.addEventListener(VacuumEvent.VACUUM_COMPLETE, m_spawner.onResume);
 			
-			m_vacuumT = new VacuumTrigger();
-			m_vacuumT.x = 870;
-			m_vacuumT.y = 410;
-			m_vacuumT.addEventListener(VacuumEvent.TRIGGER_VACUUM, m_vacuum.vacuum);
-			
-			
+			m_vacuumTrigger = new VacuumTrigger();
+			m_vacuumTrigger.x = 870;
+			m_vacuumTrigger.y = 410;
+			m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
 			
 			addChild(m_spawner);
+			addChild(m_spawnTrigger);
 			addChild(m_grid);
-			addChild(m_drop);
 			addChild(m_preview);
 			addChild(m_score);
-			addChild(m_vacuumT);
 			addChild(m_vacuum);
+			addChild(m_vacuumTrigger);
 			addChild(m_intro);
 			addChild(m_pause);
 			

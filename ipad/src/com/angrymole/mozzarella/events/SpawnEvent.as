@@ -9,6 +9,7 @@ package com.angrymole.mozzarella.events
 	 */
 	public class SpawnEvent extends MozzarellaEvent
 	{
+		public static const SPAWN_TRIGGER:String = "spawnTriggerEvent";
 		public static const SPAWN_STARTED:String = "spawnStartedEvent";
 		public static const SPAWN_PIECE:String = "spawnPieceEvent";
 		public static const SPAWN_SWAPPABLE:String = "spawnSwappableEvent";
