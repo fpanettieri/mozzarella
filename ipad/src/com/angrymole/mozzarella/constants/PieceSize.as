@@ -9,6 +9,7 @@ package com.angrymole.mozzarella.constants
 	{
 		public static const SMALL:int = 44;
 		public static const LARGE:int = 64;
+		public static const BUFFERED:int = 66;
 	}
 
 }

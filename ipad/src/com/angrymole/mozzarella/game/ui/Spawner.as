@@ -72,6 +72,7 @@ package com.angrymole.mozzarella.game.ui
 			m_globalIteration = 0;
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0x584E4B);
+			m_placeholder.alpha = 0;
 			m_placeholder.y = GRAB_BUFFER;
 			addChild(m_placeholder);
 			

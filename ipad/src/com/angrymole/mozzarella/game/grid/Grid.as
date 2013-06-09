@@ -27,8 +27,6 @@ package com.angrymole.mozzarella.game.grid
 		private var m_pieces:Vector.<Piece>;
 		private var m_groups:Vector.<Group>;
 		
-		private var m_placeholder:Placeholder;
-		
 		private var m_grouper:GroupBuilder;
 		private var m_breaker:GroupBreaker;
 		private var m_dropper:PieceDropper;
@@ -50,9 +48,6 @@ package com.angrymole.mozzarella.game.grid
 					m_cells[row][column] = new Cell(row, column);
 				}
 			}
-			
-			m_placeholder = new Placeholder(m_columns * _cfg.pieceSize, m_rows * _cfg.pieceSize, 0x413b3b);
-			addChild(m_placeholder);
 			
 			m_grouper = new GroupBuilder(this);
 			m_grouper.addEventListener(GroupEvent.GROUP_CREATED, onGroupCreated);

@@ -76,15 +76,15 @@ package com.angrymole.mozzarella.screens.playground
 			m_background = new Background();
 			
 			m_grid = new Grid(m_cfg);
-			m_grid.x = 160;
-			m_grid.y = 60;
+			m_grid.x = 182;
+			m_grid.y = 94;
 			
 			m_preview = new Preview(m_grid);
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.updateAll);
 			
 			m_spawner = new Spawner(m_cfg);
-			m_spawner.x = 190;
-			m_spawner.y = 580;
+			m_spawner.x = 182;
+			m_spawner.y = 625;
 			
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);

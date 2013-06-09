@@ -26,7 +26,7 @@ package com.angrymole.mozzarella.game.core
 			// TODO: parse level configuration
 			m_rows = 8;
 			m_columns = 10;
-			m_pieceSize = PieceSize.LARGE;
+			m_pieceSize = PieceSize.BUFFERED;
 			m_pieceTypes = new <PieceType>[PieceType.BLONDE,PieceType.RAVEN, PieceType.IRISH, PieceType.REBEL];
 			m_spawnIterations = new <int>[6, 20, 40, 80];
 			m_spawnCount = new <int>[2, 4, 6, 10, 12];
