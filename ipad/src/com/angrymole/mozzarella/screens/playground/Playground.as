@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.screens.playground
 {
 	import com.angrymole.assets.Asset;
+	import com.angrymole.assets.AtfAsset;
 	import com.angrymole.assets.TextureAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
@@ -11,6 +12,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.core.Configuration;
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.grid.Preview;
+	import com.angrymole.mozzarella.game.layout.Background;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
 	import com.angrymole.mozzarella.game.ui.Intro;
 	import com.angrymole.mozzarella.game.ui.Pause;
@@ -39,6 +41,7 @@ package com.angrymole.mozzarella.screens.playground
 	public class Playground extends Screen
 	{
 		private var m_cfg:Configuration;
+		private var m_background:Background;
 		private var m_intro:Intro;
 		private var m_grid:Grid;
 		private var m_spawner:Spawner;
@@ -54,6 +57,7 @@ package com.angrymole.mozzarella.screens.playground
 			// FIXME: detect current level and load xml
 			m_cfg = new Configuration(new XML());
 			
+			m_assets.push(new AtfAsset("background", "/assets/bg_01.atf"));
 			m_assets.push(new TextureAsset("peluca_01", "/assets/peluca_01.png"));
 			m_assets.push(new TextureAsset("peluca_02", "/assets/peluca_02.png"));
 			m_assets.push(new TextureAsset("peluca_03", "/assets/peluca_03.png"));
@@ -69,6 +73,8 @@ package com.angrymole.mozzarella.screens.playground
 		
 		override public function onLoad():void
 		{
+			m_background = new Background();
+			
 			m_grid = new Grid(m_cfg);
 			m_grid.x = 160;
 			m_grid.y = 60;
@@ -77,7 +83,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_preview.updateAll);
 			
 			m_spawner = new Spawner(m_cfg);
-			m_spawner.x = 160;
+			m_spawner.x = 190;
 			m_spawner.y = 580;
 			
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
@@ -112,6 +118,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_vacuumTrigger.y = 410;
 			m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
 			
+			addChild(m_background);
 			addChild(m_spawner);
 			addChild(m_spawnTrigger);
 			addChild(m_grid);

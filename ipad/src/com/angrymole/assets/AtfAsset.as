@@ -19,6 +19,7 @@ package com.angrymole.assets
 		override public function load(_bytes:ByteArray):void
 		{
             m_texture = Texture.fromAtfData(_bytes);
+			dispatchEvent(new AssetEvent(AssetEvent.LOADED, this));
         }
 		
 		override public function unload():void
