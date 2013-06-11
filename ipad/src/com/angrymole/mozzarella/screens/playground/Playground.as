@@ -2,6 +2,7 @@ package com.angrymole.mozzarella.screens.playground
 {
 	import com.angrymole.assets.Asset;
 	import com.angrymole.assets.AtfAsset;
+	import com.angrymole.assets.DragonbonesAsset;
 	import com.angrymole.assets.TextureAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
@@ -58,6 +59,8 @@ package com.angrymole.mozzarella.screens.playground
 			m_cfg = new Configuration(new XML());
 			
 			m_assets.push(new AtfAsset("background", "/assets/bg_01.atf"));
+			m_assets.push(new DragonbonesAsset("layout", "/assets/layout.dbg"));
+			
 			m_assets.push(new TextureAsset("peluca_01", "/assets/peluca_01.png"));
 			m_assets.push(new TextureAsset("peluca_02", "/assets/peluca_02.png"));
 			m_assets.push(new TextureAsset("peluca_03", "/assets/peluca_03.png"));
