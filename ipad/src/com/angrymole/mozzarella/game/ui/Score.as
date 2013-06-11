@@ -35,7 +35,9 @@ package com.angrymole.mozzarella.game.ui
 		
 		public function Score(_cfg:Configuration) 
 		{
+			m_score = 0;
 			m_mastery =  _cfg.mastery;
+			m_maxScore = _cfg.mastery[3];
 			
 			m_bg = new Placeholder(64, 584, 0x4D434E);
 			addChild(m_bg);
@@ -49,9 +51,6 @@ package com.angrymole.mozzarella.game.ui
 			m_text = new TextField(64, 30, "0");
 			m_text.y = 540;
 			addChild(m_text);
-			
-			m_score = 0;
-			m_maxScore = m_mastery[2] * 1.1;
 			
 			m_masteryBars = new Vector.<Placeholder>();
 			var bar:Placeholder;
