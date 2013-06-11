@@ -90,6 +90,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_spawner.y = 625;
 			
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
@@ -98,12 +99,14 @@ package com.angrymole.mozzarella.screens.playground
 			m_spawnTrigger. x = 832;
 			m_spawnTrigger.y = 580;
 			m_spawnTrigger.addEventListener(SpawnEvent.SPAWN_TRIGGER, m_spawner.onSpawnTrigger);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_spawnTrigger.onSpawnSwappable);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_spawnTrigger.onSpawnLocked);
 			
 			m_intro = new Intro();
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
 			
 			m_score = new Score(m_cfg);
-			m_score.x = 64;
+			m_score.x = 10;
 			m_score.y = 92;
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_score.onGroupsBroken);
 			
@@ -116,10 +119,10 @@ package com.angrymole.mozzarella.screens.playground
 			m_vacuum.addEventListener(VacuumEvent.VACUUM_STARTED, m_spawner.onPause);
 			m_vacuum.addEventListener(VacuumEvent.VACUUM_COMPLETE, m_spawner.onResume);
 			
-			m_vacuumTrigger = new VacuumTrigger();
-			m_vacuumTrigger.x = 870;
-			m_vacuumTrigger.y = 410;
-			m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
+			//m_vacuumTrigger = new VacuumTrigger();
+			//m_vacuumTrigger.x = 870;
+			//m_vacuumTrigger.y = 410;
+			//m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
 			
 			addChild(m_background);
 			addChild(m_spawner);
@@ -128,7 +131,7 @@ package com.angrymole.mozzarella.screens.playground
 			addChild(m_preview);
 			addChild(m_score);
 			addChild(m_vacuum);
-			addChild(m_vacuumTrigger);
+			//addChild(m_vacuumTrigger);
 			addChild(m_intro);
 			addChild(m_pause);
 			

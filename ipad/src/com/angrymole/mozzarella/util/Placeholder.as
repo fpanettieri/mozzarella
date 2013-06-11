@@ -21,7 +21,7 @@ package com.angrymole.mozzarella.util
 			
 			m_text = new TextField(_width, _height, _text);
 			m_text.color = _textColor;
-			addChild(m_text);
+		//	addChild(m_text);
 			
 			// trace("WARNING: you are still using a placeholder here");
 		}

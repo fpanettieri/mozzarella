@@ -3,6 +3,7 @@ package com.angrymole.dragonbones
 	import dragonBones.animation.Animation;
 	import dragonBones.Armature;
 	import starling.animation.IAnimatable;
+	import starling.display.DisplayObject;
 	
 	/**
 	 * Wrapper class used to use DragonBones with the standard Starling juggler
@@ -33,9 +34,9 @@ package com.angrymole.dragonbones
 			return m_armature;
 		}
 		
-		public function get display():Object
+		public function get display():DisplayObject
 		{
-			return m_armature.display;
+			return m_armature.display as DisplayObject;
 		}
 		
 		public function get animation():Animation
