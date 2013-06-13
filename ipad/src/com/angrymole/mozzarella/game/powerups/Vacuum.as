@@ -6,7 +6,7 @@ package com.angrymole.mozzarella.game.powerups
 	import com.angrymole.mozzarella.game.grid.Cell;
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.piece.Piece;
-	import com.angrymole.mozzarella.game.ui.Score;
+	import com.angrymole.mozzarella.game.score.Score;
 	import flash.events.TimerEvent;
 	
 	import starling.display.Sprite;

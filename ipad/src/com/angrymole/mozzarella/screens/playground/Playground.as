@@ -15,9 +15,9 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.grid.Preview;
 	import com.angrymole.mozzarella.game.layout.Background;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
+	import com.angrymole.mozzarella.game.score.Score;
 	import com.angrymole.mozzarella.game.ui.Intro;
 	import com.angrymole.mozzarella.game.ui.Pause;
-	import com.angrymole.mozzarella.game.ui.Score;
 	import com.angrymole.mozzarella.game.ui.Spawner;
 	import com.angrymole.mozzarella.game.ui.SpawnTrigger;
 	import com.angrymole.mozzarella.game.ui.SpawnTrigger;
