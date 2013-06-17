@@ -159,7 +159,7 @@ package com.angrymole.mozzarella.game.ui
 				emptyColumns.splice(idx, 1);
 				
 				// TODO: check if the row has to change in the future if we support multiple spawn positions
-				piece = new Piece(++m_pieceId, -1, column, type, m_size, m_globalIteration);
+				piece = new Piece(-1, column, type, m_size, m_globalIteration);
 				piece.x = column * m_size;
 				piece.y = 100 + Math.random() * 10;
 				piece.addEventListener(SpawnEvent.SPAWN_PIECE, onPieceSpawn);

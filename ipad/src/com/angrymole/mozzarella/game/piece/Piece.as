@@ -17,7 +17,6 @@ package com.angrymole.mozzarella.game.piece
 	public class Piece extends Sprite 
 	{
 		private var m_asset:PieceAsset;
-		private var m_id:int;
 		private var m_row:int;
 		private var m_column:int;
 		private var m_type:PieceType;
@@ -27,9 +26,8 @@ package com.angrymole.mozzarella.game.piece
 		private var m_iteration:int;
 		private var m_tween:Tween;
 		
-		public function Piece(_id:int, _row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
+		public function Piece(_row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
 		{
-			m_id = _id;
 			m_row = _row;
 			m_column = _column;
 			m_type = _type;

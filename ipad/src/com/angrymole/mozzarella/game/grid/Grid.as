@@ -1,5 +1,8 @@
 package com.angrymole.mozzarella.game.grid 
 {
+	import com.angrymole.assets.Assets;
+	import com.angrymole.assets.XMLAsset;
+	import com.angrymole.mozzarella.constants.PieceSize;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
@@ -8,8 +11,8 @@ package com.angrymole.mozzarella.game.grid
 	import com.angrymole.mozzarella.game.core.Configuration;
 	import com.angrymole.mozzarella.game.piece.Group;
 	import com.angrymole.mozzarella.game.piece.Piece;
+	import com.angrymole.mozzarella.game.piece.PieceType;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
-	import com.angrymole.mozzarella.gestures.Tap;
 	import com.angrymole.mozzarella.util.Placeholder;
 	
 	import starling.display.Sprite;
@@ -47,6 +50,14 @@ package com.angrymole.mozzarella.game.grid
 					// TODO: parse pieces from level
 					m_cells[row][column] = new Cell(row, column);
 				}
+			}
+			
+			var asset:XMLAsset = Assets.i.getAsset("level") as XMLAsset;
+			
+			var piece:Piece;
+			for each(var tile:XML in asset.xml.Wigs.tile) {
+				piece = new Piece(tile.@y, tile.@x, PieceType.fromInt(tile.@id), PieceSize.BUFFERED, -1);
+				addParsedPiece(piece);
 			}
 			
 			m_grouper = new GroupBuilder(this);
@@ -91,6 +102,19 @@ package com.angrymole.mozzarella.game.grid
 				m_cells[empty][_piece.column].piece = _piece;
 				_piece.drop(m_columns - 1, empty);	
 			}
+		}
+		
+		private function addParsedPiece(_piece:Piece):void
+		{
+			m_cells[_piece.row][_piece.column].piece = _piece;
+			m_pieces.push(_piece);
+			
+			_piece.x = _piece.column * _piece.size;
+			_piece.y = _piece.row * _piece.size;
+			addChild(_piece);
+			
+			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
+			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 		}
 		
 		public function removePiece(_piece:Piece):void
