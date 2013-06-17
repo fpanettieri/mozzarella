@@ -55,7 +55,7 @@ package com.angrymole.assets
 		{
 			// special case: atlas need to load its xml first
 			if (m_queue[m_index] is TextureAtlasAsset) {
-				m_queue.splice(m_index, 0, new XmlAsset(m_queue[m_index].id + "Xml", m_queue[m_index]["xmlPath"]));
+				m_queue.splice(m_index, 0, new XMLAsset(m_queue[m_index].id + "Xml", m_queue[m_index]["xmlPath"]));
 			}
 			
 			// skip duplicated assets

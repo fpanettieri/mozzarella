@@ -4,6 +4,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.assets.AtfAsset;
 	import com.angrymole.assets.DragonbonesAsset;
 	import com.angrymole.assets.TextureAsset;
+	import com.angrymole.assets.XMLAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
@@ -55,11 +56,9 @@ package com.angrymole.mozzarella.screens.playground
 		
 		public function Playground()
 		{
-			// FIXME: detect current level and load xml
-			m_cfg = new Configuration(new XML());
-			
 			m_assets.push(new AtfAsset("background", "/assets/bg_01.atf"));
 			m_assets.push(new DragonbonesAsset("layout", "/assets/layout.dbg"));
+			m_assets.push(new XMLAsset("level", "/levels/level01.oel"));
 			
 			m_assets.push(new TextureAsset("peluca_01", "/assets/peluca_01.png"));
 			m_assets.push(new TextureAsset("peluca_02", "/assets/peluca_02.png"));
@@ -76,6 +75,7 @@ package com.angrymole.mozzarella.screens.playground
 		
 		override public function onLoad():void
 		{
+			m_cfg = new Configuration();
 			m_background = new Background();
 			
 			m_grid = new Grid(m_cfg);

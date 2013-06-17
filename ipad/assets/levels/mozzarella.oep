@@ -25,8 +25,13 @@
   </CameraSize>
   <ExportCameraPosition>false</ExportCameraPosition>
   <LevelValueDefinitions>
-    <ValueDefinition xsi:type="StringValueDefinition" Name="Mastery" Default="1000,2000,3000" MaxChars="-1" MultiLine="false" />
-    <ValueDefinition xsi:type="StringValueDefinition" Name="Pieces" Default="" MaxChars="-1" MultiLine="false" />
+    <ValueDefinition xsi:type="IntValueDefinition" Name="rows" Default="8" Min="8" Max="12" ShowSlider="false" />
+    <ValueDefinition xsi:type="IntValueDefinition" Name="columns" Default="10" Min="8" Max="12" ShowSlider="false" />
+    <ValueDefinition xsi:type="StringValueDefinition" Name="pieceTypes" Default="blonde, raven, brown, rebel, irish" MaxChars="-1" MultiLine="false" />
+    <ValueDefinition xsi:type="StringValueDefinition" Name="spawnIterations" Default="6, 20, 40, 80" MaxChars="-1" MultiLine="false" />
+    <ValueDefinition xsi:type="StringValueDefinition" Name="spawnCount" Default="2, 4, 6,10,12" MaxChars="-1" MultiLine="false" />
+    <ValueDefinition xsi:type="StringValueDefinition" Name="spawnLife" Default="10, 12, 12, 10, 10" MaxChars="-1" MultiLine="false" />
+    <ValueDefinition xsi:type="StringValueDefinition" Name="mastery" Default="1000, 5000, 10000" MaxChars="-1" MultiLine="false" />
   </LevelValueDefinitions>
   <LayerDefinitions>
     <LayerDefinition xsi:type="TileLayerDefinition">

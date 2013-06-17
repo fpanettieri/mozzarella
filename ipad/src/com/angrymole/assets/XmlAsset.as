@@ -6,11 +6,11 @@ package com.angrymole.assets
 	 * ...
 	 * @author Fabio Panettieri
 	 */
-	public class XmlAsset extends Asset
+	public class XMLAsset extends Asset
 	{
 		private var m_xml:XML;
 		
-		public function XmlAsset(_id:String, _path:String)
+		public function XMLAsset(_id:String, _path:String)
 		{
 			super(_id, _path);
 		}

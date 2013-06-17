@@ -1,5 +1,8 @@
 package com.angrymole.mozzarella.game.core 
 {
+	import com.adobe.utils.StringUtil;
+	import com.angrymole.assets.Assets;
+	import com.angrymole.assets.XMLAsset;
 	import com.angrymole.mozzarella.constants.PieceSize;
 	import com.angrymole.mozzarella.game.piece.PieceType;
 	import starling.display.Sprite;
@@ -11,6 +14,9 @@ package com.angrymole.mozzarella.game.core
 	 */
 	public class Configuration
 	{
+		private var m_asset:XMLAsset;
+		private var m_xml:XML;
+		
 		private var m_rows:int;
 		private var m_columns:int;
 		private var m_pieceSize:int;
@@ -18,21 +24,45 @@ package com.angrymole.mozzarella.game.core
 		private var m_spawnIterations:Vector.<int>;
 		private var m_spawnCount:Vector.<int>;
 		private var m_spawnLife:Vector.<int>;
-		private var m_swapTime:Number;
 		private var m_mastery:Vector.<int>;
 		
-		public function Configuration(_level:XML) 
+		public function Configuration() 
 		{
-			// TODO: parse level configuration
-			m_rows = 8;
-			m_columns = 10;
+			m_asset = Assets.i.getAsset("level") as XMLAsset;
+			m_xml = m_asset.xml;
+			
+			m_rows = m_xml.@rows;
+			m_columns = m_xml.@columns;
 			m_pieceSize = PieceSize.BUFFERED;
-			m_pieceTypes = new <PieceType>[PieceType.BLONDE,PieceType.RAVEN, PieceType.IRISH, PieceType.REBEL];
-			m_spawnIterations = new <int>[6, 20, 40, 80];
-			m_spawnCount = new <int>[2, 4, 6, 10, 12];
-			m_spawnLife = new <int>[10, 12, 12, 10, 10];
-			m_swapTime = 0.3;
-			m_mastery = new <int>[1000, 5000, 10000];
+			m_pieceTypes = parsePieceTypes(m_xml.@pieceTypes);
+			m_spawnIterations = parseIntVector(m_xml.@spawnIterations);
+			m_spawnCount = parseIntVector(m_xml.@spawnCount);
+			m_spawnLife = parseIntVector(m_xml.@spawnLife);
+			m_mastery = parseIntVector(m_xml.@mastery);
+		}
+		
+		private function parsePieceTypes(_types:String):Vector.<PieceType>
+		{
+			var types:Vector.<PieceType> = new Vector.<PieceType>();
+			var typesArr:Array = _types.split(",");
+			
+			for ( var i:int = 0; i < typesArr.length; i++ ) {
+				types.push(PieceType.fromString(StringUtil.trim(typesArr[i]).toLowerCase()));
+			}
+			
+			return types;
+		}
+		
+		private function parseIntVector(_ints:String):Vector.<int>
+		{
+			var ints:Vector.<int> = new Vector.<int>();
+			var intsArr:Array = _ints.split(",");
+			
+			for ( var i:int = 0; i < intsArr.length; i++ ) {
+				ints.push(int(StringUtil.trim(intsArr[i])));
+			}
+			
+			return ints;
 		}
 		
 		public function get rows():int 
@@ -68,11 +98,6 @@ package com.angrymole.mozzarella.game.core
 		public function get spawnLife():Vector.<int>
 		{
 			return m_spawnLife;
-		}
-		
-		public function get swapTime():Number
-		{
-			return m_swapTime;
 		}
 		
 		public function get mastery():Vector.<int> 

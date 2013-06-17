@@ -67,7 +67,7 @@ package com.angrymole.mozzarella.game.ui
 			m_iterations = _cfg.spawnIterations;
 			m_spawnCount = _cfg.spawnCount;
 			m_spawnLife = _cfg.spawnLife;
-			m_swapTime = _cfg.swapTime;
+			m_swapTime = 0.3;
 			m_iteration = 0;
 			m_globalIteration = 0;
 			

@@ -34,7 +34,7 @@ package com.angrymole.assets
 		private function onByteArrayLoaded(_event:Event):void
 		{
 			var texture:Texture = Texture.fromBitmap(m_loader.content as Bitmap);
-			var xml:XML = (Assets.i.getAsset(m_id + "Xml") as XmlAsset).xml;
+			var xml:XML = (Assets.i.getAsset(m_id + "Xml") as XMLAsset).xml;
 			
 			m_atlas = new TextureAtlas(texture, xml);
 			m_loader.unload();
