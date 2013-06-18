@@ -1,4 +1,4 @@
-<level width="640" height="512" rows="8" columns="10" pieceTypes="raven, brown, irish" spawnIterations="6, 20, 40, 80" spawnCount="2, 4, 6,10,12" spawnLife="10, 12, 12, 10, 10" mastery="1000, 5000, 10000">
+<level width="640" height="512" rows="8" columns="10" pieceTypes="raven, brown, irish" spawnIterations="6, 20, 40, 80" spawnCount="2, 4, 6,10,12" spawnLife="10, 12, 12, 10, 10" mastery="1000, 1500, 2000">
   <Wigs tileset="Wigs" exportMode="XML">
     <tile x="0" y="0" id="4" />
     <tile x="0" y="1" id="4" />
