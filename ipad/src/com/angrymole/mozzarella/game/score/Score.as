@@ -2,44 +2,32 @@ package com.angrymole.mozzarella.game.score
 {
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
-	import com.angrymole.mozzarella.util.Placeholder;
-	import starling.animation.IAnimatable;
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.Sprite;
-	import starling.events.Touch;
-	import starling.events.TouchEvent;
-	import starling.events.TouchPhase;
-	import starling.text.TextField;
-	
 	/**
-	 * Widget used to display the score to the
+	 * Handle score
 	 * @author ...
 	 */
 	public class Score extends Sprite
 	{
-		private var LAMP_COUNT:int = 10;
-		
-		private var m_score:Number;
 		private var m_mastery:Vector.<int>;
-		private var m_step:Number;
-		private var m_lamps:Vector.<Lamp>;
 		
 		private var m_tween:Tween;
-		private var m_displayedScore:Number;
+		private var m_score:Number;
+		private var m_tweenedScore:Number;
+		private var m_displayedScore:int;
+		
+		private var m_callbacks:Vector.<Function>;
 		
 		public function Score(_cfg:Configuration) 
 		{
 			m_score = 0;
-			m_displayedScore = 0;
-			
+			m_tweenedScore = 0;
 			m_mastery = _cfg.mastery;
-			m_step = m_mastery[m_mastery.length - 1] / LAMP_COUNT;
-			m_lamps = new Vector.<Lamp>(LAMP_COUNT, true);
-			createMasteryLamps();
-			createNormalLamps();
 			tweenScore();
+			m_callbacks = new Vector.<Function>();
 		}
 		
 		public function onGroupsBroken(_e:GroupsBrokenEvent):void
@@ -60,37 +48,30 @@ package com.angrymole.mozzarella.game.score
 			tweenScore();
 		}
 		
-		private function createMasteryLamps():void
+		public function addCallback(_callback:Function):void
 		{
-			var lamp:Lamp;
-			var idx:int;
-			for ( var i:int = 0; i < m_mastery.length; i++ ) {
-				idx = Math.floor( m_mastery[i] / m_step );
-				if (idx >= LAMP_COUNT) { idx = LAMP_COUNT - 1; }
-				lamp = new MasteryLamp(idx, m_step);
-				m_lamps[idx] = lamp;
-				addChild(lamp);
-			}
+			m_callbacks.push(_callback);
 		}
 		
-		private function createNormalLamps():void
+		public function clearCallbacks():void
 		{
-			var lamp:Lamp;
-			var idx:int;
-			for ( var i:int = 0; i < m_lamps.length; i++ ) {
-				if ( m_lamps[i] != null ) { continue; }
-				lamp = new NormalLamp(i, m_step);
-				m_lamps[i] = lamp;
-				addChild(lamp);
-			}
+			m_callbacks.length = 0;
 		}
 		
 		private function tweenScore():void
 		{
 			var tween:Tween = new Tween(this, 0.3, Transitions.EASE_OUT);
-			tween.animate("displayedScore", m_score);
+			tween.animate("tweenedScore", m_score);
 			tween.onUpdate = updateScore;
 			queueTween(tween);
+		}
+		
+		private function updateScore():void
+		{
+			m_displayedScore = int(m_tweenedScore);
+			for (var i:int = 0; i < m_callbacks.length; i++){
+				m_callbacks[i](m_displayedScore);
+			}
 		}
 		
 		private function queueTween(_tween:Tween):void
@@ -104,11 +85,9 @@ package com.angrymole.mozzarella.game.score
 			}
 		}
 		
-		private function updateScore():void
+		public function get mastery():Vector.<int> 
 		{
-			for ( var i:int = 0; i < m_lamps.length; i++ ) {
-				m_lamps[i].update(m_displayedScore);
-			}
+			return m_mastery;
 		}
 		
 		public function get score():Number 
@@ -116,14 +95,14 @@ package com.angrymole.mozzarella.game.score
 			return m_score;
 		}
 		
-		public function get displayedScore():Number 
+		public function get tweenedScore():Number 
 		{
-			return m_displayedScore;
+			return m_tweenedScore;
 		}
 		
-		public function set displayedScore(value:Number):void 
+		public function set tweenedScore(value:Number):void 
 		{
-			m_displayedScore = value;
+			m_tweenedScore = value;
 		}
 	}
 }

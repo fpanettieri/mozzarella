@@ -16,7 +16,9 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.grid.Preview;
 	import com.angrymole.mozzarella.game.layout.Background;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
+	import com.angrymole.mozzarella.game.score.HardScore;
 	import com.angrymole.mozzarella.game.score.Score;
+	import com.angrymole.mozzarella.game.score.SoftScore;
 	import com.angrymole.mozzarella.game.ui.Intro;
 	import com.angrymole.mozzarella.game.ui.Pause;
 	import com.angrymole.mozzarella.game.ui.Spawner;
@@ -49,6 +51,8 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_spawner:Spawner;
 		private var m_spawnTrigger:SpawnTrigger;
 		private var m_score:Score;
+		private var m_softScore:SoftScore;
+		private var m_hardScore:HardScore;
 		private var m_pause:Pause;
 		private var m_preview:Preview;
 		private var m_vacuum:Vacuum;
@@ -106,9 +110,15 @@ package com.angrymole.mozzarella.screens.playground
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_spawner.onIntroComplete);
 			
 			m_score = new Score(m_cfg);
-			m_score.x = 10;
-			m_score.y = 92;
 			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_score.onGroupsBroken);
+			
+			m_softScore = new SoftScore(m_score);
+			m_softScore.x = 10;
+			m_softScore.y = 92;
+			
+			m_hardScore = new HardScore(m_score);
+			m_hardScore.x = 650;
+			m_hardScore.y = 20;
 			
 			m_pause = new Pause();
 			m_pause.x = 850;
@@ -129,11 +139,12 @@ package com.angrymole.mozzarella.screens.playground
 			addChild(m_spawnTrigger);
 			addChild(m_grid);
 			addChild(m_preview);
-			addChild(m_score);
+			addChild(m_softScore);
+			addChild(m_hardScore);
 			addChild(m_vacuum);
 			//addChild(m_vacuumTrigger);
 			addChild(m_intro);
-			addChild(m_pause);
+			//addChild(m_pause);
 			
 			m_grid.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 		}

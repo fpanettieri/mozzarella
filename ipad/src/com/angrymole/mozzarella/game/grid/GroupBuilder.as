@@ -58,7 +58,7 @@ package com.angrymole.mozzarella.game.grid
 		private function groupCells(_piece:Piece, _cells:Vector.<Cell>):void
 		{
 			for ( var i:int = 0; i < _cells.length; i++) {
-				if (_cells[i].empty || !_cells[i].piece.type.equals(_piece.type)) {
+				if (_cells[i].empty || _cells[i].piece.grouped || !_cells[i].piece.type.equals(_piece.type)) {
 					return;
 				}
 			}

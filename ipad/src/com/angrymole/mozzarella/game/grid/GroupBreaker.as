@@ -17,8 +17,9 @@ package com.angrymole.mozzarella.game.grid
 		private var m_grid:Grid;
 		private var m_groups:Vector.<Group>;
 		
+		private var m_brokenPieces:Vector.<Piece> 
 		private var m_brokenGroups:Vector.<Group>;
-		private var m_brokenPieces:int;
+		private var m_brokenPiecesCount:int;
 		private var m_centroid:Point;
 		
 		public function GroupBreaker(_grid:Grid) 
@@ -46,53 +47,13 @@ package com.angrymole.mozzarella.game.grid
 		
 		private function onGroupTouched(_event:GroupEvent):void
 		{
-			m_brokenPieces = 0;
-			m_centroid = new Point();
-			m_brokenGroups = new Vector.<Group>();
-			
-			var type:PieceType = _event.group.tl.type;
-			var stack:Vector.<Piece> = _event.group.pieces.concat();
-
-			var piece:Piece;
-			while (stack.length > 0) {
-				piece = stack.pop();
-				
-				if (piece == null || !piece.grouped || !piece.type.equals(type)) { continue; }
-					breakPiece(piece);
-				
-				if (piece.column > 0) {
-					stack.push(m_grid.cells[piece.row][piece.column - 1].piece);
-				}
-					
-				if (piece.column < m_grid.columns - 1) { 
-					stack.push(m_grid.cells[piece.row][piece.column + 1].piece); 
-				}
-				
-				if (piece.row > 0) { 
-					stack.push(m_grid.cells[piece.row - 1][piece.column].piece);
-				}
-				
-				if (piece.row < m_grid.rows - 1) {
-					stack.push(m_grid.cells[piece.row + 1][piece.column].piece); 
-				}
+			m_brokenPieces = _event.group.pieces;
+			for (var i:int = 0; i < m_brokenPieces.length; i++) {
+				breakPiece(m_brokenPieces[i]);
 			}
-			
-			m_centroid.x /= m_brokenPieces;
-			m_centroid.y /= m_brokenPieces;
-			
-			m_brokenGroups.sort(Group.compare);
-			var i:int;
-			for ( i = m_brokenGroups.length - 1; i > 0; --i ) {
-				if (m_brokenGroups[i] === m_brokenGroups[i - 1]){
-					m_brokenGroups.splice(i,1);
-				}
-			}
-			
-			for ( i = 0; i < m_brokenGroups.length; i++ ) {
-				m_brokenGroups[i].broken();
-			}
-			
-			dispatchEvent(new GroupsBrokenEvent(GroupsBrokenEvent.GROUPS_BROKEN, m_brokenPieces, m_brokenGroups.length, m_centroid));
+			m_centroid = new Point(_event.group.x + _event.group.width / 2, _event.group.y + _event.group.height / 2);
+			_event.group.broken();
+			dispatchEvent(new GroupsBrokenEvent(GroupsBrokenEvent.GROUPS_BROKEN,  m_brokenPieces.length, 1, m_centroid));
 		}
 		
 		private function breakPiece(_piece:Piece):void
@@ -100,14 +61,7 @@ package com.angrymole.mozzarella.game.grid
 			// TODO: spawn some particles, and add them as the child
 			// tween those particles, and remove the tween when done.
 			
-			// handle the match like adding score and stuff
-			m_brokenPieces++;
-			m_centroid.x += _piece.x;
-			m_centroid.y += _piece.y;
-			
-			m_brokenGroups = m_brokenGroups.concat(_piece.groups);
 			_piece.clearGroups();
-			
 			_piece.dispatchEvent(new PieceEvent(PieceEvent.PIECE_BROKEN, _piece));
 		}
 		
