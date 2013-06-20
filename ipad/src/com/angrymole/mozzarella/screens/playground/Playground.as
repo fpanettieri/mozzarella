@@ -28,6 +28,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.gestures.GestureVisualizer;
 	import com.angrymole.mozzarella.screens.Screen;
 	import com.angrymole.mozzarella.util.Bounds;
+	import com.angrymole.mozzarella.util.CustomTransitions;
 	import flash.desktop.NativeApplication;
 	import flash.geom.Point;
 	import starling.events.TouchEvent;
@@ -60,6 +61,8 @@ package com.angrymole.mozzarella.screens.playground
 		
 		public function Playground()
 		{
+			CustomTransitions.register();
+			
 			m_assets.push(new AtfAsset("background", "/assets/bg_01.atf"));
 			m_assets.push(new DragonbonesAsset("layout", "/assets/layout.dbg"));
 			m_assets.push(new XMLAsset("level", "/levels/level01.oel"));
@@ -133,6 +136,8 @@ package com.angrymole.mozzarella.screens.playground
 			m_vacuumTrigger.x = 935;
 			m_vacuumTrigger.y = 280;
 			m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_vacuumTrigger.onSpawnSwappable);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_vacuumTrigger.onSpawnLocked);
 			
 			addChild(m_background);
 			addChild(m_spawner);

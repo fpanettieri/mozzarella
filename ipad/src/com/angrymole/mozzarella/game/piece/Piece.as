@@ -3,6 +3,7 @@ package com.angrymole.mozzarella.game.piece
 	import com.angrymole.mozzarella.constants.Constants;
 	import com.angrymole.mozzarella.events.PieceEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
+	import com.angrymole.mozzarella.util.CustomTransitions;
 	import com.angrymole.mozzarella.util.Placeholder;
 	import starling.animation.Transitions;
 	import starling.animation.Tween;
@@ -47,6 +48,14 @@ package com.angrymole.mozzarella.game.piece
 			m_tween.delay = Math.random() * 0.2;
 			m_tween.onComplete = onIntroComplete;
 			Starling.juggler.add(m_tween);
+		}
+		
+		public function shake():void
+		{
+			var tween:Tween = new Tween(this, 0.25, CustomTransitions.SINUSOIDAL);
+			tween.repeatCount = 15;
+			tween.moveTo(x, y + 5);
+			Starling.juggler.add(tween);
 		}
 		
 		private function onIntroComplete():void

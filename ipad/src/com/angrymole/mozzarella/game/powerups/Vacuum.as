@@ -8,6 +8,8 @@ package com.angrymole.mozzarella.game.powerups
 	import com.angrymole.mozzarella.game.piece.Piece;
 	import com.angrymole.mozzarella.game.score.Score;
 	import flash.events.TimerEvent;
+	import starling.animation.DelayedCall;
+	import starling.core.Starling;
 	
 	import starling.display.Sprite;
 	
@@ -25,23 +27,57 @@ package com.angrymole.mozzarella.game.powerups
 		private var m_grid:Grid;
 		private var m_score:Score;
 		
+		private var m_prepared:Boolean;
+		private var m_garbage:Vector.<Piece>;
+		private var m_payable:int;
+		
+		private var m_delayedCall:DelayedCall;
+		
 		public function Vacuum(_grid:Grid, _score:Score) 
 		{
 			m_grid = _grid;
 			m_score = _score;
+			
+			m_prepared = false;
+			m_garbage = new Vector.<Piece>();
 		}
 		
 		public function onVacuumTrigger(_event:VacuumEvent):void
 		{
+			if (!m_prepared) { prepareVacuum(); }
+			else { removeGarbage(); }
+		}
+		
+		private function prepareVacuum():void
+		{
+			m_prepared = true;
 			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_STARTED));
 			
-			var pieces:Vector.<Piece> = findGarbage();
-			var payable:int = Math.floor(m_score.score / PIECE_COST);
-			var count:int = Math.min( Math.min( payable, MAX_GARBAGE ), pieces.length );
-
-			m_score.reduceScore(count * PIECE_COST);
-			for (var i:int = 0; i < count; i++) {
-				m_grid.removePiece(pieces[i]);
+			findGarbage();
+			m_payable = int(m_score.score / PIECE_COST);
+			m_garbage.length = Math.min( Math.min( m_payable, MAX_GARBAGE ), m_garbage.length );
+			
+			for (var i:int = 0; i < m_garbage.length; i++) {
+				m_garbage[i].shake();
+			}
+			
+			m_delayedCall = Starling.juggler.delayCall(resetVacuum, 4);
+			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_PREPARED));
+		}
+		
+		private function removeGarbage():void
+		{
+			m_prepared = false;
+			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_STARTED));
+			
+			if (!m_delayedCall.isComplete) {
+				Starling.juggler.remove(m_delayedCall);
+				m_delayedCall = null;
+			}
+			
+			m_score.reduceScore(m_garbage.length * PIECE_COST);
+			for (var i:int = 0; i < m_garbage.length; i++) {
+				m_grid.removePiece(m_garbage[i]);
 			}
 			m_grid.dropPieces();
 			
@@ -51,18 +87,22 @@ package com.angrymole.mozzarella.game.powerups
 			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_COMPLETE));
 		}
 		
-		public function findGarbage():Vector.<Piece>
+		private function resetVacuum():void
 		{
-			var pieces:Vector.<Piece> = new Vector.<Piece>();
+			m_prepared = false;
+		}
+		
+		private function findGarbage():void
+		{
+			m_garbage.length = 0;
 			var cell:Cell;
 			for ( var row:int = m_grid.rows - 1; row > -1; row-- ) {
 				for ( var column:int = 0; column < m_grid.columns; column++ ) {
 					cell = m_grid.cells[row][column];
 					if (cell.empty || cell.piece.grouped || isLocked(cell.piece)) { continue; }
-					pieces.splice(Math.floor(Math.random() * pieces.length), 0, cell.piece);
+					m_garbage.splice(int(Math.random() * m_garbage.length), 0, cell.piece);
 				}
 			}
-			return pieces;
 		}
 		
 		private function isLocked(_piece:Piece):Boolean

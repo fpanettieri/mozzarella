@@ -3,6 +3,7 @@ package com.angrymole.mozzarella.game.ui
 	import com.angrymole.assets.Assets;
 	import com.angrymole.assets.DragonbonesAsset;
 	import com.angrymole.dragonbones.StarlingArmature;
+	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.events.VacuumEvent;
 	import com.angrymole.mozzarella.util.MathUtil;
 	import com.angrymole.mozzarella.util.Placeholder;
@@ -47,7 +48,17 @@ package com.angrymole.mozzarella.game.ui
 			addChild(m_armature.display);
 			addChild(m_input);
 		}
-
+		
+		public function onSpawnSwappable(_event:SpawnEvent):void
+		{
+			m_ready = true;
+		}
+		
+		public function onSpawnLocked(_event:SpawnEvent):void
+		{
+			m_ready = false;
+		}
+		
 		private function onTouch(_event:TouchEvent):void
 		{
 			m_touch = _event.getTouch(m_input);
