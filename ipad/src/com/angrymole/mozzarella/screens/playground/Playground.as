@@ -129,10 +129,10 @@ package com.angrymole.mozzarella.screens.playground
 			m_vacuum.addEventListener(VacuumEvent.VACUUM_STARTED, m_spawner.onPause);
 			m_vacuum.addEventListener(VacuumEvent.VACUUM_COMPLETE, m_spawner.onResume);
 			
-			//m_vacuumTrigger = new VacuumTrigger();
-			//m_vacuumTrigger.x = 870;
-			//m_vacuumTrigger.y = 410;
-			//m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
+			m_vacuumTrigger = new VacuumTrigger();
+			m_vacuumTrigger.x = 935;
+			m_vacuumTrigger.y = 280;
+			m_vacuumTrigger.addEventListener(VacuumEvent.VACUUM_TRIGGER, m_vacuum.onVacuumTrigger);
 			
 			addChild(m_background);
 			addChild(m_spawner);
@@ -142,7 +142,7 @@ package com.angrymole.mozzarella.screens.playground
 			addChild(m_softScore);
 			addChild(m_hardScore);
 			addChild(m_vacuum);
-			//addChild(m_vacuumTrigger);
+			addChild(m_vacuumTrigger);
 			addChild(m_intro);
 			//addChild(m_pause);
 			

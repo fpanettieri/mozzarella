@@ -31,10 +31,10 @@ package com.angrymole.mozzarella.game.ui
 		{
 			m_ready = false;
 			
-			m_input = new Placeholder(200, 250, 0);
+			m_input = new Placeholder(200, 270, 0);
 			m_input.alpha = 0;
 			m_input.x = 40;
-			m_input.y = -100;
+			m_input.y = -130;
 			m_input.addEventListener(TouchEvent.TOUCH, onTouch);
 			
 			m_asset = Assets.i.getAsset("layout") as DragonbonesAsset;
