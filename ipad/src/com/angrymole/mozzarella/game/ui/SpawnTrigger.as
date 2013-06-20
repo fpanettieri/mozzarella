@@ -76,12 +76,13 @@ package com.angrymole.mozzarella.game.ui
 		private function pressTriggger(_event:MouseEvent = null):void
 		{
 			if (!m_ready) { return; }
-			m_ready = false;
 			m_armature.animation.gotoAndPlay("pull");
         }
 		
 		private function releaseTriggger(_event:MouseEvent = null):void
 		{
+			if (!m_ready) { return; }
+			m_ready = false;
 			dispatchEvent( new SpawnEvent(SpawnEvent.SPAWN_TRIGGER) );
         }
 	}

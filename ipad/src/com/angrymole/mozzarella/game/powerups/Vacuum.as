@@ -51,7 +51,6 @@ package com.angrymole.mozzarella.game.powerups
 		private function prepareVacuum():void
 		{
 			m_prepared = true;
-			dispatchEvent(new VacuumEvent(VacuumEvent.VACUUM_STARTED));
 			
 			findGarbage();
 			m_payable = int(m_score.score / PIECE_COST);

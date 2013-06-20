@@ -73,11 +73,11 @@ package com.angrymole.mozzarella.game.ui
 		private function pressTriggger():void
 		{
 			if (!m_ready) { return; }
-			m_ready = false;
         }
 		
 		private function releaseTriggger(_event:MouseEvent = null):void
 		{
+			if (!m_ready) { return; }
 			dispatchEvent( new VacuumEvent(VacuumEvent.VACUUM_TRIGGER) );
         }
 	}
