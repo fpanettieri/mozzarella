@@ -19,6 +19,8 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.score.HardScore;
 	import com.angrymole.mozzarella.game.score.Score;
 	import com.angrymole.mozzarella.game.score.SoftScore;
+	import com.angrymole.mozzarella.game.time.Clock;
+	import com.angrymole.mozzarella.game.time.Timer;
 	import com.angrymole.mozzarella.game.ui.Intro;
 	import com.angrymole.mozzarella.game.ui.Pause;
 	import com.angrymole.mozzarella.game.ui.Spawner;
@@ -58,6 +60,7 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_preview:Preview;
 		private var m_vacuum:Vacuum;
 		private var m_vacuumTrigger:VacuumTrigger;
+		private var m_timer:Timer;
 		
 		public function Playground()
 		{
@@ -139,6 +142,12 @@ package com.angrymole.mozzarella.screens.playground
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_vacuumTrigger.onSpawnSwappable);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_vacuumTrigger.onSpawnLocked);
 			
+			m_timer = new Clock();
+			m_timer.x = 70;
+			m_timer.y = 20;
+			m_timer.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
+			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_timer.onIntroComplete);
+			
 			addChild(m_background);
 			addChild(m_spawner);
 			addChild(m_spawnTrigger);
@@ -146,6 +155,7 @@ package com.angrymole.mozzarella.screens.playground
 			addChild(m_preview);
 			addChild(m_softScore);
 			addChild(m_hardScore);
+			addChild(m_timer);
 			addChild(m_vacuum);
 			addChild(m_vacuumTrigger);
 			addChild(m_intro);
