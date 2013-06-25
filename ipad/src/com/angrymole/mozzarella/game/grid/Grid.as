@@ -56,7 +56,7 @@ package com.angrymole.mozzarella.game.grid
 			
 			var piece:Piece;
 			for each(var tile:XML in asset.xml.Wigs.tile) {
-				piece = new Piece(tile.@y, tile.@x, PieceType.fromInt(tile.@id), PieceSize.BUFFERED, -1);
+				piece = new Piece(tile.@y, tile.@x, PieceType.fromInt(tile.@id), PieceSize.BUFFERED);
 				addParsedPiece(piece);
 			}
 			
@@ -75,20 +75,20 @@ package com.angrymole.mozzarella.game.grid
 		{
 			for (var i:int = 0; i < _event.pieces.length; i++) {
 				if (_event.pieces[i] == null) { continue; }
-				addPiece(_event.pieces[i]);
+				dropPiece(_event.pieces[i]);
 			}
 		}
 		
-		private function addPiece(_piece:Piece):void
+		public function dropPiece(_piece:Piece):void
 		{
 			m_pieces.push(_piece);
 			addChild(_piece);
-			_piece.y = (m_columns - 1) * _piece.size;
+			_piece.y = _piece.row * _piece.size;
 			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			
 			var empty:int = 0;
-			for ( var row:int = m_rows - 1; row > -1; row--) {
+			for ( var row:int = _piece.row; row > -1; row--) {
 				if (m_cells[row][_piece.column].empty) {
 					empty = row;
 				} else {
@@ -129,6 +129,11 @@ package com.angrymole.mozzarella.game.grid
 		public function dropPieces():void
 		{
 			m_dropper.dropPieces();
+		}
+		
+		public function groupPieces():void
+		{
+			m_grouper.groupPieces();
 		}
 		
 		private function onPieceBroken(_event:PieceEvent):void
@@ -188,6 +193,11 @@ package com.angrymole.mozzarella.game.grid
 		public function get pieces():Vector.<Piece> 
 		{
 			return m_pieces;
+		}
+		
+		public function get groups():Vector.<Group> 
+		{
+			return m_groups;
 		}
 		
 		public function toString():String

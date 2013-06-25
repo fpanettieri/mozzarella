@@ -13,6 +13,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.events.VacuumEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
+	import com.angrymole.mozzarella.game.garbage.Garbage;
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.grid.Preview;
 	import com.angrymole.mozzarella.game.layout.Background;
@@ -62,6 +63,7 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_vacuum:Vacuum;
 		private var m_vacuumTrigger:VacuumTrigger;
 		private var m_timer:Timer;
+		private var m_garbage:Garbage;
 		
 		public function Playground()
 		{
@@ -137,6 +139,13 @@ package com.angrymole.mozzarella.screens.playground
 			m_timer.y = 20;
 			m_timer.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_timer.onIntroComplete);
+			
+			m_garbage = new Garbage(5);
+			m_garbage.grid = m_grid;
+			m_garbage.types = m_cfg.pieceTypes;
+			m_garbage.pieceSize = m_cfg.pieceSize;
+			m_spawner.addEventListener(SpawnEvent.SPAWN_STARTED, m_garbage.onSpawn);
+			m_garbage.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			
 			addChild(m_background);
 			addChild(m_spawner);

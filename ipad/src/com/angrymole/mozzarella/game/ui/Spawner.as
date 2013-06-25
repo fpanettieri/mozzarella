@@ -36,6 +36,7 @@ package com.angrymole.mozzarella.game.ui
 		private var GRAB_BUFFER:Number = 32;
 		
 		private var m_size:int;
+		private var m_rows:int;
 		private var m_columns:int;
 		private var m_types:Vector.<PieceType>;
 		private var m_iterations:Vector.<int>;
@@ -43,7 +44,6 @@ package com.angrymole.mozzarella.game.ui
 		private var m_spawnLife:Vector.<int>;
 		private var m_swapTime:Number;
 		private var m_iteration:int;
-		private var m_globalIteration:int;
 		
 		private var m_enabled:Boolean;
 		private var m_ready:Boolean;
@@ -62,6 +62,7 @@ package com.angrymole.mozzarella.game.ui
 		public function Spawner(_cfg:Configuration)
 		{
 			m_size = _cfg.pieceSize;
+			m_rows = _cfg.rows;
 			m_columns = _cfg.columns;
 			m_types = _cfg.pieceTypes;
 			m_iterations = _cfg.spawnIterations;
@@ -69,7 +70,6 @@ package com.angrymole.mozzarella.game.ui
 			m_spawnLife = _cfg.spawnLife;
 			m_swapTime = 0.3;
 			m_iteration = 0;
-			m_globalIteration = 0;
 			
 			m_placeholder = new Placeholder(_cfg.columns * _cfg.pieceSize, _cfg.pieceSize, 0x584E4B);
 			m_placeholder.alpha = 0;
@@ -158,8 +158,7 @@ package com.angrymole.mozzarella.game.ui
 				column = emptyColumns[idx];
 				emptyColumns.splice(idx, 1);
 				
-				// TODO: check if the row has to change in the future if we support multiple spawn positions
-				piece = new Piece(-1, column, type, m_size, m_globalIteration);
+				piece = new Piece(m_rows - 1, column, type, m_size);
 				piece.x = column * m_size;
 				piece.y = 100 + Math.random() * 10;
 				piece.addEventListener(SpawnEvent.SPAWN_PIECE, onPieceSpawn);
@@ -180,7 +179,6 @@ package com.angrymole.mozzarella.game.ui
 			} else {
 				m_iteration++;
 			}
-			m_globalIteration++;
 		}
 		
 		private function onPieceSpawn(_event:SpawnEvent):void

@@ -24,10 +24,9 @@ package com.angrymole.mozzarella.game.piece
 		private var m_size:int;
 		private var m_swappable:Boolean;
 		private var m_groups:Vector.<Group>;
-		private var m_iteration:int;
 		private var m_tween:Tween;
 		
-		public function Piece(_row:int, _column:int, _type:PieceType, _size:int, _iteration:int) 
+		public function Piece(_row:int, _column:int, _type:PieceType, _size:int) 
 		{
 			m_row = _row;
 			m_column = _column;
@@ -35,7 +34,6 @@ package com.angrymole.mozzarella.game.piece
 			m_size = _size;
 			m_swappable = true;
 			m_groups = new Vector.<Group>();
-			m_iteration = _iteration;
 			
 			m_asset = PieceAssetFactory.getAsset(_type);
 			addChild(m_asset.asset);
@@ -111,6 +109,16 @@ package com.angrymole.mozzarella.game.piece
 			// TODO: play drop sound
 		}
 		
+		public function push():void
+		{
+			m_row++;
+			
+			var duration:Number = 0.1;
+			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
+			tween.moveTo(x, y + m_size);
+			queueTween(tween);
+		}
+		
 		public function addGroup(_group:Group):void
 		{
 			m_groups.push(_group);
@@ -182,11 +190,6 @@ package com.angrymole.mozzarella.game.piece
 		public function get size():int 
 		{
 			return m_size;
-		}
-		
-		public function get iteration():int 
-		{
-			return m_iteration;
 		}
 		
 		public function get swappable():Boolean 

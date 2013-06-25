@@ -4,9 +4,6 @@ package com.angrymole.mozzarella.game.piece
 	import com.angrymole.assets.TextureAsset;
 	import com.angrymole.assets.TextureAtlasAsset;
 	import com.angrymole.mozzarella.Game;
-	import com.angrymole.mozzarella.game.piece.PieceAsset;
-	import com.angrymole.mozzarella.game.piece.PieceType;
-	import com.angrymole.mozzarella.game.piece.StaticAsset;
 	
 	/**
 	 * ...

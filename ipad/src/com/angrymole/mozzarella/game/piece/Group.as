@@ -3,6 +3,9 @@ package com.angrymole.mozzarella.game.piece
 	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.game.piece.Piece;
 	import com.angrymole.mozzarella.util.Placeholder;
+	import starling.animation.Transitions;
+	import starling.animation.Tween;
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
@@ -17,6 +20,8 @@ package com.angrymole.mozzarella.game.piece
 	{
 		private var m_pieces:Vector.<Piece>;
 		private var m_asset:PieceAsset;
+		private var m_tween:Tween;
+		
 		
 		// aux var used to detect the group touch
 		private var m_touch:Touch;
@@ -40,6 +45,14 @@ package com.angrymole.mozzarella.game.piece
 			y = _tl.y;
 			
 			addEventListener(TouchEvent.TOUCH, onTouch);
+		}
+		
+		public function push():void
+		{
+			var duration:Number = 0.1;
+			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
+			tween.moveTo(x, y + m_pieces[0].size);
+			queueTween(tween);
 		}
 		
 		public function broken():void
@@ -68,6 +81,17 @@ package com.angrymole.mozzarella.game.piece
 			} else if ( m_touch.phase == TouchPhase.ENDED ) {
 				m_endTouch = m_touch;
 				dispatchEvent(new GroupEvent(GroupEvent.GROUP_TOUCHED, this));
+			}
+		}
+		
+		private function queueTween(_tween:Tween):void
+		{
+			if (m_tween == null || m_tween.isComplete) {
+				m_tween = _tween;
+				Starling.juggler.add(m_tween);
+			} else {
+				m_tween.nextTween = _tween;
+				m_tween = _tween;
 			}
 		}
 		

@@ -29,6 +29,18 @@ package com.angrymole.mozzarella.game.grid
 			groupRight(_piece);
 		}
 		
+		public function groupPieces():void
+		{
+			var cell:Cell;
+			for (var row:int = m_grid.rows - 1; row > 0; row--) {
+				for (var column:int = 0; column < m_grid.columns ; column++) {
+					cell = m_grid.cells[row][column];
+					if (cell.empty || cell.piece.grouped) { continue; }
+					group(cell.piece);
+				}
+			}
+		}
+		
 		private function groupLeft(_piece:Piece):void
 		{
 			if (_piece.column == 0) { return; }
