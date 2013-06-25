@@ -4,6 +4,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.assets.AtfAsset;
 	import com.angrymole.assets.DragonbonesAsset;
 	import com.angrymole.assets.TextureAsset;
+	import com.angrymole.assets.TextureAtlasAsset;
 	import com.angrymole.assets.XMLAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
@@ -69,18 +70,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_assets.push(new AtfAsset("background", "/assets/bg_01.atf"));
 			m_assets.push(new DragonbonesAsset("layout", "/assets/layout.dbg"));
 			m_assets.push(new XMLAsset("level", "/levels/level01.oel"));
-			
-			m_assets.push(new TextureAsset("peluca_01", "/assets/peluca_01.png"));
-			m_assets.push(new TextureAsset("peluca_02", "/assets/peluca_02.png"));
-			m_assets.push(new TextureAsset("peluca_03", "/assets/peluca_03.png"));
-			m_assets.push(new TextureAsset("peluca_05", "/assets/peluca_05.png"));
-			m_assets.push(new TextureAsset("peluca_06", "/assets/peluca_06.png"));
-			
-			m_assets.push(new TextureAsset("pelucon_01", "/assets/pelucon_01.png"));
-			m_assets.push(new TextureAsset("pelucon_02", "/assets/pelucon_02.png"));
-			m_assets.push(new TextureAsset("pelucon_03", "/assets/pelucon_03.png"));
-			m_assets.push(new TextureAsset("pelucon_05", "/assets/pelucon_05.png"));
-			m_assets.push(new TextureAsset("pelucon_06", "/assets/pelucon_06.png"));
+			m_assets.push(new TextureAtlasAsset("pelucas", "/assets/pelucas.png", "/assets/pelucas.xml"));
 		}
 		
 		override public function onLoad():void
@@ -167,7 +157,7 @@ package com.angrymole.mozzarella.screens.playground
 		private function onGameOver(_event:GameOverEvent):void
 		{
 			trace("Game over!");
-			// NativeApplication.nativeApplication.exit();
+			NativeApplication.nativeApplication.exit();
 		}
 	}
 }

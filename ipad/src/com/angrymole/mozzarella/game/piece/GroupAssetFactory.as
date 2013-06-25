@@ -1,6 +1,8 @@
 package com.angrymole.mozzarella.game.piece 
 {
+	import com.angrymole.assets.Assets;
 	import com.angrymole.assets.TextureAsset;
+	import com.angrymole.assets.TextureAtlasAsset;
 	import com.angrymole.mozzarella.Game;
 	import com.angrymole.mozzarella.game.piece.PieceAsset;
 	import com.angrymole.mozzarella.game.piece.PieceType;
@@ -15,19 +17,25 @@ package com.angrymole.mozzarella.game.piece
 		public static function getAsset(_type:PieceType):PieceAsset
 		{
 			switch(_type) {
-				case PieceType.BLONDE: return staticAsset(_type, "pelucon_01");
-				case PieceType.RAVEN: return staticAsset(_type, "pelucon_02");
-				case PieceType.BROWN: return staticAsset(_type, "pelucon_03");
-				case PieceType.REBEL: return staticAsset(_type, "pelucon_05");
-				case PieceType.IRISH: return staticAsset(_type, "pelucon_06");
+				case PieceType.BLONDE: return atlasAsset(_type, "pelucas", "pelucon_01.png");
+				case PieceType.RAVEN:  return atlasAsset(_type, "pelucas", "pelucon_02.png");
+				case PieceType.BROWN:  return atlasAsset(_type, "pelucas", "pelucon_03.png");
+				case PieceType.REBEL:  return atlasAsset(_type, "pelucas", "pelucon_05.png");
+				case PieceType.IRISH:  return atlasAsset(_type, "pelucas", "pelucon_06.png");
 			}
 			throw new Error("Unsupported type: " + _type.id);
 		}
 		
 		private static function staticAsset(_type:PieceType, _texture:String):StaticAsset
 		{
-			var asset:TextureAsset = Game.current.assets.getAsset(_texture) as TextureAsset;
+			var asset:TextureAsset = Assets.i.getAsset(_texture) as TextureAsset;
 			return new StaticAsset(_type, asset.texture);
+		}
+		
+		private static function atlasAsset(_type:PieceType, _atlas:String, _texture:String):StaticAsset
+		{
+			var asset:TextureAtlasAsset = Assets.i.getAsset(_atlas) as TextureAtlasAsset;
+			return new StaticAsset(_type, asset.atlas.getTexture(_texture));
 		}
 	}
 

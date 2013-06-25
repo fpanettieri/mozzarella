@@ -2,6 +2,7 @@ package com.angrymole.mozzarella.game.piece
 {
 	import starling.display.Image;
 	import starling.textures.Texture;
+	
 	/**
 	 * ...
 	 * @author Fabio Panettieri
