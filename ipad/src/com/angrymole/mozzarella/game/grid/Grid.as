@@ -41,13 +41,12 @@ package com.angrymole.mozzarella.game.grid
 			
 			m_pieces = new Vector.<Piece>();
 			m_groups = new Vector.<Group>();
-			m_cells = new Vector.<Vector.<Cell>>( m_rows );
+			m_cells = new Vector.<Vector.<Cell>>( m_rows, true );
 			
 			for ( var row:int = 0; row < m_rows; row++) {
-				m_cells[row] = new Vector.<Cell>( m_columns );
+				m_cells[row] = new Vector.<Cell>( m_columns, true );
 				
 				for ( var column:int = 0; column < m_columns; column++) {
-					// TODO: parse pieces from level
 					m_cells[row][column] = new Cell(row, column);
 				}
 			}
@@ -84,7 +83,7 @@ package com.angrymole.mozzarella.game.grid
 			m_pieces.push(_piece);
 			addChild(_piece);
 			_piece.y = _piece.row * _piece.size;
-			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
+			_piece.addEventListener(PieceEvent.PIECE_UPDATED, onPieceUpdated);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			
 			var empty:int = 0;
@@ -113,7 +112,7 @@ package com.angrymole.mozzarella.game.grid
 			_piece.y = _piece.row * _piece.size;
 			addChild(_piece);
 			
-			_piece.addEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
+			_piece.addEventListener(PieceEvent.PIECE_UPDATED, onPieceUpdated);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 		}
 		
@@ -121,7 +120,7 @@ package com.angrymole.mozzarella.game.grid
 		{
 			m_pieces.splice(m_pieces.indexOf(_piece), 1);
 			removeChild(_piece);
-			_piece.removeEventListener(PieceEvent.PIECE_DROPPED, onPieceDropped);
+			_piece.removeEventListener(PieceEvent.PIECE_UPDATED, onPieceUpdated);
 			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			m_cells[_piece.row][_piece.column].piece = null;
 		}
@@ -131,9 +130,14 @@ package com.angrymole.mozzarella.game.grid
 			m_dropper.dropPieces();
 		}
 		
-		public function groupPieces():void
+		public function getPiece(_row:int, _column:int):Piece
 		{
-			m_grouper.groupPieces();
+			return m_cells[_row][_column].piece;
+		}
+		
+		public function isCellEmpty(_row:int, _column:int):Boolean
+		{
+			return m_cells[_row][_column].empty;
 		}
 		
 		private function onPieceBroken(_event:PieceEvent):void
@@ -141,9 +145,21 @@ package com.angrymole.mozzarella.game.grid
 			removePiece(_event.piece);
 		}
 		
-		private function onPieceDropped(_event:PieceEvent):void
+		private function onPieceUpdated(_event:PieceEvent):void
 		{
+			updateCells(_event.piece);
 			m_grouper.group(_event.piece);
+			dispatchEvent(_event);
+		}
+		
+		private function updateCells(_piece:Piece):void
+		{
+			if (_piece.prevRow < m_rows && m_cells[_piece.prevRow][_piece.prevColumn].piece == _piece){
+				m_cells[_piece.prevRow][_piece.prevColumn].piece = null;
+			}
+			if ( m_cells[_piece.row][_piece.column].piece != _piece) {
+				m_cells[_piece.row][_piece.column].piece = _piece;
+			}
 		}
 		
 		private function onGroupCreated(_event:GroupEvent):void
@@ -175,11 +191,6 @@ package com.angrymole.mozzarella.game.grid
 			dispatchEvent(_event);
 		}
 		
-		public function get cells():Vector.<Vector.<Cell>> 
-		{
-			return m_cells;
-		}
-		
 		public function get rows():int 
 		{
 			return m_rows;
@@ -205,11 +216,11 @@ package com.angrymole.mozzarella.game.grid
 			var str:String = "";
 			for ( var row:int = 0; row < m_rows; row++) {
 				for ( var column:int = 0; column < m_columns; column++) {
-					if (cells[row][column].empty) {
+					if (m_cells[row][column].empty) {
 						str += "0 ";
 						
 					} else {
-						str += cells[row][column].piece.type.id + " ";
+						str += m_cells[row][column].piece.type.id + " ";
 					}
 				}
 				str += "\n";

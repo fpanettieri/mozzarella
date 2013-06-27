@@ -1,6 +1,7 @@
 package com.angrymole.mozzarella.game.garbage 
 {
 	import com.angrymole.mozzarella.events.GameOverEvent;
+	import com.angrymole.mozzarella.events.GarbageEvent;
 	import com.angrymole.mozzarella.events.SpawnEvent;
 	import com.angrymole.mozzarella.game.core.Configuration;
 	import com.angrymole.mozzarella.game.grid.Grid;
@@ -37,15 +38,13 @@ package com.angrymole.mozzarella.game.garbage
 			checkGameOver();
 			pushPieces();
 			pushGroups();
-			updateGrid();
 			addGarbage();
-			groupGarbage();
 		}
 		
 		private function checkGameOver():void
 		{
 			for ( var column:int = 0; column < m_grid.columns; column++ ) {
-				if ( m_grid.cells[m_grid.rows - 1][column].empty ) { continue; }
+				if ( m_grid.isCellEmpty(m_grid.rows - 1, column) ) { continue; }
 				dispatchEvent(new GameOverEvent(GameOverEvent.GAME_OVER));
 			}
 		}
@@ -67,16 +66,7 @@ package com.angrymole.mozzarella.game.garbage
 				group.push();
 			}
 		}
-		
-		private function updateGrid():void
-		{
-			for (var row:int = m_grid.rows - 1; row > 0; row--) {
-				for (var column:int = 0; column < m_grid.columns ; column++) {
-					m_grid.cells[row][column] = m_grid.cells[row - 1][column];
-				}
-			}
-		}
-		
+	 	
 		private function addGarbage():void
 		{
 			var piece:Piece;
@@ -86,13 +76,9 @@ package com.angrymole.mozzarella.game.garbage
 				// TODO: animate garbage
 				m_grid.dropPiece( piece );
 			}
+			dispatchEvent(new GarbageEvent(GarbageEvent.GARBAGE_ADDED));
 		}
 		
-		private function groupGarbage():void
-		{
-			m_grid.groupPieces();
-		}
-
 		public function set grid(value:Grid):void 
 		{
 			m_grid = value;

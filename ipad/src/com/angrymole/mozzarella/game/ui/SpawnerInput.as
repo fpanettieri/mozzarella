@@ -100,7 +100,7 @@ package com.angrymole.mozzarella.game.ui
 			}
 			
 			m_selected.grab();
-			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, m_selected));
+			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, m_selected));
 		}
 		
 		private function onTouchMove():void
@@ -115,7 +115,7 @@ package com.angrymole.mozzarella.game.ui
 				m_selected.x = m_touchPosition.x - m_size / 2 - Constants.GRABBED_MARGIN;
 			}
 			
-			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, m_selected));
+			m_spawner.dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, m_selected));
 		}
 		
 		private function onTouchEnd():void

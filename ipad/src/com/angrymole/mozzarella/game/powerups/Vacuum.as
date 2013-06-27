@@ -33,6 +33,10 @@ package com.angrymole.mozzarella.game.powerups
 		
 		private var m_delayedCall:DelayedCall;
 		
+		// aux var
+		private var m_piece:Piece;
+		private var m_locked:Piece;
+		
 		public function Vacuum(_grid:Grid, _score:Score) 
 		{
 			m_grid = _grid;
@@ -97,8 +101,8 @@ package com.angrymole.mozzarella.game.powerups
 			var cell:Cell;
 			for ( var row:int = m_grid.rows - 1; row > -1; row-- ) {
 				for ( var column:int = 0; column < m_grid.columns; column++ ) {
-					cell = m_grid.cells[row][column];
-					if (cell.empty || cell.piece.grouped || isLocked(cell.piece)) { continue; }
+					m_piece = m_grid.getPiece(row, column);
+					if (m_piece == null || m_piece.grouped || isLocked(m_piece)) { continue; }
 					m_garbage.splice(int(Math.random() * m_garbage.length), 0, cell.piece);
 				}
 			}
@@ -107,8 +111,9 @@ package com.angrymole.mozzarella.game.powerups
 		private function isLocked(_piece:Piece):Boolean
 		{
 			for ( var row:int = _piece.row; row < m_grid.rows - 1; row++ ) {
-				if ( m_grid.cells[row][_piece.column].empty ) { return false; }
-				if ( m_grid.cells[row][_piece.column].piece.grouped ) { return true; }
+				m_locked = m_grid.getPiece(row, _piece.column);
+				if ( m_locked == null ) { return false; }
+				if ( m_locked.grouped ) { return true;  }
 			}
 			return false;
 		}

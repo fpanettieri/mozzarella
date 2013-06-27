@@ -33,7 +33,7 @@ package com.angrymole.mozzarella.game.grid
 			}
 		}
 		
-		public function onPieceDragged(_e:PieceEvent):void
+		public function onPieceUpdated(_e:PieceEvent):void
 		{
 			update(_e.piece);
 		}

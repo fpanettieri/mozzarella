@@ -197,14 +197,14 @@ package com.angrymole.mozzarella.game.ui
 			Starling.juggler.remove(m_delayedCall);
 			for (var i:int = 0 ; i < m_pieces.length; i++) {
 				if (m_pieces[i] == null) { continue; }
-				m_pieces[i].swappable = false;
+				m_pieces[i].lock();
 				
 				// TODO: animate jump preparation
 			}
 			m_input.lockPieces();
 			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_LOCKED, m_pieces));
 			
-			// TODO: use hairy balls windup animation time here
+			// TODO: display hairy balls windup animation time here
 			var windupTime:Number = m_swapTime;
 			m_delayedCall = Starling.juggler.delayCall(addPiecesToGrid, windupTime);
 		}

@@ -7,6 +7,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.assets.TextureAtlasAsset;
 	import com.angrymole.assets.XMLAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
+	import com.angrymole.mozzarella.events.GarbageEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
@@ -93,7 +94,7 @@ package com.angrymole.mozzarella.screens.playground
 			
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
-			m_spawner.addEventListener(PieceEvent.PIECE_DRAGGED, m_preview.onPieceDragged);
+			m_spawner.addEventListener(PieceEvent.PIECE_UPDATED, m_preview.onPieceUpdated);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
@@ -140,12 +141,13 @@ package com.angrymole.mozzarella.screens.playground
 			m_timer.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_timer.onIntroComplete);
 			
-			m_garbage = new Garbage(5);
+			m_garbage = new Garbage(1);
 			m_garbage.grid = m_grid;
 			m_garbage.types = m_cfg.pieceTypes;
 			m_garbage.pieceSize = m_cfg.pieceSize;
 			m_spawner.addEventListener(SpawnEvent.SPAWN_STARTED, m_garbage.onSpawn);
 			m_garbage.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
+			m_garbage.addEventListener(GarbageEvent.GARBAGE_ADDED, m_preview.updateAll);
 			
 			addChild(m_background);
 			addChild(m_spawner);

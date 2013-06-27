@@ -13,6 +13,7 @@ package com.angrymole.mozzarella.game.grid
 	public class PieceDropper
 	{
 		private var m_grid:Grid;
+		private var m_piece:Piece;
 		
 		public function PieceDropper(_grid:Grid) 
 		{
@@ -23,7 +24,7 @@ package com.angrymole.mozzarella.game.grid
 		{
 			for (var column:int = 0; column < m_grid.columns; column++) {
 				for (var row:int = 0; row < m_grid.rows; row++) {
-					if ( !m_grid.cells[row][column].empty ) { continue; }
+					if ( !m_grid.isCellEmpty(row, column)) { continue; }
 					if ( !fillCell(row, column)) { break; }
 				}
 			}
@@ -32,14 +33,10 @@ package com.angrymole.mozzarella.game.grid
 		private function fillCell(_row:int, _column:int):Boolean
 		{
 			for (var row:int = _row; row < m_grid.rows; row++) {
-				if (m_grid.cells[row][_column].empty ) { continue; }
-				
-				var piece:Piece = m_grid.cells[row][_column].piece;
-				m_grid.cells[_row][_column].piece = piece;
-				m_grid.cells[row][_column].piece = null;
-				piece.ungroup();
-				piece.drop(row, _row);
-				
+				if (m_grid.isCellEmpty(row,_column)) { continue; }
+				m_piece = m_grid.getPiece(row, _column);
+				m_piece.ungroup();
+				m_piece.drop(row, _row);
 				return true;
 			}
 			return false;

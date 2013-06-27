@@ -22,9 +22,11 @@ package com.angrymole.mozzarella.game.ui
 		
 		public function Intro() 
 		{
-			dispatchEvent(new IntroEvent(IntroEvent.INTRO_STARTED));
 			
-			m_text = new TextField(400, 400, ". . .", "Verdana", 64, 0xffD0D0D0);
+			// FIXME: uncooment and switch event back to INTRO_STARTED
+			Starling.juggler.delayCall(dispatchEvent, 1, new IntroEvent(IntroEvent.INTRO_COMPLETE));
+			
+			/*m_text = new TextField(400, 400, ". . .", "Verdana", 64, 0xffD0D0D0);
 			m_text.x = (1024 - 400) / 2;
 			m_text.y = (768 - 400) / 2;
 			m_text.hAlign = HAlign.CENTER;
@@ -35,7 +37,7 @@ package com.angrymole.mozzarella.game.ui
 			Starling.juggler.delayCall(setText, 2, "o o .");
 			Starling.juggler.delayCall(setText, 3, "o o o");
 			Starling.juggler.delayCall(dispatchEvent, 4, new IntroEvent(IntroEvent.INTRO_COMPLETE));
-			Starling.juggler.delayCall(removeChild, 4, m_text);
+			Starling.juggler.delayCall(removeChild, 4, m_text);*/
 		}
 		
 		private function setText(_text:String):void

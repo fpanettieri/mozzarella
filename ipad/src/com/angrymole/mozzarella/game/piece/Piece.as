@@ -20,6 +20,8 @@ package com.angrymole.mozzarella.game.piece
 		private var m_asset:PieceAsset;
 		private var m_row:int;
 		private var m_column:int;
+		private var m_prevRow:int;
+		private var m_prevColumn:int;
 		private var m_type:PieceType;
 		private var m_size:int;
 		private var m_swappable:Boolean;
@@ -28,6 +30,8 @@ package com.angrymole.mozzarella.game.piece
 		
 		public function Piece(_row:int, _column:int, _type:PieceType, _size:int) 
 		{
+			m_prevRow = _row;
+			m_prevColumn = _column;
 			m_row = _row;
 			m_column = _column;
 			m_type = _type;
@@ -44,7 +48,8 @@ package com.angrymole.mozzarella.game.piece
 			m_tween = new Tween(this, 0.3, Transitions.EASE_OUT_BACK);
 			m_tween.moveTo(x, 0);
 			m_tween.delay = Math.random() * 0.2;
-			m_tween.onComplete = onIntroComplete;
+			m_tween.onComplete = dispatchEvent;
+			m_tween.onCompleteArgs = [new SpawnEvent(SpawnEvent.SPAWN_PIECE)];
 			Starling.juggler.add(m_tween);
 		}
 		
@@ -55,12 +60,7 @@ package com.angrymole.mozzarella.game.piece
 			tween.moveTo(x, y + 5);
 			Starling.juggler.add(tween);
 		}
-		
-		private function onIntroComplete():void
-		{
-			dispatchEvent(new SpawnEvent(SpawnEvent.SPAWN_PIECE));
-		}
-		
+
 		public function grab():void
 		{
 			x = m_column * m_size - Constants.GRABBED_MARGIN;
@@ -76,6 +76,7 @@ package com.angrymole.mozzarella.game.piece
 		public function swap(_column:int, _duration:Number):void
 		{
 			var duration:Number = Math.abs(m_column - _column) * _duration;
+			m_prevColumn = m_column;
 			m_column = _column;
 			m_swappable = false;
 			
@@ -91,11 +92,12 @@ package com.angrymole.mozzarella.game.piece
 		private function onSwapComplete():void
 		{
 			m_swappable = true;
-			dispatchEvent(new PieceEvent(PieceEvent.PIECE_DRAGGED, this, true));
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, this, true));
 		}
 		
 		public function drop(_from:int, _to:int):void
 		{
+			m_prevRow = _from;
 			m_row = _to;
 			x = m_column * m_size;
 			
@@ -103,7 +105,8 @@ package com.angrymole.mozzarella.game.piece
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
 			tween.moveTo(x, _to * m_size);
 			tween.scaleTo(1);
-			tween.onComplete = onDropComplete;
+			tween.onComplete = dispatchEvent
+			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_UPDATED, this)];
 			queueTween(tween);
 			
 			// TODO: play drop sound
@@ -111,12 +114,19 @@ package com.angrymole.mozzarella.game.piece
 		
 		public function push():void
 		{
-			m_row++;
+			m_prevRow = m_row++;
 			
 			var duration:Number = 0.1;
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
 			tween.moveTo(x, y + m_size);
+			tween.onComplete = dispatchEvent
+			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_UPDATED, this)];
 			queueTween(tween);
+		}
+		
+		public function lock():void
+		{
+			m_swappable = false;
 		}
 		
 		public function addGroup(_group:Group):void
@@ -156,20 +166,10 @@ package com.angrymole.mozzarella.game.piece
 				m_tween = _tween;
 			}
 		}
-		
-		private function onDropComplete():void
-		{
-			dispatchEvent(new PieceEvent(PieceEvent.PIECE_DROPPED, this));
-		}
-		
+
 		public function get row():int 
 		{
 			return m_row;
-		}
-		
-		public function set row(value:int):void 
-		{
-			m_row = value;
 		}
 		
 		public function get column():int 
@@ -177,9 +177,14 @@ package com.angrymole.mozzarella.game.piece
 			return m_column;
 		}
 		
-		public function set column(value:int):void 
+		public function get prevRow():int 
 		{
-			m_column = value;
+			return m_prevRow;
+		}
+		
+		public function get prevColumn():int 
+		{
+			return m_prevColumn;
 		}
 		
 		public function get type():PieceType 
@@ -195,11 +200,6 @@ package com.angrymole.mozzarella.game.piece
 		public function get swappable():Boolean 
 		{
 			return m_swappable;
-		}
-		
-		public function set swappable(value:Boolean):void 
-		{
-			m_swappable = value;
 		}
 		
 		public function get groups():Vector.<Group> 

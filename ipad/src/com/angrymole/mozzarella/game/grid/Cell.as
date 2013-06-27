@@ -20,6 +20,11 @@ package com.angrymole.mozzarella.game.grid
 			m_piece = _piece;
 		}
 		
+		public function get empty():Boolean
+		{
+			return m_piece == null;
+		}
+		
 		public function get row():int 
 		{
 			return m_row;
@@ -28,11 +33,6 @@ package com.angrymole.mozzarella.game.grid
 		public function get column():int 
 		{
 			return m_column;
-		}
-		
-		public function get empty():Boolean 
-		{
-			return m_piece == null;
 		}
 		
 		public function get piece():Piece 
