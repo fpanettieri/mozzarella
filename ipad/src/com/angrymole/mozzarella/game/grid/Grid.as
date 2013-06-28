@@ -84,6 +84,7 @@ package com.angrymole.mozzarella.game.grid
 			addChild(_piece);
 			_piece.y = _piece.row * _piece.size;
 			_piece.addEventListener(PieceEvent.PIECE_UPDATED, onPieceUpdated);
+			_piece.addEventListener(PieceEvent.PIECE_MOVED, onPieceMoved);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			
 			var empty:int = 0;
@@ -113,6 +114,7 @@ package com.angrymole.mozzarella.game.grid
 			addChild(_piece);
 			
 			_piece.addEventListener(PieceEvent.PIECE_UPDATED, onPieceUpdated);
+			_piece.addEventListener(PieceEvent.PIECE_MOVED, onPieceMoved);
 			_piece.addEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 		}
 		
@@ -121,6 +123,7 @@ package com.angrymole.mozzarella.game.grid
 			m_pieces.splice(m_pieces.indexOf(_piece), 1);
 			removeChild(_piece);
 			_piece.removeEventListener(PieceEvent.PIECE_UPDATED, onPieceUpdated);
+			_piece.removeEventListener(PieceEvent.PIECE_MOVED, onPieceMoved);
 			_piece.removeEventListener(PieceEvent.PIECE_BROKEN, onPieceBroken);
 			m_cells[_piece.row][_piece.column].piece = null;
 		}
@@ -148,6 +151,11 @@ package com.angrymole.mozzarella.game.grid
 		private function onPieceUpdated(_event:PieceEvent):void
 		{
 			updateCells(_event.piece);
+			dispatchEvent(_event);
+		}
+		
+		private function onPieceMoved(_event:PieceEvent):void
+		{
 			m_grouper.group(_event.piece);
 			dispatchEvent(_event);
 		}

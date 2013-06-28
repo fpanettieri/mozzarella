@@ -9,6 +9,7 @@ package com.angrymole.mozzarella.events
 	public class PieceEvent extends MozzarellaEvent
 	{
 		public static const PIECE_UPDATED:String = "pieceUpdatedEvent";
+		public static const PIECE_MOVED:String = "pieceMovedEvent";
 		public static const PIECE_BROKEN:String = "pieceBrokenEvent";
 		
 		private var m_piece:Piece;

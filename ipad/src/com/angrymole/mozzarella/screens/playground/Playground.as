@@ -16,6 +16,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.core.Configuration;
 	import com.angrymole.mozzarella.game.garbage.Garbage;
 	import com.angrymole.mozzarella.game.grid.Grid;
+	import com.angrymole.mozzarella.game.grid.GridDebugger;
 	import com.angrymole.mozzarella.game.grid.Preview;
 	import com.angrymole.mozzarella.game.layout.Background;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
@@ -65,6 +66,7 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_vacuumTrigger:VacuumTrigger;
 		private var m_timer:Timer;
 		private var m_garbage:Garbage;
+		private var m_debugger:GridDebugger;
 		
 		public function Playground()
 		{
@@ -148,6 +150,12 @@ package com.angrymole.mozzarella.screens.playground
 			m_spawner.addEventListener(SpawnEvent.SPAWN_STARTED, m_garbage.onSpawn);
 			m_garbage.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			m_garbage.addEventListener(GarbageEvent.GARBAGE_ADDED, m_preview.updateAll);
+			
+			m_debugger = new GridDebugger(m_grid);
+			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_debugger.onEvent);
+			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_debugger.onEvent);
+			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_debugger.onEvent);
+			m_garbage.addEventListener(GarbageEvent.GARBAGE_ADDED, m_debugger.onEvent);
 			
 			addChild(m_background);
 			addChild(m_spawner);

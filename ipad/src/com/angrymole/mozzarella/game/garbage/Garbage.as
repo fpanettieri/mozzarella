@@ -23,6 +23,9 @@ package com.angrymole.mozzarella.game.garbage
 		private var m_intervals:int;
 		private var m_spawns:int;
 		
+		// aux vars
+		private var m_piece:Piece;
+		private var m_group:Piece;
 		
 		public function Garbage(_intervals:int)
 		{
@@ -39,6 +42,8 @@ package com.angrymole.mozzarella.game.garbage
 			pushPieces();
 			pushGroups();
 			addGarbage();
+			
+			// FIXME: check spawned pieces are not from the same type of the piece below
 		}
 		
 		private function checkGameOver():void
@@ -51,10 +56,9 @@ package com.angrymole.mozzarella.game.garbage
 		
 		private function pushPieces():void
 		{
-			var piece:Piece;
 			for ( var i:int = 0; i < m_grid.pieces.length; i++ ) {
-				piece = m_grid.pieces[i];
-				piece.push();
+				m_piece = m_grid.pieces[i];
+				m_piece.push();
 			}
 		}
 		

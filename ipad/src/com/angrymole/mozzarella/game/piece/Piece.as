@@ -79,6 +79,7 @@ package com.angrymole.mozzarella.game.piece
 			m_prevColumn = m_column;
 			m_column = _column;
 			m_swappable = false;
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, this));
 			
 			m_tween = new Tween(this, duration, Transitions.EASE_IN_OUT);
 			m_tween.moveTo(m_column * m_size, 0);
@@ -92,7 +93,7 @@ package com.angrymole.mozzarella.game.piece
 		private function onSwapComplete():void
 		{
 			m_swappable = true;
-			dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, this, true));
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_MOVED, this, true));
 		}
 		
 		public function drop(_from:int, _to:int):void
@@ -100,13 +101,14 @@ package com.angrymole.mozzarella.game.piece
 			m_prevRow = _from;
 			m_row = _to;
 			x = m_column * m_size;
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, this));
 			
 			var duration:Number = Math.abs(_from - _to) * 0.1;
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
 			tween.moveTo(x, _to * m_size);
 			tween.scaleTo(1);
 			tween.onComplete = dispatchEvent
-			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_UPDATED, this)];
+			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_MOVED, this)];
 			queueTween(tween);
 			
 			// TODO: play drop sound
@@ -115,12 +117,13 @@ package com.angrymole.mozzarella.game.piece
 		public function push():void
 		{
 			m_prevRow = m_row++;
+			dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, this));
 			
 			var duration:Number = 0.1;
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
 			tween.moveTo(x, y + m_size);
 			tween.onComplete = dispatchEvent
-			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_UPDATED, this)];
+			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_MOVED, this)];
 			queueTween(tween);
 		}
 		
