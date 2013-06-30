@@ -98,6 +98,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_SWAPPABLE, m_preview.onPiecesSwappable);
 			m_spawner.addEventListener(PieceEvent.PIECE_UPDATED, m_preview.onPieceUpdated);
+			m_spawner.addEventListener(PieceEvent.PIECE_MOVED, m_preview.onPieceUpdated);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_LOCKED, m_preview.onPiecesLocked);
 			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_grid.onSpawn);
 			
