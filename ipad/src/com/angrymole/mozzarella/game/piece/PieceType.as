@@ -53,6 +53,11 @@ package com.angrymole.mozzarella.game.piece
 		{
 			return m_id == _type.id;
 		}
+		
+		public function toString():String
+		{
+			return m_id.toString();
+		}
 	}
 
 }

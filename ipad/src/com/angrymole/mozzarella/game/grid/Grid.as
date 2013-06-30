@@ -162,11 +162,11 @@ package com.angrymole.mozzarella.game.grid
 		
 		private function updateCells(_piece:Piece):void
 		{
-			if (_piece.prevRow < m_rows && m_cells[_piece.prevRow][_piece.prevColumn].piece == _piece){
-				m_cells[_piece.prevRow][_piece.prevColumn].piece = null;
-			}
 			if ( m_cells[_piece.row][_piece.column].piece != _piece) {
 				m_cells[_piece.row][_piece.column].piece = _piece;
+			}
+			if (_piece.prevRow < m_rows && m_cells[_piece.prevRow][_piece.prevColumn].piece == _piece){
+				m_cells[_piece.prevRow][_piece.prevColumn].piece = null;
 			}
 		}
 		
@@ -177,6 +177,7 @@ package com.angrymole.mozzarella.game.grid
 			addChild(_event.group);
 			_event.group.addEventListener(GroupEvent.GROUP_BROKEN, onGroupBroken);
 			_event.group.addEventListener(GroupEvent.GROUP_UNGROUPED, onGroupUngrouped);
+			dispatchEvent(_event);
 		}
 		
 		private function onGroupBroken(_event:GroupEvent):void

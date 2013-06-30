@@ -8,6 +8,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.assets.XMLAsset;
 	import com.angrymole.mozzarella.events.GameOverEvent;
 	import com.angrymole.mozzarella.events.GarbageEvent;
+	import com.angrymole.mozzarella.events.GroupEvent;
 	import com.angrymole.mozzarella.events.GroupsBrokenEvent;
 	import com.angrymole.mozzarella.events.IntroEvent;
 	import com.angrymole.mozzarella.events.PieceEvent;
@@ -143,7 +144,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_timer.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_timer.onIntroComplete);
 			
-			m_garbage = new Garbage(1);
+			m_garbage = new Garbage(5);
 			m_garbage.grid = m_grid;
 			m_garbage.types = m_cfg.pieceTypes;
 			m_garbage.pieceSize = m_cfg.pieceSize;
@@ -152,10 +153,6 @@ package com.angrymole.mozzarella.screens.playground
 			m_garbage.addEventListener(GarbageEvent.GARBAGE_ADDED, m_preview.updateAll);
 			
 			m_debugger = new GridDebugger(m_grid);
-			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_debugger.onEvent);
-			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_debugger.onEvent);
-			m_spawner.addEventListener(SpawnEvent.SPAWN_COMPLETE, m_debugger.onEvent);
-			m_garbage.addEventListener(GarbageEvent.GARBAGE_ADDED, m_debugger.onEvent);
 			
 			addChild(m_background);
 			addChild(m_spawner);

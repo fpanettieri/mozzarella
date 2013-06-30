@@ -98,6 +98,7 @@ package com.angrymole.mozzarella.game.piece
 		
 		public function drop(_from:int, _to:int):void
 		{
+			m_prevColumn = m_column;
 			m_prevRow = _from;
 			m_row = _to;
 			x = m_column * m_size;
@@ -116,12 +117,13 @@ package com.angrymole.mozzarella.game.piece
 		
 		public function push():void
 		{
+			m_prevColumn = m_column;
 			m_prevRow = m_row++;
 			dispatchEvent(new PieceEvent(PieceEvent.PIECE_UPDATED, this));
 			
 			var duration:Number = 0.1;
 			var tween:Tween = new Tween(this, duration, Transitions.EASE_OUT_BOUNCE);
-			tween.moveTo(x, y + m_size);
+			tween.moveTo(x, m_row * m_size);
 			tween.onComplete = dispatchEvent
 			tween.onCompleteArgs = [new PieceEvent(PieceEvent.PIECE_MOVED, this)];
 			queueTween(tween);
