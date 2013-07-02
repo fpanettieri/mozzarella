@@ -145,7 +145,7 @@ package com.angrymole.mozzarella.screens.playground
 			m_timer.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
 			m_intro.addEventListener(IntroEvent.INTRO_COMPLETE, m_timer.onIntroComplete);
 			
-			m_garbage = new Garbage(5);
+			m_garbage = new Garbage(10);
 			m_garbage.grid = m_grid;
 			m_garbage.types = m_cfg.pieceTypes;
 			m_garbage.pieceSize = m_cfg.pieceSize;

@@ -103,7 +103,7 @@ package com.angrymole.mozzarella.game.powerups
 				for ( var column:int = 0; column < m_grid.columns; column++ ) {
 					m_piece = m_grid.getPiece(row, column);
 					if (m_piece == null || m_piece.grouped || isLocked(m_piece)) { continue; }
-					m_garbage.splice(int(Math.random() * m_garbage.length), 0, cell.piece);
+					m_garbage.splice(int(Math.random() * m_garbage.length), 0, m_piece);
 				}
 			}
 		}
