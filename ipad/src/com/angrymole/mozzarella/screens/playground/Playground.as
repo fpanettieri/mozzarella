@@ -3,6 +3,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.assets.Asset;
 	import com.angrymole.assets.AtfAsset;
 	import com.angrymole.assets.DragonbonesAsset;
+	import com.angrymole.assets.SoundAsset;
 	import com.angrymole.assets.TextureAsset;
 	import com.angrymole.assets.TextureAtlasAsset;
 	import com.angrymole.assets.XMLAsset;
@@ -19,6 +20,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.grid.Grid;
 	import com.angrymole.mozzarella.game.grid.GridDebugger;
 	import com.angrymole.mozzarella.game.grid.Preview;
+	import com.angrymole.mozzarella.game.layout.Alarm;
 	import com.angrymole.mozzarella.game.layout.Background;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
 	import com.angrymole.mozzarella.game.score.HardScore;
@@ -68,6 +70,7 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_timer:Timer;
 		private var m_garbage:Garbage;
 		private var m_debugger:GridDebugger;
+		private var m_alarm:Alarm;
 		
 		public function Playground()
 		{
@@ -77,6 +80,8 @@ package com.angrymole.mozzarella.screens.playground
 			m_assets.push(new DragonbonesAsset("layout", "/assets/layout.dbg"));
 			m_assets.push(new XMLAsset("level", "/levels/level01.oel"));
 			m_assets.push(new TextureAtlasAsset("pelucas", "/assets/pelucas.png", "/assets/pelucas.xml"));
+			m_assets.push(new AtfAsset("alarmImg", "/assets/alarm.atf"));
+			m_assets.push(new SoundAsset("alarmSfx", "/assets/alarm.mp3"));
 		}
 		
 		override public function onLoad():void
@@ -155,6 +160,8 @@ package com.angrymole.mozzarella.screens.playground
 			
 			m_debugger = new GridDebugger(m_grid);
 			
+			m_alarm = new Alarm();
+			
 			addChild(m_background);
 			addChild(m_spawner);
 			addChild(m_spawnTrigger);
@@ -166,6 +173,7 @@ package com.angrymole.mozzarella.screens.playground
 			addChild(m_vacuum);
 			addChild(m_vacuumTrigger);
 			addChild(m_intro);
+			addChild(m_alarm);
 			//addChild(m_pause);
 			
 			m_grid.addEventListener(GameOverEvent.GAME_OVER, onGameOver);
