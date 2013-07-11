@@ -53,7 +53,8 @@ package com.angrymole.mozzarella.game.grid
 			}
 			m_centroid = new Point(_event.group.x + _event.group.width / 2, _event.group.y + _event.group.height / 2);
 			_event.group.broken();
-			dispatchEvent(new GroupsBrokenEvent(GroupsBrokenEvent.GROUPS_BROKEN,  m_brokenPieces.length, 1, m_centroid));
+			
+			dispatchEvent( new GroupsBrokenEvent( GroupsBrokenEvent.GROUPS_BROKEN, m_brokenPieces.length, 1, m_centroid, m_brokenPieces[0].type ));
 		}
 		
 		private function breakPiece(_piece:Piece):void

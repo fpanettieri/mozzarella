@@ -23,6 +23,7 @@ package com.angrymole.mozzarella.screens.playground
 	import com.angrymole.mozzarella.game.layout.Alarm;
 	import com.angrymole.mozzarella.game.layout.Background;
 	import com.angrymole.mozzarella.game.powerups.Vacuum;
+	import com.angrymole.mozzarella.game.score.Chain;
 	import com.angrymole.mozzarella.game.score.HardScore;
 	import com.angrymole.mozzarella.game.score.Score;
 	import com.angrymole.mozzarella.game.score.SoftScore;
@@ -71,6 +72,7 @@ package com.angrymole.mozzarella.screens.playground
 		private var m_garbage:Garbage;
 		private var m_debugger:GridDebugger;
 		private var m_alarm:Alarm;
+		private var m_chain:Chain;
 		
 		public function Playground()
 		{
@@ -128,6 +130,11 @@ package com.angrymole.mozzarella.screens.playground
 			m_hardScore.x = 650;
 			m_hardScore.y = 20;
 			
+			m_chain = new Chain(m_score);
+			m_chain.x = 850;
+			m_chain.y = 25;
+			m_grid.addEventListener(GroupsBrokenEvent.GROUPS_BROKEN, m_chain.onGroupsBroken);
+			
 			m_pause = new Pause();
 			m_pause.x = 850;
 			m_pause.y = 10;
@@ -160,7 +167,7 @@ package com.angrymole.mozzarella.screens.playground
 			
 			m_debugger = new GridDebugger(m_grid);
 			
-			m_alarm = new Alarm();
+			//m_alarm = new Alarm();
 			
 			addChild(m_background);
 			addChild(m_spawner);
@@ -173,7 +180,8 @@ package com.angrymole.mozzarella.screens.playground
 			addChild(m_vacuum);
 			addChild(m_vacuumTrigger);
 			addChild(m_intro);
-			addChild(m_alarm);
+			addChild(m_chain);
+			//addChild(m_alarm);
 			//addChild(m_pause);
 			
 			m_grid.addEventListener(GameOverEvent.GAME_OVER, onGameOver);

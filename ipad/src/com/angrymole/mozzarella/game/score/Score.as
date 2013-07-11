@@ -18,6 +18,7 @@ package com.angrymole.mozzarella.game.score
 		private var m_score:Number;
 		private var m_tweenedScore:Number;
 		private var m_displayedScore:int;
+		private var m_multiplier:Number;
 		
 		private var m_callbacks:Vector.<Function>;
 		
@@ -25,6 +26,7 @@ package com.angrymole.mozzarella.game.score
 		{
 			m_score = 0;
 			m_tweenedScore = 0;
+			m_multiplier = 1;
 			m_mastery = _cfg.mastery;
 			tweenScore();
 			m_callbacks = new Vector.<Function>();
@@ -32,7 +34,7 @@ package com.angrymole.mozzarella.game.score
 		
 		public function onGroupsBroken(_e:GroupsBrokenEvent):void
 		{
-			m_score += _e.pieces * 15 + _e.groups * 80;
+			m_score += (_e.pieces * 15 + _e.groups * 80) * m_multiplier;
 			tweenScore();
 		}
 		
@@ -103,6 +105,16 @@ package com.angrymole.mozzarella.game.score
 		public function set tweenedScore(value:Number):void 
 		{
 			m_tweenedScore = value;
+		}
+		
+		public function get multiplier():Number 
+		{
+			return m_multiplier;
+		}
+		
+		public function set multiplier(value:Number):void 
+		{
+			m_multiplier = value;
 		}
 	}
 }
