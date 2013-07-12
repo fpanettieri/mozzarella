@@ -53,7 +53,6 @@
 		<autoOrients>false</autoOrients>
 		<aspectRatio>landscape</aspectRatio>
 		<renderMode>direct</renderMode>
-		<depthAndStencil>true</depthAndStencil>
 	</initialWindow>
 	
 	<icon>
